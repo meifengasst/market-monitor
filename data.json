@@ -1,12 +1,12 @@
 {
-    "last_update": "2026-03-02 16:17",
+    "last_update": "2026-03-02 16:21",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia (AI之王)",
             "category": "美國科技",
-            "price": 180.95,
-            "rsi": 40.0,
+            "price": 181.33,
+            "rsi": 40.5,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -18,8 +18,8 @@
             "symbol": "TSLA",
             "name": "Tesla (電動車)",
             "category": "美國科技",
-            "price": 402.56,
-            "rsi": 40.2,
+            "price": 402.08,
+            "rsi": 39.9,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -31,8 +31,8 @@
             "symbol": "SPY",
             "name": "S&P 500 ETF",
             "category": "美股大盤",
-            "price": 684.91,
-            "rsi": 41.0,
+            "price": 684.66,
+            "rsi": 40.8,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
