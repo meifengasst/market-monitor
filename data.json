@@ -1,33 +1,83 @@
 {
-    "last_update": "2026-03-02 15:28",
+    "last_update": "2026-03-02 15:59",
     "data": [
-        {
-            "symbol": "2912.TW",
-            "name": "統一超",
-            "price": 221.5,
-            "trend": "空頭",
-            "signal": "建議觀望"
-        },
-        {
-            "symbol": "2891.TW",
-            "name": "中信金",
-            "price": 53.8,
-            "trend": "空頭",
-            "signal": "建議觀望"
-        },
         {
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
+            "category": "運動鞋",
             "price": 94.7,
-            "trend": "多頭",
-            "signal": "趨勢穩定"
+            "rsi": 46.9,
+            "lights": {
+                "short": "🔴",
+                "mid": "⚪",
+                "long": "⚪"
+            },
+            "status": "平穩行駛中"
+        },
+        {
+            "symbol": "9910.TW",
+            "name": "豐泰",
+            "category": "運動鞋",
+            "price": 92.8,
+            "rsi": 47.5,
+            "lights": {
+                "short": "⚪",
+                "mid": "⚪",
+                "long": "⚪"
+            },
+            "status": "平穩行駛中"
+        },
+        {
+            "symbol": "9904.TW",
+            "name": "寶成",
+            "category": "運動鞋",
+            "price": 30.8,
+            "rsi": 46.8,
+            "lights": {
+                "short": "⚪",
+                "mid": "⚪",
+                "long": "⚪"
+            },
+            "status": "平穩行駛中"
         },
         {
             "symbol": "2330.TW",
             "name": "台積電",
+            "category": "晶圓代工",
             "price": 1975.0,
-            "trend": "多頭",
-            "signal": "趨勢穩定"
+            "rsi": 69.8,
+            "lights": {
+                "short": "🔴",
+                "mid": "🟡",
+                "long": "🟢"
+            },
+            "status": "平穩行駛中"
+        },
+        {
+            "symbol": "2303.TW",
+            "name": "聯電",
+            "category": "晶圓代工",
+            "price": 64.5,
+            "rsi": 39.2,
+            "lights": {
+                "short": "⚪",
+                "mid": "⚪",
+                "long": "🟢"
+            },
+            "status": "平穩行駛中"
+        },
+        {
+            "symbol": "2912.TW",
+            "name": "統一超",
+            "category": "超商通路",
+            "price": 221.5,
+            "rsi": 65.3,
+            "lights": {
+                "short": "⚪",
+                "mid": "🟡",
+                "long": "⚪"
+            },
+            "status": "平穩行駛中"
         }
     ]
 }
