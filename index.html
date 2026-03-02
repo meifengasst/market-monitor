@@ -52,7 +52,6 @@
     list.innerHTML = '';
     const search = filterText.toLowerCase();
 
-    // 關鍵優化：同時搜尋名稱、代號與產業分類
     const filtered = rawData.filter(item => {
         return item.name.toLowerCase().includes(search) || 
                item.symbol.toLowerCase().includes(search) || 
@@ -61,28 +60,56 @@
 
     filtered.forEach(stock => {
         const card = document.createElement('div');
-        card.className = "bg-slate-800 p-5 rounded-xl border border-slate-700 hover:border-blue-500 transition-all shadow-lg";
+        // 增加點擊事件，直接帶出新聞搜尋
+        card.onclick = () => window.open(`https://www.google.com/search?q=${stock.name}+股價+新聞+分析`, '_blank');
+        
+        card.className = "bg-slate-800 p-6 rounded-2xl border-2 border-slate-700 hover:border-blue-400 cursor-pointer transition-all shadow-2xl transform hover:-translate-y-1";
+        
+        // 強化燈號顯示邏輯
+        const shortLight = stock.lights.short !== '⚪' ? 'text-red-500 shadow-[0_0_10px_#ef4444] font-black' : 'text-slate-600 opacity-30';
+        const midLight = stock.lights.mid !== '⚪' ? 'text-yellow-400 shadow-[0_0_10px_#facc15] font-black' : 'text-slate-600 opacity-30';
+        const longLight = stock.lights.long !== '⚪' ? 'text-green-500 shadow-[0_0_10px_#22c55e] font-black' : 'text-slate-600 opacity-30';
+
         card.innerHTML = `
-            <div class="flex justify-between items-start mb-2 text-[10px]">
-                <span class="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded tracking-wider font-bold">${stock.category}</span>
-                <div class="flex gap-1">${stock.lights.short}${stock.lights.mid}${stock.lights.long}</div>
+            <div class="flex justify-between items-center mb-4">
+                <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-bold tracking-widest">${stock.category}</span>
+                <div class="flex gap-2 text-xl">
+                    <span class="${shortLight}">🔴</span>
+                    <span class="${midLight}">🟡</span>
+                    <span class="${longLight}">🟢</span>
+                </div>
             </div>
-            <h2 class="text-xl font-bold mb-1">${stock.name}</h2>
-            <div class="flex justify-between items-end">
+            
+            <h2 class="text-3xl font-black mb-1">${stock.name}</h2>
+            <p class="text-slate-500 text-sm font-mono mb-4">${stock.symbol}</p>
+
+            <div class="flex justify-between items-end bg-slate-900/50 p-4 rounded-xl">
                 <div>
-                    <p class="text-3xl font-mono font-bold tracking-tighter">${stock.price}</p>
-                    <p class="text-[10px] text-yellow-500 mt-1">老司機點評：${stock.status}</p>
+                    <p class="text-5xl font-mono font-black tracking-tighter text-white">${stock.price}</p>
+                    <p class="text-sm font-bold text-yellow-500 mt-2">🚦 老司機點評：${stock.status}</p>
                 </div>
                 <div class="text-right">
-                    <p class="text-[10px] text-slate-500 uppercase">熱度 (RSI)</p>
-                    <p class="text-lg font-mono ${stock.rsi > 70 ? 'text-red-400' : 'text-green-400'}">${stock.rsi}</p>
+                    <p class="text-xs text-slate-500 font-bold">熱度 (RSI)</p>
+                    <p class="text-2xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
                 </div>
             </div>
-            <div class="mt-4 pt-4 border-t border-slate-700/50 grid grid-cols-3 gap-1 text-[9px] text-center text-slate-500">
-                <div class="${stock.lights.short !== '⚪' ? 'text-red-400 font-bold' : ''}">🔴起步加速</div>
-                <div class="${stock.lights.mid !== '⚪' ? 'text-yellow-400 font-bold' : ''}">🟡路況順暢</div>
-                <div class="${stock.lights.long !== '⚪' ? 'text-green-400 font-bold' : ''}">🟢地基穩固</div>
+
+            <div class="mt-6 grid grid-cols-3 gap-2 text-center">
+                <div class="flex flex-col items-center">
+                    <div class="text-[10px] text-slate-500 mb-1">近期</div>
+                    <div class="text-xs font-bold ${shortLight.includes('shadow') ? 'text-red-400' : 'text-slate-600'}">起步加速</div>
+                </div>
+                <div class="flex flex-col items-center border-x border-slate-700">
+                    <div class="text-[10px] text-slate-500 mb-1">中期</div>
+                    <div class="text-xs font-bold ${midLight.includes('shadow') ? 'text-yellow-400' : 'text-slate-600'}">路況順暢</div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="text-[10px] text-slate-500 mb-1">長期</div>
+                    <div class="text-xs font-bold ${longLight.includes('shadow') ? 'text-green-400' : 'text-slate-600'}">地基穩固</div>
+                </div>
             </div>
+            
+            <p class="text-[10px] text-center text-slate-600 mt-4 italic">💡 點擊卡片查看最新國內外新聞</p>
         `;
         list.appendChild(card);
     });
