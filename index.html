@@ -52,6 +52,7 @@
     list.innerHTML = '';
     const search = filterText.toLowerCase();
 
+    // 關鍵優化：同時搜尋名稱、代號與產業分類
     const filtered = rawData.filter(item => {
         return item.name.toLowerCase().includes(search) || 
                item.symbol.toLowerCase().includes(search) || 
@@ -60,10 +61,10 @@
 
     filtered.forEach(stock => {
         const card = document.createElement('div');
-        card.className = "bg-slate-800 p-5 rounded-xl border border-slate-700 hover:border-blue-500 transition-all";
+        card.className = "bg-slate-800 p-5 rounded-xl border border-slate-700 hover:border-blue-500 transition-all shadow-lg";
         card.innerHTML = `
             <div class="flex justify-between items-start mb-2 text-[10px]">
-                <span class="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded tracking-wider">${stock.category}</span>
+                <span class="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded tracking-wider font-bold">${stock.category}</span>
                 <div class="flex gap-1">${stock.lights.short}${stock.lights.mid}${stock.lights.long}</div>
             </div>
             <h2 class="text-xl font-bold mb-1">${stock.name}</h2>
@@ -78,9 +79,9 @@
                 </div>
             </div>
             <div class="mt-4 pt-4 border-t border-slate-700/50 grid grid-cols-3 gap-1 text-[9px] text-center text-slate-500">
-                <div class="${stock.lights.short !== '⚪' ? 'text-red-400' : ''}">🔴起步加速</div>
-                <div class="${stock.lights.mid !== '⚪' ? 'text-yellow-400' : ''}">🟡路況順暢</div>
-                <div class="${stock.lights.long !== '⚪' ? 'text-green-400' : ''}">🟢地基穩固</div>
+                <div class="${stock.lights.short !== '⚪' ? 'text-red-400 font-bold' : ''}">🔴起步加速</div>
+                <div class="${stock.lights.mid !== '⚪' ? 'text-yellow-400 font-bold' : ''}">🟡路況順暢</div>
+                <div class="${stock.lights.long !== '⚪' ? 'text-green-400 font-bold' : ''}">🟢地基穩固</div>
             </div>
         `;
         list.appendChild(card);
