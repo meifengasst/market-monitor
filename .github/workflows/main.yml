@@ -29,7 +29,7 @@ jobs:
         run: |
           git config --global user.name "Market-Bot"
           git config --global user.email "bot@github.com"
-          git pull --rebase  # <--- 加入這一行，先拉取最新版就不會被拒絕
+          git pull --rebase origin main  # <--- 加入這行，解決被 Rejected 的問題
           git add data.json
-          git commit -m "自動更新股市情緒數據: $(date)" || exit 0 # 如果沒變動就跳過
-          git push
+          git commit -m "自動更新股市情緒數據: $(date)" || exit 0
+          git push origin main
