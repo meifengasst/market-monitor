@@ -7,55 +7,90 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-900 text-white p-6">
-    <div class="max-w-4xl mx-auto">
-        <header class="mb-8 border-b border-slate-700 pb-4">
-            <h1 class="text-3xl font-bold text-blue-400">📈 阿土伯多空戰情室</h1>
-            <p class="text-slate-400 mt-2">最後更新：<span id="update-time">讀取中...</span></p>
+    <div class="max-w-5xl mx-auto">
+        <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between border-b border-slate-700 pb-6">
+            <div>
+                <h1 class="text-3xl font-bold text-blue-400">📈 阿土伯多空戰情室</h1>
+                <p class="text-slate-400 mt-2">最後更新：<span id="update-time">讀取中...</span></p>
+            </div>
+            
+            <div class="mt-4 md:mt-0 flex gap-2">
+                <input type="text" id="searchInput" placeholder="搜尋代號或名稱..." 
+                       class="bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                <select id="filterTrend" class="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2">
+                    <option value="all">所有趨勢</option>
+                    <option value="多頭">只看多頭</option>
+                    <option value="空頭">只看空頭</option>
+                </select>
+            </div>
         </header>
 
-        <div id="stock-list" class="grid gap-4 md:grid-cols-2">
+        <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-slate-800 p-4 rounded-lg text-center border-b-4 border-blue-500">
+                <p class="text-slate-400 text-sm">監控總數</p>
+                <p id="total-count" class="text-2xl font-bold">-</p>
             </div>
-
-        <div class="mt-10 p-4 bg-slate-800 rounded-lg border-l-4 border-yellow-500">
-            <h3 class="font-bold text-yellow-500">💡 阿土伯心法提醒</h3>
-            <p class="text-sm mt-1 text-slate-300">
-                「量化數據是你的防彈衣。」當新聞情緒極度高漲但股價趨勢轉為空頭時，請務必嚴守紀律，切勿盲目加碼。
-            </p>
+            <div class="bg-slate-800 p-4 rounded-lg text-center border-b-4 border-red-500">
+                <p class="text-slate-400 text-sm">多頭標的</p>
+                <p id="bull-count" class="text-2xl font-bold">-</p>
+            </div>
+            <div class="bg-slate-800 p-4 rounded-lg text-center border-b-4 border-green-500">
+                <p class="text-slate-400 text-sm">空頭避險</p>
+                <p id="bear-count" class="text-2xl font-bold">-</p>
+            </div>
         </div>
+
+        <div id="stock-list" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            </div>
     </div>
 
     <script>
-        // 讀取同目錄下的 data.json
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('update-time').innerText = data.last_update;
-                const list = document.getElementById('stock-list');
-                
-                data.data.forEach(stock => {
-                    const card = document.createElement('div');
-                    card.className = "bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700";
-                    
-                    const trendColor = stock.trend === '多頭' ? 'text-red-400' : 'text-green-400';
-                    const signalBg = stock.signal === '趨勢穩定' ? 'bg-red-900/30 text-red-400' : 'bg-slate-700 text-slate-400';
+        let rawData = [];
 
-                    card.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h2 class="text-xl font-bold">${stock.name}</h2>
-                                <p class="text-slate-500 text-sm">${stock.symbol}</p>
-                            </div>
-                            <span class="px-3 py-1 rounded-full text-xs font-bold ${signalBg}">${stock.signal}</span>
-                        </div>
-                        <div class="mt-4">
-                            <p class="text-3xl font-mono">${stock.price}</p>
-                            <p class="text-sm mt-1 ${trendColor}">當前趨勢：${stock.trend}</p>
-                        </div>
-                    `;
-                    list.appendChild(card);
-                });
-            })
-            .catch(err => console.error('無法讀取數據:', err));
+        function renderData(filterText = '', filterTrend = 'all') {
+            const list = document.getElementById('stock-list');
+            list.innerHTML = '';
+            
+            const filtered = rawData.filter(item => {
+                const matchText = item.name.includes(filterText) || item.symbol.includes(filterText);
+                const matchTrend = filterTrend === 'all' || item.trend === filterTrend;
+                return matchText && matchTrend;
+            });
+
+            filtered.forEach(stock => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-800 p-5 rounded-xl border border-slate-700 hover:border-blue-500 transition-all";
+                const trendColor = stock.trend === '多頭' ? 'text-red-400' : 'text-green-400';
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <span class="text-xs font-mono text-slate-500">${stock.symbol}</span>
+                        <span class="px-2 py-0.5 rounded text-xs font-bold ${stock.trend === '多頭' ? 'bg-red-900/30 text-red-400' : 'bg-green-900/30 text-green-400'}">${stock.trend}</span>
+                    </div>
+                    <h2 class="text-lg font-bold">${stock.name}</h2>
+                    <div class="mt-4 flex items-baseline gap-2">
+                        <span class="text-2xl font-mono tracking-tighter">${stock.price}</span>
+                        <span class="text-xs ${trendColor}">MA5 支撐確認</span>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        fetch('data.json')
+            .then(res => res.json())
+            .then(json => {
+                rawData = json.data;
+                document.getElementById('update-time').innerText = json.last_update;
+                document.getElementById('total-count').innerText = rawData.length;
+                document.getElementById('bull-count').innerText = rawData.filter(i => i.trend === '多頭').length;
+                document.getElementById('bear-count').innerText = rawData.filter(i => i.trend === '空頭').length;
+                renderData();
+            });
+
+        // 監聽搜尋與過濾
+        document.getElementById('searchInput').addEventListener('input', (e) => renderData(e.target.value, document.getElementById('filterTrend').value));
+        document.getElementById('filterTrend').addEventListener('change', (e) => renderData(document.getElementById('searchInput').value, e.target.value));
     </script>
 </body>
 </html>
