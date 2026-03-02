@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿土伯投資儀表板 - WBC 賽事監控</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white p-6">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-8 border-b border-slate-700 pb-4">
+            <h1 class="text-3xl font-bold text-blue-400">📈 阿土伯多空戰情室</h1>
+            <p class="text-slate-400 mt-2">最後更新：<span id="update-time">讀取中...</span></p>
+        </header>
+
+        <div id="stock-list" class="grid gap-4 md:grid-cols-2">
+            </div>
+
+        <div class="mt-10 p-4 bg-slate-800 rounded-lg border-l-4 border-yellow-500">
+            <h3 class="font-bold text-yellow-500">💡 阿土伯心法提醒</h3>
+            <p class="text-sm mt-1 text-slate-300">
+                「量化數據是你的防彈衣。」當新聞情緒極度高漲但股價趨勢轉為空頭時，請務必嚴守紀律，切勿盲目加碼。
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 讀取同目錄下的 data.json
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('update-time').innerText = data.last_update;
+                const list = document.getElementById('stock-list');
+                
+                data.data.forEach(stock => {
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-700";
+                    
+                    const trendColor = stock.trend === '多頭' ? 'text-red-400' : 'text-green-400';
+                    const signalBg = stock.signal === '趨勢穩定' ? 'bg-red-900/30 text-red-400' : 'bg-slate-700 text-slate-400';
+
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2 class="text-xl font-bold">${stock.name}</h2>
+                                <p class="text-slate-500 text-sm">${stock.symbol}</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-bold ${signalBg}">${stock.signal}</span>
+                        </div>
+                        <div class="mt-4">
+                            <p class="text-3xl font-mono">${stock.price}</p>
+                            <p class="text-sm mt-1 ${trendColor}">當前趨勢：${stock.trend}</p>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            })
+            .catch(err => console.error('無法讀取數據:', err));
+    </script>
+</body>
+</html>
