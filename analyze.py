@@ -46,17 +46,26 @@ import json
 import pandas as pd
 from datetime import datetime
 
-# 產業鏈地圖：搜尋這些關鍵字，相關股票會一起出現
+# 產業與市場分類
 CATEGORIES = {
-    "運動鞋": ["9802.TW", "9910.TW", "9904.TW"],
+    "美國科技": ["NVDA", "TSLA"],
+    "美股大盤": ["SPY"],
+    "台股龍頭": ["0050.TW", "2330.TW"],
     "晶圓代工": ["2330.TW", "2303.TW"],
-    "超商通路": ["2912.TW", "5903.TW"]
+    "運動鞋": ["9802.TW", "9910.TW", "9904.TW"]
 }
 
+# 監控總清單 (你可以隨時增加代號)
 STOCKS = {
-    "9802.TW": "鈺齊-KY", "9910.TW": "豐泰", "9904.TW": "寶成",
-    "2330.TW": "台積電", "2303.TW": "聯電",
-    "2912.TW": "統一超", "5903.TW": "全家"
+    "NVDA": "Nvidia (AI之王)",
+    "TSLA": "Tesla (電動車)",
+    "SPY": "S&P 500 ETF",
+    "0050.TW": "元大台灣50",
+    "2330.TW": "台積電",
+    "2303.TW": "聯電",
+    "9802.TW": "鈺齊-KY",
+    "9910.TW": "豐泰",
+    "9904.TW": "寶成"
 }
 
 def calculate_rsi(series, period=14):
@@ -74,10 +83,7 @@ def analyze():
             
             close = df['Close']
             price = round(close.iloc[-1], 2)
-            # 計算三種路況：5天(起步)、20天(順暢)、60天(地基)
-            ma5 = close.rolling(5).mean().iloc[-1]
-            ma20 = close.rolling(20).mean().iloc[-1]
-            ma60 = close.rolling(60).mean().iloc[-1]
+            ma5, ma20, ma60 = close.rolling(5).mean().iloc[-1], close.rolling(20).mean().iloc[-1], close.rolling(60).mean().iloc[-1]
             rsi = round(calculate_rsi(close).iloc[-1], 1)
             cat = [k for k, v in CATEGORIES.items() if symbol in v]
 
