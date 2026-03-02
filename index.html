@@ -48,34 +48,53 @@
         let rawData = [];
 
         function renderData(filterText = '', filterTrend = 'all') {
-            const list = document.getElementById('stock-list');
-            list.innerHTML = '';
-            
-            const filtered = rawData.filter(item => {
-                const matchText = item.name.includes(filterText) || item.symbol.includes(filterText);
-                const matchTrend = filterTrend === 'all' || item.trend === filterTrend;
-                return matchText && matchTrend;
-            });
+    const list = document.getElementById('stock-list');
+    list.innerHTML = '';
+    
+    const filtered = rawData.filter(item => {
+        // 搜尋範圍擴大到「產業分類」
+        const matchText = item.name.includes(filterText) || 
+                          item.symbol.includes(filterText) || 
+                          item.category.includes(filterText);
+        const matchTrend = filterTrend === 'all' || item.trend === filterTrend;
+        return matchText && matchTrend;
+    });
 
-            filtered.forEach(stock => {
-                const card = document.createElement('div');
-                card.className = "bg-slate-800 p-5 rounded-xl border border-slate-700 hover:border-blue-500 transition-all";
-                const trendColor = stock.trend === '多頭' ? 'text-red-400' : 'text-green-400';
-                
-                card.innerHTML = `
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-mono text-slate-500">${stock.symbol}</span>
-                        <span class="px-2 py-0.5 rounded text-xs font-bold ${stock.trend === '多頭' ? 'bg-red-900/30 text-red-400' : 'bg-green-900/30 text-green-400'}">${stock.trend}</span>
-                    </div>
-                    <h2 class="text-lg font-bold">${stock.name}</h2>
-                    <div class="mt-4 flex items-baseline gap-2">
-                        <span class="text-2xl font-mono tracking-tighter">${stock.price}</span>
-                        <span class="text-xs ${trendColor}">MA5 支撐確認</span>
-                    </div>
-                `;
-                list.appendChild(card);
-            });
-        }
+    filtered.forEach(stock => {
+        const card = document.createElement('div');
+        card.className = "bg-slate-800 p-5 rounded-xl border border-slate-700 hover:border-blue-500 transition-all";
+        
+        card.innerHTML = `
+            <div class="flex justify-between items-start mb-2">
+                <span class="bg-blue-900 text-blue-300 text-[10px] px-2 py-0.5 rounded">${stock.category}</span>
+                <div class="flex gap-1 text-sm">
+                    <span>${stock.lights.short}</span>
+                    <span>${stock.lights.mid}</span>
+                    <span>${stock.lights.long}</span>
+                </div>
+            </div>
+            <h2 class="text-xl font-bold">${stock.name} <span class="text-slate-500 text-sm font-normal">${stock.symbol}</span></h2>
+            
+            <div class="mt-4 flex justify-between items-end">
+                <div>
+                    <p class="text-3xl font-mono font-bold">${stock.price}</p>
+                    <p class="text-xs mt-1 text-slate-400">目前體感：<span class="text-yellow-400">${stock.status}</span></p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-slate-500 uppercase">熱度 (RSI)</p>
+                    <p class="text-lg font-mono ${stock.rsi > 70 ? 'text-red-400' : 'text-green-400'}">${stock.rsi}</p>
+                </div>
+            </div>
+
+            <div class="mt-4 grid grid-cols-3 gap-1 text-[10px] text-center text-slate-500">
+                <div class="${stock.lights.short !== '⚪' ? 'text-red-400' : ''}">🔴起步加速</div>
+                <div class="${stock.lights.mid !== '⚪' ? 'text-yellow-400' : ''}">🟡路況順暢</div>
+                <div class="${stock.lights.long !== '⚪' ? 'text-green-400' : ''}">🟢地基穩固</div>
+            </div>
+        `;
+        list.appendChild(card);
+    });
+}
 
         fetch('data.json')
             .then(res => res.json())
