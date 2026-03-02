@@ -61,25 +61,23 @@
     const list = document.getElementById('stock-list');
     list.innerHTML = '';
     
-    // 將搜尋字串轉小寫並去掉前後空白
+    // 將搜尋字串轉小寫並去掉前後空白，聰明匹配
     const search = filterText.toLowerCase().trim();
 
     const filtered = rawData.filter(item => {
-        // 同時搜尋：代號(symbol)、名稱(name)、產業(category)
-        // 使用 includes 讓 2330 也能匹配到 2330.TW
         const s = item.symbol.toLowerCase();
         const n = item.name.toLowerCase();
         const c = item.category.toLowerCase();
-        
+        // 使用 includes 讓 2330 也能匹配到 2330.TW，nvda 匹配到 NVDA
         return s.includes(search) || n.includes(search) || c.includes(search);
     });
 
-    // 如果找不到，顯示老司機溫馨提示
+    // 找不到資料時的超直覺提示
     if (filtered.length === 0 && search.length > 0) {
         list.innerHTML = `
             <div class="col-span-full text-center py-20 bg-slate-800 rounded-[3rem] border-4 border-dashed border-slate-700">
                 <p class="text-4xl font-black text-slate-500 mb-6">🔍 找不到「${search}」</p>
-                <p class="text-slate-400 mb-8">可能是代號打錯，或是還沒加入點名清單喔！</p>
+                <p class="text-slate-400 mb-8 font-bold">可能是代號打錯，或是它還沒加入點名清單喔！</p>
                 <button onclick="window.open('https://www.google.com/search?q=${search}+stock+analysis', '_blank')" 
                         class="bg-blue-600 hover:bg-blue-500 text-white font-black py-4 px-12 rounded-full text-xl shadow-2xl transition-all">
                     去 Google 查查這支
@@ -90,52 +88,54 @@
 
     filtered.forEach(stock => {
         const card = document.createElement('div');
-        // 點擊事件
+        // 點擊事件：直接看 Google 新聞與分析
         card.onclick = () => window.open(`https://www.google.com/search?q=${stock.name}+${stock.symbol}+新聞+分析`, '_blank');
         
-        // 變色邏輯 (紅 > 黃 > 綠)
+        // 暴力變色邏輯 (紅 > 黃 > 綠)
         let statusColor = "border-slate-700 bg-slate-800/50";
-        if (stock.lights.short !== '⚪') statusColor = "border-red-500 bg-red-900/30 shadow-[0_0_30px_rgba(239,68,68,0.2)]";
-        else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/30 shadow-[0_0_30px_rgba(234,179,8,0.2)]";
-        else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/30 shadow-[0_0_30px_rgba(34,197,94,0.2)]";
+        if (stock.lights.short !== '⚪') statusColor = "border-red-500 bg-red-900/40 shadow-[0_0_40px_rgba(239,68,68,0.3)]";
+        else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_40px_rgba(234,179,8,0.3)]";
+        else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/40 shadow-[0_0_40px_rgba(34,197,94,0.3)]";
 
-        card.className = `${statusColor} p-10 rounded-[3rem] border-4 cursor-pointer transition-all transform hover:scale-105 mb-6`;
+        card.className = `${statusColor} p-10 rounded-[3.5rem] border-4 cursor-pointer transition-all transform hover:scale-105 mb-8`;
         
         card.innerHTML = `
             <div class="flex justify-between items-center mb-8">
-                <span class="bg-white/10 text-white text-sm px-5 py-2 rounded-full font-black tracking-widest uppercase">${stock.category}</span>
-                <span class="text-lg font-mono font-bold text-white/30 tracking-widest">${stock.symbol}</span>
+                <span class="bg-black/50 text-white text-sm px-6 py-2 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
+                <span class="text-xl font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
             </div>
             
-            <h2 class="text-6xl font-black mb-8 text-white tracking-tighter">${stock.name}</h2>
+            <h2 class="text-7xl font-black mb-10 text-white tracking-tighter">${stock.name}</h2>
 
-            <div class="bg-black/40 p-8 rounded-[2rem] mb-8 border border-white/5">
+            <div class="bg-black/40 p-8 rounded-[2.5rem] mb-10 border border-white/5">
                 <div class="flex justify-between items-end">
                     <div>
-                        <p class="text-7xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
-                        <p class="text-xl font-black text-yellow-400 mt-6">🚦 老司機點評：${stock.status}</p>
+                        <p class="text-8xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
+                        <p class="text-2xl font-black text-yellow-400 mt-8 italic">🚦 老司機點評：${stock.status}</p>
                     </div>
                     <div class="text-right">
                         <p class="text-sm text-white/40 font-black mb-2">熱度 (RSI)</p>
-                        <p class="text-5xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
+                        <p class="text-6xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
                     </div>
                 </div>
             </div>
 
-            <div class="flex justify-around items-center pt-4">
+            <div class="flex justify-around items-center pt-6 border-t border-white/10">
                 <div class="text-center">
-                    <p class="text-3xl mb-2">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
-                    <p class="text-xl font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-700'}">起步加速</p>
+                    <p class="text-5xl mb-4">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
+                    <p class="text-2xl font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-700'}">起步加速</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-3xl mb-2">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
-                    <p class="text-xl font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-700'}">路況順暢</p>
+                    <p class="text-5xl mb-4">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
+                    <p class="text-2xl font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-700'}">路況順暢</p>
                 </div>
                 <div class="text-center">
-                    <p class="text-3xl mb-2">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
-                    <p class="text-xl font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-700'}">地基穩固</p>
+                    <p class="text-5xl mb-4">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
+                    <p class="text-2xl font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-700'}">地基穩固</p>
                 </div>
             </div>
+            
+            <p class="text-sm text-center text-white/20 mt-10 font-bold italic">💡 點擊大卡片，直接幫你查最新國內外新聞分析</p>
         `;
         list.appendChild(card);
     });
