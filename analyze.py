@@ -46,7 +46,7 @@ import json
 import pandas as pd
 from datetime import datetime
 
-# 定義產業鏈：搜尋這些關鍵字，相關股票會一起出現
+# 產業鏈地圖：搜尋這些關鍵字，相關股票會一起出現
 CATEGORIES = {
     "運動鞋": ["9802.TW", "9910.TW", "9904.TW"],
     "晶圓代工": ["2330.TW", "2303.TW"],
@@ -74,8 +74,10 @@ def analyze():
             
             close = df['Close']
             price = round(close.iloc[-1], 2)
-            # 計算三條「路況線」
-            ma5, ma20, ma60 = close.rolling(5).mean().iloc[-1], close.rolling(20).mean().iloc[-1], close.rolling(60).mean().iloc[-1]
+            # 計算三種路況：5天(起步)、20天(順暢)、60天(地基)
+            ma5 = close.rolling(5).mean().iloc[-1]
+            ma20 = close.rolling(20).mean().iloc[-1]
+            ma60 = close.rolling(60).mean().iloc[-1]
             rsi = round(calculate_rsi(close).iloc[-1], 1)
             cat = [k for k, v in CATEGORIES.items() if symbol in v]
 
@@ -86,9 +88,9 @@ def analyze():
                 "price": price,
                 "rsi": rsi,
                 "lights": {
-                    "short": "🔴" if price > ma5 else "⚪",   # 起步加速
-                    "mid": "🟡" if price > ma20 else "⚪",    # 路況順暢
-                    "long": "🟢" if price > ma60 else "⚪"    # 地基穩固
+                    "short": "🔴" if price > ma5 else "⚪", 
+                    "mid": "🟡" if price > ma20 else "⚪",  
+                    "long": "🟢" if price > ma60 else "⚪"  
                 },
                 "status": "現在超火熱" if rsi > 70 else ("撿便宜時機" if rsi < 30 else "平穩行駛中")
             })
