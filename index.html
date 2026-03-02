@@ -25,24 +25,34 @@
             </div>
         </header>
 
-        <div class="grid grid-cols-3 gap-4 mb-8">
-            <div class="bg-slate-800 p-4 rounded-lg text-center border-b-4 border-blue-500">
-                <p class="text-slate-400 text-sm">監控總數</p>
-                <p id="total-count" class="text-2xl font-bold">-</p>
-            </div>
-            <div class="bg-slate-800 p-4 rounded-lg text-center border-b-4 border-red-500">
-                <p class="text-slate-400 text-sm">多頭標的</p>
-                <p id="bull-count" class="text-2xl font-bold">-</p>
-            </div>
-            <div class="bg-slate-800 p-4 rounded-lg text-center border-b-4 border-green-500">
-                <p class="text-slate-400 text-sm">空頭避險</p>
-                <p id="bear-count" class="text-2xl font-bold">-</p>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-blue-500 shadow-2xl">
+        <p class="text-slate-400 text-sm font-black mb-2 tracking-widest">📋 點名標的</p>
+        <div class="flex items-baseline justify-center gap-1">
+            <p id="total-count" class="text-6xl font-black text-white">-</p>
+            <p class="text-slate-500 font-bold">台</p>
         </div>
-
-        <div id="stock-list" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            </div>
+        <p class="text-xs text-slate-500 mt-2 font-bold">目前口袋名單總數</p>
     </div>
+
+    <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-red-500 shadow-2xl">
+        <p class="text-red-400 text-sm font-black mb-2 tracking-widest">🚀 準備起飛</p>
+        <div class="flex items-baseline justify-center gap-1">
+            <p id="bull-count" class="text-6xl font-black text-red-500">-</p>
+            <p class="text-slate-500 font-bold">台</p>
+        </div>
+        <p class="text-xs text-red-900 mt-2 font-black uppercase">別擋路！這些車正在衝</p>
+    </div>
+
+    <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-green-500 shadow-2xl">
+        <p class="text-green-400 text-sm font-black mb-2 tracking-widest">🛡️ 休息站區</p>
+        <div class="flex items-baseline justify-center gap-1">
+            <p id="bear-count" class="text-6xl font-black text-green-500">-</p>
+            <p class="text-slate-500 font-bold">台</p>
+        </div>
+        <p class="text-xs text-green-900 mt-2 font-black uppercase">先別急，等路修好再說</p>
+    </div>
+</div>
 
     <script>
         let rawData = [];
