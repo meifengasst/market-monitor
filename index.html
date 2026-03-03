@@ -97,7 +97,7 @@
                 <h2 class="text-3xl font-black mb-4 text-white tracking-tight">${stock.name}</h2>
                 
                 <div class="bg-black/40 p-4 rounded-xl mb-4 border border-white/5">
-                    <div class="flex justify-between items-end">
+                    <div class="flex justify-between items-end mb-2">
                         <div>
                             <p class="text-4xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
                             <p class="text-xs font-black text-yellow-400 mt-2">🚦 ${stock.status}</p>
@@ -106,6 +106,10 @@
                             <p class="text-[10px] text-white/40 font-black mb-1">熱度 (RSI)</p>
                             <p class="text-2xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
                         </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-slate-700/50 flex justify-between items-center">
+                        <span class="text-xs font-bold text-slate-300">📰 新聞風向</span>
+                        <span class="text-xs font-black ${stock.sentiment_score > 0 ? 'text-red-400' : (stock.sentiment_score < 0 ? 'text-green-400' : 'text-slate-400')}">${stock.sentiment_label} (${stock.sentiment_score})</span>
                     </div>
                 </div>
 
