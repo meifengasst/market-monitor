@@ -42,6 +42,21 @@ def calculate_rsi(series, period=14):
     loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
     return 100 - (100 / (1 + (gain / loss)))
 
+def send_line_notify(message):
+    token = os.environ.get("LINE_NOTIFY_TOKEN")
+    if not token:
+        print("沒有設定 LINE_NOTIFY_TOKEN，跳過推播。")
+        return
+    
+    url = "https://notify-api.line.me/api/notify"
+    headers = {"Authorization": f"Bearer {token}"}
+    data = {"message": message}
+    try:
+        requests.post(url, headers=headers, data=data)
+        print("✅ LINE 推播發送成功！")
+    except Exception as e:
+        print(f"❌ LINE 推播失敗：{e}")
+
 def analyze():
     history_file = 'chip_history.csv'
     stock_data = []
@@ -101,10 +116,33 @@ def analyze():
         except Exception as e:
             print(f"跳過 {symbol}: {e}")
 
+# === 原本的寫檔邏輯 ===
     history_df.tail(1500).to_csv(history_file, index=False)
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump({"last_update": today_str, "data": stock_data}, f, ensure_ascii=False, indent=4)
 
+    # === 【新技能：生成戰情摘要並推播】 ===
+    # 統計今天有幾檔「🔴 起步加速」(短線轉強)
+    bull_stocks = [s['name'] for s in stock_data if s['lights']['short'] != '⚪']
+    # 統計今天有幾檔「大戶偷偷進場」(量能大於1.5倍)
+    hot_chips = [s['name'] for s in stock_data if s['vol_ratio'] > 1.5]
+    
+    msg = f"\n老闆早！阿土伯戰情室 {today_str} 報告：\n"
+    msg += "----------------------\n"
+    msg += f"🚀 準備起飛 ({len(bull_stocks)}檔)：\n"
+    msg += f"{', '.join(bull_stocks) if bull_stocks else '無'}\n\n"
+    
+    msg += f"🕵️ 大戶偷偷進貨 ({len(hot_chips)}檔)：\n"
+    msg += f"{', '.join(hot_chips) if hot_chips else '無'}\n"
+    msg += "----------------------\n"
+    msg += "詳細大數據圖表與新聞情緒，請至戰情室網頁查看！"
+
+    # 發送推播
+    send_line_notify(msg)
+
 if __name__ == "__main__":
     analyze()
+if __name__ == "__main__":
+    analyze()
+
 
