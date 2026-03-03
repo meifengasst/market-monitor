@@ -27,30 +27,6 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-blue-500 shadow-2xl">
-                <p class="text-slate-400 text-sm font-black mb-2 tracking-widest">📋 點名標的</p>
-                <div class="flex items-baseline justify-center gap-1">
-                    <p id="total-count" class="text-6xl font-black text-white">-</p>
-                    <p class="text-slate-500 font-bold">台</p>
-                </div>
-            </div>
-            <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-red-500 shadow-2xl">
-                <p class="text-red-400 text-sm font-black mb-2 tracking-widest">🚀 準備起飛</p>
-                <div class="flex items-baseline justify-center gap-1">
-                    <p id="bull-count" class="text-6xl font-black text-red-500">-</p>
-                    <p class="text-slate-500 font-bold">台</p>
-                </div>
-            </div>
-            <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-green-500 shadow-2xl">
-                <p class="text-green-400 text-sm font-black mb-2 tracking-widest">🛡️ 休息站區</p>
-                <div class="flex items-baseline justify-center gap-1">
-                    <p id="bear-count" class="text-6xl font-black text-green-500">-</p>
-                    <p class="text-slate-500 font-bold">台</p>
-                </div>
-            </div>
-        </div>
-
         <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
 
@@ -126,7 +102,6 @@
                 else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_20px_rgba(234,179,8,0.2)]";
                 else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/40 shadow-[0_0_20px_rgba(34,197,94,0.2)]";
 
-                // 【阿土伯除錯修正】: 將卡片 HTML 內容完美包裝
                 card.className = `${statusColor} p-6 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between`;
                 card.innerHTML = `
                     <div class="flex flex-col h-full">
@@ -191,15 +166,12 @@
             });
         }
 
-        // 核心資料載入
+        // 核心資料載入 (移除不需要的統計數據綁定)
         fetch('data.json')
             .then(res => res.json())
             .then(json => {
                 rawData = json.data;
                 document.getElementById('update-time').innerText = json.last_update;
-                document.getElementById('total-count').innerText = rawData.length;
-                document.getElementById('bull-count').innerText = rawData.filter(i => i.lights.short !== '⚪').length;
-                document.getElementById('bear-count').innerText = rawData.filter(i => i.lights.long !== '⚪' && i.lights.short === '⚪').length;
                 
                 renderData();
                 if(json.cat_stats) renderSectorChart(json.cat_stats);
