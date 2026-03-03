@@ -40,3 +40,11 @@ jobs:
           git add data.json
           git commit -m "自動更新股市情緒數據: $(date)" || exit 0
           git push origin main
+      
+      - name: 將數據存入私有資料庫
+        run: |
+          git config --global user.name "Market-Bot"
+          git config --global user.email "bot@github.com"
+          git add data.json chip_history.csv  # <--- 確保這兩個檔案都被追蹤
+          git commit -m "更新大戶籌碼資料庫: $(date)" || exit 0
+          git push
