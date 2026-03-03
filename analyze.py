@@ -2,7 +2,7 @@ import yfinance as yf
 import json
 import pandas as pd
 import os
-import requests  # <--- 新增這行，用來發送網路請求
+import requests  # 用來發送網路請求
 from datetime import datetime
 
 # 產業與市場分類
@@ -41,7 +41,6 @@ def calculate_rsi(series, period=14):
     gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
     return 100 - (100 / (1 + (gain / loss)))
-import json # 記得最上方要 import json
 
 def send_line_message(msg):
     token = os.environ.get("LINE_ACCESS_TOKEN")
@@ -105,7 +104,7 @@ def analyze():
             new_row = {'date': today_str, 'symbol': symbol, 'price': price, 'volume': vol}
             history_df = pd.concat([history_df, pd.DataFrame([new_row])], ignore_index=True)
 
-            # 【新技能】：抓取過去30天的私有歷史紀錄，轉成網頁看得懂的格式
+            # 抓取過去30天的私有歷史紀錄，轉成網頁看得懂的格式
             symbol_history = history_df[history_df['symbol'] == symbol].tail(30)
             history_list = symbol_history[['date', 'price', 'volume']].to_dict('records')
 
@@ -125,20 +124,18 @@ def analyze():
                 "chip_signal": "🔥 大戶進場" if vol_ratio > 1.5 else "💤 散戶盤整",
                 "sentiment_label": sent_label,
                 "sentiment_score": sent_score,
-                "history": history_list  # <--- 將私有歷史資料傳給前端
+                "history": history_list  
             })
         except Exception as e:
             print(f"跳過 {symbol}: {e}")
 
-# === 原本的寫檔邏輯 ===
+    # === 原本的寫檔邏輯 ===
     history_df.tail(1500).to_csv(history_file, index=False)
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump({"last_update": today_str, "data": stock_data}, f, ensure_ascii=False, indent=4)
 
     # === 【新技能：生成戰情摘要並推播】 ===
-    # 統計今天有幾檔「🔴 起步加速」(短線轉強)
     bull_stocks = [s['name'] for s in stock_data if s['lights']['short'] != '⚪']
-    # 統計今天有幾檔「大戶偷偷進場」(量能大於1.5倍)
     hot_chips = [s['name'] for s in stock_data if s['vol_ratio'] > 1.5]
     
     msg = f"\n老闆早！阿土伯戰情室 {today_str} 報告：\n"
@@ -152,12 +149,8 @@ def analyze():
     msg += "詳細大數據圖表與新聞情緒，請至戰情室網頁查看！"
 
     # 發送推播
-    send_line_notify(msg)
+    send_line_message(msg)
 
+# 確保開關只有一個！
 if __name__ == "__main__":
     analyze()
-if __name__ == "__main__":
-    analyze()
-
-
-
