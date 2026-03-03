@@ -29,7 +29,7 @@ STOCKS = {
 def get_ai_summary(stock_name, news_list):
     if not GEMINI_API_KEY or not news_list: return "目前市場靜悄悄，無最新新聞。"
     headlines = [n.get('title', '') for n in news_list[:5]]
-    prompt = f"你是台股資深股神阿土伯。請根據以下【{stock_name}】的近期新聞，用繁體中文寫30字內的一句話台味短評：\n" + "\n".join(headlines)
+    prompt = f"你是台股資深股神阿土伯。標的【{stock_name}】，現價{price}，乖離率{bias}%。請根據這些數據與以下新聞，給出一句25字內的『操作建議』（如：分批獲利、等待拉回或空手觀望）：\n" + "\n".join(headlines)
     
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
     try:
@@ -44,6 +44,13 @@ def calculate_rsi(series, period=14):
     return 100 - (100 / (1 + (gain / loss + 1e-9)))
 
 def analyze():
+    # 計算 20MA 乖離率 (Bias)
+            ma20_val = close.rolling(20).mean().iloc[-1]
+            bias = round(((price - ma20_val) / ma20_val) * 100, 2)
+            
+            # 定義風險等級
+            risk_level = "😱 極高 (過熱)" if bias > 10 else ("🧐 正常" if bias > -5 else "📉 超跌 (撿便宜)")
+    
     history_file = 'chip_history.csv'
     stock_data = []
     today_str = datetime.now().strftime("%Y-%m-%d")
@@ -96,3 +103,4 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
