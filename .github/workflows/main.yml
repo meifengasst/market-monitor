@@ -12,7 +12,7 @@ jobs:
       - name: 檢出程式碼
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # 確保抓取完整歷史
+          fetch-depth: 0
 
       - name: 設定 Python 環境
         uses: actions/setup-python@v4
@@ -26,25 +26,17 @@ jobs:
       - name: 執行分析腳本
         run: python analyze.py
 
-      - name: 將更新後的數據推回 GitHub
+      - name: 將數據存入私有資料庫並推回 GitHub
         run: |
           git config --global user.name "Market-Bot"
           git config --global user.email "bot@github.com"
           
-          # 解決衝突的關鍵：先暫存資料，拉取後再放回來
-          git add data.json
+          # 一次性把 JSON 和 CSV 都加進去
+          git add data.json chip_history.csv
           git stash 
           git pull --rebase origin main
           git stash pop || echo "No stash to pop"
           
-          git add data.json
-          git commit -m "自動更新股市情緒數據: $(date)" || exit 0
+          git add data.json chip_history.csv
+          git commit -m "自動更新大戶籌碼與情緒數據: $(date)" || exit 0
           git push origin main
-      
-      - name: 將數據存入私有資料庫
-        run: |
-          git config --global user.name "Market-Bot"
-          git config --global user.email "bot@github.com"
-          git add data.json chip_history.csv  # <--- 確保這兩個檔案都被追蹤
-          git commit -m "更新大戶籌碼資料庫: $(date)" || exit 0
-          git push
