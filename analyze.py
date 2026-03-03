@@ -45,28 +45,38 @@ def analyze_sentiment(news_list):
     else: return score, "⛅ 消息中性"
 
 # 【新技能】：AI 新聞總結 (含重試機制)
+# 【新技能】：AI 新聞總結 (真言除錯版)
 def get_ai_news_summary(stock_name, news_list):
-    if not GEMINI_API_KEY or not news_list:
-        return "🤖 AI 休息中，或無最新新聞。"
+    if not GEMINI_API_KEY:
+        return "🤖 找不到鑰匙：請檢查 GitHub 的 GEMINI_API_KEY 設定！"
+    
+    if not news_list:
+        return "🤖 目前市場靜悄悄，無最新新聞。"
     
     headlines = [n.get('title', '') for n in news_list[:5]]
     news_text = "\n".join(headlines)
-    prompt = f"你是股市老司機阿土伯。請根據以下【{stock_name}】的新聞標題，用繁體中文寫「30字以內」的一句話幽默短評（指出利多、利空或無聊即可）：\n{news_text}"
     
-    model_candidates = ['gemini-1.5-flash', 'gemini-pro']
-    for attempt in range(3):
-        for model_name in model_candidates:
-            try:
-                model = genai.GenerativeModel(model_name)
-                response = model.generate_content(prompt)
-                return response.text.strip()
-            except Exception as e:
-                if "429" in str(e) or "Too Many Requests" in str(e):
-                    time.sleep(2 ** attempt + random.random())
-                    continue
-                else:
-                    continue
-    return "🤖 新聞太多，阿土伯消化不良中..."
+    # 移除「老司機」等可能觸發安全審查的字眼，改用「資深股神」
+    prompt = f"你是台股資深股神阿土伯。請根據以下【{stock_name}】的近期新聞標題，用繁體中文寫「30字以內」的一句話台味短評（指出利多、利空或無聊即可）：\n{news_text}"
+    
+    try:
+        # 直接使用最新最穩的 gemini-1.5-flash
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(prompt)
+        return response.text.strip()
+    except Exception as e:
+        error_msg = str(e)
+        print(f"【抓蟲】{stock_name} AI 錯誤: {error_msg}")
+        
+        # 把真實的錯誤原因顯示在網頁卡片上，我們才好抓蟲
+        if "API key not valid" in error_msg:
+            return "🤖 鑰匙錯誤：API Key 格式不對或無效"
+        elif "429" in error_msg or "quota" in error_msg.lower():
+            return "🤖 呼叫太快：Google API 額度用盡或需冷卻"
+        elif "safety" in error_msg.lower():
+            return "🤖 踩到紅線：新聞內容觸發 Google 安全審查"
+        else:
+            return f"🤖 系統錯誤：{error_msg[:25]}..."
 
 def calculate_rsi(series, period=14):
     delta = series.diff()
@@ -171,3 +181,4 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
