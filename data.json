@@ -13,8 +13,10 @@
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.79,
-            "chip_signal": "💤 散戶盤整"
+            "vol_ratio": 0.8,
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "⛅ 消息中性",
+            "sentiment_score": 0
         },
         {
             "symbol": "TSLA",
@@ -28,8 +30,10 @@
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.95,
-            "chip_signal": "💤 散戶盤整"
+            "vol_ratio": 0.99,
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "⛅ 消息中性",
+            "sentiment_score": 0
         },
         {
             "symbol": "SPY",
@@ -43,23 +47,27 @@
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 1.14,
-            "chip_signal": "💤 散戶盤整"
+            "vol_ratio": 1.17,
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "⛅ 消息中性",
+            "sentiment_score": 0
         },
         {
             "symbol": "0050.TW",
             "name": "元大台灣50",
             "category": "台股龍頭",
-            "price": 79.65,
-            "rsi": 74.6,
+            "price": 79.6,
+            "rsi": 74.3,
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
                 "long": "🟢"
             },
             "status": "現在超火熱",
-            "vol_ratio": 0.54,
-            "chip_signal": "💤 散戶盤整"
+            "vol_ratio": 0.59,
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "無最新消息",
+            "sentiment_score": 0
         },
         {
             "symbol": "2330.TW",
@@ -73,8 +81,10 @@
                 "long": "🟢"
             },
             "status": "現在超火熱",
-            "vol_ratio": 0.33,
-            "chip_signal": "💤 散戶盤整"
+            "vol_ratio": 0.35,
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "⛅ 消息中性",
+            "sentiment_score": 0
         },
         {
             "symbol": "2303.TW",
@@ -88,30 +98,34 @@
                 "long": "🟢"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.29,
-            "chip_signal": "💤 散戶盤整"
+            "vol_ratio": 0.3,
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "⛅ 消息中性",
+            "sentiment_score": 0
         },
         {
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 93.7,
-            "rsi": 46.9,
+            "price": 93.8,
+            "rsi": 47.2,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.29,
-            "chip_signal": "💤 散戶盤整"
+            "vol_ratio": 0.3,
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "無最新消息",
+            "sentiment_score": 0
         },
         {
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 92.6,
-            "rsi": 36.8,
+            "price": 92.8,
+            "rsi": 37.3,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -119,22 +133,26 @@
             },
             "status": "平穩行駛中",
             "vol_ratio": 0.05,
-            "chip_signal": "💤 散戶盤整"
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "無最新消息",
+            "sentiment_score": 0
         },
         {
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.45,
-            "rsi": 50.0,
+            "price": 30.4,
+            "rsi": 49.2,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.48,
-            "chip_signal": "💤 散戶盤整"
+            "vol_ratio": 0.53,
+            "chip_signal": "💤 散戶盤整",
+            "sentiment_label": "無最新消息",
+            "sentiment_score": 0
         }
     ]
 }
