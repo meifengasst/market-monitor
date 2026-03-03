@@ -13,7 +13,6 @@
                 <h1 class="text-3xl font-bold text-blue-400">📈 阿土伯多空戰情室</h1>
                 <p class="text-slate-400 mt-2">最後更新：<span id="update-time">讀取中...</span></p>
             </div>
-            
             <div class="mt-4 md:mt-0 flex gap-2">
                 <input type="text" id="searchInput" placeholder="搜尋代號或名稱..." 
                        class="bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
@@ -23,123 +22,118 @@
                     <option value="空頭">只看空頭</option>
                 </select>
             </div>
-            // 在卡片 HTML 中加入這一段
-<div class="mt-4 p-4 bg-blue-900/20 rounded-xl border border-blue-500/30">
-    <p class="text-sm font-black text-blue-300">🕵️ 籌碼偵側：${stock.chip_signal}</p>
-    <div class="w-full bg-slate-700 h-2 mt-2 rounded-full overflow-hidden">
-        <div class="bg-blue-500 h-full" style="width: ${Math.min(stock.vol_ratio * 20, 100)}%"></div>
-    </div>
-    <p class="text-[10px] text-slate-500 mt-1">${stock.status}</p>
-</div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-    <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-blue-500 shadow-2xl">
-        <p class="text-slate-400 text-sm font-black mb-2 tracking-widest">📋 點名標的</p>
-        <div class="flex items-baseline justify-center gap-1">
-            <p id="total-count" class="text-6xl font-black text-white">-</p>
-            <p class="text-slate-500 font-bold">台</p>
+            <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-blue-500 shadow-2xl">
+                <p class="text-slate-400 text-sm font-black mb-2 tracking-widest">📋 點名標的</p>
+                <div class="flex items-baseline justify-center gap-1">
+                    <p id="total-count" class="text-6xl font-black text-white">-</p>
+                    <p class="text-slate-500 font-bold">台</p>
+                </div>
+            </div>
+            <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-red-500 shadow-2xl">
+                <p class="text-red-400 text-sm font-black mb-2 tracking-widest">🚀 準備起飛</p>
+                <div class="flex items-baseline justify-center gap-1">
+                    <p id="bull-count" class="text-6xl font-black text-red-500">-</p>
+                    <p class="text-slate-500 font-bold">台</p>
+                </div>
+            </div>
+            <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-green-500 shadow-2xl">
+                <p class="text-green-400 text-sm font-black mb-2 tracking-widest">🛡️ 休息站區</p>
+                <div class="flex items-baseline justify-center gap-1">
+                    <p id="bear-count" class="text-6xl font-black text-green-500">-</p>
+                    <p class="text-slate-500 font-bold">台</p>
+                </div>
+            </div>
         </div>
-        <p class="text-xs text-slate-500 mt-2 font-bold">目前口袋名單總數</p>
-    </div>
 
-    <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-red-500 shadow-2xl">
-        <p class="text-red-400 text-sm font-black mb-2 tracking-widest">🚀 準備起飛</p>
-        <div class="flex items-baseline justify-center gap-1">
-            <p id="bull-count" class="text-6xl font-black text-red-500">-</p>
-            <p class="text-slate-500 font-bold">台</p>
-        </div>
-        <p class="text-xs text-red-900 mt-2 font-black uppercase">別擋路！這些車正在衝</p>
+        <div id="stock-list" class="grid grid-cols-1 gap-6"></div>
     </div>
-
-    <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-green-500 shadow-2xl">
-        <p class="text-green-400 text-sm font-black mb-2 tracking-widest">🛡️ 休息站區</p>
-        <div class="flex items-baseline justify-center gap-1">
-            <p id="bear-count" class="text-6xl font-black text-green-500">-</p>
-            <p class="text-slate-500 font-bold">台</p>
-        </div>
-        <p class="text-xs text-green-900 mt-2 font-black uppercase">先別急，等路修好再說</p>
-    </div>
-</div>
 
     <script>
         let rawData = [];
 
         function renderData(filterText = '') {
-    const list = document.getElementById('stock-list');
-    list.innerHTML = '';
-    
-    // 1. 強制將搜尋字轉小寫，並去掉空格
-    const search = filterText.toLowerCase().trim();
+            const list = document.getElementById('stock-list');
+            list.innerHTML = '';
+            
+            const search = filterText.toLowerCase().trim();
 
-    const filtered = rawData.filter(item => {
-        // 2. 同時比對 名稱、代號、產業標籤
-        const s = (item.symbol || "").toLowerCase();
-        const n = (item.name || "").toLowerCase();
-        const c = (item.category || "").toLowerCase();
-        
-        // 3. 使用 includes 實現模糊比對 (例如輸入 2330 也能匹配 2330.tw)
-        return s.includes(search) || n.includes(search) || c.includes(search);
-    });
+            const filtered = rawData.filter(item => {
+                const s = (item.symbol || "").toLowerCase();
+                const n = (item.name || "").toLowerCase();
+                const c = (item.category || "").toLowerCase();
+                return s.includes(search) || n.includes(search) || c.includes(search);
+            });
 
-    // 4. 如果沒資料，給老司機一個溫馨提示
-    if (filtered.length === 0 && search.length > 0) {
-        list.innerHTML = `
-            <div class="col-span-full text-center py-20 bg-slate-800/50 rounded-[3rem] border-4 border-dashed border-slate-700">
-                <p class="text-4xl font-black text-slate-500 mb-4">🔍 找不到「${search}」</p>
-                <p class="text-slate-400 font-bold">請確認代號是否正確，或嘗試搜尋產業名稱（如：運動鞋）</p>
-            </div>`;
-        return;
-    }
+            if (filtered.length === 0 && search.length > 0) {
+                list.innerHTML = `
+                    <div class="col-span-full text-center py-20 bg-slate-800/50 rounded-[3rem] border-4 border-dashed border-slate-700">
+                        <p class="text-4xl font-black text-slate-500 mb-4">🔍 找不到「${search}」</p>
+                        <p class="text-slate-400 font-bold">請確認代號是否正確喔！</p>
+                    </div>`;
+                return;
+            }
 
-    // 5. 渲染卡片 (保持你最愛的巨大發光風格)
-    filtered.forEach(stock => {
-        const card = document.createElement('div');
-        card.onclick = () => window.open(`https://www.google.com/search?q=${stock.name}+${stock.symbol}+新聞+分析`, '_blank');
-        
-        let statusColor = "border-slate-700 bg-slate-800/50";
-        if (stock.lights.short !== '⚪') statusColor = "border-red-500 bg-red-900/40 shadow-[0_0_40px_rgba(239,68,68,0.3)]";
-        else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_40px_rgba(234,179,8,0.3)]";
-        else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/40 shadow-[0_0_40px_rgba(34,197,94,0.3)]";
+            filtered.forEach(stock => {
+                const card = document.createElement('div');
+                card.onclick = () => window.open(`https://www.google.com/search?q=${stock.name}+${stock.symbol}+新聞+分析`, '_blank');
+                
+                let statusColor = "border-slate-700 bg-slate-800/50";
+                if (stock.lights.short !== '⚪') statusColor = "border-red-500 bg-red-900/40 shadow-[0_0_40px_rgba(239,68,68,0.3)]";
+                else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_40px_rgba(234,179,8,0.3)]";
+                else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/40 shadow-[0_0_40px_rgba(34,197,94,0.3)]";
 
-        card.className = `${statusColor} p-10 rounded-[3.5rem] border-4 cursor-pointer transition-all transform hover:scale-105 mb-8`;
-        
-        card.innerHTML = `
-            <div class="flex justify-between items-center mb-8">
-                <span class="bg-black/50 text-white text-sm px-6 py-2 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
-                <span class="text-xl font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
-            </div>
-            <h2 class="text-7xl font-black mb-10 text-white tracking-tighter">${stock.name}</h2>
-            <div class="bg-black/40 p-8 rounded-[2.5rem] mb-10 border border-white/5 text-left">
-                <div class="flex justify-between items-end">
-                    <div>
-                        <p class="text-8xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
-                        <p class="text-2xl font-black text-yellow-400 mt-8 italic">🚦 老司機點評：${stock.status}</p>
+                card.className = `${statusColor} p-10 rounded-[3.5rem] border-4 cursor-pointer transition-all transform hover:scale-105 mb-8 relative overflow-hidden`;
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-8">
+                        <span class="bg-black/50 text-white text-sm px-6 py-2 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
+                        <span class="text-xl font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
                     </div>
-                    <div class="text-right">
-                        <p class="text-sm text-white/40 font-black mb-2">熱度 (RSI)</p>
-                        <p class="text-6xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
+                    <h2 class="text-7xl font-black mb-10 text-white tracking-tighter">${stock.name}</h2>
+                    <div class="bg-black/40 p-8 rounded-[2.5rem] mb-6 border border-white/5 text-left">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <p class="text-8xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
+                                <p class="text-2xl font-black text-yellow-400 mt-8 italic">🚦 老司機點評：${stock.status}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm text-white/40 font-black mb-2">熱度 (RSI)</p>
+                                <p class="text-6xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="flex justify-around items-center pt-6 border-t border-white/10">
-                <div class="text-center">
-                    <p class="text-5xl mb-4">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
-                    <p class="text-2xl font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-700'}">起步加速</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-5xl mb-4">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
-                    <p class="text-2xl font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-700'}">路況順暢</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-5xl mb-4">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
-                    <p class="text-2xl font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-700'}">地基穩固</p>
-                </div>
-            </div>
-        `;
-        list.appendChild(card);
-    });
-}
+
+                    <div class="bg-blue-900/40 p-6 rounded-3xl border border-blue-500/50 mb-8">
+                        <div class="flex justify-between items-end mb-3">
+                            <p class="text-2xl font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">🕵️ 籌碼雷達：${stock.chip_signal}</p>
+                            <p class="text-lg font-mono text-blue-200">量能 ${stock.vol_ratio}x</p>
+                        </div>
+                        <div class="w-full bg-black/50 h-4 rounded-full overflow-hidden">
+                            <div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full transition-all duration-1000" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-around items-center pt-6 border-t border-white/10">
+                        <div class="text-center">
+                            <p class="text-5xl mb-4">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
+                            <p class="text-2xl font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-700'}">起步加速</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-5xl mb-4">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
+                            <p class="text-2xl font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-700'}">路況順暢</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-5xl mb-4">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
+                            <p class="text-2xl font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-700'}">地基穩固</p>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
 
         fetch('data.json')
             .then(res => res.json())
@@ -147,14 +141,12 @@
                 rawData = json.data;
                 document.getElementById('update-time').innerText = json.last_update;
                 document.getElementById('total-count').innerText = rawData.length;
-                document.getElementById('bull-count').innerText = rawData.filter(i => i.trend === '多頭').length;
-                document.getElementById('bear-count').innerText = rawData.filter(i => i.trend === '空頭').length;
+                document.getElementById('bull-count').innerText = rawData.filter(i => i.lights.short !== '⚪').length;
+                document.getElementById('bear-count').innerText = rawData.filter(i => i.lights.long !== '⚪' && i.lights.short === '⚪').length;
                 renderData();
             });
 
-        // 監聽搜尋與過濾
-        document.getElementById('searchInput').addEventListener('input', (e) => renderData(e.target.value, document.getElementById('filterTrend').value));
-        document.getElementById('filterTrend').addEventListener('change', (e) => renderData(document.getElementById('searchInput').value, e.target.value));
+        document.getElementById('searchInput').addEventListener('input', (e) => renderData(e.target.value));
     </script>
 </body>
 </html>
