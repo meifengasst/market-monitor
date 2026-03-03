@@ -20,6 +20,13 @@
             </div>
         </header>
 
+        <div class="bg-slate-800/80 p-8 rounded-[2.5rem] mb-10 border border-slate-700 shadow-2xl overflow-hidden">
+            <h3 class="text-center text-slate-400 font-black mb-4 tracking-widest uppercase">🌍 全球產業資金熱度雷達 (平均 RSI)</h3>
+            <div class="h-80 w-full">
+                <canvas id="sectorRadar"></canvas>
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             <div class="bg-slate-800/80 p-6 rounded-3xl text-center border-b-8 border-blue-500 shadow-2xl">
                 <p class="text-slate-400 text-sm font-black mb-2 tracking-widest">📋 點名標的</p>
@@ -57,103 +64,53 @@
                 <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
             </div>
             <div class="p-6 bg-slate-900 rounded-b-3xl">
-                <canvas id="historyChart" style="width: 100%; height: 400px;"></canvas>
+                <div class="h-[400px]">
+                    <canvas id="historyChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         let rawData = [];
-        let myChart = null; // 儲存圖表實例
+        let myChart = null;
 
-        // 開啟彈窗並繪製圖表
         function openModal(stock) {
             document.getElementById('dataModal').classList.remove('hidden');
             setTimeout(() => {
                 document.getElementById('dataModal').classList.remove('opacity-0');
                 document.getElementById('modalContent').classList.remove('scale-95');
             }, 10);
-            
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
-
             const ctx = document.getElementById('historyChart').getContext('2d');
-            
-            // 清除舊圖表
             if(myChart) myChart.destroy();
-
-            // 如果歷史數據太少，給點提示
             let historyData = stock.history || [];
-            if(historyData.length === 0) {
-                // 為了圖表不報錯，塞個預設值
-                historyData = [{date: "無資料", price: stock.price, volume: 0}];
-            }
-
-            // 整理給 Chart.js 的資料
-            const labels = historyData.map(h => h.date.substring(5)); // 取出月-日
+            const labels = historyData.map(h => h.date.substring(5));
             const prices = historyData.map(h => h.price);
             const volumes = historyData.map(h => h.volume);
-
             myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [
-                        {
-                            label: '收盤價 (左軸)',
-                            data: prices,
-                            borderColor: '#3b82f6', // 藍線
-                            backgroundColor: '#3b82f6',
-                            borderWidth: 3,
-                            tension: 0.3,
-                            yAxisID: 'y'
-                        },
-                        {
-                            type: 'bar',
-                            label: '成交量 (右軸)',
-                            data: volumes,
-                            backgroundColor: 'rgba(239, 68, 68, 0.6)', // 紅色柱狀
-                            borderRadius: 4,
-                            yAxisID: 'y1'
-                        }
+                        { label: '收盤價', data: prices, borderColor: '#3b82f6', borderWidth: 3, tension: 0.3, yAxisID: 'y' },
+                        { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.4)', yAxisID: 'y1' }
                     ]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { mode: 'index', intersect: false },
-                    scales: {
-                        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
-                        y: { 
-                            type: 'linear', display: true, position: 'left',
-                            grid: { color: '#334155' }, ticks: { color: '#3b82f6' }
-                        },
-                        y1: { 
-                            type: 'linear', display: true, position: 'right',
-                            grid: { drawOnChartArea: false }, ticks: { color: '#ef4444' }
-                        }
-                    },
-                    plugins: {
-                        legend: { labels: { color: 'white', font: {size: 14} } },
-                        tooltip: { titleFont: {size: 16}, bodyFont: {size: 14} }
-                    }
-                }
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { position: 'left' }, y1: { position: 'right', grid: { drawOnChartArea: false } } } }
             });
         }
 
-        // 關閉彈窗
         function closeModal() {
             document.getElementById('dataModal').classList.add('opacity-0');
             document.getElementById('modalContent').classList.add('scale-95');
-            setTimeout(() => {
-                document.getElementById('dataModal').classList.add('hidden');
-            }, 300);
+            setTimeout(() => document.getElementById('dataModal').classList.add('hidden'), 300);
         }
 
         function renderData(filterText = '') {
             const list = document.getElementById('stock-list');
             list.innerHTML = '';
             const search = filterText.toLowerCase().trim();
-
             const filtered = rawData.filter(item => {
                 const s = (item.symbol || "").toLowerCase();
                 const n = (item.name || "").toLowerCase();
@@ -161,79 +118,47 @@
                 return s.includes(search) || n.includes(search) || c.includes(search);
             });
 
-            if (filtered.length === 0 && search.length > 0) {
-                list.innerHTML = `<div class="col-span-full text-center py-12 bg-slate-800/50 rounded-2xl border-2 border-dashed border-slate-700">
-                    <p class="text-2xl font-black text-slate-500 mb-2">🔍 找不到「${search}」</p></div>`;
-                return;
-            }
-
             filtered.forEach(stock => {
                 const card = document.createElement('div');
-                // 【關鍵修改】：點擊後開啟我們自己的大數據彈窗
                 card.onclick = () => openModal(stock);
-                
                 let statusColor = "border-slate-700 bg-slate-800/50";
                 if (stock.lights.short !== '⚪') statusColor = "border-red-500 bg-red-900/40 shadow-[0_0_20px_rgba(239,68,68,0.2)]";
                 else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_20px_rgba(234,179,8,0.2)]";
                 else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/40 shadow-[0_0_20px_rgba(34,197,94,0.2)]";
 
-                card.className = `${statusColor} p-6 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between`;
-                
+                card.className = `${statusColor} p-6 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between`;
                 card.innerHTML = `
                     <div class="flex flex-col h-full">
                         <div class="flex justify-between items-center mb-4">
                             <span class="bg-black/50 text-white text-xs px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
                             <span class="text-sm font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
                         </div>
-                        
                         <h2 class="text-3xl font-black mb-4 text-white tracking-tight">${stock.name}</h2>
-                        
                         <div class="bg-black/40 p-4 rounded-xl mb-4 border border-white/5">
                             <div class="flex justify-between items-end mb-3">
                                 <div>
                                     <p class="text-4xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
-                                    <p class="text-xs font-black text-yellow-400 mt-2">🚦 ${stock.status}</p>
+                                    <p class="text-xs font-black text-yellow-400 mt-2">🚦 ${stock.status || '分析中'}</p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[10px] text-white/40 font-black mb-1">熱度 (RSI)</p>
                                     <p class="text-2xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
                                 </div>
                             </div>
-                            
                             <div class="mt-3 pt-3 border-t border-slate-700/50 flex flex-col gap-3">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs font-bold text-slate-300">📰 關鍵字風向</span>
-                                    <span class="text-xs font-black ${stock.sentiment_score > 0 ? 'text-red-400' : (stock.sentiment_score < 0 ? 'text-green-400' : 'text-slate-400')}">${stock.sentiment_label} (${stock.sentiment_score})</span>
-                                </div>
                                 <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/30">
                                     <p class="text-[10px] font-black text-blue-300 mb-1">🤖 阿土狗 AI 讀報：</p>
-                                    <p class="text-sm font-bold text-slate-200 leading-snug">${stock.ai_summary}</p>
+                                    <p class="text-sm font-bold text-slate-200 leading-snug">${stock.ai_summary || '讀取中'}</p>
                                 </div>
                             </div>
                         </div>
-
                         <div class="bg-blue-900/30 p-3 rounded-xl border border-blue-500/30 mb-4">
                             <div class="flex justify-between items-end mb-2">
-                                <p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.chip_signal}</p>
+                                <p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.vol_ratio > 1.5 ? '🔥 大戶進場' : '💤 散戶盤整'}</p>
                                 <p class="text-[10px] font-mono text-blue-200">量能 ${stock.vol_ratio}x</p>
                             </div>
                             <div class="w-full bg-black/50 h-1.5 rounded-full overflow-hidden">
                                 <div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-around items-center pt-3 border-t border-white/10 mt-auto">
-                            <div class="text-center">
-                                <p class="text-xl mb-1">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
-                                <p class="text-[10px] font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-500'}">起步</p>
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xl mb-1">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
-                                <p class="text-[10px] font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-500'}">順暢</p>
-                            </div>
-                            <div class="text-center">
-                                <p class="text-xl mb-1">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
-                                <p class="text-[10px] font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-500'}">穩固</p>
                             </div>
                         </div>
                     </div>
@@ -242,6 +167,7 @@
             });
         }
 
+        // 核心邏輯補齊
         fetch('data.json')
             .then(res => res.json())
             .then(json => {
@@ -250,8 +176,43 @@
                 document.getElementById('total-count').innerText = rawData.length;
                 document.getElementById('bull-count').innerText = rawData.filter(i => i.lights.short !== '⚪').length;
                 document.getElementById('bear-count').innerText = rawData.filter(i => i.lights.long !== '⚪' && i.lights.short === '⚪').length;
+                
                 renderData();
+                renderSectorChart(json.cat_stats); // 繪製雷達圖
             });
+
+        function renderSectorChart(stats) {
+            const ctx = document.getElementById('sectorRadar').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: stats.map(s => s.category),
+                    datasets: [{
+                        label: '平均熱度 (RSI)',
+                        data: stats.map(s => s.avg_rsi),
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.3)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255,255,255,0.1)' },
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            pointLabels: { color: '#94a3b8', font: { size: 14, weight: 'bold' } },
+                            ticks: { display: false },
+                            suggestedMin: 30,
+                            suggestedMax: 70
+                        }
+                    },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
 
         document.getElementById('searchInput').addEventListener('input', (e) => renderData(e.target.value));
     </script>
