@@ -19,6 +19,31 @@ STOCKS = {
     "9802.TW": "鈺齊-KY", "9910.TW": "豐泰", "9904.TW": "寶成"
 }
 
+# 【新技能】：新聞情緒分析字典
+POSITIVE_WORDS = ["漲", "看好", "利多", "營收增", "突破", "創新高", "買進", "升評", "成長", "優於", "強勁", "暴增", "上漲"]
+NEGATIVE_WORDS = ["跌", "看壞", "利空", "衰退", "跌破", "創新低", "賣出", "降評", "下修", "不如", "放緩", "砍單", "下跌"]
+
+def analyze_sentiment(news_list):
+    if not news_list:
+        return 0, "無最新消息"
+    
+    score = 0
+    # 取最新的 5 則新聞標題來判斷
+    headlines = [n.get('title', '') for n in news_list[:5]]
+    
+    for title in headlines:
+        for w in POSITIVE_WORDS:
+            if w in title: score += 1
+        for w in NEGATIVE_WORDS:
+            if w in title: score -= 1
+            
+    if score > 0:
+        return score, "🌞 媒體偏多"
+    elif score < 0:
+        return score, "⛈️ 媒體偏空"
+    else:
+        return score, "⛅ 消息中性"
+
 def calculate_rsi(series, period=14):
     delta = series.diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
@@ -38,22 +63,26 @@ def analyze():
 
     for symbol, name in STOCKS.items():
         try:
-            # 抓取 80 天以計算 MA60 與 RSI
-            df = yf.Ticker(symbol).history(period="80d")
+            ticker = yf.Ticker(symbol)
+            df = ticker.history(period="80d")
             if df.empty: continue
             
             close = df['Close']
             price = round(close.iloc[-1], 2)
             
-            # 技術指標 (舊技能)
+            # 技術指標
             ma5, ma20, ma60 = close.rolling(5).mean().iloc[-1], close.rolling(20).mean().iloc[-1], close.rolling(60).mean().iloc[-1]
             rsi = round(calculate_rsi(close).iloc[-1], 1)
             cat = [k for k, v in CATEGORIES.items() if symbol in v]
 
-            # 籌碼指標 (新技能)
+            # 籌碼指標
             vol = df['Volume'].iloc[-1]
-            avg_vol = df['Volume'].rolling(5).mean().iloc[-1] # 精準計算5日均量
+            avg_vol = df['Volume'].rolling(5).mean().iloc[-1] 
             vol_ratio = round(vol / avg_vol, 2) if avg_vol > 0 else 1
+
+            # 【新技能】：抓取新聞並計算情緒
+            news_data = ticker.news
+            sent_score, sent_label = analyze_sentiment(news_data)
 
             new_row = {'date': today_str, 'symbol': symbol, 'price': price, 'volume': vol}
             history_df = pd.concat([history_df, pd.DataFrame([new_row])], ignore_index=True)
@@ -71,7 +100,9 @@ def analyze():
                 },
                 "status": "現在超火熱" if rsi > 70 else ("撿便宜時機" if rsi < 30 else "平穩行駛中"),
                 "vol_ratio": vol_ratio,
-                "chip_signal": "🔥 大戶進場" if vol_ratio > 1.5 else "💤 散戶盤整"
+                "chip_signal": "🔥 大戶進場" if vol_ratio > 1.5 else "💤 散戶盤整",
+                "sentiment_label": sent_label,
+                "sentiment_score": sent_score
             })
         except Exception as e:
             print(f"跳過 {symbol}: {e}")
