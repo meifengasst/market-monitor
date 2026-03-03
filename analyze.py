@@ -120,17 +120,11 @@ def analyze():
         except Exception as e: 
             print(f"❌ 錯誤 {symbol}: {e}")
 
-    # 📊 計算產業統計數據 (給網頁上方的雷達圖用)
-    cat_stats = []
-    for cat, members in CATEGORIES.items():
-        relevant = [s for s in stock_data if s['symbol'] in members]
-        if relevant:
-            avg_rsi = sum(s['rsi'] for s in relevant) / len(relevant)
-            cat_stats.append({"category": cat, "avg_rsi": round(avg_rsi, 1)})
+    
 
     # 將資料寫入 JSON 與 CSV
     with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump({"last_update": today_str, "data": stock_data, "cat_stats": cat_stats}, f, ensure_ascii=False, indent=4)
+        json.dump({"last_update": today_str, "data": stock_data}, f, ensure_ascii=False, indent=4)
     hist_df.tail(2000).to_csv(history_file, index=False)
     
     # 📱 準備與發送 LINE 晨報
@@ -151,4 +145,5 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
 
