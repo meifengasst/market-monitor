@@ -24,6 +24,8 @@ jobs:
           pip install yfinance pandas
 
       - name: 執行分析腳本
+        env: # <--- 加上這個區塊
+          LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }} # 把 GitHub 保險箱的鑰匙傳給 Python
         run: python analyze.py
 
       - name: 將數據存入私有資料庫並推回 GitHub
