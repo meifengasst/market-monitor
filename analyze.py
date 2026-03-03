@@ -44,29 +44,45 @@ def analyze_sentiment(news_list):
     elif score < 0: return score, "⛈️ 媒體偏空"
     else: return score, "⛅ 消息中性"
 
-# 【AI 靈魂 3.0：自動相容版】
+# 【AI 靈魂 4.0：直球對決版 (繞過官方雷包套件)】
 def get_ai_news_summary(stock_name, news_list):
-    if not GEMINI_API_KEY: return "🤖 找不到鑰匙：請檢查 GitHub 的 GEMINI_API_KEY 設定！"
-    if not news_list: return "🤖 目前市場靜悄悄，無最新新聞。"
+    if not GEMINI_API_KEY:
+        return "🤖 找不到鑰匙：請檢查 GitHub 的 GEMINI_API_KEY 設定！"
+    
+    if not news_list:
+        return "🤖 目前市場靜悄悄，無最新新聞。"
     
     headlines = [n.get('title', '') for n in news_list[:5]]
     news_text = "\n".join(headlines)
     prompt = f"你是台股資深股神阿土伯。請根據以下【{stock_name}】的近期新聞標題，用繁體中文寫「30字以內」的一句話台味短評（指出利多、利空或無聊即可）：\n{news_text}"
     
-    # 自動嘗試多種可能的模型名稱
-    model_names = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro']
+    # 直接呼叫 Google 的底層 API，保證不卡 404
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
+    headers = {'Content-Type': 'application/json'}
+    data = {
+        "contents": [{"parts": [{"text": prompt}]}]
+    }
     
-    for m_name in model_names:
-        try:
-            model = genai.GenerativeModel(m_name)
-            response = model.generate_content(prompt)
-            return response.text.strip()
-        except Exception as e:
-            if "404" in str(e): # 如果這名稱找不到，就試下一個
-                continue
-            return f"🤖 AI 忙線中：{str(e)[:20]}..."
+    try:
+        # 發送網路請求
+        response = requests.post(url, headers=headers, json=data)
+        result = response.json()
+        
+        if response.status_code == 200:
+            # 成功解析出 AI 的回答
+            text = result['candidates'][0]['content']['parts'][0]['text']
+            return text.strip()
+        else:
+            # 如果失敗，把 Google 最真實的錯誤訊息印出來
+            err_msg = result.get('error', {}).get('message', '未知錯誤')
+            print(f"【API 錯誤】{stock_name}: {err_msg}")
             
-    return "🤖 模型適配失敗，請確認 API 金鑰權限。"
+            if "API_KEY_INVALID" in err_msg:
+                return "🤖 鑰匙無效：請確認 API Key 是否複製完整。"
+            return f"🤖 系統回報：{err_msg[:20]}..."
+            
+    except Exception as e:
+        return f"🤖 網路異常：{str(e)[:20]}..."
 
 def calculate_rsi(series, period=14):
     delta = series.diff()
@@ -171,6 +187,7 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
 
 
 
