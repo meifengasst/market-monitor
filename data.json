@@ -1,122 +1,140 @@
 {
-    "last_update": "2026-03-02 16:26",
+    "last_update": "2026-03-03",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia (AI之王)",
             "category": "美國科技",
-            "price": 181.2,
-            "rsi": 40.3,
+            "price": 182.48,
+            "rsi": 41.9,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中"
+            "status": "平穩行駛中",
+            "vol_ratio": 0.79,
+            "chip_signal": "💤 散戶盤整"
         },
         {
             "symbol": "TSLA",
             "name": "Tesla (電動車)",
             "category": "美國科技",
-            "price": 401.01,
-            "rsi": 39.3,
+            "price": 403.32,
+            "rsi": 40.8,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中"
+            "status": "平穩行駛中",
+            "vol_ratio": 0.95,
+            "chip_signal": "💤 散戶盤整"
         },
         {
             "symbol": "SPY",
             "name": "S&P 500 ETF",
             "category": "美股大盤",
-            "price": 684.13,
-            "rsi": 40.4,
+            "price": 686.38,
+            "rsi": 42.4,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中"
+            "status": "平穩行駛中",
+            "vol_ratio": 1.14,
+            "chip_signal": "💤 散戶盤整"
         },
         {
             "symbol": "0050.TW",
             "name": "元大台灣50",
             "category": "台股龍頭",
-            "price": 80.35,
-            "rsi": 72.3,
+            "price": 79.95,
+            "rsi": 76.2,
             "lights": {
-                "short": "🔴",
+                "short": "⚪",
                 "mid": "🟡",
                 "long": "🟢"
             },
-            "status": "現在超火熱"
+            "status": "現在超火熱",
+            "vol_ratio": 0.36,
+            "chip_signal": "💤 散戶盤整"
         },
         {
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "台股龍頭",
-            "price": 1975.0,
-            "rsi": 69.8,
+            "price": 1970.0,
+            "rsi": 74.1,
             "lights": {
-                "short": "🔴",
+                "short": "⚪",
                 "mid": "🟡",
                 "long": "🟢"
             },
-            "status": "平穩行駛中"
+            "status": "現在超火熱",
+            "vol_ratio": 0.24,
+            "chip_signal": "💤 散戶盤整"
         },
         {
             "symbol": "2303.TW",
             "name": "聯電",
             "category": "晶圓代工",
-            "price": 64.5,
-            "rsi": 39.2,
+            "price": 64.3,
+            "rsi": 57.7,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "🟢"
             },
-            "status": "平穩行駛中"
+            "status": "平穩行駛中",
+            "vol_ratio": 0.2,
+            "chip_signal": "💤 散戶盤整"
         },
         {
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 94.7,
-            "rsi": 46.9,
+            "price": 94.6,
+            "rsi": 50.0,
             "lights": {
                 "short": "🔴",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中"
+            "status": "平穩行駛中",
+            "vol_ratio": 0.16,
+            "chip_signal": "💤 散戶盤整"
         },
         {
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 92.8,
-            "rsi": 47.5,
+            "price": 92.7,
+            "rsi": 37.0,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中"
+            "status": "平穩行駛中",
+            "vol_ratio": 0.03,
+            "chip_signal": "💤 散戶盤整"
         },
         {
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.8,
-            "rsi": 46.8,
+            "price": 30.65,
+            "rsi": 53.7,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中"
+            "status": "平穩行駛中",
+            "vol_ratio": 0.28,
+            "chip_signal": "💤 散戶盤整"
         }
     ]
 }
