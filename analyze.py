@@ -2,6 +2,7 @@ import yfinance as yf
 import json
 import pandas as pd
 import os
+import requests  # <--- 新增這行，用來發送網路請求
 from datetime import datetime
 
 # 產業與市場分類
@@ -106,3 +107,4 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
