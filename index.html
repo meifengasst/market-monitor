@@ -180,21 +180,16 @@
                 card.className = `${statusColor} p-6 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between`;
                 
                 card.innerHTML = `
-                    <div>
-                        <div class="mt-3 pt-3 border-t border-slate-700/50 flex flex-col gap-3">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs font-bold text-slate-300">📰 關鍵字風向</span>
-                                    <span class="text-xs font-black ${stock.sentiment_score > 0 ? 'text-red-400' : (stock.sentiment_score < 0 ? 'text-green-400' : 'text-slate-400')}">${stock.sentiment_label} (${stock.sentiment_score})</span>
-                                </div>
-                                <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/30">
-                                    <p class="text-[10px] font-black text-blue-300 mb-1">🤖 阿土狗 AI 讀報：</p>
-                                    <p class="text-sm font-bold text-slate-200 leading-snug">${stock.ai_summary}</p>
-                                </div>
-                            </div>
+                    <div class="flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-black/50 text-white text-xs px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
+                            <span class="text-sm font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
+                        </div>
+                        
                         <h2 class="text-3xl font-black mb-4 text-white tracking-tight">${stock.name}</h2>
                         
                         <div class="bg-black/40 p-4 rounded-xl mb-4 border border-white/5">
-                            <div class="flex justify-between items-end mb-2">
+                            <div class="flex justify-between items-end mb-3">
                                 <div>
                                     <p class="text-4xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
                                     <p class="text-xs font-black text-yellow-400 mt-2">🚦 ${stock.status}</p>
@@ -204,9 +199,16 @@
                                     <p class="text-2xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
                                 </div>
                             </div>
-                            <div class="mt-3 pt-3 border-t border-slate-700/50 flex justify-between items-center">
-                                <span class="text-xs font-bold text-slate-300">📰 新聞風向</span>
-                                <span class="text-xs font-black ${stock.sentiment_score > 0 ? 'text-red-400' : (stock.sentiment_score < 0 ? 'text-green-400' : 'text-slate-400')}">${stock.sentiment_label} (${stock.sentiment_score})</span>
+                            
+                            <div class="mt-3 pt-3 border-t border-slate-700/50 flex flex-col gap-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-slate-300">📰 關鍵字風向</span>
+                                    <span class="text-xs font-black ${stock.sentiment_score > 0 ? 'text-red-400' : (stock.sentiment_score < 0 ? 'text-green-400' : 'text-slate-400')}">${stock.sentiment_label} (${stock.sentiment_score})</span>
+                                </div>
+                                <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/30">
+                                    <p class="text-[10px] font-black text-blue-300 mb-1">🤖 阿土狗 AI 讀報：</p>
+                                    <p class="text-sm font-bold text-slate-200 leading-snug">${stock.ai_summary}</p>
+                                </div>
                             </div>
                         </div>
 
@@ -219,20 +221,20 @@
                                 <div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="flex justify-around items-center pt-3 border-t border-white/10 mt-auto">
-                        <div class="text-center">
-                            <p class="text-xl mb-1">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
-                            <p class="text-[10px] font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-500'}">起步</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl mb-1">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
-                            <p class="text-[10px] font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-500'}">順暢</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl mb-1">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
-                            <p class="text-[10px] font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-500'}">穩固</p>
+                        <div class="flex justify-around items-center pt-3 border-t border-white/10 mt-auto">
+                            <div class="text-center">
+                                <p class="text-xl mb-1">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
+                                <p class="text-[10px] font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-500'}">起步</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-xl mb-1">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
+                                <p class="text-[10px] font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-500'}">順暢</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-xl mb-1">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
+                                <p class="text-[10px] font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-500'}">穩固</p>
+                            </div>
                         </div>
                     </div>
                 `;
