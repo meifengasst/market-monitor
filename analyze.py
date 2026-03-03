@@ -2,8 +2,16 @@ import yfinance as yf
 import json
 import pandas as pd
 import os
-import requests  # 用來發送網路請求
+import requests
+import time
+import random
+import google.generativeai as genai  # <--- 導入 AI 模組
 from datetime import datetime
+
+# 設定 Gemini API
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+if GEMINI_API_KEY:
+    genai.configure(api_key=GEMINI_API_KEY)
 
 # 產業與市場分類
 CATEGORIES = {
@@ -36,6 +44,30 @@ def analyze_sentiment(news_list):
     elif score < 0: return score, "⛈️ 媒體偏空"
     else: return score, "⛅ 消息中性"
 
+# 【新技能】：AI 新聞總結 (含重試機制)
+def get_ai_news_summary(stock_name, news_list):
+    if not GEMINI_API_KEY or not news_list:
+        return "🤖 AI 休息中，或無最新新聞。"
+    
+    headlines = [n.get('title', '') for n in news_list[:5]]
+    news_text = "\n".join(headlines)
+    prompt = f"你是股市老司機阿土伯。請根據以下【{stock_name}】的新聞標題，用繁體中文寫「30字以內」的一句話幽默短評（指出利多、利空或無聊即可）：\n{news_text}"
+    
+    model_candidates = ['gemini-1.5-flash', 'gemini-pro']
+    for attempt in range(3):
+        for model_name in model_candidates:
+            try:
+                model = genai.GenerativeModel(model_name)
+                response = model.generate_content(prompt)
+                return response.text.strip()
+            except Exception as e:
+                if "429" in str(e) or "Too Many Requests" in str(e):
+                    time.sleep(2 ** attempt + random.random())
+                    continue
+                else:
+                    continue
+    return "🤖 新聞太多，阿土伯消化不良中..."
+
 def calculate_rsi(series, period=14):
     delta = series.diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
@@ -45,28 +77,12 @@ def calculate_rsi(series, period=14):
 def send_line_message(msg):
     token = os.environ.get("LINE_ACCESS_TOKEN")
     target_id = os.environ.get("LINE_TARGET_ID")
-
-    if not token or not target_id:
-        print("缺少 LINE_ACCESS_TOKEN 或 LINE_TARGET_ID，跳過推播。")
-        return
-    
+    if not token or not target_id: return
     url = "https://api.line.me/v2/bot/message/push"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {token}"
-    }
-    # Messaging API 的標準格式
-    data = {
-        "to": target_id,
-        "messages": [{"type": "text", "text": msg}]
-    }
-    
+    headers = {"Content-Type": "application/json", "Authorization": f"Bearer {token}"}
+    data = {"to": target_id, "messages": [{"type": "text", "text": msg}]}
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(data))
-        if response.status_code == 200:
-            print("✅ 阿土狗晨報推播成功！")
-        else:
-            print(f"❌ 推播失敗：{response.status_code}, {response.text}")
+        requests.post(url, headers=headers, data=json.dumps(data))
     except Exception as e:
         print(f"❌ 網路請求錯誤：{e}")
 
@@ -99,12 +115,13 @@ def analyze():
 
             news_data = ticker.news
             sent_score, sent_label = analyze_sentiment(news_data)
+            
+            # 呼叫 AI 幫你讀新聞 (會稍微花一點點時間)
+            ai_summary = get_ai_news_summary(name, news_data)
 
-            # 將今日數據存入大資料庫
             new_row = {'date': today_str, 'symbol': symbol, 'price': price, 'volume': vol}
             history_df = pd.concat([history_df, pd.DataFrame([new_row])], ignore_index=True)
 
-            # 抓取過去30天的私有歷史紀錄，轉成網頁看得懂的格式
             symbol_history = history_df[history_df['symbol'] == symbol].tail(30)
             history_list = symbol_history[['date', 'price', 'volume']].to_dict('records')
 
@@ -124,17 +141,20 @@ def analyze():
                 "chip_signal": "🔥 大戶進場" if vol_ratio > 1.5 else "💤 散戶盤整",
                 "sentiment_label": sent_label,
                 "sentiment_score": sent_score,
+                "ai_summary": ai_summary,  # <--- 把 AI 結論存起來給網頁用
                 "history": history_list  
             })
+            print(f"✅ 完成 {name} 分析")
+            # 為了避免被 Google API 阻擋，每次分析完稍微休息 2 秒
+            time.sleep(2)
+            
         except Exception as e:
             print(f"跳過 {symbol}: {e}")
 
-    # === 原本的寫檔邏輯 ===
     history_df.tail(1500).to_csv(history_file, index=False)
     with open('data.json', 'w', encoding='utf-8') as f:
         json.dump({"last_update": today_str, "data": stock_data}, f, ensure_ascii=False, indent=4)
 
-    # === 【新技能：生成戰情摘要並推播】 ===
     bull_stocks = [s['name'] for s in stock_data if s['lights']['short'] != '⚪']
     hot_chips = [s['name'] for s in stock_data if s['vol_ratio'] > 1.5]
     
@@ -142,15 +162,12 @@ def analyze():
     msg += "----------------------\n"
     msg += f"🚀 準備起飛 ({len(bull_stocks)}檔)：\n"
     msg += f"{', '.join(bull_stocks) if bull_stocks else '無'}\n\n"
-    
     msg += f"🕵️ 大戶偷偷進貨 ({len(hot_chips)}檔)：\n"
     msg += f"{', '.join(hot_chips) if hot_chips else '無'}\n"
     msg += "----------------------\n"
-    msg += "詳細大數據圖表與新聞情緒，請至戰情室網頁查看！"
+    msg += "詳細 AI 大數據圖表與新聞情緒，請至戰情室網頁查看！"
 
-    # 發送推播
     send_line_message(msg)
 
-# 確保開關只有一個！
 if __name__ == "__main__":
     analyze()
