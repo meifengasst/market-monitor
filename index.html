@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阿土伯投資儀表板 - WBC 賽事監控</title>
+    <title>阿土伯投資儀表板 - 自研數據庫</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-slate-900 text-white p-6">
-    <div class="max-w-5xl mx-auto">
+<body class="bg-slate-900 text-white p-6 relative">
+    <div class="max-w-6xl mx-auto">
         <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between border-b border-slate-700 pb-6">
             <div>
                 <h1 class="text-3xl font-bold text-blue-400">📈 阿土伯多空戰情室</h1>
@@ -16,11 +17,6 @@
             <div class="mt-4 md:mt-0 flex gap-2">
                 <input type="text" id="searchInput" placeholder="搜尋代號或名稱..." 
                        class="bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
-                <select id="filterTrend" class="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2">
-                    <option value="all">所有趨勢</option>
-                    <option value="多頭">只看多頭</option>
-                    <option value="空頭">只看空頭</option>
-                </select>
             </div>
         </header>
 
@@ -51,97 +47,192 @@
         <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
 
+    <div id="dataModal" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-4xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl">
+                <div>
+                    <h3 class="text-3xl font-black text-white" id="modalTitle">股票名稱</h3>
+                    <p class="text-slate-400 text-sm mt-1">自研資料庫：股價與大戶量能歷史對比</p>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
+            </div>
+            <div class="p-6 bg-slate-900 rounded-b-3xl">
+                <canvas id="historyChart" style="width: 100%; height: 400px;"></canvas>
+            </div>
+        </div>
+    </div>
+
     <script>
         let rawData = [];
+        let myChart = null; // 儲存圖表實例
+
+        // 開啟彈窗並繪製圖表
+        function openModal(stock) {
+            document.getElementById('dataModal').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('dataModal').classList.remove('opacity-0');
+                document.getElementById('modalContent').classList.remove('scale-95');
+            }, 10);
+            
+            document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
+
+            const ctx = document.getElementById('historyChart').getContext('2d');
+            
+            // 清除舊圖表
+            if(myChart) myChart.destroy();
+
+            // 如果歷史數據太少，給點提示
+            let historyData = stock.history || [];
+            if(historyData.length === 0) {
+                // 為了圖表不報錯，塞個預設值
+                historyData = [{date: "無資料", price: stock.price, volume: 0}];
+            }
+
+            // 整理給 Chart.js 的資料
+            const labels = historyData.map(h => h.date.substring(5)); // 取出月-日
+            const prices = historyData.map(h => h.price);
+            const volumes = historyData.map(h => h.volume);
+
+            myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: '收盤價 (左軸)',
+                            data: prices,
+                            borderColor: '#3b82f6', // 藍線
+                            backgroundColor: '#3b82f6',
+                            borderWidth: 3,
+                            tension: 0.3,
+                            yAxisID: 'y'
+                        },
+                        {
+                            type: 'bar',
+                            label: '成交量 (右軸)',
+                            data: volumes,
+                            backgroundColor: 'rgba(239, 68, 68, 0.6)', // 紅色柱狀
+                            borderRadius: 4,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                        y: { 
+                            type: 'linear', display: true, position: 'left',
+                            grid: { color: '#334155' }, ticks: { color: '#3b82f6' }
+                        },
+                        y1: { 
+                            type: 'linear', display: true, position: 'right',
+                            grid: { drawOnChartArea: false }, ticks: { color: '#ef4444' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: 'white', font: {size: 14} } },
+                        tooltip: { titleFont: {size: 16}, bodyFont: {size: 14} }
+                    }
+                }
+            });
+        }
+
+        // 關閉彈窗
+        function closeModal() {
+            document.getElementById('dataModal').classList.add('opacity-0');
+            document.getElementById('modalContent').classList.add('scale-95');
+            setTimeout(() => {
+                document.getElementById('dataModal').classList.add('hidden');
+            }, 300);
+        }
 
         function renderData(filterText = '') {
-    const list = document.getElementById('stock-list');
-    list.innerHTML = '';
-    
-    const search = filterText.toLowerCase().trim();
+            const list = document.getElementById('stock-list');
+            list.innerHTML = '';
+            const search = filterText.toLowerCase().trim();
 
-    const filtered = rawData.filter(item => {
-        const s = (item.symbol || "").toLowerCase();
-        const n = (item.name || "").toLowerCase();
-        const c = (item.category || "").toLowerCase();
-        return s.includes(search) || n.includes(search) || c.includes(search);
-    });
+            const filtered = rawData.filter(item => {
+                const s = (item.symbol || "").toLowerCase();
+                const n = (item.name || "").toLowerCase();
+                const c = (item.category || "").toLowerCase();
+                return s.includes(search) || n.includes(search) || c.includes(search);
+            });
 
-    if (filtered.length === 0 && search.length > 0) {
-        list.innerHTML = `
-            <div class="col-span-full text-center py-12 bg-slate-800/50 rounded-2xl border-2 border-dashed border-slate-700">
-                <p class="text-2xl font-black text-slate-500 mb-2">🔍 找不到「${search}」</p>
-                <p class="text-slate-400 font-bold text-sm">請確認代號是否正確喔！</p>
-            </div>`;
-        return;
-    }
+            if (filtered.length === 0 && search.length > 0) {
+                list.innerHTML = `<div class="col-span-full text-center py-12 bg-slate-800/50 rounded-2xl border-2 border-dashed border-slate-700">
+                    <p class="text-2xl font-black text-slate-500 mb-2">🔍 找不到「${search}」</p></div>`;
+                return;
+            }
 
-    filtered.forEach(stock => {
-        const card = document.createElement('div');
-        card.onclick = () => window.open(`https://www.google.com/search?q=${stock.name}+${stock.symbol}+新聞+分析`, '_blank');
-        
-        let statusColor = "border-slate-700 bg-slate-800/50";
-        if (stock.lights.short !== '⚪') statusColor = "border-red-500 bg-red-900/40 shadow-[0_0_20px_rgba(239,68,68,0.2)]";
-        else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_20px_rgba(234,179,8,0.2)]";
-        else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/40 shadow-[0_0_20px_rgba(34,197,94,0.2)]";
-
-        // 卡片邊距縮小為 p-6，圓角改為 rounded-2xl
-        card.className = `${statusColor} p-6 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between`;
-        
-        card.innerHTML = `
-            <div>
-                <div class="flex justify-between items-center mb-4">
-                    <span class="bg-black/50 text-white text-xs px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
-                    <span class="text-sm font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
-                </div>
-                <h2 class="text-3xl font-black mb-4 text-white tracking-tight">${stock.name}</h2>
+            filtered.forEach(stock => {
+                const card = document.createElement('div');
+                // 【關鍵修改】：點擊後開啟我們自己的大數據彈窗
+                card.onclick = () => openModal(stock);
                 
-                <div class="bg-black/40 p-4 rounded-xl mb-4 border border-white/5">
-                    <div class="flex justify-between items-end mb-2">
-                        <div>
-                            <p class="text-4xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
-                            <p class="text-xs font-black text-yellow-400 mt-2">🚦 ${stock.status}</p>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-[10px] text-white/40 font-black mb-1">熱度 (RSI)</p>
-                            <p class="text-2xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
-                        </div>
-                    </div>
-                    <div class="mt-3 pt-3 border-t border-slate-700/50 flex justify-between items-center">
-                        <span class="text-xs font-bold text-slate-300">📰 新聞風向</span>
-                        <span class="text-xs font-black ${stock.sentiment_score > 0 ? 'text-red-400' : (stock.sentiment_score < 0 ? 'text-green-400' : 'text-slate-400')}">${stock.sentiment_label} (${stock.sentiment_score})</span>
-                    </div>
-                </div>
+                let statusColor = "border-slate-700 bg-slate-800/50";
+                if (stock.lights.short !== '⚪') statusColor = "border-red-500 bg-red-900/40 shadow-[0_0_20px_rgba(239,68,68,0.2)]";
+                else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_20px_rgba(234,179,8,0.2)]";
+                else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/40 shadow-[0_0_20px_rgba(34,197,94,0.2)]";
 
-                <div class="bg-blue-900/30 p-3 rounded-xl border border-blue-500/30 mb-4">
-                    <div class="flex justify-between items-end mb-2">
-                        <p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.chip_signal}</p>
-                        <p class="text-[10px] font-mono text-blue-200">量能 ${stock.vol_ratio}x</p>
-                    </div>
-                    <div class="w-full bg-black/50 h-1.5 rounded-full overflow-hidden">
-                        <div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
-                    </div>
-                </div>
-            </div>
+                card.className = `${statusColor} p-6 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 relative overflow-hidden flex flex-col justify-between`;
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="bg-black/50 text-white text-xs px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
+                            <span class="text-sm font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
+                        </div>
+                        <h2 class="text-3xl font-black mb-4 text-white tracking-tight">${stock.name}</h2>
+                        
+                        <div class="bg-black/40 p-4 rounded-xl mb-4 border border-white/5">
+                            <div class="flex justify-between items-end mb-2">
+                                <div>
+                                    <p class="text-4xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
+                                    <p class="text-xs font-black text-yellow-400 mt-2">🚦 ${stock.status}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] text-white/40 font-black mb-1">熱度 (RSI)</p>
+                                    <p class="text-2xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : 'text-green-400'}">${stock.rsi}</p>
+                                </div>
+                            </div>
+                            <div class="mt-3 pt-3 border-t border-slate-700/50 flex justify-between items-center">
+                                <span class="text-xs font-bold text-slate-300">📰 新聞風向</span>
+                                <span class="text-xs font-black ${stock.sentiment_score > 0 ? 'text-red-400' : (stock.sentiment_score < 0 ? 'text-green-400' : 'text-slate-400')}">${stock.sentiment_label} (${stock.sentiment_score})</span>
+                            </div>
+                        </div>
 
-            <div class="flex justify-around items-center pt-3 border-t border-white/10 mt-auto">
-                <div class="text-center">
-                    <p class="text-xl mb-1">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
-                    <p class="text-[10px] font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-500'}">起步</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-xl mb-1">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
-                    <p class="text-[10px] font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-500'}">順暢</p>
-                </div>
-                <div class="text-center">
-                    <p class="text-xl mb-1">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
-                    <p class="text-[10px] font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-500'}">穩固</p>
-                </div>
-            </div>
-        `;
-        list.appendChild(card);
-    });
-}
+                        <div class="bg-blue-900/30 p-3 rounded-xl border border-blue-500/30 mb-4">
+                            <div class="flex justify-between items-end mb-2">
+                                <p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.chip_signal}</p>
+                                <p class="text-[10px] font-mono text-blue-200">量能 ${stock.vol_ratio}x</p>
+                            </div>
+                            <div class="w-full bg-black/50 h-1.5 rounded-full overflow-hidden">
+                                <div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-around items-center pt-3 border-t border-white/10 mt-auto">
+                        <div class="text-center">
+                            <p class="text-xl mb-1">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
+                            <p class="text-[10px] font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-500'}">起步</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mb-1">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p>
+                            <p class="text-[10px] font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-500'}">順暢</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xl mb-1">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p>
+                            <p class="text-[10px] font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-500'}">穩固</p>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
 
         fetch('data.json')
             .then(res => res.json())
