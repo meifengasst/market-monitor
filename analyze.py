@@ -44,8 +44,7 @@ def analyze_sentiment(news_list):
     elif score < 0: return score, "⛈️ 媒體偏空"
     else: return score, "⛅ 消息中性"
 
-# 【新技能】：AI 新聞總結 (含重試機制)
-# 【新技能】：AI 新聞總結 (真言除錯版)
+# 【新技能】：AI 新聞總結 (真言除錯版 + 通用模型)
 def get_ai_news_summary(stock_name, news_list):
     if not GEMINI_API_KEY:
         return "🤖 找不到鑰匙：請檢查 GitHub 的 GEMINI_API_KEY 設定！"
@@ -56,25 +55,25 @@ def get_ai_news_summary(stock_name, news_list):
     headlines = [n.get('title', '') for n in news_list[:5]]
     news_text = "\n".join(headlines)
     
-    # 移除「老司機」等可能觸發安全審查的字眼，改用「資深股神」
     prompt = f"你是台股資深股神阿土伯。請根據以下【{stock_name}】的近期新聞標題，用繁體中文寫「30字以內」的一句話台味短評（指出利多、利空或無聊即可）：\n{news_text}"
     
     try:
-        # 直接使用最新最穩的 gemini-1.5-flash
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        # 💡 關鍵修改：換回 100% 絕對支援的 gemini-pro 模型
+        model = genai.GenerativeModel('gemini-pro')
         response = model.generate_content(prompt)
         return response.text.strip()
     except Exception as e:
         error_msg = str(e)
         print(f"【抓蟲】{stock_name} AI 錯誤: {error_msg}")
         
-        # 把真實的錯誤原因顯示在網頁卡片上，我們才好抓蟲
         if "API key not valid" in error_msg:
             return "🤖 鑰匙錯誤：API Key 格式不對或無效"
         elif "429" in error_msg or "quota" in error_msg.lower():
             return "🤖 呼叫太快：Google API 額度用盡或需冷卻"
         elif "safety" in error_msg.lower():
             return "🤖 踩到紅線：新聞內容觸發 Google 安全審查"
+        elif "404" in error_msg:
+            return "🤖 模型錯誤：請確認 API 是否支援該模型名稱"
         else:
             return f"🤖 系統錯誤：{error_msg[:25]}..."
 
@@ -181,4 +180,5 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
 
