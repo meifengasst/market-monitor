@@ -129,9 +129,10 @@
                 card.className = `${statusColor} p-6 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between`;
                 
                 // 在卡片 HTML 的 RSI 區塊附近加入
+// 尋找價格與 RSI 區塊，加入風險等級
 <div class="text-right">
-    <p class="text-[10px] text-white/40 font-black mb-1">風險等級</p>
-    <p class="text-xl font-black ${stock.bias > 10 ? 'text-purple-500' : 'text-slate-300'}">${stock.risk_level}</p>
+    <p class="text-[10px] text-white/40 font-black mb-1">風險等級 / 乖離</p>
+    <p class="text-xl font-black ${stock.bias > 10 ? 'text-purple-500' : 'text-slate-300'}">${stock.risk_level} (${stock.bias}%)</p>
 </div>
             
                 card.innerHTML = `
