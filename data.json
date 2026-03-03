@@ -12,7 +12,7 @@
             "vol_ratio": 0.8,
             "pe_ratio": 37.2,
             "eps": 4.91,
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -36,6 +36,12 @@
                     "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 206465519
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "NVDA",
+                    "price": 182.48,
+                    "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
@@ -134,7 +140,7 @@
             "vol_ratio": 0.99,
             "pe_ratio": 370.0,
             "eps": 1.09,
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -158,6 +164,12 @@
                     "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 52697218
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "TSLA",
+                    "price": 403.32,
+                    "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
@@ -256,7 +268,7 @@
             "vol_ratio": 1.17,
             "pe_ratio": 27.6,
             "eps": "N/A",
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -364,6 +376,12 @@
                     "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "SPY",
+                    "price": 686.38,
+                    "volume": 87245200
                 }
             ]
         },
@@ -378,7 +396,7 @@
             "vol_ratio": 1.69,
             "pe_ratio": 27.0,
             "eps": "N/A",
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -486,6 +504,12 @@
                     "symbol": "0050.TW",
                     "price": 78.75,
                     "volume": 322672422
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "0050.TW",
+                    "price": 78.75,
+                    "volume": 322672422
                 }
             ]
         },
@@ -500,7 +524,7 @@
             "vol_ratio": 1.08,
             "pe_ratio": 29.2,
             "eps": 66.16,
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -608,6 +632,12 @@
                     "symbol": "2330.TW",
                     "price": 1935.0,
                     "volume": 51881506
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2330.TW",
+                    "price": 1935.0,
+                    "volume": 51881506
                 }
             ]
         },
@@ -622,7 +652,7 @@
             "vol_ratio": 0.8,
             "pe_ratio": 18.5,
             "eps": 3.38,
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -724,6 +754,12 @@
                     "symbol": "2303.TW",
                     "price": 62.6,
                     "volume": 115036532
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.6,
+                    "volume": 115036532
                 }
             ]
         },
@@ -738,7 +774,7 @@
             "vol_ratio": 1.02,
             "pe_ratio": 13.0,
             "eps": 7.18,
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -846,6 +882,12 @@
                     "symbol": "9802.TW",
                     "price": 93.4,
                     "volume": 743898
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9802.TW",
+                    "price": 93.4,
+                    "volume": 743898
                 }
             ]
         },
@@ -860,7 +902,7 @@
             "vol_ratio": 0.23,
             "pe_ratio": 17.6,
             "eps": 5.25,
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -968,6 +1010,12 @@
                     "symbol": "9910.TW",
                     "price": 92.3,
                     "volume": 2451918
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9910.TW",
+                    "price": 92.3,
+                    "volume": 2451918
                 }
             ]
         },
@@ -982,7 +1030,7 @@
             "vol_ratio": 1.32,
             "pe_ratio": 8.0,
             "eps": 3.78,
-            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1066,6 +1114,12 @@
                     "symbol": "9904.TW",
                     "price": 30.25,
                     "volume": 10786448
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.25,
+                    "volume": 11243195
                 },
                 {
                     "date": "2026-03-03",
