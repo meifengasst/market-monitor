@@ -10,7 +10,9 @@
             "bias": -1.65,
             "risk_level": "🧐 正常",
             "vol_ratio": 0.8,
-            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
+            "pe_ratio": 37.2,
+            "eps": 4.91,
+            "ai_summary": "🤖 數據消化中，暫無預判。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -34,6 +36,12 @@
                     "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 206465519
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "NVDA",
+                    "price": 182.48,
+                    "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
@@ -124,7 +132,9 @@
             "bias": -2.22,
             "risk_level": "🧐 正常",
             "vol_ratio": 0.99,
-            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
+            "pe_ratio": 370.0,
+            "eps": 1.09,
+            "ai_summary": "🤖 數據消化中，暫無預判。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -148,6 +158,12 @@
                     "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 52697218
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "TSLA",
+                    "price": 403.32,
+                    "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
@@ -238,7 +254,9 @@
             "bias": -0.15,
             "risk_level": "🧐 正常",
             "vol_ratio": 1.17,
-            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
+            "pe_ratio": 27.6,
+            "eps": "N/A",
+            "ai_summary": "🤖 數據消化中，暫無預判。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -340,6 +358,12 @@
                     "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "SPY",
+                    "price": 686.38,
+                    "volume": 87245200
                 }
             ]
         },
@@ -352,7 +376,9 @@
             "bias": 4.71,
             "risk_level": "🧐 正常",
             "vol_ratio": 1.69,
-            "ai_summary": "目前市場靜悄悄，無最新新聞。",
+            "pe_ratio": 27.0,
+            "eps": "N/A",
+            "ai_summary": "🤖 數據消化中，暫無預判。",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -454,6 +480,12 @@
                     "symbol": "0050.TW",
                     "price": 78.75,
                     "volume": 322672422
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "0050.TW",
+                    "price": 78.75,
+                    "volume": 322672422
                 }
             ]
         },
@@ -466,7 +498,9 @@
             "bias": 4.61,
             "risk_level": "🧐 正常",
             "vol_ratio": 1.08,
-            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
+            "pe_ratio": 29.2,
+            "eps": 66.16,
+            "ai_summary": "🤖 數據消化中，暫無預判。",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -568,6 +602,128 @@
                     "symbol": "2330.TW",
                     "price": 1935.0,
                     "volume": 51881506
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2330.TW",
+                    "price": 1935.0,
+                    "volume": 51881506
+                }
+            ]
+        },
+        {
+            "symbol": "2303.TW",
+            "name": "聯電",
+            "category": "晶圓代工",
+            "price": 62.6,
+            "rsi": 50.7,
+            "bias": -3.74,
+            "risk_level": "🧐 正常",
+            "vol_ratio": 0.8,
+            "pe_ratio": 18.5,
+            "eps": 3.38,
+            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "lights": {
+                "short": "⚪",
+                "mid": "⚪",
+                "long": "🟢"
+            },
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 64.3,
+                    "volume": 25047532
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 64.0,
+                    "volume": 28336758
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 63.6,
+                    "volume": 36685795
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 63.6,
+                    "volume": 38867185
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.8,
+                    "volume": 48929825
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.7,
+                    "volume": 73676096
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.4,
+                    "volume": 79599040
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.3,
+                    "volume": 85031655
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.2,
+                    "volume": 89493877
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.4,
+                    "volume": 91500704
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.1,
+                    "volume": 94146148
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.1,
+                    "volume": 98102011
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.3,
+                    "volume": 106248728
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.6,
+                    "volume": 115036532
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.6,
+                    "volume": 115036532
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.6,
+                    "volume": 115036532
                 }
             ]
         },
@@ -580,7 +736,9 @@
             "bias": -1.29,
             "risk_level": "🧐 正常",
             "vol_ratio": 1.02,
-            "ai_summary": "目前市場靜悄悄，無最新新聞。",
+            "pe_ratio": 13.0,
+            "eps": 7.18,
+            "ai_summary": "🤖 數據消化中，暫無預判。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -682,6 +840,12 @@
                     "symbol": "9802.TW",
                     "price": 93.4,
                     "volume": 743898
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9802.TW",
+                    "price": 93.4,
+                    "volume": 743898
                 }
             ]
         },
@@ -694,7 +858,9 @@
             "bias": -1.82,
             "risk_level": "🧐 正常",
             "vol_ratio": 0.23,
-            "ai_summary": "目前市場靜悄悄，無最新新聞。",
+            "pe_ratio": 17.6,
+            "eps": 5.25,
+            "ai_summary": "🤖 數據消化中，暫無預判。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -796,6 +962,128 @@
                     "symbol": "9910.TW",
                     "price": 92.3,
                     "volume": 2451918
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9910.TW",
+                    "price": 92.3,
+                    "volume": 2451918
+                }
+            ]
+        },
+        {
+            "symbol": "9904.TW",
+            "name": "寶成",
+            "category": "運動鞋",
+            "price": 30.25,
+            "rsi": 46.8,
+            "bias": -1.97,
+            "risk_level": "🧐 正常",
+            "vol_ratio": 1.32,
+            "pe_ratio": 8.0,
+            "eps": 3.78,
+            "ai_summary": "🤖 數據消化中，暫無預判。",
+            "lights": {
+                "short": "⚪",
+                "mid": "⚪",
+                "long": "⚪"
+            },
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.65,
+                    "volume": 1845128
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.6,
+                    "volume": 2229749
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.45,
+                    "volume": 3353873
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.4,
+                    "volume": 3703082
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.3,
+                    "volume": 4303115
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.35,
+                    "volume": 6622874
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.35,
+                    "volume": 7112695
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.25,
+                    "volume": 8561655
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.2,
+                    "volume": 9447252
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.2,
+                    "volume": 9491349
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.15,
+                    "volume": 9951483
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.15,
+                    "volume": 10216322
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.25,
+                    "volume": 10786448
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.25,
+                    "volume": 11243195
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.25,
+                    "volume": 11243195
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.25,
+                    "volume": 11243195
                 }
             ]
         }
