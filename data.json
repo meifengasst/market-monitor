@@ -16,7 +16,34 @@
             "vol_ratio": 0.8,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 182.48,
+                    "volume": 206465519
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 182.48,
+                    "volume": 206465519
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 182.48,
+                    "volume": 206465519
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 182.48,
+                    "volume": 208609300
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 182.48,
+                    "volume": 208609300
+                }
+            ]
         },
         {
             "symbol": "TSLA",
@@ -33,7 +60,34 @@
             "vol_ratio": 0.99,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 403.32,
+                    "volume": 52697218
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 403.32,
+                    "volume": 52697218
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 403.32,
+                    "volume": 52697218
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 403.32,
+                    "volume": 54963900
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 403.32,
+                    "volume": 54963900
+                }
+            ]
         },
         {
             "symbol": "SPY",
@@ -50,75 +104,210 @@
             "vol_ratio": 1.17,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 686.38,
+                    "volume": 83702843
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 686.38,
+                    "volume": 83702843
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 686.38,
+                    "volume": 83702843
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 686.38,
+                    "volume": 87245200
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 686.38,
+                    "volume": 87245200
+                }
+            ]
         },
         {
             "symbol": "0050.TW",
             "name": "元大台灣50",
             "category": "台股龍頭",
-            "price": 79.6,
-            "rsi": 74.3,
+            "price": 79.3,
+            "rsi": 72.8,
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
                 "long": "🟢"
             },
             "status": "現在超火熱",
-            "vol_ratio": 0.59,
+            "vol_ratio": 0.73,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "無最新消息",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 79.95,
+                    "volume": 48351487
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 79.85,
+                    "volume": 58117190
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 79.65,
+                    "volume": 76885321
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 79.6,
+                    "volume": 84833036
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 79.3,
+                    "volume": 108612748
+                }
+            ]
         },
         {
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "台股龍頭",
-            "price": 1965.0,
-            "rsi": 73.2,
+            "price": 1950.0,
+            "rsi": 70.6,
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
                 "long": "🟢"
             },
             "status": "現在超火熱",
-            "vol_ratio": 0.35,
+            "vol_ratio": 0.44,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 1970.0,
+                    "volume": 9562098
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 1970.0,
+                    "volume": 10241158
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 1965.0,
+                    "volume": 13256342
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 1965.0,
+                    "volume": 14098878
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 1950.0,
+                    "volume": 18083954
+                }
+            ]
         },
         {
             "symbol": "2303.TW",
             "name": "聯電",
             "category": "晶圓代工",
-            "price": 63.6,
-            "rsi": 54.6,
+            "price": 62.8,
+            "rsi": 51.4,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "🟢"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.3,
+            "vol_ratio": 0.38,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 64.3,
+                    "volume": 25047532
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 64.0,
+                    "volume": 28336758
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 63.6,
+                    "volume": 36685795
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 63.6,
+                    "volume": 38867185
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 62.8,
+                    "volume": 48929825
+                }
+            ]
         },
         {
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 93.8,
-            "rsi": 47.2,
+            "price": 93.3,
+            "rsi": 45.6,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.3,
+            "vol_ratio": 0.44,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "無最新消息",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 94.6,
+                    "volume": 97670
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 94.4,
+                    "volume": 112682
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 93.7,
+                    "volume": 179319
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 93.8,
+                    "volume": 186849
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 93.3,
+                    "volume": 278473
+                }
+            ]
         },
         {
             "symbol": "9910.TW",
@@ -135,24 +324,78 @@
             "vol_ratio": 0.05,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "無最新消息",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 92.7,
+                    "volume": 340596
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 92.4,
+                    "volume": 444299
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 92.6,
+                    "volume": 502453
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 92.8,
+                    "volume": 525485
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 92.8,
+                    "volume": 554657
+                }
+            ]
         },
         {
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.4,
-            "rsi": 49.2,
+            "price": 30.3,
+            "rsi": 47.5,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.53,
+            "vol_ratio": 0.6,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "無最新消息",
-            "sentiment_score": 0
+            "sentiment_score": 0,
+            "history": [
+                {
+                    "date": "2026-03-03",
+                    "price": 30.65,
+                    "volume": 1845128
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 30.6,
+                    "volume": 2229749
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 30.45,
+                    "volume": 3353873
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 30.4,
+                    "volume": 3703082
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 30.3,
+                    "volume": 4303115
+                }
+            ]
         }
     ]
 }
