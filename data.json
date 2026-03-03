@@ -7,8 +7,10 @@
             "category": "美國科技",
             "price": 182.48,
             "rsi": 41.9,
+            "bias": -1.65,
+            "risk_level": "🧐 正常",
             "vol_ratio": 0.8,
-            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
+            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -32,6 +34,12 @@
                     "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 206465519
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "NVDA",
+                    "price": 182.48,
+                    "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
@@ -95,8 +103,10 @@
             "category": "美國科技",
             "price": 403.32,
             "rsi": 40.8,
+            "bias": -2.22,
+            "risk_level": "🧐 正常",
             "vol_ratio": 0.99,
-            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
+            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -120,6 +130,12 @@
                     "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 52697218
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "TSLA",
+                    "price": 403.32,
+                    "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
@@ -183,8 +199,10 @@
             "category": "美股大盤",
             "price": 686.38,
             "rsi": 42.4,
+            "bias": -0.15,
+            "risk_level": "🧐 正常",
             "vol_ratio": 1.17,
-            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
+            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -262,6 +280,12 @@
                     "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "SPY",
+                    "price": 686.38,
+                    "volume": 87245200
                 }
             ]
         },
@@ -271,7 +295,9 @@
             "category": "台股龍頭",
             "price": 78.75,
             "rsi": 70.2,
-            "vol_ratio": 1.63,
+            "bias": 4.71,
+            "risk_level": "🧐 正常",
+            "vol_ratio": 1.68,
             "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
@@ -350,6 +376,12 @@
                     "symbol": "0050.TW",
                     "price": 78.75,
                     "volume": 304899390
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "0050.TW",
+                    "price": 78.75,
+                    "volume": 318924196
                 }
             ]
         },
@@ -359,8 +391,10 @@
             "category": "台股龍頭",
             "price": 1945.0,
             "rsi": 69.8,
-            "vol_ratio": 0.88,
-            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
+            "bias": 5.12,
+            "risk_level": "🧐 正常",
+            "vol_ratio": 0.94,
+            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -438,6 +472,12 @@
                     "symbol": "2330.TW",
                     "price": 1945.0,
                     "volume": 40282077
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2330.TW",
+                    "price": 1945.0,
+                    "volume": 43808833
                 }
             ]
         },
@@ -445,10 +485,12 @@
             "symbol": "2303.TW",
             "name": "聯電",
             "category": "晶圓代工",
-            "price": 62.1,
-            "rsi": 49.0,
-            "vol_ratio": 0.7,
-            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
+            "price": 62.3,
+            "rsi": 49.7,
+            "bias": -4.18,
+            "risk_level": "🧐 正常",
+            "vol_ratio": 0.75,
+            "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -526,6 +568,12 @@
                     "symbol": "2303.TW",
                     "price": 62.1,
                     "volume": 98102011
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.3,
+                    "volume": 106248728
                 }
             ]
         },
@@ -533,9 +581,11 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 93.5,
-            "rsi": 46.3,
-            "vol_ratio": 0.93,
+            "price": 93.4,
+            "rsi": 45.9,
+            "bias": -1.29,
+            "risk_level": "🧐 正常",
+            "vol_ratio": 1.0,
             "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
@@ -614,6 +664,12 @@
                     "symbol": "9802.TW",
                     "price": 93.5,
                     "volume": 664001
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9802.TW",
+                    "price": 93.4,
+                    "volume": 724898
                 }
             ]
         },
@@ -621,9 +677,11 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 92.3,
-            "rsi": 36.0,
-            "vol_ratio": 0.19,
+            "price": 92.1,
+            "rsi": 35.5,
+            "bias": -2.02,
+            "risk_level": "🧐 正常",
+            "vol_ratio": 0.21,
             "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
@@ -702,6 +760,12 @@
                     "symbol": "9910.TW",
                     "price": 92.3,
                     "volume": 1942533
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9910.TW",
+                    "price": 92.1,
+                    "volume": 2201455
                 }
             ]
         },
@@ -709,9 +773,11 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.15,
-            "rsi": 45.3,
-            "vol_ratio": 1.23,
+            "price": 30.25,
+            "rsi": 46.8,
+            "bias": -1.97,
+            "risk_level": "🧐 正常",
+            "vol_ratio": 1.28,
             "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
@@ -790,6 +856,12 @@
                     "symbol": "9904.TW",
                     "price": 30.15,
                     "volume": 10216322
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.25,
+                    "volume": 10786448
                 }
             ]
         }
@@ -797,28 +869,23 @@
     "cat_stats": [
         {
             "category": "美國科技",
-            "avg_rsi": 41.3,
-            "avg_vol": 0.9
+            "avg_rsi": 41.3
         },
         {
             "category": "美股大盤",
-            "avg_rsi": 42.4,
-            "avg_vol": 1.17
+            "avg_rsi": 42.4
         },
         {
             "category": "台股龍頭",
-            "avg_rsi": 70.0,
-            "avg_vol": 1.25
+            "avg_rsi": 70.0
         },
         {
             "category": "晶圓代工",
-            "avg_rsi": 59.4,
-            "avg_vol": 0.79
+            "avg_rsi": 59.8
         },
         {
             "category": "運動鞋",
-            "avg_rsi": 42.5,
-            "avg_vol": 0.78
+            "avg_rsi": 42.7
         }
     ]
 }
