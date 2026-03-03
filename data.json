@@ -17,7 +17,7 @@
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
             "sentiment_score": 0,
-            "ai_summary": "🤖 系統錯誤：404 models/gemini-1.5-fla...",
+            "ai_summary": "🤖 模型錯誤：請確認 API 是否支援該模型名稱",
             "history": [
                 {
                     "date": "2026-03-03",
@@ -33,6 +33,11 @@
                     "date": "2026-03-03",
                     "price": 182.48,
                     "volume": 206465519
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 182.48,
+                    "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
@@ -77,7 +82,7 @@
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
             "sentiment_score": 0,
-            "ai_summary": "🤖 系統錯誤：404 models/gemini-1.5-fla...",
+            "ai_summary": "🤖 模型錯誤：請確認 API 是否支援該模型名稱",
             "history": [
                 {
                     "date": "2026-03-03",
@@ -93,6 +98,11 @@
                     "date": "2026-03-03",
                     "price": 403.32,
                     "volume": 52697218
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 403.32,
+                    "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
@@ -137,7 +147,7 @@
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
             "sentiment_score": 0,
-            "ai_summary": "🤖 系統錯誤：404 models/gemini-1.5-fla...",
+            "ai_summary": "🤖 模型錯誤：請確認 API 是否支援該模型名稱",
             "history": [
                 {
                     "date": "2026-03-03",
@@ -178,6 +188,11 @@
                     "date": "2026-03-03",
                     "price": 686.38,
                     "volume": 87245200
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 686.38,
+                    "volume": 87245200
                 }
             ]
         },
@@ -185,15 +200,15 @@
             "symbol": "0050.TW",
             "name": "元大台灣50",
             "category": "台股龍頭",
-            "price": 78.8,
-            "rsi": 70.4,
+            "price": 78.75,
+            "rsi": 70.2,
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
                 "long": "🟢"
             },
             "status": "現在超火熱",
-            "vol_ratio": 1.53,
+            "vol_ratio": 1.56,
             "chip_signal": "🔥 大戶進場",
             "sentiment_label": "無最新消息",
             "sentiment_score": 0,
@@ -238,6 +253,11 @@
                     "date": "2026-03-03",
                     "price": 78.8,
                     "volume": 277674911
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 78.75,
+                    "volume": 286469383
                 }
             ]
         },
@@ -253,11 +273,11 @@
                 "long": "🟢"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.83,
+            "vol_ratio": 0.84,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
             "sentiment_score": 0,
-            "ai_summary": "🤖 系統錯誤：404 models/gemini-1.5-fla...",
+            "ai_summary": "🤖 模型錯誤：請確認 API 是否支援該模型名稱",
             "history": [
                 {
                     "date": "2026-03-03",
@@ -298,6 +318,11 @@
                     "date": "2026-03-03",
                     "price": 1945.0,
                     "volume": 37457391
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 1945.0,
+                    "volume": 38382400
                 }
             ]
         },
@@ -305,19 +330,19 @@
             "symbol": "2303.TW",
             "name": "聯電",
             "category": "晶圓代工",
-            "price": 62.3,
-            "rsi": 49.7,
+            "price": 62.2,
+            "rsi": 49.3,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "🟢"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.62,
+            "vol_ratio": 0.65,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "⛅ 消息中性",
             "sentiment_score": 0,
-            "ai_summary": "🤖 系統錯誤：404 models/gemini-1.5-fla...",
+            "ai_summary": "🤖 模型錯誤：請確認 API 是否支援該模型名稱",
             "history": [
                 {
                     "date": "2026-03-03",
@@ -358,6 +383,11 @@
                     "date": "2026-03-03",
                     "price": 62.3,
                     "volume": 85031655
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 62.2,
+                    "volume": 89493877
                 }
             ]
         },
@@ -373,7 +403,7 @@
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 0.84,
+            "vol_ratio": 0.85,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "無最新消息",
             "sentiment_score": 0,
@@ -418,6 +448,11 @@
                     "date": "2026-03-03",
                     "price": 93.6,
                     "volume": 580905
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 93.6,
+                    "volume": 589085
                 }
             ]
         },
@@ -425,8 +460,8 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 92.1,
-            "rsi": 35.5,
+            "price": 92.2,
+            "rsi": 35.7,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -478,6 +513,11 @@
                     "date": "2026-03-03",
                     "price": 92.1,
                     "volume": 1742571
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 92.2,
+                    "volume": 1782216
                 }
             ]
         },
@@ -485,15 +525,15 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.25,
-            "rsi": 46.8,
+            "price": 30.2,
+            "rsi": 46.0,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
             "status": "平穩行駛中",
-            "vol_ratio": 1.07,
+            "vol_ratio": 1.15,
             "chip_signal": "💤 散戶盤整",
             "sentiment_label": "無最新消息",
             "sentiment_score": 0,
@@ -538,6 +578,11 @@
                     "date": "2026-03-03",
                     "price": 30.25,
                     "volume": 8561655
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 30.2,
+                    "volume": 9447252
                 }
             ]
         }
