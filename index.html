@@ -181,10 +181,16 @@
                 
                 card.innerHTML = `
                     <div>
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="bg-black/50 text-white text-xs px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
-                            <span class="text-sm font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
-                        </div>
+                        <div class="mt-3 pt-3 border-t border-slate-700/50 flex flex-col gap-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-slate-300">📰 關鍵字風向</span>
+                                    <span class="text-xs font-black ${stock.sentiment_score > 0 ? 'text-red-400' : (stock.sentiment_score < 0 ? 'text-green-400' : 'text-slate-400')}">${stock.sentiment_label} (${stock.sentiment_score})</span>
+                                </div>
+                                <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/30">
+                                    <p class="text-[10px] font-black text-blue-300 mb-1">🤖 阿土狗 AI 讀報：</p>
+                                    <p class="text-sm font-bold text-slate-200 leading-snug">${stock.ai_summary}</p>
+                                </div>
+                            </div>
                         <h2 class="text-3xl font-black mb-4 text-white tracking-tight">${stock.name}</h2>
                         
                         <div class="bg-black/40 p-4 rounded-xl mb-4 border border-white/5">
