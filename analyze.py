@@ -44,38 +44,29 @@ def analyze_sentiment(news_list):
     elif score < 0: return score, "⛈️ 媒體偏空"
     else: return score, "⛅ 消息中性"
 
-# 【新技能】：AI 新聞總結 (真言除錯版 + 通用模型)
+# 【AI 靈魂 3.0：自動相容版】
 def get_ai_news_summary(stock_name, news_list):
-    if not GEMINI_API_KEY:
-        return "🤖 找不到鑰匙：請檢查 GitHub 的 GEMINI_API_KEY 設定！"
-    
-    if not news_list:
-        return "🤖 目前市場靜悄悄，無最新新聞。"
+    if not GEMINI_API_KEY: return "🤖 找不到鑰匙：請檢查 GitHub 的 GEMINI_API_KEY 設定！"
+    if not news_list: return "🤖 目前市場靜悄悄，無最新新聞。"
     
     headlines = [n.get('title', '') for n in news_list[:5]]
     news_text = "\n".join(headlines)
-    
     prompt = f"你是台股資深股神阿土伯。請根據以下【{stock_name}】的近期新聞標題，用繁體中文寫「30字以內」的一句話台味短評（指出利多、利空或無聊即可）：\n{news_text}"
     
-    try:
-        # 💡 關鍵修改：換回 100% 絕對支援的 gemini-pro 模型
-        model = genai.GenerativeModel('gemini-pro')
-        response = model.generate_content(prompt)
-        return response.text.strip()
-    except Exception as e:
-        error_msg = str(e)
-        print(f"【抓蟲】{stock_name} AI 錯誤: {error_msg}")
-        
-        if "API key not valid" in error_msg:
-            return "🤖 鑰匙錯誤：API Key 格式不對或無效"
-        elif "429" in error_msg or "quota" in error_msg.lower():
-            return "🤖 呼叫太快：Google API 額度用盡或需冷卻"
-        elif "safety" in error_msg.lower():
-            return "🤖 踩到紅線：新聞內容觸發 Google 安全審查"
-        elif "404" in error_msg:
-            return "🤖 模型錯誤：請確認 API 是否支援該模型名稱"
-        else:
-            return f"🤖 系統錯誤：{error_msg[:25]}..."
+    # 自動嘗試多種可能的模型名稱
+    model_names = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro']
+    
+    for m_name in model_names:
+        try:
+            model = genai.GenerativeModel(m_name)
+            response = model.generate_content(prompt)
+            return response.text.strip()
+        except Exception as e:
+            if "404" in str(e): # 如果這名稱找不到，就試下一個
+                continue
+            return f"🤖 AI 忙線中：{str(e)[:20]}..."
+            
+    return "🤖 模型適配失敗，請確認 API 金鑰權限。"
 
 def calculate_rsi(series, period=14):
     delta = series.diff()
@@ -180,5 +171,6 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
 
 
