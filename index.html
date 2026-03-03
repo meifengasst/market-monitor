@@ -23,6 +23,14 @@
                     <option value="空頭">只看空頭</option>
                 </select>
             </div>
+            // 在卡片 HTML 中加入這一段
+<div class="mt-4 p-4 bg-blue-900/20 rounded-xl border border-blue-500/30">
+    <p class="text-sm font-black text-blue-300">🕵️ 籌碼偵側：${stock.chip_signal}</p>
+    <div class="w-full bg-slate-700 h-2 mt-2 rounded-full overflow-hidden">
+        <div class="bg-blue-500 h-full" style="width: ${Math.min(stock.vol_ratio * 20, 100)}%"></div>
+    </div>
+    <p class="text-[10px] text-slate-500 mt-1">${stock.status}</p>
+</div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
