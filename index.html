@@ -20,13 +20,6 @@
             </div>
         </header>
 
-        <div class="bg-slate-800/80 p-8 rounded-[2.5rem] mb-10 border border-slate-700 shadow-2xl overflow-hidden">
-            <h3 class="text-center text-slate-400 font-black mb-4 tracking-widest uppercase">🌍 全球產業資金熱度雷達 (平均 RSI)</h3>
-            <div class="h-80 w-full">
-                <canvas id="sectorRadar"></canvas>
-            </div>
-        </div>
-
         <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
 
@@ -166,50 +159,15 @@
             });
         }
 
-        // 核心資料載入 (移除不需要的統計數據綁定)
+        // 核心資料載入 (移除雷達圖邏輯)
         fetch('data.json')
             .then(res => res.json())
             .then(json => {
                 rawData = json.data;
                 document.getElementById('update-time').innerText = json.last_update;
-                
                 renderData();
-                if(json.cat_stats) renderSectorChart(json.cat_stats);
             })
             .catch(err => console.log("等待資料庫更新中..."));
-
-        function renderSectorChart(stats) {
-            const ctx = document.getElementById('sectorRadar').getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: stats.map(s => s.category),
-                    datasets: [{
-                        label: '平均熱度 (RSI)',
-                        data: stats.map(s => s.avg_rsi),
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.3)',
-                        borderWidth: 3,
-                        pointBackgroundColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            angleLines: { color: 'rgba(255,255,255,0.1)' },
-                            grid: { color: 'rgba(255,255,255,0.1)' },
-                            pointLabels: { color: '#94a3b8', font: { size: 14, weight: 'bold' } },
-                            ticks: { display: false },
-                            suggestedMin: 30,
-                            suggestedMax: 70
-                        }
-                    },
-                    plugins: { legend: { display: false } }
-                }
-            });
-        }
 
         document.getElementById('searchInput').addEventListener('input', (e) => renderData(e.target.value));
     </script>
