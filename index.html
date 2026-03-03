@@ -61,37 +61,34 @@
     const list = document.getElementById('stock-list');
     list.innerHTML = '';
     
-    // 將搜尋字串轉小寫並去掉前後空白，聰明匹配
+    // 1. 強制將搜尋字轉小寫，並去掉空格
     const search = filterText.toLowerCase().trim();
 
     const filtered = rawData.filter(item => {
-        const s = item.symbol.toLowerCase();
-        const n = item.name.toLowerCase();
-        const c = item.category.toLowerCase();
-        // 使用 includes 讓 2330 也能匹配到 2330.TW，nvda 匹配到 NVDA
+        // 2. 同時比對 名稱、代號、產業標籤
+        const s = (item.symbol || "").toLowerCase();
+        const n = (item.name || "").toLowerCase();
+        const c = (item.category || "").toLowerCase();
+        
+        // 3. 使用 includes 實現模糊比對 (例如輸入 2330 也能匹配 2330.tw)
         return s.includes(search) || n.includes(search) || c.includes(search);
     });
 
-    // 找不到資料時的超直覺提示
+    // 4. 如果沒資料，給老司機一個溫馨提示
     if (filtered.length === 0 && search.length > 0) {
         list.innerHTML = `
-            <div class="col-span-full text-center py-20 bg-slate-800 rounded-[3rem] border-4 border-dashed border-slate-700">
-                <p class="text-4xl font-black text-slate-500 mb-6">🔍 找不到「${search}」</p>
-                <p class="text-slate-400 mb-8 font-bold">可能是代號打錯，或是它還沒加入點名清單喔！</p>
-                <button onclick="window.open('https://www.google.com/search?q=${search}+stock+analysis', '_blank')" 
-                        class="bg-blue-600 hover:bg-blue-500 text-white font-black py-4 px-12 rounded-full text-xl shadow-2xl transition-all">
-                    去 Google 查查這支
-                </button>
+            <div class="col-span-full text-center py-20 bg-slate-800/50 rounded-[3rem] border-4 border-dashed border-slate-700">
+                <p class="text-4xl font-black text-slate-500 mb-4">🔍 找不到「${search}」</p>
+                <p class="text-slate-400 font-bold">請確認代號是否正確，或嘗試搜尋產業名稱（如：運動鞋）</p>
             </div>`;
         return;
     }
 
+    // 5. 渲染卡片 (保持你最愛的巨大發光風格)
     filtered.forEach(stock => {
         const card = document.createElement('div');
-        // 點擊事件：直接看 Google 新聞與分析
         card.onclick = () => window.open(`https://www.google.com/search?q=${stock.name}+${stock.symbol}+新聞+分析`, '_blank');
         
-        // 暴力變色邏輯 (紅 > 黃 > 綠)
         let statusColor = "border-slate-700 bg-slate-800/50";
         if (stock.lights.short !== '⚪') statusColor = "border-red-500 bg-red-900/40 shadow-[0_0_40px_rgba(239,68,68,0.3)]";
         else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_40px_rgba(234,179,8,0.3)]";
@@ -104,10 +101,8 @@
                 <span class="bg-black/50 text-white text-sm px-6 py-2 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
                 <span class="text-xl font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
             </div>
-            
             <h2 class="text-7xl font-black mb-10 text-white tracking-tighter">${stock.name}</h2>
-
-            <div class="bg-black/40 p-8 rounded-[2.5rem] mb-10 border border-white/5">
+            <div class="bg-black/40 p-8 rounded-[2.5rem] mb-10 border border-white/5 text-left">
                 <div class="flex justify-between items-end">
                     <div>
                         <p class="text-8xl font-mono font-black text-white tracking-tighter">${stock.price}</p>
@@ -119,7 +114,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="flex justify-around items-center pt-6 border-t border-white/10">
                 <div class="text-center">
                     <p class="text-5xl mb-4">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p>
@@ -134,8 +128,6 @@
                     <p class="text-2xl font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-700'}">地基穩固</p>
                 </div>
             </div>
-            
-            <p class="text-sm text-center text-white/20 mt-10 font-bold italic">💡 點擊大卡片，直接幫你查最新國內外新聞分析</p>
         `;
         list.appendChild(card);
     });
