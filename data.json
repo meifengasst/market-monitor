@@ -7,70 +7,83 @@
             "category": "美國科技",
             "price": 182.48,
             "rsi": 41.9,
+            "vol_ratio": 0.8,
+            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中",
-            "vol_ratio": 0.8,
-            "chip_signal": "💤 散戶盤整",
-            "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 系統回報：models/gemini-1.5-fl...",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 206465519
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 206465519
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 206465519
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "NVDA",
+                    "price": 182.48,
+                    "volume": 208609300
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
                 }
@@ -82,70 +95,83 @@
             "category": "美國科技",
             "price": 403.32,
             "rsi": 40.8,
+            "vol_ratio": 0.99,
+            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中",
-            "vol_ratio": 0.99,
-            "chip_signal": "💤 散戶盤整",
-            "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 系統回報：models/gemini-1.5-fl...",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 52697218
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 52697218
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 52697218
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "TSLA",
+                    "price": 403.32,
+                    "volume": 54963900
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
                 }
@@ -157,70 +183,83 @@
             "category": "美股大盤",
             "price": 686.38,
             "rsi": 42.4,
+            "vol_ratio": 1.17,
+            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中",
-            "vol_ratio": 1.17,
-            "chip_signal": "💤 散戶盤整",
-            "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 系統回報：models/gemini-1.5-fl...",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 83702843
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 83702843
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 83702843
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "SPY",
+                    "price": 686.38,
+                    "volume": 87245200
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
                 }
@@ -232,72 +271,85 @@
             "category": "台股龍頭",
             "price": 78.75,
             "rsi": 70.2,
+            "vol_ratio": 1.63,
+            "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
                 "long": "🟢"
             },
-            "status": "現在超火熱",
-            "vol_ratio": 1.62,
-            "chip_signal": "🔥 大戶進場",
-            "sentiment_label": "無最新消息",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 目前市場靜悄悄，無最新新聞。",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 79.95,
                     "volume": 48351487
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 79.85,
                     "volume": 58117190
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 79.65,
                     "volume": 76885321
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 79.6,
                     "volume": 84833036
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 79.3,
                     "volume": 108612748
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 79.1,
                     "volume": 222656944
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 78.95,
                     "volume": 254509892
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 78.8,
                     "volume": 277674911
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 78.75,
                     "volume": 286469383
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 78.75,
                     "volume": 291041874
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "0050.TW",
                     "price": 78.75,
                     "volume": 300777236
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "0050.TW",
+                    "price": 78.75,
+                    "volume": 304899390
                 }
             ]
         },
@@ -307,72 +359,85 @@
             "category": "台股龍頭",
             "price": 1945.0,
             "rsi": 69.8,
+            "vol_ratio": 0.88,
+            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
                 "long": "🟢"
             },
-            "status": "平穩行駛中",
-            "vol_ratio": 0.86,
-            "chip_signal": "💤 散戶盤整",
-            "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 系統回報：models/gemini-1.5-fl...",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1970.0,
                     "volume": 9562098
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1970.0,
                     "volume": 10241158
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1965.0,
                     "volume": 13256342
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1965.0,
                     "volume": 14098878
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1950.0,
                     "volume": 18083954
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1945.0,
                     "volume": 32727275
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1945.0,
                     "volume": 35239067
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1945.0,
                     "volume": 37457391
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1945.0,
                     "volume": 38382400
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1940.0,
                     "volume": 38819250
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2330.TW",
                     "price": 1945.0,
                     "volume": 39530435
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2330.TW",
+                    "price": 1945.0,
+                    "volume": 40282077
                 }
             ]
         },
@@ -382,72 +447,85 @@
             "category": "晶圓代工",
             "price": 62.1,
             "rsi": 49.0,
+            "vol_ratio": 0.7,
+            "ai_summary": "🤖 阿土伯讀報中，暫無評論。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "🟢"
             },
-            "status": "平穩行駛中",
-            "vol_ratio": 0.68,
-            "chip_signal": "💤 散戶盤整",
-            "sentiment_label": "⛅ 消息中性",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 系統回報：models/gemini-1.5-fl...",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 64.3,
                     "volume": 25047532
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 64.0,
                     "volume": 28336758
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 63.6,
                     "volume": 36685795
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 63.6,
                     "volume": 38867185
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 62.8,
                     "volume": 48929825
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 62.7,
                     "volume": 73676096
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 62.4,
                     "volume": 79599040
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 62.3,
                     "volume": 85031655
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 62.2,
                     "volume": 89493877
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 62.4,
                     "volume": 91500704
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "2303.TW",
                     "price": 62.1,
                     "volume": 94146148
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.1,
+                    "volume": 98102011
                 }
             ]
         },
@@ -455,74 +533,87 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 93.4,
-            "rsi": 45.9,
+            "price": 93.5,
+            "rsi": 46.3,
+            "vol_ratio": 0.93,
+            "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中",
-            "vol_ratio": 0.91,
-            "chip_signal": "💤 散戶盤整",
-            "sentiment_label": "無最新消息",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 目前市場靜悄悄，無最新新聞。",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 94.6,
                     "volume": 97670
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 94.4,
                     "volume": 112682
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 93.7,
                     "volume": 179319
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 93.8,
                     "volume": 186849
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 93.3,
                     "volume": 278473
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 94.1,
                     "volume": 474930
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 93.9,
                     "volume": 542662
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 93.6,
                     "volume": 580905
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 93.6,
                     "volume": 589085
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 93.6,
                     "volume": 597085
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9802.TW",
                     "price": 93.4,
                     "volume": 646748
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9802.TW",
+                    "price": 93.5,
+                    "volume": 664001
                 }
             ]
         },
@@ -530,74 +621,87 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 92.1,
-            "rsi": 35.5,
+            "price": 92.3,
+            "rsi": 36.0,
+            "vol_ratio": 0.19,
+            "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中",
-            "vol_ratio": 0.18,
-            "chip_signal": "💤 散戶盤整",
-            "sentiment_label": "無最新消息",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 目前市場靜悄悄，無最新新聞。",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.7,
                     "volume": 340596
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.4,
                     "volume": 444299
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.6,
                     "volume": 502453
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.8,
                     "volume": 525485
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.8,
                     "volume": 554657
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.3,
                     "volume": 1334084
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.2,
                     "volume": 1602941
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.1,
                     "volume": 1742571
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.2,
                     "volume": 1782216
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.0,
                     "volume": 1834989
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9910.TW",
                     "price": 92.1,
                     "volume": 1858151
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9910.TW",
+                    "price": 92.3,
+                    "volume": 1942533
                 }
             ]
         },
@@ -607,74 +711,114 @@
             "category": "運動鞋",
             "price": 30.15,
             "rsi": 45.3,
+            "vol_ratio": 1.23,
+            "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
                 "long": "⚪"
             },
-            "status": "平穩行駛中",
-            "vol_ratio": 1.2,
-            "chip_signal": "💤 散戶盤整",
-            "sentiment_label": "無最新消息",
-            "sentiment_score": 0,
-            "ai_summary": "🤖 目前市場靜悄悄，無最新新聞。",
             "history": [
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.65,
                     "volume": 1845128
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.6,
                     "volume": 2229749
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.45,
                     "volume": 3353873
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.4,
                     "volume": 3703082
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.3,
                     "volume": 4303115
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.35,
                     "volume": 6622874
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.35,
                     "volume": 7112695
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.25,
                     "volume": 8561655
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.2,
                     "volume": 9447252
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.2,
                     "volume": 9491349
                 },
                 {
                     "date": "2026-03-03",
+                    "symbol": "9904.TW",
                     "price": 30.15,
                     "volume": 9951483
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.15,
+                    "volume": 10216322
                 }
             ]
+        }
+    ],
+    "cat_stats": [
+        {
+            "category": "美國科技",
+            "avg_rsi": 41.3,
+            "avg_vol": 0.9
+        },
+        {
+            "category": "美股大盤",
+            "avg_rsi": 42.4,
+            "avg_vol": 1.17
+        },
+        {
+            "category": "台股龍頭",
+            "avg_rsi": 70.0,
+            "avg_vol": 1.25
+        },
+        {
+            "category": "晶圓代工",
+            "avg_rsi": 59.4,
+            "avg_vol": 0.79
+        },
+        {
+            "category": "運動鞋",
+            "avg_rsi": 42.5,
+            "avg_vol": 0.78
         }
     ]
 }
