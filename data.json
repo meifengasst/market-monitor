@@ -94,6 +94,12 @@
                     "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "NVDA",
+                    "price": 182.48,
+                    "volume": 208609300
                 }
             ]
         },
@@ -130,6 +136,12 @@
                     "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 52697218
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "TSLA",
+                    "price": 403.32,
+                    "volume": 54963900
                 },
                 {
                     "date": "2026-03-03",
@@ -286,6 +298,12 @@
                     "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "SPY",
+                    "price": 686.38,
+                    "volume": 87245200
                 }
             ]
         },
@@ -297,7 +315,7 @@
             "rsi": 70.2,
             "bias": 4.71,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.68,
+            "vol_ratio": 1.69,
             "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
@@ -382,6 +400,12 @@
                     "symbol": "0050.TW",
                     "price": 78.75,
                     "volume": 318924196
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "0050.TW",
+                    "price": 78.75,
+                    "volume": 322672422
                 }
             ]
         },
@@ -389,11 +413,11 @@
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "台股龍頭",
-            "price": 1945.0,
-            "rsi": 69.8,
-            "bias": 5.12,
+            "price": 1935.0,
+            "rsi": 68.2,
+            "bias": 4.61,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.94,
+            "vol_ratio": 1.08,
             "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
             "lights": {
                 "short": "⚪",
@@ -478,6 +502,12 @@
                     "symbol": "2330.TW",
                     "price": 1945.0,
                     "volume": 43808833
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2330.TW",
+                    "price": 1935.0,
+                    "volume": 51881506
                 }
             ]
         },
@@ -485,11 +515,11 @@
             "symbol": "2303.TW",
             "name": "聯電",
             "category": "晶圓代工",
-            "price": 62.3,
-            "rsi": 49.7,
-            "bias": -4.18,
+            "price": 62.6,
+            "rsi": 50.7,
+            "bias": -3.74,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.75,
+            "vol_ratio": 0.8,
             "ai_summary": "🤖 阿土伯正在盯盤，暫無評論。",
             "lights": {
                 "short": "⚪",
@@ -574,6 +604,12 @@
                     "symbol": "2303.TW",
                     "price": 62.3,
                     "volume": 106248728
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "2303.TW",
+                    "price": 62.6,
+                    "volume": 115036532
                 }
             ]
         },
@@ -585,7 +621,7 @@
             "rsi": 45.9,
             "bias": -1.29,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.0,
+            "vol_ratio": 1.02,
             "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
@@ -670,6 +706,12 @@
                     "symbol": "9802.TW",
                     "price": 93.4,
                     "volume": 724898
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9802.TW",
+                    "price": 93.4,
+                    "volume": 743898
                 }
             ]
         },
@@ -677,11 +719,11 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 92.1,
-            "rsi": 35.5,
-            "bias": -2.02,
+            "price": 92.3,
+            "rsi": 36.0,
+            "bias": -1.82,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.21,
+            "vol_ratio": 0.23,
             "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
@@ -766,6 +808,12 @@
                     "symbol": "9910.TW",
                     "price": 92.1,
                     "volume": 2201455
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9910.TW",
+                    "price": 92.3,
+                    "volume": 2451918
                 }
             ]
         },
@@ -777,7 +825,7 @@
             "rsi": 46.8,
             "bias": -1.97,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.28,
+            "vol_ratio": 1.32,
             "ai_summary": "目前市場靜悄悄，無最新新聞。",
             "lights": {
                 "short": "⚪",
@@ -862,6 +910,12 @@
                     "symbol": "9904.TW",
                     "price": 30.25,
                     "volume": 10786448
+                },
+                {
+                    "date": "2026-03-03",
+                    "symbol": "9904.TW",
+                    "price": 30.25,
+                    "volume": 11243195
                 }
             ]
         }
@@ -877,15 +931,15 @@
         },
         {
             "category": "台股龍頭",
-            "avg_rsi": 70.0
+            "avg_rsi": 69.2
         },
         {
             "category": "晶圓代工",
-            "avg_rsi": 59.8
+            "avg_rsi": 59.4
         },
         {
             "category": "運動鞋",
-            "avg_rsi": 42.7
+            "avg_rsi": 42.9
         }
     ]
 }
