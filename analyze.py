@@ -41,21 +41,35 @@ def calculate_rsi(series, period=14):
     gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
     return 100 - (100 / (1 + (gain / loss)))
+import json # 記得最上方要 import json
 
-def send_line_notify(message):
-    token = os.environ.get("LINE_NOTIFY_TOKEN")
-    if not token:
-        print("沒有設定 LINE_NOTIFY_TOKEN，跳過推播。")
+def send_line_message(msg):
+    token = os.environ.get("LINE_ACCESS_TOKEN")
+    target_id = os.environ.get("LINE_TARGET_ID")
+
+    if not token or not target_id:
+        print("缺少 LINE_ACCESS_TOKEN 或 LINE_TARGET_ID，跳過推播。")
         return
     
-    url = "https://notify-api.line.me/api/notify"
-    headers = {"Authorization": f"Bearer {token}"}
-    data = {"message": message}
+    url = "https://api.line.me/v2/bot/message/push"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {token}"
+    }
+    # Messaging API 的標準格式
+    data = {
+        "to": target_id,
+        "messages": [{"type": "text", "text": msg}]
+    }
+    
     try:
-        requests.post(url, headers=headers, data=data)
-        print("✅ LINE 推播發送成功！")
+        response = requests.post(url, headers=headers, data=json.dumps(data))
+        if response.status_code == 200:
+            print("✅ 阿土狗晨報推播成功！")
+        else:
+            print(f"❌ 推播失敗：{response.status_code}, {response.text}")
     except Exception as e:
-        print(f"❌ LINE 推播失敗：{e}")
+        print(f"❌ 網路請求錯誤：{e}")
 
 def analyze():
     history_file = 'chip_history.csv'
@@ -144,5 +158,6 @@ if __name__ == "__main__":
     analyze()
 if __name__ == "__main__":
     analyze()
+
 
 
