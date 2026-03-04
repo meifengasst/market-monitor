@@ -1,21 +1,25 @@
 {
     "last_update": "2026-03-04",
     "macro": {
-        "tw_insight": "盤前總經與趨勢速報：亞股崩跌，台股暴跌1494點，外資退出，台幣重貶。",
-        "us_insight": "盤前總經與趨勢速報：美股期貨走揚，亞股走低，油價上漲，投資者關注伊朗局勢。"
+        "tw_insight": "盤前總經與趨勢速報：亞股崩跌，台股暴跌1494點，外資退出，台幣重貶，石油危機隱憂，注意風險。",
+        "us_insight": "盤前總經與趨勢速報：美股期指轉升，伊朗戰爭擾亂亞洲市場，新興市場走勢不穩。"
     },
     "ptt": {
-        "score": 40,
-        "sentiment": "恐慌",
-        "summary": "戰火波及台股重摔",
+        "score": 60,
+        "sentiment": "中立",
+        "summary": "觀望",
         "top_stocks": [
-            "台積電",
-            "台達電",
-            "遠東新"
+            "8454 富邦媒",
+            "6761穩得",
+            "2838 聯邦銀"
         ],
-        "bull_view": "基本面穩健",
+        "bull_view": "公司EPS表現佳",
         "bear_view": "地緣政治風險",
         "raw_links": [
+            {
+                "title": "[情報] 8454 富邦媒 114年EPS:11.29 股利:10",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772627368.A.01A.html"
+            },
             {
                 "title": "創作-財金ai快報",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772627167.A.35B.html"
@@ -31,10 +35,6 @@
             {
                 "title": "[情報] 6761穩得 114年EPS：7.34元 股利：6元",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772625864.A.244.html"
-            },
-            {
-                "title": "[新聞] 遠東新 上半年營收、獲利看旺",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772625809.A.D9F.html"
             }
         ]
     },
@@ -1373,7 +1373,7 @@
             "vol_ratio": 1.97,
             "pe_ratio": 26.0,
             "eps": "N/A",
-            "ai_summary": "0050ETF短期內呈現震盪走勢",
+            "ai_summary": "0050ETF短期趨勢不明",
             "news_items": [
                 {
                     "title": "0050再遭提款108億！高股息ETF外資也不愛了",
@@ -2716,7 +2716,7 @@
             "news_items": [
                 {
                     "title": "鈺齊-KY個股概覽",
-                    "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5ZenVKbnZfbWprcXZaVjFjaHN1b290Z0dCRm1fWUlzU2RMVXZFblJzeWhJdWtLMU9QU0tkZXVQN1BWbWtyWS15eG53ME4yNFhIZEZn?oc=5",
+                    "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5ZenVKbnZfbWprcXZaVjFjaHN1b190Z0dCRm1fWUlzU2RMVXZFblJzeWhJdWtLMU9QU0tkZXVQN1BWbWtyWS15eG53ME4yNFhIZEZn?oc=5",
                     "sentiment": "中立"
                 },
                 {
@@ -3169,7 +3169,7 @@
             "vol_ratio": 0.28,
             "pe_ratio": 17.6,
             "eps": 5.25,
-            "ai_summary": "豐泰股價小漲，技術面支撐",
+            "ai_summary": "豐泰股價小漲，技術面與殖利率支撐",
             "news_items": [
                 {
                     "title": "豐泰小漲守穩9字頭",
@@ -3626,22 +3626,22 @@
             "vol_ratio": 1.47,
             "pe_ratio": 7.7,
             "eps": 3.78,
-            "ai_summary": "寶成短期趨勢偏多",
+            "ai_summary": "寶成現價29.05，乖離率-5.57%，本益比7.7，技術面與新聞顯示有成長趨勢",
             "news_items": [
                 {
                     "title": "寶成114年度財務報告董事會召開日期為115年3月12日",
-                    "link": "https://news.google.com/rss/articles/CBMi5AJBVV95cUxOYThBS3F2SzdYVnA5Y1AyNHZ1bjZZeVNQNXJCWnRGeC10dE9zemkxYWZNN0VacExaSVhLdVpLVWwzcnFfeWREVzRqWE9GRTJnVEdjblJHc3NOb2FObTFvcklhYkpuVG1YZWlSR0xySmRkSEp4SkhDam1oRi13dEdoUWozZGtjN2dicUMzUWFXRTZhOHJ5Y0tGWEpPX1M1dkFieVZZRUlPeWQ3cDVJeGl5LWY2ZHJWX0tnUHVCTkVKZ09fVDN5MURhRkdmRVZCaUxlWVdfbGstQl95d3F3S3FISDlRT2tfTlUtblBpdEJSMjZObHpfaVlWTTktVlJ4UHNOdVdycVRjNGJTTzhRdzBLUmswSzlpdDhKMUEwMC1MNS05bVBaXzlhdm85UHlNZTZkNThUQjNjTHN6Smt2VkZ4WXotQ2hsbGo3M3NyQ0xLeTBhT0JMUTc0THcxR196bS1jMVpIXw",
+                    "link": "https://news.google.com/rss/articles/CBMi5AJBVV95cUxOYThBS3F2SzdYVnA5Y1AyNHZ1bjZZeVNQNXJCWnRGeC10dE9zemkxYWZNN0VacExaSVhLdVpLVWwzcnFfeWREVzRqWE9GRTJnVEdjblJHc3NOb2FObTFvcklhYkpuVG1YZWlSR0xySmRkSEp4SkhDam1oRi13dEdoUWozZGtjN2dicUMzUWFXRTZhOHJ5Y0tGWEpPX1M1dkFieVZZRUlPeWQ3cDVJeGl5LWY2ZHJWX0tnUHVCTkVKZ09fVDN5MURhRkdmRVZCaUxlWVdfbGstQl95d3F3S3FISDlRT2tfTlUtblBpdEJSMjZObHpfaVlWTTktVlJ4UHNOdVdycVRjNGJTTzhRdzBLUmswSzlpdDhKMUEwMC1MNS05bVBaXzlhdm85UHlNZTZkNThUQjNjTHN6Smt2VkZ4WXotQ2hsbGo3M3NyQ0xLeTBhT0JMUTc0THcxR196bS1jMVpIXw?oc=5",
                     "sentiment": "中立"
                 },
                 {
-                    "title": "寶成訂單滿手 營運有望重返成長",
-                    "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE12cDFpWXNDWnFmYWw5RUR1S0phSExKb3YwSXBCaE4xUllzX19UVUoxc0NianRkSnA1ZndGc29reTRQbHhpYzFvVFd0SXpXN0xrUEVSVnktZGMzQdIBX0FVX3lxTE1lTkJ2Tm1xRHZUdUY1VDhfcDc2TXdsdDNxbXhhU0VBY0lMdmw3OHBfa240ZDFXN1EtVHFiWmVFSkNVcnNDY2draHdRLVY3RFRvaURJd3F1V1Frek00VHFR",
+                    "title": "世足賽商機爆發 寶成訂單滿手 營運有望重返成長",
+                    "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE12cDFpWXNDWnFmYWw5RUR1S0phSExKb3YwSXBCaE4xUllzX19UVUoxc0NianRkSnA1ZndGc29reTRQbHhpYzFvVFd0SXpXN0xrUEVSVnktZGMzQdIBX0FVX3lxTE1lTkJ2Tm1xRHZUdUY1VDhfcDc2TXdsdDNxbXhhU0VBY0lMdmw3OHBfa240ZDFXN1EtVHFiWmVFSkNVcnNDY2draHdRLVY3RFRvaURJd3F1V1Frek00VHFR?oc=5",
                     "sentiment": "偏多"
                 },
                 {
-                    "title": "抱著寶成安心過年",
-                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9HeEIxSW9ycHh4MWFrelpjcG5yR3dCekFoWk1vNTUtM0YxLTExRm5tWkZSRE1ocGlLUmJCMDhjMjE2QVlhSDZGLWpVTE5ETlZKamdEUTdIdWk",
-                    "sentiment": "偏多"
+                    "title": "9904 寶成- 抱著寶成安心過年?",
+                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9HeEIxSW9ycHh4MWFrelpjcG5yR3dCekFoWk1vNTUtM0YxLTExRm5tWkZSRE1ocGlLUmJCMDhjMjE2QVlhSDZGLWpVTE5ETlZKamdEUTdIdWk?oc=5",
+                    "sentiment": "中立"
                 }
             ],
             "lights": {
