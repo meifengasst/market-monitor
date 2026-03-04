@@ -25,9 +25,8 @@ STOCKS = {
     "9802.TW": "鈺齊-KY", "9910.TW": "豐泰", "9904.TW": "寶成"
 }
 
-# 2. 🤖 AI 預判大腦 (🚀 光速黑馬 Groq API 版)
+# 2. 🤖 AI 預判大腦 (🚀 光速黑馬 Groq API 版 - Llama 3.3 最新升級)
 def get_ai_prediction(stock_name, price, bias, pe_ratio, eps, news_list):
-    # 這裡我們借用原本的變數名稱，但裡面放的是你新申請的 Groq 金鑰
     API_KEY = os.environ.get('GEMINI_API_KEY') 
     
     if not API_KEY: 
@@ -36,16 +35,16 @@ def get_ai_prediction(stock_name, price, bias, pe_ratio, eps, news_list):
     headlines = [n.get('title', '') for n in news_list[:5]] if news_list else ["無最新重大新聞"]
     prompt = f"你是資深股市觀察家阿土伯。標的【{stock_name}】，現價{price}，乖離率{bias}%，本益比{pe_ratio}，EPS為{eps}。請綜合基本面、技術面與以下新聞，用繁體中文寫「40字以內」的客觀趨勢點評：\n" + "\n".join(headlines)
     
-    # 🎯 關鍵修改：把網址換成 Groq 的主機，並指定使用 Meta 最強大的 Llama 3 70B 模型
     url = "https://api.groq.com/openai/v1/chat/completions"
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json"
     }
     data = {
-        "model": "llama3-70b-8192", 
+        # 🎯 關鍵修改：這裡換成 Groq 最新、最強的 Llama 3.3 70B 模型
+        "model": "llama-3.3-70b-versatile", 
         "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.5 # 讓它的回答客觀冷靜一點
+        "temperature": 0.5 
     }
     
     try:
@@ -141,5 +140,6 @@ def analyze():
 
 if __name__ == "__main__":
     analyze()
+
 
 
