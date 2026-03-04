@@ -7,7 +7,7 @@ import time
 import xml.etree.ElementTree as ET
 from datetime import datetime
 
-# 1. 統一使用最穩定的 Groq 鑰匙 (環境變數名稱保持 GEMINI_API_KEY 不變)
+# 1. 統一鑰匙庫
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') 
 LINE_ACCESS_TOKEN = os.environ.get("LINE_ACCESS_TOKEN")
 LINE_TARGET_ID = os.environ.get("LINE_TARGET_ID")
@@ -29,58 +29,78 @@ def get_ptt_news():
         root = ET.fromstring(res.text)
         ns = {'atom': 'http://www.w3.org/2005/Atom'}
         entries = root.findall('atom:entry', ns)
-        return [entry.find('atom:title', ns).text for entry in entries[:50]]
+        ptt_list = []
+        for entry in entries[:50]:
+            title = entry.find('atom:title', ns).text
+            link = entry.find('atom:link', ns).attrib['href']
+            ptt_list.append({"title": title, "link": link})
+        return ptt_list
     except: return []
 
-# 🚀 徹底改用 Groq 引擎來分析 PTT 情緒，絕對不再 404！
-def get_ptt_sentiment(titles):
+# 🚀 升級版：PTT 深度戰報
+def get_ptt_sentiment(ptt_list):
     if not GEMINI_API_KEY: return {"score": 50, "sentiment": "未連線", "summary": "找不到鑰匙"}
-    if not titles: return {"score": 50, "sentiment": "抓取失敗", "summary": "無法讀取 PTT 股版"}
+    if not ptt_list: return {"score": 50, "sentiment": "抓取失敗", "summary": "無法讀取 PTT 股版"}
     
+    titles = [p['title'] for p in ptt_list]
     prompt = """你是頂級股市心理學家。請分析以下PTT股版最新標題，判斷台灣散戶情緒。
-請嚴格輸出 JSON 格式，必須包含這三個 key，不要任何其他文字：
-{"score": 貪婪指數(0-100的整數，0=極度恐慌，100=極度貪婪，50=中立), "sentiment": "極度恐慌" 或 "恐慌" 或 "中立" 或 "貪婪" 或 "極度貪婪", "summary": "25字以內的鄉民情緒精華點評"}
+請嚴格輸出 JSON 格式，必須包含以下 key，不要任何其他文字：
+{"score": 貪婪指數(0-100的整數，0=極度恐慌，100=極度貪婪，50=中立), 
+"sentiment": "極度恐慌" 或 "恐慌" 或 "中立" 或 "貪婪" 或 "極度貪婪", 
+"summary": "25字以內的鄉民情緒精華點評",
+"top_stocks": ["熱門股1", "熱門股2", "熱門股3"],
+"bull_view": "多方鄉民的主要論點 (30字內)",
+"bear_view": "空方鄉民的主要擔憂 (30字內)"}
 
 標題：\n""" + "\n".join(titles)
 
     url = "https://api.groq.com/openai/v1/chat/completions"
-    data = {
-        "model": "llama-3.3-70b-versatile",
-        "messages": [{"role": "user", "content": prompt}],
-        "temperature": 0.3,
-        "response_format": {"type": "json_object"} # 🎯 強制 AI 只准吐出 JSON
-    }
-    
+    data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.3, "response_format": {"type": "json_object"}}
     try:
         res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=20)
         if res.status_code == 200:
-            text = res.json()['choices'][0]['message']['content']
-            return json.loads(text)
-        else:
-            return {"score": 50, "sentiment": "API錯誤", "summary": f"狀態碼: {res.status_code}"}
-    except Exception as e:
-        return {"score": 50, "sentiment": "解析錯誤", "summary": "網路或解析異常"}
+            result = json.loads(res.json()['choices'][0]['message']['content'])
+            result['raw_links'] = ptt_list[:5] # 把前5篇原文連結塞進去給前端用
+            return result
+        else: return {"score": 50, "sentiment": "API錯誤", "summary": "分析失敗"}
+    except Exception as e: return {"score": 50, "sentiment": "解析錯誤", "summary": "網路或解析異常"}
 
 def get_macro_ai_prediction(news_list, region):
     if not GEMINI_API_KEY: return "🤖 找不到鑰匙"
     prompt = f"你是華爾街頂級總經分析師阿土伯。請根據以下{region}最新財經新聞標題，用繁體中文寫「50字以內」的『盤前總經與趨勢速報』：\n" + "\n".join(news_list)
     url = "https://api.groq.com/openai/v1/chat/completions"
     data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.4}
-    try: 
-        res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=15)
-        return res.json()['choices'][0]['message']['content'].strip()
+    try: return requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=15).json()['choices'][0]['message']['content'].strip()
     except: return "🤖 網路連線逾時..."
 
-def get_ai_prediction(stock_name, price, bias, pe_ratio, eps, news_list):
-    if not GEMINI_API_KEY: return "🤖 找不到鑰匙"
-    headlines = [n.get('title', '') for n in news_list[:5]] if news_list else ["無最新新聞"]
-    prompt = f"你是股市觀察家阿土伯。標的【{stock_name}】，現價{price}，乖離率{bias}%，本益比{pe_ratio}。請綜合基本技術面與新聞，寫「40字內」的客觀趨勢點評：\n" + "\n".join(headlines)
+# 🚀 升級版：個股新聞翻譯與總結
+def get_stock_ai_analysis(stock_name, price, bias, pe_ratio, eps, news_list):
+    if not GEMINI_API_KEY: return {"ai_summary": "🤖 找不到鑰匙", "news_items": []}
+    
+    headlines_text = ""
+    for i, n in enumerate(news_list[:3]):
+        title = n.get('title', '')
+        link = n.get('link', '')
+        if title: headlines_text += f"[{i+1}] 標題: {title} (連結: {link})\n"
+
+    if not headlines_text: return {"ai_summary": f"目前無重大新聞，技術面乖離率{bias}%，請觀察量能變化。", "news_items": []}
+
+    prompt = f"""你是股市觀察家阿土伯。標的【{stock_name}】，現價{price}，乖離率{bias}%，本益比{pe_ratio}。
+請根據以下最新新聞：
+{headlines_text}
+
+請嚴格輸出 JSON 格式，包含這兩個 key：
+{{"ai_summary": "綜合技術面與新聞，40字內的客觀趨勢點評",
+"news_items": [
+    {{"title": "將原文新聞標題翻譯成繁體中文", "link": "對應的原新聞連結", "sentiment": "偏多 或 偏空 或 中立"}}
+]}}
+"""
     url = "https://api.groq.com/openai/v1/chat/completions"
-    data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.5}
-    try: 
-        res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=15)
-        return res.json()['choices'][0]['message']['content'].strip()
-    except: return "🤖 網路逾時"
+    data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.3, "response_format": {"type": "json_object"}}
+    try:
+        res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=20)
+        return json.loads(res.json()['choices'][0]['message']['content'])
+    except Exception as e: return {"ai_summary": "🤖 AI解析新聞逾時", "news_items": []}
 
 def calculate_rsi(series, period=14):
     delta = series.diff()
@@ -98,14 +118,10 @@ def analyze():
     today_str = datetime.now().strftime("%Y-%m-%d")
 
     print("🌍 正在分析總經新聞與 PTT 情緒...")
-    
-    # 🛡️ 終極防塞車煞車系統 (每次呼叫 API 後強制冷卻 3 秒)
     tw_insight = get_macro_ai_prediction(get_google_news(is_taiwan=True), "台灣")
     time.sleep(3)
-    
     us_insight = get_macro_ai_prediction(get_google_news(is_taiwan=False), "美國及全球")
     time.sleep(3)
-    
     macro_info = {"tw_insight": tw_insight, "us_insight": us_insight}
     
     ptt_sentiment = get_ptt_sentiment(get_ptt_news())
@@ -142,14 +158,17 @@ def analyze():
             vol_ratio = round(df['Volume'].iloc[-1] / df['Volume'].rolling(5).mean().iloc[-1], 2)
             cat_name = [k for k, v in CATEGORIES.items() if symbol in v][0] if any(symbol in v for v in CATEGORIES.values()) else "其他"
             
-            ai_text = get_ai_prediction(name, price, bias, pe_ratio, eps, ticker.news)
-            time.sleep(3) # 🛡️ 每分析一檔股票煞車 3 秒，保護 API 絕對不逾時
+            # 🚀 取得翻譯新聞與 AI 點評
+            ai_data = get_stock_ai_analysis(name, price, bias, pe_ratio, eps, ticker.news)
+            ai_summary = ai_data.get("ai_summary", "讀取中")
+            news_items = ai_data.get("news_items", [])
+            time.sleep(3)
             
             chart_history = []
             for date, row in df.tail(30).iterrows():
                 chart_history.append({"date": date.strftime("%m-%d"), "price": round(row['Close'], 2), "volume": int(row['Volume']), "ma5": round(row['MA5'], 2) if pd.notna(row['MA5']) else None, "ma20": round(row['MA20'], 2) if pd.notna(row['MA20']) else None, "ma60": round(row['MA60'], 2) if pd.notna(row['MA60']) else None, "rsi": round(row['RSI'], 1) if pd.notna(row['RSI']) else None, "bb_upper": round(row['BB_UPPER'], 2) if pd.notna(row['BB_UPPER']) else None, "bb_lower": round(row['BB_LOWER'], 2) if pd.notna(row['BB_LOWER']) else None, "macd": round(row['MACD'], 2) if pd.notna(row['MACD']) else None, "macd_signal": round(row['MACD_SIGNAL'], 2) if pd.notna(row['MACD_SIGNAL']) else None, "macd_hist": round(row['MACD_HIST'], 2) if pd.notna(row['MACD_HIST']) else None})
             
-            stock_data.append({"symbol": symbol, "name": name, "category": cat_name, "price": price, "rsi": round(df['RSI'].iloc[-1], 1), "bias": bias, "risk_level": risk_level, "vol_ratio": vol_ratio, "pe_ratio": pe_ratio, "eps": eps, "ai_summary": ai_text, "lights": {"short": "🔴" if price > ma5 else "⚪", "mid": "🟡" if price > ma20 else "⚪", "long": "🟢" if price > ma60 else "⚪"}, "history": chart_history})
+            stock_data.append({"symbol": symbol, "name": name, "category": cat_name, "price": price, "rsi": round(df['RSI'].iloc[-1], 1), "bias": bias, "risk_level": risk_level, "vol_ratio": vol_ratio, "pe_ratio": pe_ratio, "eps": eps, "ai_summary": ai_summary, "news_items": news_items, "lights": {"short": "🔴" if price > ma5 else "⚪", "mid": "🟡" if price > ma20 else "⚪", "long": "🟢" if price > ma60 else "⚪"}, "history": chart_history})
             print(f"✅ 完成 {name} 分析")
         except Exception as e: print(f"❌ 錯誤 {symbol}: {e}")
 
