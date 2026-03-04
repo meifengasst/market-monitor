@@ -12,7 +12,7 @@
             "vol_ratio": 0.65,
             "pe_ratio": 37.2,
             "eps": 4.84,
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -132,6 +132,12 @@
                     "symbol": "NVDA",
                     "price": 180.05,
                     "volume": 169851790
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "NVDA",
+                    "price": 180.05,
+                    "volume": 169851790
                 }
             ]
         },
@@ -146,7 +152,7 @@
             "vol_ratio": 1.1,
             "pe_ratio": 370.2,
             "eps": 1.06,
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -266,6 +272,12 @@
                     "symbol": "TSLA",
                     "price": 392.43,
                     "volume": 62317429
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "TSLA",
+                    "price": 392.43,
+                    "volume": 62317429
                 }
             ]
         },
@@ -280,7 +292,7 @@
             "vol_ratio": 1.29,
             "pe_ratio": 27.4,
             "eps": "N/A",
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -400,6 +412,12 @@
                     "symbol": "SPY",
                     "price": 680.33,
                     "volume": 104078155
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "SPY",
+                    "price": 680.33,
+                    "volume": 104078155
                 }
             ]
         },
@@ -407,14 +425,14 @@
             "symbol": "0050.TW",
             "name": "元大台灣50",
             "category": "台股龍頭",
-            "price": 76.65,
-            "rsi": 65.8,
-            "bias": 1.64,
+            "price": 76.3,
+            "rsi": 64.5,
+            "bias": 1.2,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.46,
-            "pe_ratio": 26.3,
+            "vol_ratio": 1.65,
+            "pe_ratio": 26.2,
             "eps": "N/A",
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -534,6 +552,12 @@
                     "symbol": "0050.TW",
                     "price": 76.65,
                     "volume": 200413289
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "0050.TW",
+                    "price": 76.3,
+                    "volume": 240648881
                 }
             ]
         },
@@ -541,14 +565,14 @@
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "台股龍頭",
-            "price": 1905.0,
-            "rsi": 65.2,
-            "bias": 2.61,
+            "price": 1890.0,
+            "rsi": 63.2,
+            "bias": 1.85,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.66,
-            "pe_ratio": 28.8,
+            "vol_ratio": 0.74,
+            "pe_ratio": 28.6,
             "eps": 66.18,
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -668,6 +692,12 @@
                     "symbol": "2330.TW",
                     "price": 1905.0,
                     "volume": 29259056
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "2330.TW",
+                    "price": 1890.0,
+                    "volume": 33104527
                 }
             ]
         },
@@ -675,14 +705,14 @@
             "symbol": "2303.TW",
             "name": "聯電",
             "category": "晶圓代工",
-            "price": 61.6,
-            "rsi": 53.4,
-            "bias": -5.05,
+            "price": 61.0,
+            "rsi": 51.1,
+            "bias": -5.93,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.36,
-            "pe_ratio": 18.8,
-            "eps": 3.28,
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "vol_ratio": 0.41,
+            "pe_ratio": 18.4,
+            "eps": 3.31,
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -796,6 +826,12 @@
                     "symbol": "2303.TW",
                     "price": 61.6,
                     "volume": 40942420
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "2303.TW",
+                    "price": 61.0,
+                    "volume": 47363578
                 }
             ]
         },
@@ -803,14 +839,14 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 91.3,
-            "rsi": 41.7,
-            "bias": -3.22,
+            "price": 91.4,
+            "rsi": 42.0,
+            "bias": -3.12,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.61,
+            "vol_ratio": 0.79,
             "pe_ratio": 12.9,
             "eps": 7.08,
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -930,6 +966,12 @@
                     "symbol": "9802.TW",
                     "price": 91.3,
                     "volume": 378469
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "9802.TW",
+                    "price": 91.4,
+                    "volume": 515610
                 }
             ]
         },
@@ -937,14 +979,14 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 90.9,
-            "rsi": 41.0,
-            "bias": -2.9,
+            "price": 91.5,
+            "rsi": 43.1,
+            "bias": -2.29,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.06,
-            "pe_ratio": 17.4,
+            "vol_ratio": 0.08,
+            "pe_ratio": 17.5,
             "eps": 5.22,
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1064,6 +1106,12 @@
                     "symbol": "9910.TW",
                     "price": 90.9,
                     "volume": 614222
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "9910.TW",
+                    "price": 91.5,
+                    "volume": 853394
                 }
             ]
         },
@@ -1071,14 +1119,14 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 29.45,
-            "rsi": 34.7,
-            "bias": -4.34,
+            "price": 29.4,
+            "rsi": 34.2,
+            "bias": -4.49,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.73,
+            "vol_ratio": 0.8,
             "pe_ratio": 7.9,
             "eps": 3.71,
-            "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
+            "ai_summary": "🤖 API 錯誤：Invalid API Key",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1192,6 +1240,12 @@
                     "symbol": "9904.TW",
                     "price": 29.45,
                     "volume": 5970567
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "9904.TW",
+                    "price": 29.4,
+                    "volume": 6593077
                 }
             ]
         }
