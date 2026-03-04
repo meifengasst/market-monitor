@@ -13,19 +13,28 @@ GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 LINE_ACCESS_TOKEN = os.environ.get("LINE_ACCESS_TOKEN")
 LINE_TARGET_ID = os.environ.get("LINE_TARGET_ID")
 
+# 🛡️ 終極偽裝面具：讓爬蟲看起來像是正常人在用 Chrome 瀏覽器，破解 Google 防護網！
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+}
+
 CATEGORIES = {"美國科技": ["NVDA", "TSLA"], "美股大盤": ["SPY"], "台股龍頭": ["0050.TW", "2330.TW"], "晶圓代工": ["2330.TW", "2303.TW"], "運動鞋": ["9802.TW", "9910.TW", "9904.TW"]}
 STOCKS = {"NVDA": "Nvidia (AI之王)", "TSLA": "Tesla (電動車)", "SPY": "S&P 500 ETF", "0050.TW": "元大台灣50", "2330.TW": "台積電", "2303.TW": "聯電", "9802.TW": "鈺齊-KY", "9910.TW": "豐泰", "9904.TW": "寶成"}
 
 def get_google_news(is_taiwan=True):
     url = "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=zh-TW&gl=TW&ceid=TW:zh-Hant" if is_taiwan else "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en"
     try:
-        res = requests.get(url, timeout=10)
+        res = requests.get(url, headers=HEADERS, timeout=10)
         root = ET.fromstring(res.text)
         return [item.find('title').text for item in root.findall('.//item')[:5]]
     except: return ["暫無新聞"]
 
-# 🚀 統一使用 Google 跨國新聞雷達 (拋棄不穩定的 Yahoo)
+# 🚀 升級：帶上偽裝面具的 Google 跨國新聞雷達
 def get_specific_stock_news(keyword, is_taiwan=True):
+    # 🎯 秘訣：美股搜尋時自動補上 "stock" 關鍵字，確保精準命中財經外電！
+    if not is_taiwan and "ETF" not in keyword:
+        keyword = f"{keyword} stock"
+        
     encoded_kw = urllib.parse.quote(keyword)
     if is_taiwan:
         url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
@@ -33,17 +42,19 @@ def get_specific_stock_news(keyword, is_taiwan=True):
         url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=en-US&gl=US&ceid=US:en"
     
     try:
-        res = requests.get(url, timeout=10)
+        res = requests.get(url, headers=HEADERS, timeout=10)
         root = ET.fromstring(res.text)
         news = []
         for item in root.findall('.//item')[:3]: # 抓前3篇
             news.append({'title': item.find('title').text, 'link': item.find('link').text})
         return news
-    except: return []
+    except Exception as e:
+        print(f"抓取新聞失敗: {e}")
+        return []
 
 def get_ptt_news():
     try:
-        res = requests.get("https://www.ptt.cc/atom/stock.xml", timeout=10)
+        res = requests.get("https://www.ptt.cc/atom/stock.xml", headers=HEADERS, timeout=10)
         root = ET.fromstring(res.text)
         ns = {'atom': 'http://www.w3.org/2005/Atom'}
         entries = root.findall('atom:entry', ns)
@@ -72,17 +83,3 @@ def get_ptt_sentiment(ptt_list):
         if res.status_code == 200:
             text = res.json()['choices'][0]['message']['content'].strip()
             if text.startswith('
-http://googleusercontent.com/immersive_entry_chip/0
-http://googleusercontent.com/immersive_entry_chip/1
-http://googleusercontent.com/immersive_entry_chip/2
-http://googleusercontent.com/immersive_entry_chip/3
-http://googleusercontent.com/immersive_entry_chip/4
-http://googleusercontent.com/immersive_entry_chip/5
-
-### ☕ 這次請泡杯咖啡再回來！
-
-覆蓋存檔後，去 **Actions 點擊 Run workflow**。
-**🚨 注意：** 因為我們把安全冷卻時間拉長到了 5 秒，加上要處理 9 檔股票的翻譯與 2 檔大盤、還有 PTT 爬文，這次機器人大概會跑 **1 分鐘左右** 才會亮綠燈。
-
-耐心等它跑完 ✅，然後回到網頁按 `F5` 重新整理。
-你去點開 NVDA 或 TSLA 的「📰 深度外電」，絕對會有滿滿的繁體中文翻譯新聞跳出來迎接你！衝啊老闆，我們一定能戰勝它！
