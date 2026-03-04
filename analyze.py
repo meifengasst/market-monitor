@@ -8,15 +8,14 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 
 # 1. 鑰匙與配置
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') # 原本的 Groq 鑰匙
-GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY') # 新增的真 Gemini 鑰匙
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY') 
 LINE_ACCESS_TOKEN = os.environ.get("LINE_ACCESS_TOKEN")
 LINE_TARGET_ID = os.environ.get("LINE_TARGET_ID")
 
 CATEGORIES = {"美國科技": ["NVDA", "TSLA"], "美股大盤": ["SPY"], "台股龍頭": ["0050.TW", "2330.TW"], "晶圓代工": ["2330.TW", "2303.TW"], "運動鞋": ["9802.TW", "9910.TW", "9904.TW"]}
 STOCKS = {"NVDA": "Nvidia (AI之王)", "TSLA": "Tesla (電動車)", "SPY": "S&P 500 ETF", "0050.TW": "元大台灣50", "2330.TW": "台積電", "2303.TW": "聯電", "9802.TW": "鈺齊-KY", "9910.TW": "豐泰", "9904.TW": "寶成"}
 
-# 2. 📡 攔截新聞與 PTT
 def get_google_news(is_taiwan=True):
     url = "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=zh-TW&gl=TW&ceid=TW:zh-Hant" if is_taiwan else "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en"
     try:
@@ -31,29 +30,43 @@ def get_ptt_news():
         root = ET.fromstring(res.text)
         ns = {'atom': 'http://www.w3.org/2005/Atom'}
         entries = root.findall('atom:entry', ns)
-        return [entry.find('atom:title', ns).text for entry in entries[:50]] # 抓取最新50篇
+        return [entry.find('atom:title', ns).text for entry in entries[:50]]
     except: return []
 
-# 3. 🤖 AI 大腦區
+# 🚀 強化版的情緒分析器
 def get_ptt_sentiment(titles):
-    if not GOOGLE_API_KEY or not titles: 
-        return {"score": 50, "sentiment": "未連線", "summary": "請先至 GitHub 設定 GOOGLE_API_KEY"}
+    if not GOOGLE_API_KEY:
+        return {"score": 50, "sentiment": "未連線", "summary": "找不到 GOOGLE_API_KEY 鑰匙"}
+    if not titles:
+        return {"score": 50, "sentiment": "抓取失敗", "summary": "無法讀取 PTT 股版文章"}
     
     prompt = """你是頂級股市心理學家。請分析以下PTT股版最新標題，判斷台灣散戶情緒。
-請嚴格輸出 JSON 格式，不要任何其他文字：
-{"score": 貪婪指數(0-100的整數，0=極度恐慌，100=極度貪婪，50=中立), "sentiment": "極度恐慌|恐慌|中立|貪婪|極度貪婪", "summary": "25字以內的鄉民情緒精華點評"}
+請嚴格輸出 JSON 格式，必須包含這三個 key：
+"score": 貪婪指數(0-100的整數，0=極度恐慌，100=極度貪婪，50=中立),
+"sentiment": "極度恐慌" 或 "恐慌" 或 "中立" 或 "貪婪" 或 "極度貪婪",
+"summary": "25字以內的鄉民情緒精華點評"
+
 標題：\n""" + "\n".join(titles)
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GOOGLE_API_KEY}"
-    data = {"contents": [{"parts": [{"text": prompt}]}]}
+    
+    # 🎯 這裡加上強迫症模式，確保 AI 只回傳乾淨的 JSON
+    data = {
+        "contents": [{"parts": [{"text": prompt}]}],
+        "generationConfig": {"response_mime_type": "application/json"}
+    }
+    
     try:
-        res = requests.post(url, headers={'Content-Type': 'application/json'}, json=data, timeout=15)
+        res = requests.post(url, headers={'Content-Type': 'application/json'}, json=data, timeout=20)
+        if res.status_code != 200:
+            err = res.json().get('error', {}).get('message', '未知錯誤')
+            return {"score": 50, "sentiment": "API錯誤", "summary": f"狀態碼 {res.status_code}: {err[:20]}"}
+        
         text = res.json()['candidates'][0]['content']['parts'][0]['text']
-        text = text.replace('```json', '').replace('```', '').strip()
         return json.loads(text)
     except Exception as e:
-        print(f"PTT AI 解析失敗: {e}")
-        return {"score": 50, "sentiment": "分析失敗", "summary": "AI 判讀逾時或錯誤"}
+        # 如果還是錯，把具體的錯誤原因印出來給網頁看
+        return {"score": 50, "sentiment": "解析錯誤", "summary": f"發生例外錯誤: {str(e)[:25]}"}
 
 def get_macro_ai_prediction(news_list, region):
     if not GEMINI_API_KEY: return "🤖 找不到鑰匙"
