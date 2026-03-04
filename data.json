@@ -1,13 +1,42 @@
 {
     "last_update": "2026-03-04",
     "macro": {
-        "tw_insight": "盤前總經與趨勢速報：台股承壓，外資退出，記憶體股暴殺，美伊戰局動盪，台幣重貶。",
-        "us_insight": "盤前總經與趨勢速報：美伊戰爭升級，亞股暴跌，油價飆升，金價上漲，歐股企穩。"
+        "tw_insight": "盤前總經與趨勢速報：亞股大逃殺，台股暴跌1494點，外資撤資，台幣重貶。",
+        "us_insight": "盤前總經與趨勢速報：美股期貨走高，亞洲股市暴跌，油價上漲，黃金價格攀升。"
     },
     "ptt": {
-        "score": 60,
-        "sentiment": "中立",
-        "summary": "觀望"
+        "score": 40,
+        "sentiment": "恐慌",
+        "summary": "恐慌情緒蔓延",
+        "top_stocks": [
+            "聯邦銀",
+            "群電",
+            "台積電"
+        ],
+        "bull_view": "基本面穩健",
+        "bear_view": "地緣政局不穩",
+        "raw_links": [
+            {
+                "title": "[情報] 2838 聯邦銀 2月自結 0.17 累計 0.27",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772624153.A.A4E.html"
+            },
+            {
+                "title": "[情報] 6412 群電 EPS：5.2 現金股利3.7元",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772623420.A.0C6.html"
+            },
+            {
+                "title": "[新聞] 戰火波及！台股重摔1494點 國安基金操盤",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772622489.A.B86.html"
+            },
+            {
+                "title": "[情報] 5478 智冠 114年EPS:7.93 股利:7.5",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772622453.A.DE4.html"
+            },
+            {
+                "title": "[創作] 將退場",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772621680.A.C4C.html"
+            }
+        ]
     },
     "data": [
         {
@@ -21,7 +50,8 @@
             "vol_ratio": 0.68,
             "pe_ratio": 36.7,
             "eps": 4.9,
-            "ai_summary": "Nvidia股價小幅回調，短線觀察趨勢。",
+            "ai_summary": "目前無重大新聞，技術面乖離率-2.82%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -461,7 +491,8 @@
             "vol_ratio": 1.1,
             "pe_ratio": 356.8,
             "eps": 1.1,
-            "ai_summary": "Tesla短期偏弱，長期仍看好。",
+            "ai_summary": "目前無重大新聞，技術面乖離率-4.52%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -901,7 +932,8 @@
             "vol_ratio": 1.3,
             "pe_ratio": 27.4,
             "eps": "N/A",
-            "ai_summary": "S&P 500 ETF 小幅下跌，技術面偏弱，基本面本益比偏高。",
+            "ai_summary": "目前無重大新聞，技術面乖離率-0.92%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1341,7 +1373,8 @@
             "vol_ratio": 1.97,
             "pe_ratio": 26.0,
             "eps": "N/A",
-            "ai_summary": "基本面穩，技術面平衡，短線觀察。",
+            "ai_summary": "目前無重大新聞，技術面乖離率0.3%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -1781,7 +1814,8 @@
             "vol_ratio": 1.5,
             "pe_ratio": 28.2,
             "eps": 66.18,
-            "ai_summary": "台積電短線偏強，中長線仍看漲。",
+            "ai_summary": "目前無重大新聞，技術面乖離率0.57%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -2221,7 +2255,8 @@
             "vol_ratio": 0.88,
             "pe_ratio": 18.1,
             "eps": 3.31,
-            "ai_summary": "聯電現價60.0，乖離率-7.4%，本益比18.1，技術面偏弱，短線承壓。",
+            "ai_summary": "目前無重大新聞，技術面乖離率-7.4%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2661,7 +2696,8 @@
             "vol_ratio": 1.62,
             "pe_ratio": 15.5,
             "eps": 5.87,
-            "ai_summary": "鈺齊-KY現價90.7，乖離率偏低，本益比15.5，短線偏空。",
+            "ai_summary": "目前無重大新聞，技術面乖離率-3.83%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3101,7 +3137,8 @@
             "vol_ratio": 0.28,
             "pe_ratio": 17.6,
             "eps": 5.25,
-            "ai_summary": "豐泰現價92.3，乖離率偏低，基本面尚佳，短期趨勢觀察。",
+            "ai_summary": "目前無重大新聞，技術面乖離率-1.48%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3541,7 +3578,8 @@
             "vol_ratio": 1.47,
             "pe_ratio": 7.7,
             "eps": 3.78,
-            "ai_summary": "寶成股價低於均線，乖離率為負，技術面偏空，基本面本益比偏低。",
+            "ai_summary": "目前無重大新聞，技術面乖離率-5.57%，請觀察量能變化。",
+            "news_items": [],
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
