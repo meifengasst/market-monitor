@@ -15,7 +15,6 @@
             <h1 class="text-4xl font-black text-blue-400 tracking-widest">阿土伯戰情室</h1>
             <p class="text-slate-500 mt-2 font-bold tracking-widest">PRIVATE VAULT</p>
         </div>
-        
         <div class="bg-slate-800/80 p-8 rounded-[2rem] border border-slate-700 shadow-2xl flex flex-col items-center backdrop-blur-sm w-11/12 max-w-sm transform transition-transform hover:scale-105">
             <p class="text-slate-400 mb-4 font-bold text-sm">請輸入通關密碼</p>
             <input type="password" id="passInput" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-5 py-4 text-center text-2xl tracking-[0.5em] focus:outline-none focus:border-blue-500 mb-6 shadow-inner text-white placeholder-slate-700" placeholder="••••">
@@ -26,16 +25,29 @@
 
     <div id="dashboardContent" class="hidden p-4 md:p-6 w-full max-w-[1800px] mx-auto flex-col xl:flex-row gap-6 xl:gap-8 opacity-0 transition-opacity duration-700">
         
-        <aside class="w-full xl:w-[320px] xl:sticky xl:top-6 h-fit bg-slate-800/60 backdrop-blur-md rounded-[2rem] border border-slate-700 shadow-2xl p-6 flex-shrink-0">
+        <aside class="w-full xl:w-[320px] xl:sticky xl:top-6 h-[calc(100vh-3rem)] overflow-y-auto bg-slate-800/60 backdrop-blur-md rounded-[2rem] border border-slate-700 shadow-2xl p-6 flex-shrink-0 custom-scrollbar">
             <h2 class="text-2xl font-black text-blue-400 mb-6 flex items-center gap-2 border-b border-slate-700 pb-4">
                 <span>📚</span> 股票小教室
             </h2>
-            <div class="flex flex-col gap-5 text-sm">
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-yellow-400 font-black mb-2 text-base">📈 均線 (MA)</h3><p class="text-slate-300 leading-relaxed text-sm">大家過去買進的「平均成本」。<br><span class="text-slate-400 text-xs mt-1 block">· <b>5MA (周)</b>：短線防守與攻擊。<br>· <b>20MA (月)</b>：中期趨勢，跌破需警戒。<br>· <b>60MA (季)</b>：長線生命線。</span></p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-pink-400 font-black mb-2 text-base">🔥 熱度 (RSI)</h3><p class="text-slate-300 leading-relaxed text-sm">衡量近期「買賣盤力道」 (0~100)。<br><span class="text-red-400 font-bold text-xs">> 70 過熱</span><span class="text-slate-400 text-xs">：買盤瘋狂，小心拉回。</span><br><span class="text-green-400 font-bold text-xs">< 30 超賣</span><span class="text-slate-400 text-xs">：跌到谷底，醞釀反彈。</span></p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-purple-400 font-black mb-2 text-base">📏 乖離率 (Bias)</h3><p class="text-slate-300 leading-relaxed text-sm">股價「偏離均線」的程度。<br><span class="text-slate-400 text-xs">正乖離過大易跌；負乖離過大易彈。超過 ±10% 是極端值。</span></p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-blue-400 font-black mb-2 text-base">💰 基本面 (PE / EPS)</h3><p class="text-slate-300 leading-relaxed text-sm"><span class="text-slate-200 font-bold">本益比 (P/E)：</span>買進後幾年回本，越小越便宜。<br><span class="text-slate-200 font-bold">每股盈餘 (EPS)：</span>公司每一股賺了多少錢，越大越會賺！</p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-green-400 font-black mb-2 text-base">🌊 量能比例</h3><p class="text-slate-300 leading-relaxed text-sm">今日成交量對比過去5天平均。<br><span class="text-slate-400 text-xs">大於 <b>1.5倍</b> 代表有「大戶主力」進場，容易出大行情！</span></p></div>
+            <div class="flex flex-col gap-4 text-sm pb-4">
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-yellow-400 font-black mb-2 text-base">📈 均線 (MA)</h3><p class="text-slate-300 leading-relaxed text-sm">大家的平均成本。<br><span class="text-slate-400 text-xs mt-1 block">· <b>5MA (周)</b>：短線防守與攻擊。<br>· <b>20MA (月)</b>：中期趨勢生命線。<br>· <b>60MA (季)</b>：長線大方向。</span></p></div>
+                
+                <div class="bg-black/20 p-4 rounded-2xl border border-indigo-500/20 shadow-[0_0_10px_rgba(99,102,241,0.1)]">
+                    <h3 class="text-indigo-400 font-black mb-2 text-base">🛡️ 布林通道 (BB)</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm">股價的高速公路。<br>
+                    <span class="text-slate-400 text-xs">碰上軌易拉回，碰下軌易反彈。通道若「縮口」代表即將出現大行情！</span></p>
+                </div>
+
+                <div class="bg-black/20 p-4 rounded-2xl border border-cyan-500/20 shadow-[0_0_10px_rgba(6,182,212,0.1)]">
+                    <h3 class="text-cyan-400 font-black mb-2 text-base">⚔️ 動能 (MACD)</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm">抓波段轉折的神器。<br>
+                    <span class="text-cyan-300 font-bold text-xs">黃金交叉</span><span class="text-slate-400 text-xs">：藍線向上穿過黃線(買點)。</span><br>
+                    <span class="text-red-400 font-bold text-xs">紅綠柱狀</span><span class="text-slate-400 text-xs">：綠翻紅代表多頭開始發力！</span></p>
+                </div>
+
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-pink-400 font-black mb-2 text-base">🔥 熱度 (RSI)</h3><p class="text-slate-300 leading-relaxed text-sm">衡量買賣盤力道 (0~100)。<br><span class="text-red-400 font-bold text-xs">> 70 過熱</span><span class="text-slate-400 text-xs">：小心拉回。</span><br><span class="text-green-400 font-bold text-xs">< 30 超賣</span><span class="text-slate-400 text-xs">：醞釀反彈。</span></p></div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-purple-400 font-black mb-2 text-base">📏 乖離率 (Bias)</h3><p class="text-slate-300 leading-relaxed text-sm">股價偏離月線的程度。超過 ±10% 是極端值。</p></div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-blue-400 font-black mb-2 text-base">💰 基本面 (PE / EPS)</h3><p class="text-slate-300 leading-relaxed text-sm"><span class="text-slate-200 font-bold">本益比 (P/E)：</span>越小越便宜。<br><span class="text-slate-200 font-bold">每股盈餘 (EPS)：</span>越大越賺錢！</p></div>
             </div>
         </aside>
 
@@ -68,63 +80,66 @@
     </div>
 
     <div id="dataModal" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-800 rounded-3xl w-full max-w-5xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="modalContent">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-6xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[95vh]" id="modalContent">
             <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
-                <div><h3 class="text-3xl font-black text-white" id="modalTitle">股票名稱</h3><p class="text-slate-400 text-base mt-1">法人級均線軌跡與 RSI 動能分析 (近30日)</p></div>
+                <div><h3 class="text-3xl font-black text-white" id="modalTitle">股票名稱</h3><p class="text-slate-400 text-base mt-1">法人級技術分析：布林通道、MACD 與 RSI</p></div>
                 <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
             </div>
-            <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow">
-                <div class="h-[400px] mb-6"><canvas id="historyChart"></canvas></div>
-                <div class="h-[180px]"><canvas id="rsiChart"></canvas></div>
+            <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar">
+                <div class="h-[300px] mb-4 relative">
+                    <span class="absolute top-0 left-0 text-slate-500 text-xs font-bold z-10">價格與布林通道</span>
+                    <canvas id="historyChart"></canvas>
+                </div>
+                <div class="h-[120px] mb-4 relative">
+                    <span class="absolute top-0 left-0 text-slate-500 text-xs font-bold z-10">MACD 動能指標</span>
+                    <canvas id="macdChart"></canvas>
+                </div>
+                <div class="h-[100px] relative">
+                    <span class="absolute top-0 left-0 text-slate-500 text-xs font-bold z-10">RSI 熱度指標</span>
+                    <canvas id="rsiChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
+
+    <style>
+        /* 幫卷軸做個美化，才不會黑黑醜醜的 */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+    </style>
 
     <script>
         let rawData = [];
         let priceChart = null;
         let rsiChart = null;
+        let macdChart = null; // 宣告 MACD 圖表變數
 
-        // 🎯 這裡設定你的專屬密碼！
         const SECRET_PASSWORD = "16888"; 
 
-        // 支援按 Enter 鍵登入
         document.getElementById("passInput").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                checkPassword();
-            }
+            if (event.key === "Enter") { event.preventDefault(); checkPassword(); }
         });
 
         function checkPassword() {
             const input = document.getElementById('passInput').value;
             if (input === SECRET_PASSWORD) {
-                // 密碼正確：隱藏登入畫面，顯示戰情室
                 document.getElementById('loginScreen').classList.add('opacity-0');
                 setTimeout(() => {
                     document.getElementById('loginScreen').classList.add('hidden');
                     document.getElementById('dashboardContent').classList.remove('hidden');
-                    document.getElementById('dashboardContent').classList.add('flex'); // 恢復 flex 排版
-                    
-                    // 延遲一點點讓畫面淡入
-                    setTimeout(() => {
-                        document.getElementById('dashboardContent').classList.remove('opacity-0');
-                    }, 50);
-
-                    // 🔒 密碼正確後，才去跟伺服器拿數據！
+                    document.getElementById('dashboardContent').classList.add('flex');
+                    setTimeout(() => { document.getElementById('dashboardContent').classList.remove('opacity-0'); }, 50);
                     loadData();
                 }, 500);
             } else {
-                // 密碼錯誤
                 document.getElementById('errorMsg').classList.remove('opacity-0');
                 document.getElementById('passInput').value = "";
-                setTimeout(() => {
-                    document.getElementById('errorMsg').classList.add('opacity-0');
-                }, 2000);
+                setTimeout(() => { document.getElementById('errorMsg').classList.add('opacity-0'); }, 2000);
             }
         }
 
-        // 把原本載入數據的功能包裝起來
         function loadData() {
             fetch('data.json').then(res => res.json()).then(json => {
                 rawData = json.data;
@@ -141,17 +156,70 @@
             document.getElementById('dataModal').classList.remove('hidden');
             setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
+            
             let historyData = stock.history || [];
             const labels = historyData.map(h => h.date);
             const prices = historyData.map(h => h.price);
             const volumes = historyData.map(h => h.volume);
-            const ma5 = historyData.map(h => h.ma5); const ma20 = historyData.map(h => h.ma20); const ma60 = historyData.map(h => h.ma60); const rsis = historyData.map(h => h.rsi);
+            const ma5 = historyData.map(h => h.ma5); 
+            const ma20 = historyData.map(h => h.ma20); 
+            const ma60 = historyData.map(h => h.ma60); 
+            const rsis = historyData.map(h => h.rsi);
+            
+            // 取出新增的指標資料
+            const bbUpper = historyData.map(h => h.bb_upper);
+            const bbLower = historyData.map(h => h.bb_lower);
+            const macd = historyData.map(h => h.macd);
+            const macdSignal = historyData.map(h => h.macd_signal);
+            const macdHist = historyData.map(h => h.macd_hist);
+
+            // --- 1. 價格與布林通道圖 ---
             const ctxPrice = document.getElementById('historyChart').getContext('2d');
             if(priceChart) priceChart.destroy();
-            priceChart = new Chart(ctxPrice, { type: 'line', data: { labels: labels, datasets: [ { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, yAxisID: 'y' }, { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' }, { label: '20MA', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' }, { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' }, { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.3)', yAxisID: 'y1' } ] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' } }, y1: { position: 'right', grid: { drawOnChartArea: false } } }, plugins: { legend: { labels: { color: '#cbd5e1', font: {size: 14} } } } } });
+            priceChart = new Chart(ctxPrice, { 
+                type: 'line', 
+                data: { 
+                    labels: labels, 
+                    datasets: [ 
+                        { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, z: 10, yAxisID: 'y' }, 
+                        { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' }, 
+                        { label: '20MA (布林中軌)', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' }, 
+                        { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' }, 
+                        // 布林通道上軌
+                        { label: '布林上軌', data: bbUpper, borderColor: 'rgba(99, 102, 241, 0.4)', borderWidth: 1, borderDash: [3, 3], pointRadius: 0, fill: false, yAxisID: 'y' },
+                        // 布林通道下軌 (並填滿淡藍色至上軌)
+                        { label: '布林下軌', data: bbLower, borderColor: 'rgba(99, 102, 241, 0.4)', borderWidth: 1, borderDash: [3, 3], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(99, 102, 241, 0.05)', yAxisID: 'y' },
+                        { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.2)', yAxisID: 'y1' } 
+                    ] 
+                }, 
+                options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' } }, y1: { position: 'right', grid: { drawOnChartArea: false } }, x: { display: false } }, plugins: { legend: { labels: { color: '#cbd5e1', font: {size: 11} } } } } 
+            });
+
+            // --- 2. MACD 動能圖 ---
+            const ctxMacd = document.getElementById('macdChart').getContext('2d');
+            if(macdChart) macdChart.destroy();
+            macdChart = new Chart(ctxMacd, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { type: 'line', label: 'MACD 快線', data: macd, borderColor: '#0ea5e9', borderWidth: 1.5, pointRadius: 0, tension: 0.3 },
+                        { type: 'line', label: 'Signal 慢線', data: macdSignal, borderColor: '#eab308', borderWidth: 1.5, pointRadius: 0, tension: 0.3 },
+                        { type: 'bar', label: 'MACD 柱狀圖', data: macdHist, 
+                          backgroundColor: macdHist.map(v => v >= 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)') // 台股習慣紅漲綠跌
+                        }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: false } }, plugins: { legend: { display: false } } }
+            });
+
+            // --- 3. RSI 熱度圖 ---
             const ctxRsi = document.getElementById('rsiChart').getContext('2d');
             if(rsiChart) rsiChart.destroy();
-            rsiChart = new Chart(ctxRsi, { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: false } }, plugins: { legend: { display: false } } } });
+            rsiChart = new Chart(ctxRsi, { 
+                type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, 
+                options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: true, ticks: {color: '#64748b'} } }, plugins: { legend: { display: false } } } 
+            });
         }
 
         function closeModal() {
