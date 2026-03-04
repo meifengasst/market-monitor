@@ -7,7 +7,7 @@ import time
 import xml.etree.ElementTree as ET
 from datetime import datetime
 
-# 1. 統一鑰匙庫 (我們全部交給超強的 Groq 來處理)
+# 1. 統一使用最穩定的 Groq 鑰匙 (環境變數名稱保持 GEMINI_API_KEY 不變)
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') 
 LINE_ACCESS_TOKEN = os.environ.get("LINE_ACCESS_TOKEN")
 LINE_TARGET_ID = os.environ.get("LINE_TARGET_ID")
@@ -32,7 +32,7 @@ def get_ptt_news():
         return [entry.find('atom:title', ns).text for entry in entries[:50]]
     except: return []
 
-# 🚀 PTT 雷達交給 Groq 處理，並開啟官方 JSON 模式
+# 🚀 徹底改用 Groq 引擎來分析 PTT 情緒，絕對不再 404！
 def get_ptt_sentiment(titles):
     if not GEMINI_API_KEY: return {"score": 50, "sentiment": "未連線", "summary": "找不到鑰匙"}
     if not titles: return {"score": 50, "sentiment": "抓取失敗", "summary": "無法讀取 PTT 股版"}
@@ -99,17 +99,17 @@ def analyze():
 
     print("🌍 正在分析總經新聞與 PTT 情緒...")
     
-    # 🎯 加入「冷卻煞車系統」，防止同時發送太多請求把 API 塞爆
+    # 🛡️ 終極防塞車煞車系統 (每次呼叫 API 後強制冷卻 3 秒)
     tw_insight = get_macro_ai_prediction(get_google_news(is_taiwan=True), "台灣")
-    time.sleep(2) # 煞車 2 秒
+    time.sleep(3)
     
     us_insight = get_macro_ai_prediction(get_google_news(is_taiwan=False), "美國及全球")
-    time.sleep(2) # 煞車 2 秒
+    time.sleep(3)
     
     macro_info = {"tw_insight": tw_insight, "us_insight": us_insight}
     
     ptt_sentiment = get_ptt_sentiment(get_ptt_news())
-    time.sleep(2) # 煞車 2 秒
+    time.sleep(3)
 
     for symbol, name in STOCKS.items():
         try:
@@ -143,7 +143,7 @@ def analyze():
             cat_name = [k for k, v in CATEGORIES.items() if symbol in v][0] if any(symbol in v for v in CATEGORIES.values()) else "其他"
             
             ai_text = get_ai_prediction(name, price, bias, pe_ratio, eps, ticker.news)
-            time.sleep(1.5) # 每分析一檔股票煞車 1.5 秒，保護 API
+            time.sleep(3) # 🛡️ 每分析一檔股票煞車 3 秒，保護 API 絕對不逾時
             
             chart_history = []
             for date, row in df.tail(30).iterrows():
