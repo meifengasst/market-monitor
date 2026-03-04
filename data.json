@@ -1,27 +1,31 @@
 {
     "last_update": "2026-03-04",
     "macro": {
-        "tw_insight": "盤前總經與趨勢速報：亞股崩跌，台股暴跌1494點，外資退出，台幣重貶，石油危機隱憂，注意風險。",
-        "us_insight": "盤前總經與趨勢速報：美股期指轉升，伊朗戰爭擾亂亞洲市場，新興市場走勢不穩。"
+        "tw_insight": "盤前總經與趨勢速報：亞股大逃殺，台股暴跌1494點，外資退出，台幣重貶，注意石油股和AI相關投資機會。",
+        "us_insight": "盤前總經與趨勢速報：美股期貨走揚，亞洲股市暴跌，油價上漲，歐洲股市收漲。"
     },
     "ptt": {
         "score": 60,
         "sentiment": "中立",
-        "summary": "觀望",
+        "summary": "觀望態度",
         "top_stocks": [
-            "8454 富邦媒",
-            "6761穩得",
-            "2838 聯邦銀"
+            "台積電",
+            "台達電",
+            "富邦媒"
         ],
-        "bull_view": "公司EPS表現佳",
-        "bear_view": "地緣政治風險",
+        "bull_view": "國際局勢穩定",
+        "bear_view": "經濟不確定性",
         "raw_links": [
+            {
+                "title": "Re: [新聞] 放話不排除派地面部隊！川普：我還沒開始",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772627762.A.C76.html"
+            },
             {
                 "title": "[情報] 8454 富邦媒 114年EPS:11.29 股利:10",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772627368.A.01A.html"
             },
             {
-                "title": "創作-財金ai快報",
+                "title": "[創作] 財金ai快報",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772627167.A.35B.html"
             },
             {
@@ -31,10 +35,6 @@
             {
                 "title": "Re: [新聞] 放話不排除派地面部隊！川普：我還沒開始",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772625942.A.ED8.html"
-            },
-            {
-                "title": "[情報] 6761穩得 114年EPS：7.34元 股利：6元",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772625864.A.244.html"
             }
         ]
     },
@@ -1373,7 +1373,7 @@
             "vol_ratio": 1.97,
             "pe_ratio": 26.0,
             "eps": "N/A",
-            "ai_summary": "0050ETF短期趨勢不明",
+            "ai_summary": "0050ETF短期趨勢不明朗",
             "news_items": [
                 {
                     "title": "0050再遭提款108億！高股息ETF外資也不愛了",
@@ -2712,7 +2712,7 @@
             "vol_ratio": 1.62,
             "pe_ratio": 15.5,
             "eps": 5.87,
-            "ai_summary": "鈺齊-KY現價90.7，乖離率-3.83%，本益比15.5，營收季增19.79%",
+            "ai_summary": "鈺齊-KY現價90.7，乖離率-3.83%，本益比15.5，近期財報表現佳",
             "news_items": [
                 {
                     "title": "鈺齊-KY個股概覽",
@@ -2720,12 +2720,12 @@
                     "sentiment": "中立"
                 },
                 {
-                    "title": "鈺齊-KY Q4營收45.7529億元，季增19.79%",
+                    "title": "鈺齊-KY Q4營收創近2季新高",
                     "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNZzhHV3p6OWxnOUN2ci1DUGlXTjZUZ3p1Y3F0SzFTaUhfdXVULVE1SHhnN3QyemhOeGNqNjRiSjF1VlBIbGpnNy1icEI4WVdNdVctbVJxOG5Jczh3cHNES2tIQjEzNlNwN1NLaGxVSXhtc0tUc3c0RlFpMXFiaHhzSjJ1Wmw3MTdrV1E?oc=5",
                     "sentiment": "偏多"
                 },
                 {
-                    "title": "鈺齊-KY去年EPS達6.05元，全年合計配發每股5.1元股息",
+                    "title": "鈺齊-KY去年EPS達6.05元，全年配發每股5.1元股息",
                     "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFA4WE5LSHB6TGRablBwMkpEalQ4ZnZoTjVNbFE0dDRyMk5UbTVuTlJMSGt3Um44aGR5TF9qMnc1QUxfOXEzdENIbXUxMVBkRzA?oc=5",
                     "sentiment": "偏多"
                 }
@@ -3626,22 +3626,22 @@
             "vol_ratio": 1.47,
             "pe_ratio": 7.7,
             "eps": 3.78,
-            "ai_summary": "寶成現價29.05，乖離率-5.57%，本益比7.7，技術面與新聞顯示有成長趨勢",
+            "ai_summary": "寶成股價下跌，世足賽商機爆發帶來成長機會",
             "news_items": [
                 {
                     "title": "寶成114年度財務報告董事會召開日期為115年3月12日",
-                    "link": "https://news.google.com/rss/articles/CBMi5AJBVV95cUxOYThBS3F2SzdYVnA5Y1AyNHZ1bjZZeVNQNXJCWnRGeC10dE9zemkxYWZNN0VacExaSVhLdVpLVWwzcnFfeWREVzRqWE9GRTJnVEdjblJHc3NOb2FObTFvcklhYkpuVG1YZWlSR0xySmRkSEp4SkhDam1oRi13dEdoUWozZGtjN2dicUMzUWFXRTZhOHJ5Y0tGWEpPX1M1dkFieVZZRUlPeWQ3cDVJeGl5LWY2ZHJWX0tnUHVCTkVKZ09fVDN5MURhRkdmRVZCaUxlWVdfbGstQl95d3F3S3FISDlRT2tfTlUtblBpdEJSMjZObHpfaVlWTTktVlJ4UHNOdVdycVRjNGJTTzhRdzBLUmswSzlpdDhKMUEwMC1MNS05bVBaXzlhdm85UHlNZTZkNThUQjNjTHN6Smt2VkZ4WXotQ2hsbGo3M3NyQ0xLeTBhT0JMUTc0THcxR196bS1jMVpIXw?oc=5",
+                    "link": "https://news.google.com/rss/articles/CBMi5AJBVV95cUxOYThBS3F2SzdYVnA5Y1AyNHZ1bjZZeVNQNXJCWnRGeC10dE9zemkxYWZNN0VacExaSVhLdVpLVWwzcnFfeWREVzRqWE9GRTJnVEdjblJHc3NOb2FObTFvcklhYkpuVG1YZWlSR0xySmRkSEp4SkhDam1oRi13dEdoUWozZGtjN2dicUMzUWFXRTZhOHJ5Y0tGWEpPX1M1dkFieVZZRUlPeWQ3cDVJeGl5LWY2ZHJWX0tnUHVCTkVKZ09fVDN5MURhRkdmRVZCaUxlWVdfbGstQl95d3F3S3FISDlRT2tfTlUtblBpdEJSMjZObHpfaVlWTTktVlJ4UHNOdVdycVRjNGJTTzhRdzBLUmswSzlpdDhKMUEwMC1MNS05bVBaXzlhdm85UHlNZTZkNThUQjNjTHN6Smt2VkZ4WXotQ2hsbGo3M3NyQ0xLeTBhT0JMUTc0THcxR196bS1jMVpIXw",
                     "sentiment": "中立"
                 },
                 {
-                    "title": "世足賽商機爆發 寶成訂單滿手 營運有望重返成長",
-                    "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE12cDFpWXNDWnFmYWw5RUR1S0phSExKb3YwSXBCaE4xUllzX19UVUoxc0NianRkSnA1ZndGc29reTRQbHhpYzFvVFd0SXpXN0xrUEVSVnktZGMzQdIBX0FVX3lxTE1lTkJ2Tm1xRHZUdUY1VDhfcDc2TXdsdDNxbXhhU0VBY0lMdmw3OHBfa240ZDFXN1EtVHFiWmVFSkNVcnNDY2draHdRLVY3RFRvaURJd3F1V1Frek00VHFR?oc=5",
+                    "title": "寶成終於等到2字頭，先掛29.5買看看",
+                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9Pc1R5NFUzdVQ2eDFYLU85a3pUZ203VzZLWG50a3hPU1JOYk5hV1daMnZsbUQzU2hlMEZOZEJSUjA5RUt1NFNMYUhWWlhjSVlyNDdMV0dPWEI",
                     "sentiment": "偏多"
                 },
                 {
-                    "title": "9904 寶成- 抱著寶成安心過年?",
-                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9HeEIxSW9ycHh4MWFrelpjcG5yR3dCekFoWk1vNTUtM0YxLTExRm5tWkZSRE1ocGlLUmJCMDhjMjE2QVlhSDZGLWpVTE5ETlZKamdEUTdIdWk?oc=5",
-                    "sentiment": "中立"
+                    "title": "世足賽商機爆發 寶成訂單滿手 營運有望重返成長",
+                    "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE12cDFpWXNDWnFmYWw5RUR1S0phSExKb3YwSXBCaE4xUllzX19UVUoxc0NianRkSnA1ZndGc29reTRQbHhpYzFvVFd0SXpXN0xrUEVSVnktZGMzQdIBX0FVX3lxTE1lTkJ2Tm1xRHZUdUY1VDhfcDc2TXdsdDNxbXhhU0VBY0lMdmw3OHBfa240ZDFXN1EtVHFiWmVFSkNVcnNDY2draHdRLVY3RFRvaURJd3F1V1Frek00VHFR",
+                    "sentiment": "偏多"
                 }
             ],
             "lights": {
