@@ -7,65 +7,69 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-slate-900 text-white p-6 relative">
+<body class="bg-slate-900 text-white p-4 md:p-6 relative min-h-screen">
     
-    <div class="max-w-[1400px] mx-auto flex flex-col xl:flex-row gap-8">
+    <div class="w-full max-w-[1800px] mx-auto flex flex-col xl:flex-row gap-6 xl:gap-8">
         
-        <aside class="w-full xl:w-1/4 xl:sticky xl:top-6 h-fit bg-slate-800/80 rounded-[2rem] border border-slate-700 shadow-2xl p-6 flex-shrink-0">
-            <h2 class="text-2xl font-black text-blue-400 mb-6 flex items-center gap-2 border-b border-slate-700 pb-4">
-                <span>📚</span> 股票小教室
+        <aside class="w-full xl:w-[320px] xl:sticky xl:top-6 h-fit bg-slate-800/60 backdrop-blur-md rounded-[2rem] border border-slate-700 shadow-2xl p-5 flex-shrink-0">
+            <h2 class="text-xl font-black text-blue-400 mb-5 flex items-center gap-2 border-b border-slate-700 pb-3">
+                <span>📚</span> 阿土伯股票小教室
             </h2>
             
-            <div class="flex flex-col gap-5 text-sm">
-                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
-                    <h3 class="text-yellow-400 font-black mb-1 text-base">📈 均線 (MA)</h3>
-                    <p class="text-slate-300 leading-relaxed">代表大家過去買進的「平均成本」。<br>
-                    <span class="text-slate-400 text-xs">· <b>5MA (周線)</b>：短線防守與攻擊線。<br>
-                    · <b>20MA (月線)</b>：中期趨勢，跌破需警戒。<br>
-                    · <b>60MA (季線)</b>：長線生命線，決定大方向。</span></p>
+            <div class="flex flex-col gap-4 text-sm">
+                <div class="bg-black/20 p-3.5 rounded-2xl border border-white/5">
+                    <h3 class="text-yellow-400 font-black mb-1.5 text-sm">📈 均線 (MA)</h3>
+                    <p class="text-slate-300 leading-relaxed text-xs">
+                    大家過去買進的「平均成本」。<br>
+                    <span class="text-slate-400">· <b>5MA (周)</b>：短線防守與攻擊。<br>
+                    · <b>20MA (月)</b>：中期趨勢，跌破需警戒。<br>
+                    · <b>60MA (季)</b>：長線生命線，決定大方向。</span></p>
                 </div>
                 
-                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
-                    <h3 class="text-pink-400 font-black mb-1 text-base">🔥 熱度 (RSI)</h3>
-                    <p class="text-slate-300 leading-relaxed">衡量近期「買賣盤力道」的指標 (0~100)。<br>
-                    <span class="text-red-400 text-xs font-bold">> 70 過熱</span><span class="text-slate-400 text-xs">：買盤瘋狂，小心拉回。</span><br>
-                    <span class="text-green-400 text-xs font-bold">< 30 超賣</span><span class="text-slate-400 text-xs">：跌到谷底，醞釀反彈。</span></p>
+                <div class="bg-black/20 p-3.5 rounded-2xl border border-white/5">
+                    <h3 class="text-pink-400 font-black mb-1.5 text-sm">🔥 熱度 (RSI)</h3>
+                    <p class="text-slate-300 leading-relaxed text-xs">
+                    衡量近期「買賣盤力道」 (0~100)。<br>
+                    <span class="text-red-400 font-bold">> 70 過熱</span><span class="text-slate-400">：買盤瘋狂，小心拉回。</span><br>
+                    <span class="text-green-400 font-bold">< 30 超賣</span><span class="text-slate-400">：跌到谷底，醞釀反彈。</span></p>
                 </div>
 
-                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
-                    <h3 class="text-purple-400 font-black mb-1 text-base">📏 乖離率 (Bias)</h3>
-                    <p class="text-slate-300 leading-relaxed">股價「偏離均線」的程度。<br>
-                    <span class="text-slate-400 text-xs">正乖離過大像跑太快會喘(易跌)；負乖離過大像皮球壓到底(易彈)。超過 ±10% 視為極端值。</span></p>
+                <div class="bg-black/20 p-3.5 rounded-2xl border border-white/5">
+                    <h3 class="text-purple-400 font-black mb-1.5 text-sm">📏 乖離率 (Bias)</h3>
+                    <p class="text-slate-300 leading-relaxed text-xs">
+                    股價「偏離均線」的程度。<br>
+                    <span class="text-slate-400">正乖離過大像跑太快會喘；負乖離過大像皮球壓到底易彈。超過 ±10% 是極端值。</span></p>
                 </div>
 
-                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
-                    <h3 class="text-blue-400 font-black mb-1 text-base">💰 基本面 (PE / EPS)</h3>
-                    <p class="text-slate-300 leading-relaxed">
-                    <span class="text-slate-200 font-bold">本益比 (P/E)：</span>買進後「幾年能回本」。數字越小通常越便宜。<br>
-                    <span class="text-slate-200 font-bold">每股盈餘 (EPS)：</span>公司為每一股賺了多少錢。數字越大越會賺！</p>
+                <div class="bg-black/20 p-3.5 rounded-2xl border border-white/5">
+                    <h3 class="text-blue-400 font-black mb-1.5 text-sm">💰 基本面 (PE / EPS)</h3>
+                    <p class="text-slate-300 leading-relaxed text-xs">
+                    <span class="text-slate-200 font-bold">本益比 (P/E)：</span>買進後「幾年回本」，越小通常越便宜。<br>
+                    <span class="text-slate-200 font-bold">每股盈餘 (EPS)：</span>公司每一股賺了多少錢，越大越會賺！</p>
                 </div>
 
-                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
-                    <h3 class="text-green-400 font-black mb-1 text-base">🌊 量能比例</h3>
-                    <p class="text-slate-300 leading-relaxed">今日成交量對比過去5天平均。<br>
-                    <span class="text-slate-400 text-xs">大於 <b>1.5倍</b> 代表有「大戶/主力」進場表態，容易出現大行情！</span></p>
+                <div class="bg-black/20 p-3.5 rounded-2xl border border-white/5">
+                    <h3 class="text-green-400 font-black mb-1.5 text-sm">🌊 量能比例</h3>
+                    <p class="text-slate-300 leading-relaxed text-xs">
+                    今日成交量對比過去5天平均。<br>
+                    <span class="text-slate-400">大於 <b>1.5倍</b> 代表有「大戶主力」進場，容易出現大行情！</span></p>
                 </div>
             </div>
         </aside>
 
-        <main class="w-full xl:w-3/4 flex-grow">
-            <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between border-b border-slate-700 pb-6">
+        <main class="flex-1 w-full min-w-0">
+            <header class="mb-6 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-700 pb-4">
                 <div>
-                    <h1 class="text-3xl font-bold text-blue-400">📈 阿土伯多空戰情室</h1>
-                    <p class="text-slate-400 mt-2">最後更新：<span id="update-time">讀取中...</span></p>
+                    <h1 class="text-3xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1>
+                    <p class="text-slate-400 mt-1 text-sm font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p>
                 </div>
-                <div class="mt-4 md:mt-0 flex gap-2">
-                    <input type="text" id="searchInput" placeholder="搜尋代號或名稱..." 
-                           class="bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                <div class="mt-4 md:mt-0 flex gap-2 w-full md:w-auto">
+                    <input type="text" id="searchInput" placeholder="🔍 搜尋代號或名稱..." 
+                           class="w-full md:w-64 bg-slate-800 border border-slate-600 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 shadow-inner">
                 </div>
             </header>
 
-            <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+            <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-5"></div>
         </main>
     </div>
 
@@ -79,12 +83,8 @@
                 <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
             </div>
             <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow">
-                <div class="h-[300px] mb-6">
-                    <canvas id="historyChart"></canvas>
-                </div>
-                <div class="h-[150px]">
-                    <canvas id="rsiChart"></canvas>
-                </div>
+                <div class="h-[300px] mb-6"><canvas id="historyChart"></canvas></div>
+                <div class="h-[150px]"><canvas id="rsiChart"></canvas></div>
             </div>
         </div>
     </div>
@@ -177,78 +177,78 @@
                 else if (stock.rsi <= 30) rsiBadge = `<span class="text-[9px] px-1.5 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>`;
                 else rsiBadge = `<span class="text-[9px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">📉偏空</span>`;
 
-                card.className = `${statusColor} p-6 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between`;
+                card.className = `${statusColor} p-5 rounded-2xl border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between`;
                 card.innerHTML = `
                     <div class="flex flex-col h-full">
                         <div class="flex justify-between items-center mb-4">
-                            <span class="bg-black/50 text-white text-xs px-3 py-1 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
-                            <span class="text-sm font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
+                            <span class="bg-black/50 text-white text-[10px] px-2.5 py-1 rounded-full font-black tracking-widest uppercase border border-white/10">${stock.category}</span>
+                            <span class="text-xs font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
                         </div>
-                        <h2 class="text-3xl font-black mb-4 text-white tracking-tight">${stock.name}</h2>
+                        <h2 class="text-2xl font-black mb-3 text-white tracking-tight">${stock.name}</h2>
                         
-                        <div class="bg-black/40 p-4 rounded-xl mb-4 border border-white/5">
+                        <div class="bg-black/40 p-3.5 rounded-xl mb-3 border border-white/5">
                             <div class="flex justify-between items-start mb-3">
-                                <div><p class="text-4xl font-mono font-black text-white tracking-tighter">${stock.price}</p></div>
-                                <div class="text-right flex flex-col items-end gap-2">
+                                <div><p class="text-3xl font-mono font-black text-white tracking-tighter">${stock.price}</p></div>
+                                <div class="text-right flex flex-col items-end gap-1.5">
                                     <div>
-                                        <div class="flex items-center gap-1 justify-end mb-1">
-                                            <p class="text-[10px] text-white/40 font-black">熱度 (RSI)</p>
+                                        <div class="flex items-center gap-1 justify-end mb-0.5">
+                                            <p class="text-[9px] text-white/40 font-black">熱度 (RSI)</p>
                                             ${rsiBadge}
                                         </div>
-                                        <p class="text-2xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : (stock.rsi < 30 ? 'text-green-400' : 'text-slate-200')}">${stock.rsi}</p>
+                                        <p class="text-xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : (stock.rsi < 30 ? 'text-green-400' : 'text-slate-200')}">${stock.rsi}</p>
                                     </div>
-                                    <div><p class="text-[10px] text-white/40 font-black mb-1">風險 / 乖離</p><p class="text-lg font-black ${stock.bias > 10 ? 'text-purple-400' : (stock.bias < -10 ? 'text-green-400' : 'text-slate-300')}">${stock.risk_level} (${stock.bias}%)</p></div>
+                                    <div><p class="text-[9px] text-white/40 font-black mb-0.5">風險 / 乖離</p><p class="text-sm font-black ${stock.bias > 10 ? 'text-purple-400' : (stock.bias < -10 ? 'text-green-400' : 'text-slate-300')}">${stock.risk_level} (${stock.bias}%)</p></div>
                                 </div>
                             </div>
                             
                             <div class="flex justify-between items-center bg-slate-800/80 p-2 rounded-lg border border-slate-600/50 mt-1 shadow-inner">
                                 <div class="text-center w-1/2 border-r border-slate-600/50">
-                                    <p class="text-[10px] text-slate-400 font-bold mb-1">本益比 (P/E)</p>
-                                    <p class="text-sm font-mono font-black ${stock.pe_ratio !== 'N/A' && stock.pe_ratio < 15 ? 'text-green-400' : 'text-blue-300'}">${stock.pe_ratio}</p>
+                                    <p class="text-[9px] text-slate-400 font-bold mb-0.5">本益比 (P/E)</p>
+                                    <p class="text-xs font-mono font-black ${stock.pe_ratio !== 'N/A' && stock.pe_ratio < 15 ? 'text-green-400' : 'text-blue-300'}">${stock.pe_ratio}</p>
                                 </div>
                                 <div class="text-center w-1/2">
-                                    <p class="text-[10px] text-slate-400 font-bold mb-1">每股盈餘 (EPS)</p>
-                                    <p class="text-sm font-mono font-black text-blue-300">${stock.eps}</p>
+                                    <p class="text-[9px] text-slate-400 font-bold mb-0.5">每股盈餘 (EPS)</p>
+                                    <p class="text-xs font-mono font-black text-blue-300">${stock.eps}</p>
                                 </div>
                             </div>
 
                             <div class="flex justify-between items-center bg-black/30 p-2 rounded-lg border border-white/5 mb-3 mt-2 shadow-inner">
                                 <div class="text-center w-1/3 border-r border-white/10">
-                                    <p class="text-[9px] text-slate-500 font-bold mb-1">5MA (周線)</p>
-                                    <p class="text-xs font-mono font-black ${stock.price > ma5 ? 'text-red-400' : 'text-green-400'}">${ma5}</p>
+                                    <p class="text-[8px] text-slate-500 font-bold mb-0.5">5MA (周線)</p>
+                                    <p class="text-[11px] font-mono font-black ${stock.price > ma5 ? 'text-red-400' : 'text-green-400'}">${ma5}</p>
                                 </div>
                                 <div class="text-center w-1/3 border-r border-white/10">
-                                    <p class="text-[9px] text-slate-500 font-bold mb-1">20MA (月線)</p>
-                                    <p class="text-xs font-mono font-black ${stock.price > ma20 ? 'text-red-400' : 'text-green-400'}">${ma20}</p>
+                                    <p class="text-[8px] text-slate-500 font-bold mb-0.5">20MA (月線)</p>
+                                    <p class="text-[11px] font-mono font-black ${stock.price > ma20 ? 'text-red-400' : 'text-green-400'}">${ma20}</p>
                                 </div>
                                 <div class="text-center w-1/3">
-                                    <p class="text-[9px] text-slate-500 font-bold mb-1">60MA (季線)</p>
-                                    <p class="text-xs font-mono font-black ${stock.price > ma60 ? 'text-red-400' : 'text-green-400'}">${ma60}</p>
+                                    <p class="text-[8px] text-slate-500 font-bold mb-0.5">60MA (季線)</p>
+                                    <p class="text-[11px] font-mono font-black ${stock.price > ma60 ? 'text-red-400' : 'text-green-400'}">${ma60}</p>
                                 </div>
                             </div>
 
                             <div class="pt-2 border-t border-slate-700/50 flex flex-col gap-3">
-                                <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/30">
-                                    <p class="text-[10px] font-black text-blue-300 mb-1">🤖 阿土狗 AI 預判：</p>
-                                    <p class="text-sm font-bold text-slate-200 leading-snug">${stock.ai_summary || '讀取中'}</p>
+                                <div class="bg-blue-900/20 p-2.5 rounded-xl border border-blue-500/30">
+                                    <p class="text-[9px] font-black text-blue-300 mb-1">🤖 阿土狗 AI 預判：</p>
+                                    <p class="text-xs font-bold text-slate-200 leading-snug">${stock.ai_summary || '讀取中'}</p>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="bg-blue-900/30 p-3 rounded-xl border border-blue-500/30 mb-4">
-                            <div class="flex justify-between items-end mb-2">
-                                <p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.vol_ratio > 1.5 ? '🔥 大戶進場' : '💤 散戶盤整'}</p>
-                                <p class="text-[10px] font-mono text-blue-200">量能 ${stock.vol_ratio}x</p>
+                        <div class="bg-blue-900/30 p-2.5 rounded-xl border border-blue-500/30 mb-3">
+                            <div class="flex justify-between items-end mb-1.5">
+                                <p class="text-xs font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.vol_ratio > 1.5 ? '🔥 大戶進場' : '💤 散戶盤整'}</p>
+                                <p class="text-[9px] font-mono text-blue-200">量能 ${stock.vol_ratio}x</p>
                             </div>
                             <div class="w-full bg-black/50 h-1.5 rounded-full overflow-hidden">
                                 <div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
                             </div>
                         </div>
                         
-                        <div class="flex justify-around items-center pt-3 border-t border-white/10 mt-auto">
-                            <div class="text-center"><p class="text-xl mb-1">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p><p class="text-[10px] font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-500'}">起步</p></div>
-                            <div class="text-center"><p class="text-xl mb-1">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p><p class="text-[10px] font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-500'}">順暢</p></div>
-                            <div class="text-center"><p class="text-xl mb-1">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p><p class="text-[10px] font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-500'}">穩固</p></div>
+                        <div class="flex justify-around items-center pt-2 border-t border-white/10 mt-auto">
+                            <div class="text-center"><p class="text-lg mb-0.5">${stock.lights.short !== '⚪' ? '🔴' : '⚪'}</p><p class="text-[9px] font-black ${stock.lights.short !== '⚪' ? 'text-red-400' : 'text-slate-500'}">起步</p></div>
+                            <div class="text-center"><p class="text-lg mb-0.5">${stock.lights.mid !== '⚪' ? '🟡' : '⚪'}</p><p class="text-[9px] font-black ${stock.lights.mid !== '⚪' ? 'text-yellow-400' : 'text-slate-500'}">順暢</p></div>
+                            <div class="text-center"><p class="text-lg mb-0.5">${stock.lights.long !== '⚪' ? '🟢' : '⚪'}</p><p class="text-[9px] font-black ${stock.lights.long !== '⚪' ? 'text-green-400' : 'text-slate-500'}">穩固</p></div>
                         </div>
                     </div>
                 `;
