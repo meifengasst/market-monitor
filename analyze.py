@@ -13,7 +13,7 @@ GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 LINE_ACCESS_TOKEN = os.environ.get("LINE_ACCESS_TOKEN")
 LINE_TARGET_ID = os.environ.get("LINE_TARGET_ID")
 
-# 🛡️ 終極偽裝面具：讓爬蟲看起來像是正常人在用 Chrome 瀏覽器，破解 Google 防護網！
+# 🛡️ 幫你把終極偽裝面具加回來！沒有這個，PTT 和 Google 很容易把你擋在門外
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
 }
@@ -24,17 +24,14 @@ STOCKS = {"NVDA": "Nvidia (AI之王)", "TSLA": "Tesla (電動車)", "SPY": "S&P 
 def get_google_news(is_taiwan=True):
     url = "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=zh-TW&gl=TW&ceid=TW:zh-Hant" if is_taiwan else "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en"
     try:
+        # 加上 headers 偽裝成真人瀏覽器
         res = requests.get(url, headers=HEADERS, timeout=10)
         root = ET.fromstring(res.text)
         return [item.find('title').text for item in root.findall('.//item')[:5]]
     except: return ["暫無新聞"]
 
-# 🚀 升級：帶上偽裝面具的 Google 跨國新聞雷達
+# 🚀 統一使用 Google 跨國新聞雷達 (拋棄不穩定的 Yahoo)
 def get_specific_stock_news(keyword, is_taiwan=True):
-    # 🎯 秘訣：美股搜尋時自動補上 "stock" 關鍵字，確保精準命中財經外電！
-    if not is_taiwan and "ETF" not in keyword:
-        keyword = f"{keyword} stock"
-        
     encoded_kw = urllib.parse.quote(keyword)
     if is_taiwan:
         url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
@@ -42,18 +39,18 @@ def get_specific_stock_news(keyword, is_taiwan=True):
         url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=en-US&gl=US&ceid=US:en"
     
     try:
+        # 加上 headers
         res = requests.get(url, headers=HEADERS, timeout=10)
         root = ET.fromstring(res.text)
         news = []
         for item in root.findall('.//item')[:3]: # 抓前3篇
             news.append({'title': item.find('title').text, 'link': item.find('link').text})
         return news
-    except Exception as e:
-        print(f"抓取新聞失敗: {e}")
-        return []
+    except: return []
 
 def get_ptt_news():
     try:
+        # PTT 抓取也必須加上 headers，否則高機率被擋
         res = requests.get("https://www.ptt.cc/atom/stock.xml", headers=HEADERS, timeout=10)
         root = ET.fromstring(res.text)
         ns = {'atom': 'http://www.w3.org/2005/Atom'}
@@ -79,8 +76,24 @@ def get_ptt_sentiment(ptt_list):
     url = "https://api.groq.com/openai/v1/chat/completions"
     data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.3, "response_format": {"type": "json_object"}}
     try:
+        # ⚠️ 注意這裡雖然變數叫 GEMINI_API_KEY，但實際上是打向 Groq 的 API
         res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=20)
+        
         if res.status_code == 200:
             text = res.json()['choices'][0]['message']['content'].strip()
-            # 🎯 這裡就是原本斷掉的地方，已經完整修復！
-            if text.startswith('
+            
+            # 🎯 完整修復：防呆機制，剝除 LLM 可能偷加的 Markdown 語法
+            if text.startswith('```json'):
+                text = text[7:-3].strip()
+            elif text.startswith('```'):
+                text = text[3:-3].strip()
+            
+            try:
+                return json.loads(text)
+            except json.JSONDecodeError:
+                return {"score": 50, "sentiment": "解析失敗", "summary": "LLM 回傳的不是合法 JSON"}
+        else:
+            return {"score": 50, "sentiment": "API 錯誤", "summary": f"狀態碼: {res.status_code}"}
+            
+    except Exception as e:
+        return {"score": 50, "sentiment": "連線失敗", "summary": f"系統錯誤: {str(e)}"}
