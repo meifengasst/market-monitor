@@ -24,10 +24,15 @@ def get_google_news(is_taiwan=True):
         return [item.find('title').text for item in root.findall('.//item')[:5]]
     except: return ["暫無新聞"]
 
-# 🚀 新增：專屬個股的 Google 新聞肉搜雷達
-def get_specific_stock_news(keyword):
+# 🚀 升級：自動切換美國/台灣 Google 新聞頻道
+def get_specific_stock_news(keyword, is_taiwan=True):
     encoded_kw = urllib.parse.quote(keyword)
-    url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+    # 台股搜繁體中文，美股搜英文外電
+    if is_taiwan:
+        url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+    else:
+        url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=en-US&gl=US&ceid=US:en"
+    
     try:
         res = requests.get(url, timeout=10)
         root = ET.fromstring(res.text)
@@ -104,7 +109,7 @@ def get_stock_ai_analysis(stock_name, price, bias, pe_ratio, eps, news_list):
 請嚴格輸出 JSON 格式，包含這兩個 key：
 {{"ai_summary": "綜合技術面與新聞，40字內的客觀趨勢點評",
 "news_items": [
-    {{"title": "將原文新聞標題翻譯或總結成繁體中文", "link": "對應的原新聞連結", "sentiment": "偏多 或 偏空 或 中立"}}
+    {{"title": "將原文新聞標題翻譯或總結成流暢的繁體中文", "link": "對應的原新聞連結", "sentiment": "偏多 或 偏空 或 中立"}}
 ]}}
 """
     url = "https://api.groq.com/openai/v1/chat/completions"
@@ -170,11 +175,13 @@ def analyze():
             vol_ratio = round(df['Volume'].iloc[-1] / df['Volume'].rolling(5).mean().iloc[-1], 2)
             cat_name = [k for k, v in CATEGORIES.items() if symbol in v][0] if any(symbol in v for v in CATEGORIES.values()) else "其他"
             
-            # 🎯 備用雷達啟動邏輯：先問 Yahoo，Yahoo 沒有就去問 Google
+            # 🎯 智慧備用雷達：台股搜名稱，美股搜代號，外加自動切換地區
             raw_news = ticker.news
             if not raw_news or len(raw_news) == 0:
-                print(f"⚠️ Yahoo 找不到 {name} 的新聞，啟動 Google 備用雷達...")
-                raw_news = get_specific_stock_news(name)
+                is_tw = '.TW' in symbol
+                search_kw = name if is_tw else symbol # 美股只用代號(例如:NVDA)去搜
+                print(f"⚠️ Yahoo 找不到 {name} 的新聞，啟動跨國備用雷達 (搜尋: {search_kw})...")
+                raw_news = get_specific_stock_news(search_kw, is_taiwan=is_tw)
 
             ai_data = get_stock_ai_analysis(name, price, bias, pe_ratio, eps, raw_news)
             ai_summary = ai_data.get("ai_summary", "讀取中")
