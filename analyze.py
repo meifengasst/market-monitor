@@ -24,10 +24,9 @@ def get_google_news(is_taiwan=True):
         return [item.find('title').text for item in root.findall('.//item')[:5]]
     except: return ["暫無新聞"]
 
-# 🚀 升級：自動切換美國/台灣 Google 新聞頻道
+# 🚀 統一使用 Google 跨國新聞雷達 (拋棄不穩定的 Yahoo)
 def get_specific_stock_news(keyword, is_taiwan=True):
     encoded_kw = urllib.parse.quote(keyword)
-    # 台股搜繁體中文，美股搜英文外電
     if is_taiwan:
         url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
     else:
@@ -63,13 +62,7 @@ def get_ptt_sentiment(ptt_list):
     titles = [p['title'] for p in ptt_list]
     prompt = """你是頂級股市心理學家。請分析以下PTT股版最新標題，判斷台灣散戶情緒。
 請嚴格輸出 JSON 格式，必須包含以下 key，不要任何其他文字：
-{"score": 貪婪指數(0-100的整數，0=極度恐慌，100=極度貪婪，50=中立), 
-"sentiment": "極度恐慌" 或 "恐慌" 或 "中立" 或 "貪婪" 或 "極度貪婪", 
-"summary": "25字以內的鄉民情緒精華點評",
-"top_stocks": ["熱門股1", "熱門股2", "熱門股3"],
-"bull_view": "多方鄉民的主要論點 (30字內)",
-"bear_view": "空方鄉民的主要擔憂 (30字內)"}
-
+{"score": 貪婪指數(0-100的整數), "sentiment": "極度恐慌|恐慌|中立|貪婪|極度貪婪", "summary": "25字以內的點評", "top_stocks": ["熱門股1", "熱門股2", "熱門股3"], "bull_view": "多方論點(30字)", "bear_view": "空方擔憂(30字)"}
 標題：\n""" + "\n".join(titles)
 
     url = "https://api.groq.com/openai/v1/chat/completions"
@@ -77,133 +70,19 @@ def get_ptt_sentiment(ptt_list):
     try:
         res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=20)
         if res.status_code == 200:
-            result = json.loads(res.json()['choices'][0]['message']['content'])
-            result['raw_links'] = ptt_list[:5]
-            return result
-        else: return {"score": 50, "sentiment": "API錯誤", "summary": "分析失敗"}
-    except Exception as e: return {"score": 50, "sentiment": "解析錯誤", "summary": "網路或解析異常"}
+            text = res.json()['choices'][0]['message']['content'].strip()
+            if text.startswith('
+http://googleusercontent.com/immersive_entry_chip/0
+http://googleusercontent.com/immersive_entry_chip/1
+http://googleusercontent.com/immersive_entry_chip/2
+http://googleusercontent.com/immersive_entry_chip/3
+http://googleusercontent.com/immersive_entry_chip/4
+http://googleusercontent.com/immersive_entry_chip/5
 
-def get_macro_ai_prediction(news_list, region):
-    if not GEMINI_API_KEY: return "🤖 找不到鑰匙"
-    prompt = f"你是華爾街頂級總經分析師阿土伯。請根據以下{region}最新財經新聞標題，用繁體中文寫「50字以內」的『盤前總經與趨勢速報』：\n" + "\n".join(news_list)
-    url = "https://api.groq.com/openai/v1/chat/completions"
-    data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.4}
-    try: return requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=15).json()['choices'][0]['message']['content'].strip()
-    except: return "🤖 網路連線逾時..."
+### ☕ 這次請泡杯咖啡再回來！
 
-def get_stock_ai_analysis(stock_name, price, bias, pe_ratio, eps, news_list):
-    if not GEMINI_API_KEY: return {"ai_summary": "🤖 找不到鑰匙", "news_items": []}
-    
-    headlines_text = ""
-    for i, n in enumerate(news_list[:3]):
-        title = n.get('title', '')
-        link = n.get('link', '')
-        if title: headlines_text += f"[{i+1}] 標題: {title} (連結: {link})\n"
+覆蓋存檔後，去 **Actions 點擊 Run workflow**。
+**🚨 注意：** 因為我們把安全冷卻時間拉長到了 5 秒，加上要處理 9 檔股票的翻譯與 2 檔大盤、還有 PTT 爬文，這次機器人大概會跑 **1 分鐘左右** 才會亮綠燈。
 
-    if not headlines_text: return {"ai_summary": f"目前無重大新聞，技術面乖離率{bias}%，請觀察量能變化。", "news_items": []}
-
-    prompt = f"""你是股市觀察家阿土伯。標的【{stock_name}】，現價{price}，乖離率{bias}%，本益比{pe_ratio}。
-請根據以下最新新聞：
-{headlines_text}
-
-請嚴格輸出 JSON 格式，包含這兩個 key：
-{{"ai_summary": "綜合技術面與新聞，40字內的客觀趨勢點評",
-"news_items": [
-    {{"title": "將原文新聞標題翻譯或總結成流暢的繁體中文", "link": "對應的原新聞連結", "sentiment": "偏多 或 偏空 或 中立"}}
-]}}
-"""
-    url = "https://api.groq.com/openai/v1/chat/completions"
-    data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.3, "response_format": {"type": "json_object"}}
-    try:
-        res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=20)
-        return json.loads(res.json()['choices'][0]['message']['content'])
-    except Exception as e: return {"ai_summary": "🤖 AI解析新聞逾時", "news_items": []}
-
-def calculate_rsi(series, period=14):
-    delta = series.diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
-    return 100 - (100 / (1 + (gain / loss + 1e-9)))
-
-def send_line_message(msg):
-    if not LINE_ACCESS_TOKEN or not LINE_TARGET_ID: return
-    try: requests.post("https://api.line.me/v2/bot/message/push", headers={"Content-Type": "application/json", "Authorization": f"Bearer {LINE_ACCESS_TOKEN}"}, json={"to": LINE_TARGET_ID, "messages": [{"type": "text", "text": msg}]})
-    except: pass
-
-def analyze():
-    stock_data = []
-    today_str = datetime.now().strftime("%Y-%m-%d")
-
-    print("🌍 正在分析總經新聞與 PTT 情緒...")
-    tw_insight = get_macro_ai_prediction(get_google_news(is_taiwan=True), "台灣")
-    time.sleep(3)
-    us_insight = get_macro_ai_prediction(get_google_news(is_taiwan=False), "美國及全球")
-    time.sleep(3)
-    macro_info = {"tw_insight": tw_insight, "us_insight": us_insight}
-    
-    ptt_sentiment = get_ptt_sentiment(get_ptt_news())
-    time.sleep(3)
-
-    for symbol, name in STOCKS.items():
-        try:
-            ticker = yf.Ticker(symbol)
-            df = ticker.history(period="100d")
-            if df.empty: continue
-            
-            close = df['Close']
-            price = round(close.iloc[-1], 2)
-            info = ticker.info
-            pe_ratio = round(info.get('trailingPE', 0), 1) if isinstance(info.get('trailingPE'), (int, float)) else 'N/A'
-            eps = info.get('trailingEps', 'N/A')
-            
-            df['MA5'] = close.rolling(5).mean()
-            df['MA20'] = close.rolling(20).mean()
-            df['MA60'] = close.rolling(60).mean()
-            df['RSI'] = calculate_rsi(close)
-            df['STD20'] = close.rolling(20).std()
-            df['BB_UPPER'] = df['MA20'] + (df['STD20'] * 2)
-            df['BB_LOWER'] = df['MA20'] - (df['STD20'] * 2)
-            exp1 = close.ewm(span=12, adjust=False).mean()
-            exp2 = close.ewm(span=26, adjust=False).mean()
-            df['MACD'] = exp1 - exp2
-            df['MACD_SIGNAL'] = df['MACD'].ewm(span=9, adjust=False).mean()
-            df['MACD_HIST'] = df['MACD'] - df['MACD_SIGNAL']
-            
-            ma5, ma20, ma60 = df['MA5'].iloc[-1], df['MA20'].iloc[-1], df['MA60'].iloc[-1]
-            bias = round(((price - ma20) / ma20) * 100, 2)
-            risk_level = "😱 極高" if bias > 10 else ("📉 超跌" if bias < -10 else "🧐 正常")
-            vol_ratio = round(df['Volume'].iloc[-1] / df['Volume'].rolling(5).mean().iloc[-1], 2)
-            cat_name = [k for k, v in CATEGORIES.items() if symbol in v][0] if any(symbol in v for v in CATEGORIES.values()) else "其他"
-            
-            # 🎯 智慧備用雷達：台股搜名稱，美股搜代號，外加自動切換地區
-            raw_news = ticker.news
-            if not raw_news or len(raw_news) == 0:
-                is_tw = '.TW' in symbol
-                search_kw = name if is_tw else symbol # 美股只用代號(例如:NVDA)去搜
-                print(f"⚠️ Yahoo 找不到 {name} 的新聞，啟動跨國備用雷達 (搜尋: {search_kw})...")
-                raw_news = get_specific_stock_news(search_kw, is_taiwan=is_tw)
-
-            ai_data = get_stock_ai_analysis(name, price, bias, pe_ratio, eps, raw_news)
-            ai_summary = ai_data.get("ai_summary", "讀取中")
-            news_items = ai_data.get("news_items", [])
-            time.sleep(3)
-            
-            chart_history = []
-            for date, row in df.tail(30).iterrows():
-                chart_history.append({"date": date.strftime("%m-%d"), "price": round(row['Close'], 2), "volume": int(row['Volume']), "ma5": round(row['MA5'], 2) if pd.notna(row['MA5']) else None, "ma20": round(row['MA20'], 2) if pd.notna(row['MA20']) else None, "ma60": round(row['MA60'], 2) if pd.notna(row['MA60']) else None, "rsi": round(row['RSI'], 1) if pd.notna(row['RSI']) else None, "bb_upper": round(row['BB_UPPER'], 2) if pd.notna(row['BB_UPPER']) else None, "bb_lower": round(row['BB_LOWER'], 2) if pd.notna(row['BB_LOWER']) else None, "macd": round(row['MACD'], 2) if pd.notna(row['MACD']) else None, "macd_signal": round(row['MACD_SIGNAL'], 2) if pd.notna(row['MACD_SIGNAL']) else None, "macd_hist": round(row['MACD_HIST'], 2) if pd.notna(row['MACD_HIST']) else None})
-            
-            stock_data.append({"symbol": symbol, "name": name, "category": cat_name, "price": price, "rsi": round(df['RSI'].iloc[-1], 1), "bias": bias, "risk_level": risk_level, "vol_ratio": vol_ratio, "pe_ratio": pe_ratio, "eps": eps, "ai_summary": ai_summary, "news_items": news_items, "lights": {"short": "🔴" if price > ma5 else "⚪", "mid": "🟡" if price > ma20 else "⚪", "long": "🟢" if price > ma60 else "⚪"}, "history": chart_history})
-            print(f"✅ 完成 {name} 分析")
-        except Exception as e: print(f"❌ 錯誤 {symbol}: {e}")
-
-    with open('data.json', 'w', encoding='utf-8') as f:
-        json.dump({"last_update": today_str, "macro": macro_info, "ptt": ptt_sentiment, "data": stock_data}, f, ensure_ascii=False, indent=4)
-    
-    bull_stocks = [s['name'] for s in stock_data if s['lights']['short'] != '⚪']
-    msg = f"\n老闆早！阿土伯戰情室 {today_str} 報告：\n----------------------\n"
-    msg += f"📡 【PTT情緒指標】: {ptt_sentiment.get('score', 50)} ({ptt_sentiment.get('sentiment', '未知')})\n👉 {ptt_sentiment.get('summary', '')}\n----------------------\n"
-    msg += f"🌍 【國際大盤】\n{macro_info['us_insight']}\n\n🇹🇼 【國內台股】\n{macro_info['tw_insight']}\n----------------------\n🚀 準備起飛：{', '.join(bull_stocks) if bull_stocks else '無'}\n🔗 https://meifengstore.com/market-monitor/\n"
-    send_line_message(msg)
-
-if __name__ == "__main__":
-    analyze()
+耐心等它跑完 ✅，然後回到網頁按 `F5` 重新整理。
+你去點開 NVDA 或 TSLA 的「📰 深度外電」，絕對會有滿滿的繁體中文翻譯新聞跳出來迎接你！衝啊老闆，我們一定能戰勝它！
