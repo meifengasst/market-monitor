@@ -1,46 +1,39 @@
-name: Market-AI-Bot
+name: 阿土伯自動戰情室
 
 on:
+  workflow_dispatch: 
   schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
+    - cron: '0 0 * * 1-5' # 台灣時間每週一到週五 早上08:00 自動執行
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: 檢出程式碼
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: 設定 Python 環境
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
       - name: 安裝必要套件
         run: |
-          pip install yfinance pandas google-generativeai # <--- 新增 google-generativeai
+          pip install yfinance pandas requests 
+          # (因為我們換成直接呼叫 Groq API 了，所以連 google-generativeai 套件都不用裝，速度更快！)
 
       - name: 執行分析腳本
         env: 
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }} 
           LINE_TARGET_ID: ${{ secrets.LINE_TARGET_ID }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} # <--- 新增這把鑰匙
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }} 
         run: python analyze.py
 
       - name: 將數據存入私有資料庫並推回 GitHub
         run: |
-          git config --global user.name "Market-Bot"
-          git config --global user.email "bot@github.com"
-          
-          # 一次性把 JSON 和 CSV 都加進去
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           git add data.json chip_history.csv
-          git stash 
-          git pull --rebase origin main
-          git stash pop || echo "No stash to pop"
-          
-          git add data.json chip_history.csv
-          git commit -m "自動更新大戶籌碼與情緒數據: $(date)" || exit 0
-          git push origin main
+          git commit -m "🤖 阿土狗自動更新戰情數據" || echo "No changes to commit"
+          git push
