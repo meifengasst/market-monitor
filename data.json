@@ -1,13 +1,13 @@
 {
     "last_update": "2026-03-04",
     "macro": {
-        "tw_insight": "盤前總經與趨勢速報：台股暴跌逾千點，外資雙殺，台幣重貶，能源、美元走強。",
-        "us_insight": "盤前總經與趨勢速報：亞洲股市連跌三日，油價上漲，因伊朗局勢緊張。"
+        "tw_insight": "盤前總經與趨勢速報：台股大跌逾千點，油價仍未破100美元，外資退出台股匯市，火箭碎片落耶路撒冷，聯發科、NVIDIA投資CPO趨勢。",
+        "us_insight": "盤前總經與趨勢速報：美伊局勢緊張，亞洲股市下挫；中國製造業活動加速，油價上漲。"
     },
     "ptt": {
         "score": 50,
-        "sentiment": "未連線",
-        "summary": "請先至 GitHub 設定 GOOGLE_API_KEY"
+        "sentiment": "分析失敗",
+        "summary": "AI 判讀逾時或錯誤"
     },
     "data": [
         {
@@ -21,7 +21,7 @@
             "vol_ratio": 0.68,
             "pe_ratio": 36.7,
             "eps": 4.9,
-            "ai_summary": "Nvidia股價小幅下跌，基本面仍強，AI趨勢推動成長。",
+            "ai_summary": "Nvidia股價小跌，基本面仍強，AI需求增長，技術面短線震盪。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -461,7 +461,7 @@
             "vol_ratio": 1.1,
             "pe_ratio": 356.8,
             "eps": 1.1,
-            "ai_summary": "特斯拉現價392.43，短期內可能會有反彈，但高本益比與市場波動性使其趨勢不明朗。",
+            "ai_summary": "特斯拉近期表現偏弱，技術面承壓，基本面仍受關注。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -901,7 +901,7 @@
             "vol_ratio": 1.3,
             "pe_ratio": 27.4,
             "eps": "N/A",
-            "ai_summary": "S&P 500 ETF 小幅下跌，基本面穩定，技術面偏空。",
+            "ai_summary": "S&P 500 ETF現價680.33，乖離率偏低，基本面良好。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1336,12 +1336,12 @@
             "category": "台股龍頭",
             "price": 75.6,
             "rsi": 61.8,
-            "bias": 0.32,
+            "bias": 0.3,
             "risk_level": "🧐 正常",
-            "vol_ratio": 2.54,
+            "vol_ratio": 1.97,
             "pe_ratio": 26.0,
             "eps": "N/A",
-            "ai_summary": "基本面穩健，技術面偏強，短線趨勢看漲。",
+            "ai_summary": "基本面穩，技術面偏強，短線上漲趨勢。",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -1742,31 +1742,31 @@
                 },
                 {
                     "date": "03-03",
-                    "price": 78.43,
-                    "volume": 0,
-                    "ma5": 80.09,
-                    "ma20": 75.19,
+                    "price": 78.75,
+                    "volume": 288356288,
+                    "ma5": 80.15,
+                    "ma20": 75.21,
                     "ma60": 68.42,
-                    "rsi": 68.7,
-                    "bb_upper": 81.88,
-                    "bb_lower": 68.51,
-                    "macd": 2.87,
+                    "rsi": 70.2,
+                    "bb_upper": 81.93,
+                    "bb_lower": 68.49,
+                    "macd": 2.9,
                     "macd_signal": 2.54,
-                    "macd_hist": 0.34
+                    "macd_hist": 0.36
                 },
                 {
                     "date": "03-04",
                     "price": 75.6,
                     "volume": 503552466,
-                    "ma5": 79.33,
-                    "ma20": 75.36,
+                    "ma5": 79.39,
+                    "ma20": 75.37,
                     "ma60": 68.67,
                     "rsi": 61.8,
-                    "bb_upper": 81.9,
-                    "bb_lower": 68.82,
-                    "macd": 2.52,
-                    "macd_signal": 2.53,
-                    "macd_hist": -0.02
+                    "bb_upper": 81.95,
+                    "bb_lower": 68.8,
+                    "macd": 2.53,
+                    "macd_signal": 2.54,
+                    "macd_hist": -0.01
                 }
             ]
         },
@@ -1781,7 +1781,7 @@
             "vol_ratio": 1.5,
             "pe_ratio": 28.2,
             "eps": 66.18,
-            "ai_summary": "台積電短線偏強，基本面穩健，技術圖表顯示上漲趨勢。",
+            "ai_summary": "台積電短線偏多，中長線看漲。",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -2221,7 +2221,7 @@
             "vol_ratio": 0.88,
             "pe_ratio": 18.1,
             "eps": 3.31,
-            "ai_summary": "聯電現價60.0，乖離率偏低，基本面及技術面待觀察。",
+            "ai_summary": "聯電現價60.0，乖離率偏低，基本面尚佳，技術面趨勢穩定。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2661,7 +2661,7 @@
             "vol_ratio": 1.62,
             "pe_ratio": 15.5,
             "eps": 5.87,
-            "ai_summary": "鈺齊-KY，現價偏低，乖離率-3.83%，本益比15.5，偏低估值，技術面待觀察。",
+            "ai_summary": "鈺齊-KY現價90.7，乖離率偏低，技術面偏空。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3101,7 +3101,7 @@
             "vol_ratio": 0.28,
             "pe_ratio": 17.6,
             "eps": 5.25,
-            "ai_summary": "豐泰短線偏弱，技術面待觀察。",
+            "ai_summary": "豐泰短線偏弱，技術面承壓，注意止損。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3541,7 +3541,7 @@
             "vol_ratio": 1.47,
             "pe_ratio": 7.7,
             "eps": 3.78,
-            "ai_summary": "【寶成】股價低於均值，乖離率負，短線偏空。",
+            "ai_summary": "寶成股價偏低，乖離率-5.57%，低於本益比7.7的估值，技術面看好。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
