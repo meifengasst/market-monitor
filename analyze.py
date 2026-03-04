@@ -33,7 +33,7 @@ def get_ptt_news():
         return [entry.find('atom:title', ns).text for entry in entries[:50]]
     except: return []
 
-# 🚀 強化版的情緒分析器 (修復 404 模型名稱找不到的問題)
+# 🚀 終極版情緒分析器 (修復 404 與解析錯誤)
 def get_ptt_sentiment(titles):
     if not GOOGLE_API_KEY:
         return {"score": 50, "sentiment": "未連線", "summary": "找不到 GOOGLE_API_KEY 鑰匙"}
@@ -41,15 +41,13 @@ def get_ptt_sentiment(titles):
         return {"score": 50, "sentiment": "抓取失敗", "summary": "無法讀取 PTT 股版文章"}
     
     prompt = """你是頂級股市心理學家。請分析以下PTT股版最新標題，判斷台灣散戶情緒。
-請嚴格輸出 JSON 格式，必須包含這三個 key：
-"score": 貪婪指數(0-100的整數，0=極度恐慌，100=極度貪婪，50=中立),
-"sentiment": "極度恐慌" 或 "恐慌" 或 "中立" 或 "貪婪" 或 "極度貪婪",
-"summary": "25字以內的鄉民情緒精華點評"
+請嚴格輸出 JSON 格式，必須包含這三個 key，不要任何其他文字或 Markdown 標籤：
+{"score": 貪婪指數(0-100的整數，0=極度恐慌，100=極度貪婪，50=中立), "sentiment": "極度恐慌" 或 "恐慌" 或 "中立" 或 "貪婪" 或 "極度貪婪", "summary": "25字以內的鄉民情緒精華點評"}
 
 標題：\n""" + "\n".join(titles)
 
-    # 🎯 關鍵修正：加上 -latest 確保 Google 伺服器認得這個模型
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={GOOGLE_API_KEY}"
+    # 🎯 關鍵修正 1：改回最標準的 gemini-1.5-flash，不加 latest
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GOOGLE_API_KEY}"
     
     data = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -63,6 +61,17 @@ def get_ptt_sentiment(titles):
             return {"score": 50, "sentiment": "API錯誤", "summary": f"狀態碼 {res.status_code}: {err[:20]}"}
         
         text = res.json()['candidates'][0]['content']['parts'][0]['text']
+        
+        # 🎯 關鍵修正 2：阿土伯雙重防呆剝殼術，強制清掉 AI 亂加的 Markdown 符號
+        text = text.strip()
+        if text.startswith('```json'):
+            text = text[7:]
+        if text.startswith('```'):
+            text = text[3:]
+        if text.endswith('```'):
+            text = text[:-3]
+        text = text.strip()
+        
         return json.loads(text)
     except Exception as e:
         return {"score": 50, "sentiment": "解析錯誤", "summary": f"發生例外錯誤: {str(e)[:25]}"}
@@ -70,7 +79,7 @@ def get_ptt_sentiment(titles):
 def get_macro_ai_prediction(news_list, region):
     if not GEMINI_API_KEY: return "🤖 找不到鑰匙"
     prompt = f"你是華爾街頂級總經分析師阿土伯。請根據以下{region}最新財經新聞標題，用繁體中文寫「50字以內」的『盤前總經與趨勢速報』：\n" + "\n".join(news_list)
-    url = "https://api.groq.com/openai/v1/chat/completions"
+    url = "[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)"
     data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.4}
     try: return requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=15).json()['choices'][0]['message']['content'].strip()
     except: return "🤖 網路連線逾時..."
@@ -79,7 +88,7 @@ def get_ai_prediction(stock_name, price, bias, pe_ratio, eps, news_list):
     if not GEMINI_API_KEY: return "🤖 找不到鑰匙"
     headlines = [n.get('title', '') for n in news_list[:5]] if news_list else ["無最新新聞"]
     prompt = f"你是股市觀察家阿土伯。標的【{stock_name}】，現價{price}，乖離率{bias}%，本益比{pe_ratio}。請綜合基本技術面與新聞，寫「40字內」的客觀趨勢點評：\n" + "\n".join(headlines)
-    url = "https://api.groq.com/openai/v1/chat/completions"
+    url = "[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)"
     data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.5}
     try: return requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=10).json()['choices'][0]['message']['content'].strip()
     except: return "🤖 網路逾時"
@@ -92,7 +101,7 @@ def calculate_rsi(series, period=14):
 
 def send_line_message(msg):
     if not LINE_ACCESS_TOKEN or not LINE_TARGET_ID: return
-    try: requests.post("https://api.line.me/v2/bot/message/push", headers={"Content-Type": "application/json", "Authorization": f"Bearer {LINE_ACCESS_TOKEN}"}, json={"to": LINE_TARGET_ID, "messages": [{"type": "text", "text": msg}]})
+    try: requests.post("[https://api.line.me/v2/bot/message/push](https://api.line.me/v2/bot/message/push)", headers={"Content-Type": "application/json", "Authorization": f"Bearer {LINE_ACCESS_TOKEN}"}, json={"to": LINE_TARGET_ID, "messages": [{"type": "text", "text": msg}]})
     except: pass
 
 def analyze():
@@ -151,7 +160,7 @@ def analyze():
     bull_stocks = [s['name'] for s in stock_data if s['lights']['short'] != '⚪']
     msg = f"\n老闆早！阿土伯戰情室 {today_str} 報告：\n----------------------\n"
     msg += f"📡 【PTT情緒指標】: {ptt_sentiment.get('score', 50)} ({ptt_sentiment.get('sentiment', '未知')})\n👉 {ptt_sentiment.get('summary', '')}\n----------------------\n"
-    msg += f"🌍 【國際大盤】\n{macro_info['us_insight']}\n\n🇹🇼 【國內台股】\n{macro_info['tw_insight']}\n----------------------\n🚀 準備起飛：{', '.join(bull_stocks) if bull_stocks else '無'}\n🔗 https://meifengstore.com/market-monitor/\n"
+    msg += f"🌍 【國際大盤】\n{macro_info['us_insight']}\n\n🇹🇼 【國內台股】\n{macro_info['tw_insight']}\n----------------------\n🚀 準備起飛：{', '.join(bull_stocks) if bull_stocks else '無'}\n🔗 [https://meifengstore.com/market-monitor/](https://meifengstore.com/market-monitor/)\n"
     send_line_message(msg)
 
 if __name__ == "__main__":
