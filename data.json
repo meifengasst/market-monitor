@@ -1,8 +1,8 @@
 {
     "last_update": "2026-03-04",
     "macro": {
-        "tw_insight": "盤前總經與趨勢速報：台股承壓，油價上漲，外資退出，記憶體股暴跌，輝達押注CPO。",
-        "us_insight": "盤前總經與趨勢速報：美伊戰爭升級，股指期貨走低，油價上漲3%，金價攀升，韓國股市暴跌。"
+        "tw_insight": "🤖 網路連線逾時...",
+        "us_insight": "🤖 網路連線逾時..."
     },
     "ptt": {
         "score": 50,
@@ -21,7 +21,7 @@
             "vol_ratio": 0.68,
             "pe_ratio": 36.7,
             "eps": 4.9,
-            "ai_summary": "Nvidia短線偏弱，技術面待修復，值得觀察AI發展動向。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -461,7 +461,7 @@
             "vol_ratio": 1.1,
             "pe_ratio": 356.8,
             "eps": 1.1,
-            "ai_summary": "特斯拉股價小跌，短期內技術面承壓，長期仍看好電動車趨勢。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -901,7 +901,7 @@
             "vol_ratio": 1.3,
             "pe_ratio": 27.4,
             "eps": "N/A",
-            "ai_summary": "S&P 500 ETF 小跌，基本面仍強，技術面觀察待進。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1341,7 +1341,7 @@
             "vol_ratio": 1.97,
             "pe_ratio": 26.0,
             "eps": "N/A",
-            "ai_summary": "基本面穩，技術面偏強，乖離率低，短線上漲趨勢。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -1781,7 +1781,7 @@
             "vol_ratio": 1.5,
             "pe_ratio": 28.2,
             "eps": 66.18,
-            "ai_summary": "台積電短線偏多，中長線看漲。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "🟡",
@@ -2221,7 +2221,7 @@
             "vol_ratio": 0.88,
             "pe_ratio": 18.1,
             "eps": 3.31,
-            "ai_summary": "聯電現價60.0，乖離率-7.4%，本益比18.1，技術面偏弱，基本面仍佳。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2661,7 +2661,7 @@
             "vol_ratio": 1.62,
             "pe_ratio": 15.5,
             "eps": 5.87,
-            "ai_summary": "鈺齊-KY現價90.7，低於均價，乖離率-3.83%，本益比15.5，短期偏空。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3101,7 +3101,7 @@
             "vol_ratio": 0.28,
             "pe_ratio": 17.6,
             "eps": 5.25,
-            "ai_summary": "豐泰股價小跌，技術面偏弱，基本面本益比偏高。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3541,7 +3541,7 @@
             "vol_ratio": 1.47,
             "pe_ratio": 7.7,
             "eps": 3.78,
-            "ai_summary": "寶成股價低於均值，基本面尚可，本益比7.7略低於市場平均，技術面偏弱。",
+            "ai_summary": "🤖 網路逾時",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
