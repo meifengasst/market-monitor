@@ -8,19 +8,65 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-slate-900 text-white p-6 relative">
-    <div class="max-w-6xl mx-auto">
-        <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between border-b border-slate-700 pb-6">
-            <div>
-                <h1 class="text-3xl font-bold text-blue-400">📈 阿土伯多空戰情室</h1>
-                <p class="text-slate-400 mt-2">最後更新：<span id="update-time">讀取中...</span></p>
-            </div>
-            <div class="mt-4 md:mt-0 flex gap-2">
-                <input type="text" id="searchInput" placeholder="搜尋代號或名稱..." 
-                       class="bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
-            </div>
-        </header>
+    
+    <div class="max-w-[1400px] mx-auto flex flex-col xl:flex-row gap-8">
+        
+        <aside class="w-full xl:w-1/4 xl:sticky xl:top-6 h-fit bg-slate-800/80 rounded-[2rem] border border-slate-700 shadow-2xl p-6 flex-shrink-0">
+            <h2 class="text-2xl font-black text-blue-400 mb-6 flex items-center gap-2 border-b border-slate-700 pb-4">
+                <span>📚</span> 股票小教室
+            </h2>
+            
+            <div class="flex flex-col gap-5 text-sm">
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
+                    <h3 class="text-yellow-400 font-black mb-1 text-base">📈 均線 (MA)</h3>
+                    <p class="text-slate-300 leading-relaxed">代表大家過去買進的「平均成本」。<br>
+                    <span class="text-slate-400 text-xs">· <b>5MA (周線)</b>：短線防守與攻擊線。<br>
+                    · <b>20MA (月線)</b>：中期趨勢，跌破需警戒。<br>
+                    · <b>60MA (季線)</b>：長線生命線，決定大方向。</span></p>
+                </div>
+                
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
+                    <h3 class="text-pink-400 font-black mb-1 text-base">🔥 熱度 (RSI)</h3>
+                    <p class="text-slate-300 leading-relaxed">衡量近期「買賣盤力道」的指標 (0~100)。<br>
+                    <span class="text-red-400 text-xs font-bold">> 70 過熱</span><span class="text-slate-400 text-xs">：買盤瘋狂，小心拉回。</span><br>
+                    <span class="text-green-400 text-xs font-bold">< 30 超賣</span><span class="text-slate-400 text-xs">：跌到谷底，醞釀反彈。</span></p>
+                </div>
 
-        <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
+                    <h3 class="text-purple-400 font-black mb-1 text-base">📏 乖離率 (Bias)</h3>
+                    <p class="text-slate-300 leading-relaxed">股價「偏離均線」的程度。<br>
+                    <span class="text-slate-400 text-xs">正乖離過大像跑太快會喘(易跌)；負乖離過大像皮球壓到底(易彈)。超過 ±10% 視為極端值。</span></p>
+                </div>
+
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
+                    <h3 class="text-blue-400 font-black mb-1 text-base">💰 基本面 (PE / EPS)</h3>
+                    <p class="text-slate-300 leading-relaxed">
+                    <span class="text-slate-200 font-bold">本益比 (P/E)：</span>買進後「幾年能回本」。數字越小通常越便宜。<br>
+                    <span class="text-slate-200 font-bold">每股盈餘 (EPS)：</span>公司為每一股賺了多少錢。數字越大越會賺！</p>
+                </div>
+
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-white/5">
+                    <h3 class="text-green-400 font-black mb-1 text-base">🌊 量能比例</h3>
+                    <p class="text-slate-300 leading-relaxed">今日成交量對比過去5天平均。<br>
+                    <span class="text-slate-400 text-xs">大於 <b>1.5倍</b> 代表有「大戶/主力」進場表態，容易出現大行情！</span></p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="w-full xl:w-3/4 flex-grow">
+            <header class="mb-8 flex flex-col md:flex-row md:items-center justify-between border-b border-slate-700 pb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-blue-400">📈 阿土伯多空戰情室</h1>
+                    <p class="text-slate-400 mt-2">最後更新：<span id="update-time">讀取中...</span></p>
+                </div>
+                <div class="mt-4 md:mt-0 flex gap-2">
+                    <input type="text" id="searchInput" placeholder="搜尋代號或名稱..." 
+                           class="bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500">
+                </div>
+            </header>
+
+            <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </main>
     </div>
 
     <div id="dataModal" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
@@ -120,13 +166,11 @@
                 else if (stock.lights.mid !== '⚪') statusColor = "border-yellow-500 bg-yellow-900/40 shadow-[0_0_20px_rgba(234,179,8,0.2)]";
                 else if (stock.lights.long !== '⚪') statusColor = "border-green-500 bg-green-900/40 shadow-[0_0_20px_rgba(34,197,94,0.2)]";
 
-                // 🎯 1. 取得最新均線數值 (從歷史紀錄最後一天抓)
                 const latestHist = stock.history && stock.history.length > 0 ? stock.history[stock.history.length - 1] : {};
                 const ma5 = latestHist.ma5 || '-';
                 const ma20 = latestHist.ma20 || '-';
                 const ma60 = latestHist.ma60 || '-';
 
-                // 🎯 2. 判斷 RSI 白話文標籤
                 let rsiBadge = "";
                 if (stock.rsi >= 70) rsiBadge = `<span class="text-[9px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>`;
                 else if (stock.rsi >= 50) rsiBadge = `<span class="text-[9px] px-1.5 py-0.5 rounded bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">📈偏多</span>`;
