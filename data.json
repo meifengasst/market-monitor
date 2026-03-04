@@ -1,17 +1,17 @@
 {
-    "last_update": "2026-03-03",
+    "last_update": "2026-03-04",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia (AI之王)",
             "category": "美國科技",
-            "price": 182.48,
-            "rsi": 41.9,
-            "bias": -1.65,
+            "price": 180.05,
+            "rsi": 41.1,
+            "bias": -2.82,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.8,
+            "vol_ratio": 0.65,
             "pe_ratio": 37.2,
-            "eps": 4.91,
+            "eps": 4.84,
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
@@ -126,6 +126,12 @@
                     "symbol": "NVDA",
                     "price": 182.48,
                     "volume": 208609300
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "NVDA",
+                    "price": 180.05,
+                    "volume": 169851790
                 }
             ]
         },
@@ -133,13 +139,13 @@
             "symbol": "TSLA",
             "name": "Tesla (電動車)",
             "category": "美國科技",
-            "price": 403.32,
-            "rsi": 40.8,
-            "bias": -2.22,
+            "price": 392.43,
+            "rsi": 29.2,
+            "bias": -4.52,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.99,
-            "pe_ratio": 370.0,
-            "eps": 1.09,
+            "vol_ratio": 1.1,
+            "pe_ratio": 370.2,
+            "eps": 1.06,
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
@@ -254,6 +260,12 @@
                     "symbol": "TSLA",
                     "price": 403.32,
                     "volume": 54963900
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "TSLA",
+                    "price": 392.43,
+                    "volume": 62317429
                 }
             ]
         },
@@ -261,12 +273,12 @@
             "symbol": "SPY",
             "name": "S&P 500 ETF",
             "category": "美股大盤",
-            "price": 686.38,
-            "rsi": 42.4,
-            "bias": -0.15,
+            "price": 680.33,
+            "rsi": 39.1,
+            "bias": -0.92,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.17,
-            "pe_ratio": 27.6,
+            "vol_ratio": 1.29,
+            "pe_ratio": 27.4,
             "eps": "N/A",
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
@@ -382,6 +394,12 @@
                     "symbol": "SPY",
                     "price": 686.38,
                     "volume": 87245200
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "SPY",
+                    "price": 680.33,
+                    "volume": 104078155
                 }
             ]
         },
@@ -389,12 +407,12 @@
             "symbol": "0050.TW",
             "name": "元大台灣50",
             "category": "台股龍頭",
-            "price": 78.75,
-            "rsi": 70.2,
-            "bias": 4.71,
+            "price": 76.65,
+            "rsi": 65.8,
+            "bias": 1.64,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.69,
-            "pe_ratio": 27.0,
+            "vol_ratio": 1.46,
+            "pe_ratio": 26.3,
             "eps": "N/A",
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
@@ -510,6 +528,12 @@
                     "symbol": "0050.TW",
                     "price": 78.75,
                     "volume": 322672422
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "0050.TW",
+                    "price": 76.65,
+                    "volume": 200413289
                 }
             ]
         },
@@ -517,13 +541,13 @@
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "台股龍頭",
-            "price": 1935.0,
-            "rsi": 68.2,
-            "bias": 4.61,
+            "price": 1905.0,
+            "rsi": 65.2,
+            "bias": 2.61,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.08,
-            "pe_ratio": 29.2,
-            "eps": 66.16,
+            "vol_ratio": 0.66,
+            "pe_ratio": 28.8,
+            "eps": 66.18,
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
@@ -638,6 +662,12 @@
                     "symbol": "2330.TW",
                     "price": 1935.0,
                     "volume": 51881506
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "2330.TW",
+                    "price": 1905.0,
+                    "volume": 29259056
                 }
             ]
         },
@@ -645,13 +675,13 @@
             "symbol": "2303.TW",
             "name": "聯電",
             "category": "晶圓代工",
-            "price": 62.6,
-            "rsi": 50.7,
-            "bias": -3.74,
+            "price": 61.6,
+            "rsi": 53.4,
+            "bias": -5.05,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.8,
-            "pe_ratio": 18.5,
-            "eps": 3.38,
+            "vol_ratio": 0.36,
+            "pe_ratio": 18.8,
+            "eps": 3.28,
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
@@ -760,6 +790,12 @@
                     "symbol": "2303.TW",
                     "price": 62.6,
                     "volume": 115036532
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "2303.TW",
+                    "price": 61.6,
+                    "volume": 40942420
                 }
             ]
         },
@@ -767,13 +803,13 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 93.4,
-            "rsi": 45.9,
-            "bias": -1.29,
+            "price": 91.3,
+            "rsi": 41.7,
+            "bias": -3.22,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.02,
-            "pe_ratio": 13.0,
-            "eps": 7.18,
+            "vol_ratio": 0.61,
+            "pe_ratio": 12.9,
+            "eps": 7.08,
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
@@ -888,6 +924,12 @@
                     "symbol": "9802.TW",
                     "price": 93.4,
                     "volume": 743898
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "9802.TW",
+                    "price": 91.3,
+                    "volume": 378469
                 }
             ]
         },
@@ -895,13 +937,13 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 92.3,
-            "rsi": 36.0,
-            "bias": -1.82,
+            "price": 90.9,
+            "rsi": 41.0,
+            "bias": -2.9,
             "risk_level": "🧐 正常",
-            "vol_ratio": 0.23,
-            "pe_ratio": 17.6,
-            "eps": 5.25,
+            "vol_ratio": 0.06,
+            "pe_ratio": 17.4,
+            "eps": 5.22,
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
@@ -1016,6 +1058,12 @@
                     "symbol": "9910.TW",
                     "price": 92.3,
                     "volume": 2451918
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "9910.TW",
+                    "price": 90.9,
+                    "volume": 614222
                 }
             ]
         },
@@ -1023,13 +1071,13 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.25,
-            "rsi": 46.8,
-            "bias": -1.97,
+            "price": 29.45,
+            "rsi": 34.7,
+            "bias": -4.34,
             "risk_level": "🧐 正常",
-            "vol_ratio": 1.32,
-            "pe_ratio": 8.0,
-            "eps": 3.78,
+            "vol_ratio": 0.73,
+            "pe_ratio": 7.9,
+            "eps": 3.71,
             "ai_summary": "🤖 API 異常：models/gemini-1.5-fl...",
             "lights": {
                 "short": "⚪",
@@ -1138,6 +1186,12 @@
                     "symbol": "9904.TW",
                     "price": 30.25,
                     "volume": 11243195
+                },
+                {
+                    "date": "2026-03-04",
+                    "symbol": "9904.TW",
+                    "price": 29.45,
+                    "volume": 5970567
                 }
             ]
         }
