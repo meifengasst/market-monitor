@@ -6,6 +6,7 @@ import requests
 import time
 import xml.etree.ElementTree as ET
 from datetime import datetime
+import urllib.parse
 
 # 1. 統一鑰匙庫
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') 
@@ -23,6 +24,19 @@ def get_google_news(is_taiwan=True):
         return [item.find('title').text for item in root.findall('.//item')[:5]]
     except: return ["暫無新聞"]
 
+# 🚀 新增：專屬個股的 Google 新聞肉搜雷達
+def get_specific_stock_news(keyword):
+    encoded_kw = urllib.parse.quote(keyword)
+    url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+    try:
+        res = requests.get(url, timeout=10)
+        root = ET.fromstring(res.text)
+        news = []
+        for item in root.findall('.//item')[:3]: # 抓前3篇
+            news.append({'title': item.find('title').text, 'link': item.find('link').text})
+        return news
+    except: return []
+
 def get_ptt_news():
     try:
         res = requests.get("https://www.ptt.cc/atom/stock.xml", timeout=10)
@@ -37,7 +51,6 @@ def get_ptt_news():
         return ptt_list
     except: return []
 
-# 🚀 升級版：PTT 深度戰報
 def get_ptt_sentiment(ptt_list):
     if not GEMINI_API_KEY: return {"score": 50, "sentiment": "未連線", "summary": "找不到鑰匙"}
     if not ptt_list: return {"score": 50, "sentiment": "抓取失敗", "summary": "無法讀取 PTT 股版"}
@@ -60,7 +73,7 @@ def get_ptt_sentiment(ptt_list):
         res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=20)
         if res.status_code == 200:
             result = json.loads(res.json()['choices'][0]['message']['content'])
-            result['raw_links'] = ptt_list[:5] # 把前5篇原文連結塞進去給前端用
+            result['raw_links'] = ptt_list[:5]
             return result
         else: return {"score": 50, "sentiment": "API錯誤", "summary": "分析失敗"}
     except Exception as e: return {"score": 50, "sentiment": "解析錯誤", "summary": "網路或解析異常"}
@@ -73,7 +86,6 @@ def get_macro_ai_prediction(news_list, region):
     try: return requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=15).json()['choices'][0]['message']['content'].strip()
     except: return "🤖 網路連線逾時..."
 
-# 🚀 升級版：個股新聞翻譯與總結
 def get_stock_ai_analysis(stock_name, price, bias, pe_ratio, eps, news_list):
     if not GEMINI_API_KEY: return {"ai_summary": "🤖 找不到鑰匙", "news_items": []}
     
@@ -92,7 +104,7 @@ def get_stock_ai_analysis(stock_name, price, bias, pe_ratio, eps, news_list):
 請嚴格輸出 JSON 格式，包含這兩個 key：
 {{"ai_summary": "綜合技術面與新聞，40字內的客觀趨勢點評",
 "news_items": [
-    {{"title": "將原文新聞標題翻譯成繁體中文", "link": "對應的原新聞連結", "sentiment": "偏多 或 偏空 或 中立"}}
+    {{"title": "將原文新聞標題翻譯或總結成繁體中文", "link": "對應的原新聞連結", "sentiment": "偏多 或 偏空 或 中立"}}
 ]}}
 """
     url = "https://api.groq.com/openai/v1/chat/completions"
@@ -158,8 +170,13 @@ def analyze():
             vol_ratio = round(df['Volume'].iloc[-1] / df['Volume'].rolling(5).mean().iloc[-1], 2)
             cat_name = [k for k, v in CATEGORIES.items() if symbol in v][0] if any(symbol in v for v in CATEGORIES.values()) else "其他"
             
-            # 🚀 取得翻譯新聞與 AI 點評
-            ai_data = get_stock_ai_analysis(name, price, bias, pe_ratio, eps, ticker.news)
+            # 🎯 備用雷達啟動邏輯：先問 Yahoo，Yahoo 沒有就去問 Google
+            raw_news = ticker.news
+            if not raw_news or len(raw_news) == 0:
+                print(f"⚠️ Yahoo 找不到 {name} 的新聞，啟動 Google 備用雷達...")
+                raw_news = get_specific_stock_news(name)
+
+            ai_data = get_stock_ai_analysis(name, price, bias, pe_ratio, eps, raw_news)
             ai_summary = ai_data.get("ai_summary", "讀取中")
             news_items = ai_data.get("news_items", [])
             time.sleep(3)
