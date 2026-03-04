@@ -82,4 +82,5 @@ def get_ptt_sentiment(ptt_list):
         res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=20)
         if res.status_code == 200:
             text = res.json()['choices'][0]['message']['content'].strip()
+            # 🎯 這裡就是原本斷掉的地方，已經完整修復！
             if text.startswith('
