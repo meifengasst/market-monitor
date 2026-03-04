@@ -76,8 +76,8 @@
         </main>
     </div>
 
-    <div id="dataModal" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-slate-800 rounded-3xl w-full max-w-6xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[95vh]" id="modalContent">
+    <div id="dataModal" onclick="if(event.target === this) closeModal()" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-6xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[95vh] cursor-auto" id="modalContent">
             <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
                 <div><h3 class="text-3xl font-black text-white" id="modalTitle">股票名稱</h3><p class="text-slate-400 text-base mt-1">法人級技術分析：布林通道、MACD 與 RSI</p></div>
                 <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
@@ -179,9 +179,7 @@
                         { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' }, 
                         { label: '20MA (中軌)', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' }, 
                         { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' }, 
-                        // 🎯 布林上軌：改為高亮度的天藍色，加粗並加長虛線
                         { label: '布林上軌', data: bbUpper, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: false, yAxisID: 'y' },
-                        // 🎯 布林下軌：改為高亮度的天藍色，中間填充的淡藍色也稍微加深
                         { label: '布林下軌', data: bbLower, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(56, 189, 248, 0.12)', yAxisID: 'y' },
                         { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.2)', yAxisID: 'y1' } 
                     ] 
