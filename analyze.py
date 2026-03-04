@@ -33,7 +33,7 @@ def get_ptt_news():
         return [entry.find('atom:title', ns).text for entry in entries[:50]]
     except: return []
 
-# 🚀 強化版的情緒分析器
+# 🚀 強化版的情緒分析器 (修復 404 模型名稱找不到的問題)
 def get_ptt_sentiment(titles):
     if not GOOGLE_API_KEY:
         return {"score": 50, "sentiment": "未連線", "summary": "找不到 GOOGLE_API_KEY 鑰匙"}
@@ -48,9 +48,9 @@ def get_ptt_sentiment(titles):
 
 標題：\n""" + "\n".join(titles)
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GOOGLE_API_KEY}"
+    # 🎯 關鍵修正：加上 -latest 確保 Google 伺服器認得這個模型
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={GOOGLE_API_KEY}"
     
-    # 🎯 這裡加上強迫症模式，確保 AI 只回傳乾淨的 JSON
     data = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"response_mime_type": "application/json"}
@@ -65,7 +65,6 @@ def get_ptt_sentiment(titles):
         text = res.json()['candidates'][0]['content']['parts'][0]['text']
         return json.loads(text)
     except Exception as e:
-        # 如果還是錯，把具體的錯誤原因印出來給網頁看
         return {"score": 50, "sentiment": "解析錯誤", "summary": f"發生例外錯誤: {str(e)[:25]}"}
 
 def get_macro_ai_prediction(news_list, region):
