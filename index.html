@@ -22,6 +22,10 @@
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-yellow-400 font-black mb-2 text-base">📈 均線 (MA)</h3><p class="text-slate-300 leading-relaxed text-sm">大家的平均成本。<br><span class="text-slate-400 text-xs mt-1 block">· <b>5MA (周)</b>：短線防守。<br>· <b>20MA (月)</b>：中期趨勢。<br>· <b>60MA (季)</b>：長線大方向。</span></p></div>
                 <div class="bg-black/20 p-4 rounded-2xl border border-sky-500/20 shadow-[0_0_10px_rgba(14,165,233,0.1)]"><h3 class="text-sky-400 font-black mb-2 text-base">🛡️ 布林通道 (BB)</h3><p class="text-slate-300 leading-relaxed text-sm">股價的高速公路。縮口代表準備表態！</p></div>
                 <div class="bg-black/20 p-4 rounded-2xl border border-cyan-500/20 shadow-[0_0_10px_rgba(6,182,212,0.1)]"><h3 class="text-cyan-400 font-black mb-2 text-base">⚔️ 動能 (MACD)</h3><p class="text-slate-300 leading-relaxed text-sm">柱狀綠翻紅代表多頭發力！</p></div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-pink-400 font-black mb-2 text-base">🔥 熱度 (RSI)</h3><p class="text-slate-300 leading-relaxed text-sm">衡量買賣盤力道 (0~100)。<br><span class="text-red-400 font-bold text-xs">> 70 過熱</span><span class="text-slate-400 text-xs">：小心拉回。</span><br><span class="text-green-400 font-bold text-xs">< 30 超賣</span><span class="text-slate-400 text-xs">：醞釀反彈。</span></p></div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-purple-400 font-black mb-2 text-base">📏 乖離率 (Bias)</h3><p class="text-slate-300 leading-relaxed text-sm">股價偏離月線的程度。<br><span class="text-slate-400 text-xs">超過 ±10% 是極端值，隨時可能反轉。</span></p></div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-blue-400 font-black mb-2 text-base">💰 基本面 (PE / EPS)</h3><p class="text-slate-300 leading-relaxed text-sm"><span class="text-slate-200 font-bold">本益比 (P/E)：</span>越小代表越便宜。<br><span class="text-slate-200 font-bold">每股盈餘 (EPS)：</span>數值越大越會賺錢！</p></div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-orange-400 font-black mb-2 text-base">🌊 量能比例</h3><p class="text-slate-300 leading-relaxed text-sm">今日成交量對比近5日平均。<br><span class="text-slate-400 text-xs">大於 <b>1.5倍</b> 且上漲，代表大戶表態！</span></p></div>
             </div>
         </aside>
 
@@ -102,8 +106,8 @@
 
     <script>
         let rawData = [];
-        let pttData = {}; // 儲存 PTT 詳細資料
-        let stockMap = {}; // 用代號找股票資料的字典
+        let pttData = {}; 
+        let stockMap = {}; 
         let priceChart = null; let rsiChart = null; let macdChart = null;
         const SECRET_PASSWORD = "16888"; 
 
@@ -123,7 +127,6 @@
                 rawData = json.data;
                 pttData = json.ptt || {};
                 
-                // 建立股票字典方便查詢
                 rawData.forEach(s => stockMap[s.symbol] = s);
 
                 document.getElementById('update-time').innerText = json.last_update;
@@ -145,7 +148,6 @@
             }).catch(err => console.log("等待資料庫更新中..."));
         }
 
-        // 📈 開啟圖表
         function openModal(stock) {
             document.getElementById('dataModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
@@ -162,7 +164,6 @@
             rsiChart = new Chart(ctxRsi, { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: true, ticks: {color: '#64748b'} } }, plugins: { legend: { display: false } } } });
         }
 
-        // 📰 開啟個股新聞 Modal
         function openNewsModal(symbol) {
             const stock = stockMap[symbol];
             if(!stock) return;
@@ -195,7 +196,6 @@
             setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
         }
 
-        // 🗣️ 開啟 PTT 戰報 Modal
         function openPttModal() {
             const container = document.getElementById('pttContentContainer');
             if(!pttData || !pttData.top_stocks) {
@@ -236,7 +236,6 @@
             setTimeout(() => { document.getElementById('pttModal').classList.remove('opacity-0'); document.getElementById('pttModalContent').classList.remove('scale-95'); }, 10);
         }
 
-        // 關閉 Modal 的通用函數
         function closeModal(modalId) { 
             const modal = document.getElementById(modalId);
             const content = modal.children[0];
@@ -250,7 +249,6 @@
             const filtered = rawData.filter(item => { return (item.symbol || "").toLowerCase().includes(search) || (item.name || "").toLowerCase().includes(search) || (item.category || "").toLowerCase().includes(search); });
             filtered.forEach(stock => {
                 const card = document.createElement('div'); 
-                // 點擊卡片本體打開圖表
                 card.onclick = () => openModal(stock);
                 
                 let statusColor = "border-slate-700 bg-slate-800/50";
