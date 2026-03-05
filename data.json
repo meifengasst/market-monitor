@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-05 [13:35]",
+    "last_update": "2026-03-05 [13:53]",
     "data": [
         {
             "symbol": "NVDA",
@@ -2597,8 +2597,8 @@
             "vol_ratio": 1.2,
             "optimal_sl": 7,
             "actual_sl": 7,
-            "ev": 2.02,
-            "win_rate": 33.85,
+            "ev": 1.99,
+            "win_rate": 33.33,
             "history": [
                 {
                     "date": "2025-11-28",
@@ -7763,13 +7763,13 @@
     "ptt": {
         "score": 60,
         "sentiment": "中立",
-        "summary": "觀望",
+        "summary": "股市觀望",
         "top_stocks": [
             "王品",
             "祥碩"
         ],
         "bull_view": "科技股和能源股有望帶動市場",
-        "bear_view": "地緣政治風險和經濟不確定性仍存",
+        "bear_view": "地緣政治風險和經濟不確定性拖累市場",
         "raw_links": [
             {
                 "title": "[新聞] 快訊／科威特外海大爆炸！伊朗革命衛隊",
