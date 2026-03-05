@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-05 [06:47]",
+    "last_update": "2026-03-05 [07:14]",
     "data": [
         {
             "symbol": "NVDA",
@@ -9,10 +9,10 @@
             "rsi": 42.88,
             "bias": -1.28,
             "vol_ratio": 1.2,
-            "optimal_sl": 6,
+            "optimal_sl": 12,
             "actual_sl": 3,
-            "ev": 3.48,
-            "win_rate": 27.27,
+            "ev": -0.15,
+            "win_rate": 38.91,
             "history": [
                 {
                     "date": "2025-12-05",
@@ -855,7 +855,8 @@
                     "bb_lower": 173.18
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 6%。但目前大盤破線，已強制縮緊至 3% 防守！ (目前期望值 3.48%)",
+            "rs_score": 5.24,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 【主力資金偏好】近期表現強於大盤 5.24%！",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -870,10 +871,10 @@
             "rsi": 37.49,
             "bias": -1.04,
             "vol_ratio": 1.2,
-            "optimal_sl": 7,
+            "optimal_sl": 12,
             "actual_sl": 3,
-            "ev": 2.15,
-            "win_rate": 24.14,
+            "ev": -0.12,
+            "win_rate": 37.88,
             "history": [
                 {
                     "date": "2025-12-05",
@@ -1716,7 +1717,8 @@
                     "bb_lower": 392.46
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 7%。但目前大盤破線，已強制縮緊至 3% 防守！ (目前期望值 2.15%)",
+            "rs_score": 0.14,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1731,10 +1733,10 @@
             "rsi": 44.18,
             "bias": -0.19,
             "vol_ratio": 1.2,
-            "optimal_sl": 3,
+            "optimal_sl": 4,
             "actual_sl": 3,
-            "ev": 0.47,
-            "win_rate": 35.29,
+            "ev": 0.27,
+            "win_rate": 33.77,
             "history": [
                 {
                     "date": "2025-12-05",
@@ -2577,7 +2579,8 @@
                     "bb_lower": 677.27
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 3%。但目前大盤破線，已強制縮緊至 3% 防守！ (目前期望值 0.47%)",
+            "rs_score": -0.0,
+            "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2592,10 +2595,10 @@
             "rsi": 60.0,
             "bias": 2.05,
             "vol_ratio": 1.2,
-            "optimal_sl": 3,
-            "actual_sl": 3,
-            "ev": 1.56,
-            "win_rate": 31.25,
+            "optimal_sl": 7,
+            "actual_sl": 7,
+            "ev": 1.99,
+            "win_rate": 33.33,
             "history": [
                 {
                     "date": "2025-11-28",
@@ -3438,7 +3441,8 @@
                     "bb_lower": 1694.63
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 3%。目前大盤穩定，套用最佳停損。 (目前期望值 1.56%)",
+            "rs_score": -0.39,
+            "ai_summary": "🎯 最佳移動停利/停損為 7%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -0.39%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3453,10 +3457,10 @@
             "rsi": 53.85,
             "bias": -3.62,
             "vol_ratio": 1.2,
-            "optimal_sl": 5,
-            "actual_sl": 5,
-            "ev": 0.38,
-            "win_rate": 29.73,
+            "optimal_sl": 12,
+            "actual_sl": 12,
+            "ev": 0.48,
+            "win_rate": 31.58,
             "history": [
                 {
                     "date": "2025-11-28",
@@ -4299,7 +4303,8 @@
                     "bb_lower": 55.37
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 5%。目前大盤穩定，套用最佳停損。 (目前期望值 0.38%)",
+            "rs_score": -25.63,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -25.63%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -4314,10 +4319,10 @@
             "rsi": 69.03,
             "bias": 2.56,
             "vol_ratio": 1.2,
-            "optimal_sl": 3,
-            "actual_sl": 3,
-            "ev": 1.22,
-            "win_rate": 32.79,
+            "optimal_sl": 4,
+            "actual_sl": 4,
+            "ev": 1.64,
+            "win_rate": 38.46,
             "history": [
                 {
                     "date": "2025-11-27",
@@ -5160,7 +5165,8 @@
                     "bb_lower": 68.83
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 3%。目前大盤穩定，套用最佳停損。 (目前期望值 1.22%)",
+            "rs_score": -0.0,
+            "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤穩定。 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5175,10 +5181,10 @@
             "rsi": 41.98,
             "bias": -3.67,
             "vol_ratio": 1.2,
-            "optimal_sl": 4,
-            "actual_sl": 4,
-            "ev": 0.36,
-            "win_rate": 28.0,
+            "optimal_sl": 12,
+            "actual_sl": 12,
+            "ev": 0.2,
+            "win_rate": 27.27,
             "history": [
                 {
                     "date": "2025-11-28",
@@ -6021,7 +6027,8 @@
                     "bb_lower": 90.95
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 4%。目前大盤穩定，套用最佳停損。 (目前期望值 0.36%)",
+            "rs_score": -13.05,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -13.05%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6036,10 +6043,10 @@
             "rsi": 61.81,
             "bias": 2.67,
             "vol_ratio": 1.2,
-            "optimal_sl": 8,
-            "actual_sl": 8,
-            "ev": -0.91,
-            "win_rate": 15.19,
+            "optimal_sl": 6,
+            "actual_sl": 6,
+            "ev": -0.84,
+            "win_rate": 19.39,
             "history": [
                 {
                     "date": "2025-11-28",
@@ -6882,7 +6889,8 @@
                     "bb_lower": 90.87
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 8%。目前大盤穩定，套用最佳停損。 (目前期望值 -0.91%)",
+            "rs_score": -7.85,
+            "ai_summary": "🎯 最佳移動停利/停損為 6%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -7.85%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6897,10 +6905,10 @@
             "rsi": 43.62,
             "bias": -2.88,
             "vol_ratio": 1.2,
-            "optimal_sl": 4,
-            "actual_sl": 4,
-            "ev": -0.16,
-            "win_rate": 20.0,
+            "optimal_sl": 6,
+            "actual_sl": 6,
+            "ev": -0.06,
+            "win_rate": 23.91,
             "history": [
                 {
                     "date": "2025-11-28",
@@ -7743,7 +7751,8 @@
                     "bb_lower": 29.67
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 4%。目前大盤穩定，套用最佳停損。 (目前期望值 -0.16%)",
+            "rs_score": -11.46,
+            "ai_summary": "🎯 最佳移動停利/停損為 6%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -11.46%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7752,35 +7761,35 @@
         }
     ],
     "ptt": {
-        "score": 40,
-        "sentiment": "恐慌",
-        "summary": "油價上漲",
+        "score": 60,
+        "sentiment": "中立",
+        "summary": "觀望",
         "top_stocks": [
-            "8046南電",
-            "2609陽明"
+            "8016",
+            "3443"
         ],
-        "bull_view": "需求從非常高變成更高，不考慮投降",
-        "bear_view": "油價來到2022年的位置，投資者恐慌",
+        "bull_view": "油價上漲，鋼廠減產，帶動相關股價",
+        "bear_view": "國際局勢不穩，投資者觀望",
         "raw_links": [
             {
-                "title": "[心得] 油價來到2022年的位置 各位還敢買股？",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772692923.A.052.html"
+                "title": "[情報] 8016 矽創 114年EPS：14.66 股利：11.5",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772694289.A.CDF.html"
             },
             {
-                "title": "[新聞] 陸鋼減產來真的！1月年減14％ 亞洲鋼廠",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772692377.A.EED.html"
+                "title": "[請益] 請教高手勝率較高的加減碼機制",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772694133.A.6B5.html"
             },
             {
-                "title": "[新聞] 本打算4周結束戰爭 美媒：川普政府如今評",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772691765.A.530.html"
+                "title": "[情報] 台股前十大漲點紀錄(今天第五名)",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772694108.A.E9D.html"
             },
             {
-                "title": "[新聞] 黃仁勳：需求從非常高變成更高 不考慮投",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772691099.A.39B.html"
+                "title": "[新聞] 最新股票抽籤／ABF載板廠抽到價差14萬「",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772693981.A.75E.html"
             },
             {
-                "title": "[閒聊] 2026/03/05 盤後閒聊",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772690403.A.8A6.html"
+                "title": "[情報] 0305 上市投信買賣超排行",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772693355.A.7B5.html"
             }
         ]
     },
