@@ -3,9 +3,10 @@ name: 阿土伯戰情室自動更新
 # 設定什麼時候要觸發機器人執行
 on:
   schedule:
-    # 這是 UTC 時間 (台灣時間減 8 小時)。設定在台股盤中自動更新。
-    - cron: '30 1,3,5 * * 1-5' 
-  workflow_dispatch: # 讓你可以隨時在 GitHub 網頁上手動點擊 "Run workflow" 測試
+    # 這是 UTC 時間 (台灣時間減 8 小時)。
+    # '*/30 1-5 * * 1-5' 代表：星期一到五，台灣時間早上 9:00 到 下午 1:59，每 30 分鐘自動跑一次！
+    - cron: '*/30 1-5 * * 1-5' 
+  workflow_dispatch: # 保留手動按鈕
 
 jobs:
   update-data:
