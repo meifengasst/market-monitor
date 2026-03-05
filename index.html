@@ -362,12 +362,12 @@
                 let rsiBadge = ""; if (stock.rsi >= 70) rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>`; else if (stock.rsi >= 50) rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">📈偏多</span>`; else if (stock.rsi <= 30) rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>`; else rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">📉偏空</span>`;
                 let biasBadge = ""; if (stock.bias > 10) biasBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">⚠️極高</span>`; else if (stock.bias < -10) biasBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">✅超跌</span>`; else biasBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-slate-500/20 text-slate-300 border border-slate-500/30">🛡️正常</span>`;
                 let biasStr = stock.bias > 0 ? `+${stock.bias}%` : `${stock.bias}%`;
-                // 💡 阿土伯新增：多空紅綠燈防呆機制
+                // 💡 阿土伯新增：多空紅綠燈防呆機制 (改為台股紅漲綠跌)
                 let trendBadge = "";
                 if (stock.price > ma20) {
-                trendBadge = `<span class="bg-green-500/20 text-green-400 border border-green-500/50 px-3 py-1 rounded-full text-xs font-black shadow-[0_0_10px_rgba(34,197,94,0.3)] animate-pulse">🟢 站上月線 (偏多)</span>`;
+                    trendBadge = `<span class="bg-red-500/20 text-red-400 border border-red-500/50 px-3 py-1 rounded-full text-xs font-black shadow-[0_0_10px_rgba(239,68,68,0.3)] animate-pulse">🔴 站上月線 (偏多)</span>`;
                 } else {
-                trendBadge = `<span class="bg-red-500/20 text-red-400 border border-red-500/50 px-3 py-1 rounded-full text-xs font-black shadow-[0_0_10px_rgba(239,68,68,0.2)]">🔴 跌破月線 (觀望)</span>`;
+                    trendBadge = `<span class="bg-green-500/20 text-green-400 border border-green-500/50 px-3 py-1 rounded-full text-xs font-black shadow-[0_0_10px_rgba(34,197,94,0.2)]">🟢 跌破月線 (觀望)</span>`;
                 }
        
                 
@@ -461,44 +461,33 @@ if (stock.ev !== undefined) {
                     </div>`;
                     
                 } else {
-                    // 🌟 原本的預估計算機模式
-                    const totalCapital = parseFloat(document.getElementById('capitalInput').value) || 0;
-                    const riskPct = 0.02; 
-                    let isUptrend = stock.price > ma20;
-
-                    if (totalCapital > 0 && isUptrend) {
-                        let stopLossDecimal = stock.actual_sl / 100;
-                        let riskPerShare = stock.price * stopLossDecimal; 
-                        let sharesToBuy = riskPerShare > 0 ? Math.floor((totalCapital * riskPct) / riskPerShare) : 0;
-                        let totalInvestment = Math.round(sharesToBuy * stock.price);
-                        
-                        let sharesDisplay = "";
+                    let sharesDisplay = "";
                         if (stock.symbol.endsWith(".TW")) {
                             let lots = Math.floor(sharesToBuy / 1000);
                             let remainShares = sharesToBuy % 1000;
-                            if (lots > 0 && remainShares > 0) sharesDisplay = `${lots} <span class="text-sm text-green-400/70">張</span> ${remainShares} <span class="text-sm text-green-400/70">股</span>`;
-                            else if (lots > 0 && remainShares === 0) sharesDisplay = `${lots} <span class="text-sm text-green-400/70">張</span>`;
-                            else sharesDisplay = `${remainShares} <span class="text-sm text-green-400/70">股</span>`;
+                            if (lots > 0 && remainShares > 0) sharesDisplay = `${lots} <span class="text-sm text-red-400/70">張</span> ${remainShares} <span class="text-sm text-red-400/70">股</span>`;
+                            else if (lots > 0 && remainShares === 0) sharesDisplay = `${lots} <span class="text-sm text-red-400/70">張</span>`;
+                            else sharesDisplay = `${remainShares} <span class="text-sm text-red-400/70">股</span>`;
                         } else {
-                            sharesDisplay = `${sharesToBuy.toLocaleString()} <span class="text-sm text-green-400/70">股</span>`;
+                            sharesDisplay = `${sharesToBuy.toLocaleString()} <span class="text-sm text-red-400/70">股</span>`;
                         }
                         
                         positionHtml = `
-                        <div class="mt-4 bg-green-900/30 p-4 rounded-xl border border-green-500/40 shadow-inner group">
+                        <div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 shadow-inner group">
                             <div class="flex justify-between items-center mb-1">
-                                <p class="text-[11px] text-green-400 font-bold tracking-wide">🛡️ 2% 風控建議買進</p>
-                                <button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-green-600 hover:bg-green-500 text-white px-2 py-0.5 rounded font-bold transition-colors shadow">➕ 記錄買進</button>
+                                <p class="text-[11px] text-red-400 font-bold tracking-wide">🛡️ 2% 風控建議買進</p>
+                                <button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold transition-colors shadow">➕ 記錄買進</button>
                             </div>
                             <div class="flex justify-between items-end">
-                                <p class="text-2xl font-mono font-black text-green-300">${sharesDisplay}</p>
+                                <p class="text-2xl font-mono font-black text-red-300">${sharesDisplay}</p>
                                 <div class="text-right">
-                                    <p class="text-[10px] text-green-400/70 font-bold mb-0.5 tracking-wide">預計投入金額</p>
-                                    <p class="text-base font-mono font-black text-green-200">$${totalInvestment.toLocaleString()}</p>
+                                    <p class="text-[10px] text-red-400/70 font-bold mb-0.5 tracking-wide">預計投入金額</p>
+                                    <p class="text-base font-mono font-black text-red-200">$${totalInvestment.toLocaleString()}</p>
                                 </div>
                             </div>
                         </div>`;
                     } else if (!isUptrend) {
-                        positionHtml = `<div class="mt-4 bg-red-900/20 p-4 rounded-xl border border-red-500/30 shadow-inner text-center"><p class="text-sm text-red-400 font-black tracking-widest">🔴 跌破月線，風控系統鎖定</p></div>`;
+                        positionHtml = `<div class="mt-4 bg-green-900/20 p-4 rounded-xl border border-green-500/30 shadow-inner text-center"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破月線，風控系統鎖定</p></div>`;
                     } else {
                         positionHtml = `<div class="mt-4 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-inner text-center"><p class="text-xs text-slate-400 font-bold">請於上方輸入總本金以啟用計算機</p></div>`;
                     }
