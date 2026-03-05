@@ -20,31 +20,39 @@
             <h2 class="text-2xl font-black text-blue-400 mb-6 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📜</span> 阿土伯實戰鐵律</h2>
             <div class="flex flex-col gap-4 text-sm pb-4">
                 <div class="bg-red-900/20 p-4 rounded-2xl border border-red-500/30 shadow-[0_0_10px_rgba(239,68,68,0.1)]">
-                    <h3 class="text-red-400 font-black mb-2 text-base">⚠️ 進出最高指導原則</h3>
+                    <h3 class="text-red-400 font-black mb-2 text-base">⚠️ 進出最高指導原則 (最重要)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">
                         <span class="text-green-400 font-bold">【做多條件】</span> 股價必須站上 20MA (月線)！<br>
                         <span class="text-red-400 font-bold">【空手觀望】</span> 股價跌破 20MA，絕對不摸底接刀！<br>
-                        <span class="text-purple-400 font-bold">【無情停損】</span> 跌破系統算出的「最佳甜蜜點」，無條件砍單，嚴禁凹單！
+                        <span class="text-purple-400 font-bold">【無情停損】</span> 跌破系統算出的「甜蜜點」，無條件砍單，嚴禁凹單！
+                    </p>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-black text-purple-400 mb-6 mt-8 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📖</span> 阿土伯術語深度解讀</h2>
+            <div class="flex flex-col gap-4 text-sm pb-4">
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
+                    <h3 class="text-green-400 font-black mb-2 text-base">🏆 策略期望值 (EV)</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm">
+                        每一次交易所預期的平均獲利%。長期來看，此數值必須為正。我們的策略是：在正期望值時進場，並使用停損保護。
                     </p>
                 </div>
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
-                    <h3 class="text-yellow-400 font-black mb-2 text-base">📈 均線 (MA) 生命線</h3>
+                    <h3 class="text-purple-400 font-black mb-2 text-base">🎯 最佳停損 / 移動停利 (壓箱寶一)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">
-                        <span class="text-slate-400 text-xs mt-1 block">· <b>5MA (周線)</b>：短線強弱分界，沿此線飆漲勿亂賣。<br>· <b>20MA (月線)</b>：<span class="text-yellow-300 font-bold">多空生命線！站上才找買點！</span><br>· <b>60MA (季線)</b>：長線大趨勢方向。</span>
+                        最佳停損由系統網格測試得出，能創造最高期望值。移動停利 (壓箱寶一) 則是在獲利時，將出場點上移，鎖定利潤。兩者皆能有效保護資金並截斷虧損。
                     </p>
                 </div>
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
-                    <h3 class="text-pink-400 font-black mb-2 text-base">🔥 熱度 (RSI) 探測器</h3>
+                    <h3 class="text-red-400 font-black mb-2 text-base">現行套用停損 (大盤避險)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">
-                        <span class="text-red-400 font-bold text-xs">> 75 過熱</span><span class="text-slate-400 text-xs">：隨時拉回，空手者嚴禁追高！</span><br>
-                        <span class="text-green-400 font-bold text-xs">< 25 超賣</span><span class="text-slate-400 text-xs">：醞釀反彈，但仍需等站上5MA再試單。</span>
+                        根據大盤狀態（0050/SPY）動態調整後的實際執行停損。例如大盤轉弱破月線時，停損會被強制收緊（如從5%至3%）以優先保護資金。
                     </p>
                 </div>
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
-                    <h3 class="text-purple-400 font-black mb-2 text-base">📏 乖離率 (Bias) 橡皮筋</h3>
+                    <h3 class="text-blue-400 font-black mb-2 text-base">相對強弱 RS Radar (👑壓箱寶二)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">
-                        股價偏離月線的程度。就像拉橡皮筋：<br>
-                        <span class="text-slate-400 text-xs">正乖離過大 (如 +10%) 隨時回檔；負乖離過大雖然便宜，但不代表馬上會漲。</span>
+                        個股相對於大盤（0050/SPY）的表現。<span class="text-blue-300">擊敗大盤</span>代表資金流入；<span class="text-yellow-300 font-bold">主力強勢股</span>則是相對漲幅最極端的股票，代表市場最關注的核心。
                     </p>
                 </div>
             </div>
@@ -323,6 +331,68 @@ if (stock.ev !== undefined) {
     }
 }
 
+// 組合卡片內容 (加大字體，並且在卡片期望值上方增加相對強弱狀態)
+                card.className = `${statusColor} p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group`;
+                card.innerHTML = `
+                    <div class="flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-5">
+                            <span class="bg-black/50 text-white text-xs px-3.5 py-1.5 rounded-full font-bold tracking-widest uppercase border border-white/10">${stock.category}</span>
+                            <span class="text-sm font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <h2 class="text-4xl font-black text-white tracking-tight">${stock.name}</h2>
+                            ${trendBadge}
+                        </div>
+                        
+                        <div class="bg-black/40 p-5 rounded-2xl mb-4 border border-white/5">
+                            <div class="flex justify-between items-start mb-5">
+                                <div><p class="text-7xl font-mono font-black text-white tracking-tighter">${stock.price}</p></div>
+                                <div class="text-right flex flex-col items-end gap-2.5">
+                                    <div>
+                                        <div class="flex items-center gap-1.5 justify-end mb-1"><p class="text-[11px] text-white/50 font-bold tracking-wide">熱度 (RSI)</p>${rsiBadge}</div>
+                                        <p class="text-4xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : (stock.rsi < 30 ? 'text-green-400' : 'text-slate-200')}">${stock.rsi}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            ${evBadge}
+
+                            <div class="flex justify-between items-center bg-slate-800/80 p-3.5 rounded-xl border border-slate-600/50 mt-2 shadow-inner">
+                                <div class="text-center w-1/3 border-r border-slate-600/50">
+                                    <p class="text-sm text-slate-400 font-bold mb-1">歷史勝率</p>
+                                    <p class="text-2xl font-mono font-black text-blue-300">${stock.win_rate}%</p>
+                                </div>
+                                <div class="text-center w-1/3 border-r border-slate-600/50 relative group">
+                                    <div class="absolute -top-2 -right-1 text-[8px] animate-pulse">🎯</div>
+                                    <p class="text-sm text-purple-300 font-bold mb-1">最佳停損/移動停利</p>
+                                    <p class="text-2xl font-mono font-black text-purple-400">${stock.optimal_sl}%</p>
+                                </div>
+                                <div class="text-center w-1/3">
+                                    <p class="text-sm text-slate-400 font-bold mb-1">現行套用停損</p>
+                                    <p class="text-2xl font-mono font-black ${stock.actual_sl < stock.optimal_sl ? 'text-red-400' : 'text-green-400'}">${stock.actual_sl}%</p>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center bg-black/30 p-3.5 rounded-xl border border-white/5 mb-4 mt-3 shadow-inner">
+                                <div class="text-center w-1/3 border-r border-white/10"><p class="text-sm text-slate-500 font-bold mb-1">5MA</p><p class="text-2xl font-mono font-black ${stock.price > ma5 ? 'text-red-400' : 'text-green-400'}">${ma5}</p></div>
+                                <div class="text-center w-1/3 border-r border-white/10"><p class="text-sm text-slate-500 font-bold mb-1">20MA</p><p class="text-2xl font-mono font-black ${stock.price > ma20 ? 'text-red-400' : 'text-green-400'}">${ma20}</p></div>
+                                <div class="text-center w-1/3"><p class="text-sm text-slate-500 font-bold mb-1">60MA</p><p class="text-2xl font-mono font-black ${stock.price > ma60 ? 'text-red-400' : 'text-green-400'}">${ma60}</p></div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-700/50 flex flex-col gap-3">
+                                <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/30">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <p class="text-xs font-black text-blue-300 flex items-center gap-1">🤖 阿土狗點評：</p>
+                                    </div>
+                                    <p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.ai_summary || '讀取中'}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-blue-900/30 p-4 rounded-xl border border-blue-500/30 mt-auto">
+                            </div>
+                    </div>
+                `;
+                
 // 💡 阿土伯新增：資金控管大腦 (動態抓取上方輸入的本金，設定單筆風險為 2%)
                 const totalCapital = parseFloat(document.getElementById('capitalInput').value) || 0;
                 const riskPct = 0.02; 
