@@ -66,6 +66,35 @@ def calculate_strategy_ev(ticker, start_date, end_date, stop_loss_pct):
     ev = (p_win * avg_win) - (p_loss * avg_loss)
     return {"ev": round(ev * 100, 2), "win_rate": round(p_win * 100, 2)}
 
+def get_expert_commentary(stock_name, ev, win_rate, rsi, bias, price, ma20, stop_loss):
+    """阿土狗決策大腦：將冷冰冰的數據轉化為實戰策略建議"""
+    
+    # --- 1. 期望值與勝率的底層邏輯 ---
+    if ev >= 2.0:
+        base_msg = f"📊 歷史回測表現極佳 (期望值 {ev}%)！這是一檔爆發力強的潛力股。"
+    elif ev > 0:
+        if win_rate >= 50:
+            base_msg = f"📈 走勢穩健，期望值 {ev}% 且勝率過半 ({win_rate}%)，適合沿著均線順勢操作。"
+        else:
+            base_msg = f"🐺 標準的「賺大賠小」型態！勝率僅 {win_rate}%，代表主力洗盤洗得很兇，但只要你嚴守 {int(stop_loss*100)}% 停損絕不凹單，長期期望值仍有 {ev}%，請務必抱緊獲利！"
+    else:
+        base_msg = f"⚠️ 警告：目前策略陷入負期望值 ({ev}%)。這檔股票近期走勢容易「雙巴」，阿土伯強烈建議空手觀望，切忌賭徒式進場摸底！"
+
+    # --- 2. 疊加技術指標 (RSI & 乖離率) 的防護網 ---
+    tech_msg = ""
+    if rsi >= 75:
+        tech_msg = f"不過目前 RSI 高達 {rsi} 嚴重過熱，短線隨時可能拉回洗盤，空手者千萬別在這追高當韭菜！"
+    elif rsi <= 25:
+        tech_msg = f"目前 RSI 僅 {rsi} 進入超賣區，配合乖離率 {bias}%，隨時醞釀反彈契機，可密切留意底部量能是否放大。"
+    elif price < ma20 and ev > 0:
+        tech_msg = f"需注意目前股價仍壓在月線 ({ma20}) 之下，上方壓力沉重，若要進場試單請將資金拆批，嚴控風險。"
+    elif bias > 10:
+        tech_msg = f"目前正乖離來到 {bias}% 偏高，代表股價短線衝太快了，持股者沿著 5日線防守即可，破線就先入袋為安。"
+    else:
+        tech_msg = "技術指標目前處於溫和區間，請耐心等待量能表態的關鍵紅K。"
+
+    return f"{base_msg} {tech_msg}"
+
 # --- 3. 大盤環境偵測器 ---
 def check_market_regime():
     print("🌍 正在偵測大盤多空環境 (0050.TW)...")
@@ -172,6 +201,11 @@ def generate_dashboard_data():
         strategy_result = calculate_strategy_ev(symbol, backtest_start, today_str, stop_loss_pct=current_stop_loss)
         ev_val = strategy_result['ev'] if strategy_result else 0
         win_rate_val = strategy_result['win_rate'] if strategy_result else 0
+
+        # 💡 阿土伯升級：呼叫決策大腦產生深度點評
+        smart_summary = get_expert_commentary(
+            info['name'], ev_val, win_rate_val, latest_rsi, bias, latest_price, ma20_val, current_stop_loss
+        )
         
         stock_obj = {
             "symbol": symbol,
@@ -204,3 +238,4 @@ def generate_dashboard_data():
 
 if __name__ == "__main__":
     generate_dashboard_data()
+
