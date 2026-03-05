@@ -74,14 +74,25 @@ def generate_dashboard_data():
         print(f"   ➤ 正在處理: {info['name']} ({symbol})")
         
         # A. 取得最新報價與均線 (抓近半年算均線即可)
+        # ... 前面抓歷史日K線的部分一樣 ...
         df = yf.download(symbol, period="6mo", progress=False)
         if df.empty: continue
         
         if isinstance(df.columns, pd.MultiIndex):
             df.columns = df.columns.droplevel(1)
             
-        latest_price = round(df['Close'].iloc[-1], 2)
+        # 💡 阿土伯修正：用 fast_info 強制抓取盤中即時最新價
+        ticker_obj = yf.Ticker(symbol)
+        try:
+            # fast_info 可以抓到目前最新 tick 的即時交易價
+            latest_price = round(ticker_obj.fast_info['lastPrice'], 2)
+        except:
+            # 防呆機制：如果盤中 API 剛好抓不到，再退回去用 K 線的最後一筆
+            latest_price = round(df['Close'].iloc[-1], 2)
+            
+        # 均線計算維持不變 (依然用日K線的收盤價來算才準確)...
         ma5 = round(df['Close'].rolling(window=5).mean().iloc[-1], 2)
+        # ... 後面程式碼照舊 ...
         ma20 = round(df['Close'].rolling(window=20).mean().iloc[-1], 2)
         ma60 = round(df['Close'].rolling(window=60).mean().iloc[-1], 2)
         
@@ -135,3 +146,4 @@ def generate_dashboard_data():
 # 執行主程式
 if __name__ == "__main__":
     generate_dashboard_data()
+
