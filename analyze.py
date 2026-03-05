@@ -41,19 +41,36 @@ def get_ptt_sentiment(ptt_list):
     except: pass
     return default_response
 
-# 💡 優化：直接吃 DataFrame 算期望值，速度提升 100 倍
+# 💡 壓箱寶一：階梯式移動停利 (Trailing Stop) 回測大腦
 def calculate_ev_from_df(df, stop_loss_pct):
     trades, entry_price, in_position = [], 0, False
+    peak_price = 0 # 紀錄買進後的最高價
+    
     for index, row in df.iterrows():
         if in_position:
-            if row['Low'] <= entry_price * (1 - stop_loss_pct):
-                trades.append(-stop_loss_pct)
+            # 每天更新最高價
+            peak_price = max(peak_price, row['High'])
+            
+            # 計算兩種停損價：
+            # 1. 原始保本停損 (買進價往下跌 5%)
+            fixed_stop = entry_price * (1 - stop_loss_pct)
+            # 2. 移動停利 (最高價往下跌 5%)
+            trailing_stop = peak_price * (1 - stop_loss_pct)
+            
+            # 系統會非常聰明地取兩者「較高」的那個作為出場點！
+            actual_exit_price = max(fixed_stop, trailing_stop)
+
+            # 觸發停損/停利
+            if row['Low'] <= actual_exit_price:
+                trades.append((actual_exit_price - entry_price) / entry_price)
                 in_position = False
+            # 或者跌破月線出場
             elif row['Signal'] == -1:
                 trades.append((row['Close'] - entry_price) / entry_price)
                 in_position = False
         elif not in_position and row['Signal'] == 1:
             entry_price, in_position = row['Close'], True
+            peak_price = row['Close']
 
     if not trades: return None
     ts = pd.Series(trades)
@@ -63,10 +80,9 @@ def calculate_ev_from_df(df, stop_loss_pct):
     return {"ev": round(ev * 100, 2), "win_rate": round(p_win * 100, 2)}
 
 def check_market_regime():
-    regime = {"TW": False, "US": False} # False 代表多頭，True 代表空頭(跌破月線)
+    regime = {"TW": False, "US": False} 
     alert_msg = "⚠️【阿土伯雙引擎戰報】\n大盤跌破月線防禦區！\n\n"
     triggered = False
-    
     try:
         tw = yf.download("0050.TW", period="2mo", progress=False)
         if tw['Close'].iloc[-1].item() < tw['Close'].rolling(20).mean().iloc[-1].item():
@@ -79,7 +95,6 @@ def check_market_regime():
             regime["US"] = True; triggered = True
             alert_msg += f"🇺🇸 美股(SPY)破線，啟動 3% 避險！\n"
     except: pass
-    
     if triggered: send_line_alert(alert_msg)
     return regime
 
@@ -92,6 +107,13 @@ STOCKS = {
 def generate_dashboard_data():
     ptt_data = get_ptt_sentiment(get_ptt_news())
     bear_markets = check_market_regime() 
+    
+    # 💡 壓箱寶二前期準備：抓取大盤資料，用來算相對強弱指標
+    tw_idx = yf.download("0050.TW", period="6mo", progress=False)
+    us_idx = yf.download("SPY", period="6mo", progress=False)
+    if isinstance(tw_idx.columns, pd.MultiIndex): tw_idx.columns = tw_idx.columns.droplevel(1)
+    if isinstance(us_idx.columns, pd.MultiIndex): us_idx.columns = us_idx.columns.droplevel(1)
+    
     dashboard_data = []
 
     for symbol, info in STOCKS.items():
@@ -103,7 +125,7 @@ def generate_dashboard_data():
         try: df.iloc[-1, df.columns.get_loc('Close')] = round(yf.Ticker(symbol).fast_info.get('lastPrice', df['Close'].iloc[-1]), 2)
         except: pass
         
-        # 算技術指標
+        # 技術指標計算
         df['ma5'] = df['Close'].rolling(5).mean()
         df['ma20'] = df['Close'].rolling(20).mean()
         df['ma60'] = df['Close'].rolling(60).mean()
@@ -115,17 +137,24 @@ def generate_dashboard_data():
         delta = df['Close'].diff()
         df['rsi'] = 100 - (100 / (1 + (delta.where(delta > 0, 0).rolling(14).mean() / -delta.where(delta < 0, 0).rolling(14).mean())))
         
-        # 準備訊號供回測
         df['Signal'] = np.where(df['Close'] > df['ma20'], 1, np.where(df['Close'] < df['ma20'], -1, 0))
         df = df.fillna(0)
         
-        # 💡 尋找甜蜜點
+        # 💡 壓箱寶二核心：計算個股 vs 大盤的「相對強弱指標 (RS)」 (看近 20 天)
+        try:
+            market_idx = tw_idx if symbol.endswith(".TW") else us_idx
+            stock_ret_20 = (df['Close'].iloc[-1] - df['Close'].iloc[-20]) / df['Close'].iloc[-20]
+            idx_ret_20 = (market_idx['Close'].iloc[-1] - market_idx['Close'].iloc[-20]) / market_idx['Close'].iloc[-20]
+            rs_score = round((stock_ret_20 - idx_ret_20) * 100, 2)
+        except:
+            rs_score = 0
+        
+        # 尋找含「移動停利」的最佳甜蜜點
         best_sl, best_ev = 0.05, -999
         for sl in [0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12]:
             res = calculate_ev_from_df(df, sl)
             if res and res['ev'] > best_ev: best_ev, best_sl = res['ev'], sl
                 
-        # 💡 套用大盤防護網
         is_bear = bear_markets["TW"] if symbol.endswith(".TW") else bear_markets["US"]
         actual_sl = 0.03 if is_bear else best_sl
         actual_res = calculate_ev_from_df(df, actual_sl)
@@ -134,12 +163,16 @@ def generate_dashboard_data():
 
         hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2)} for i, r in df.tail(60).iterrows()]
         
+        # 加上 AI 智庫評語
+        rs_comment = f"【主力資金偏好】近期表現強於大盤 {rs_score}%！" if rs_score > 5 else (f"【溫吞股】近期表現落後大盤 {rs_score}%。" if rs_score < 0 else "與大盤同步。")
+        
         dashboard_data.append({
             "symbol": symbol, "name": info["name"], "category": info["category"],
             "price": round(df['Close'].iloc[-1], 2), "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((df['Close'].iloc[-1] - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
-            "ai_summary": f"🎯 歷史最佳停損為 {int(best_sl*100)}%。{'但目前大盤破線，已強制縮緊至 3% 防守！' if is_bear else '目前大盤穩定，套用最佳停損。'} (目前期望值 {actual_ev}%)",
+            "rs_score": rs_score, # 🌟 將 RS 傳給前端
+            "ai_summary": f"🎯 最佳移動停利/停損為 {int(best_sl*100)}%。{'目前大盤破線，已強制縮緊至 3% 防守！' if is_bear else '目前大盤穩定。'} {rs_comment}",
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
