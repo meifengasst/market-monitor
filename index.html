@@ -17,15 +17,36 @@
     <div id="dashboardContent" class="hidden p-4 md:p-6 w-full max-w-[1800px] mx-auto flex-col xl:flex-row gap-6 xl:gap-8 opacity-0 transition-opacity duration-700">
         
         <aside class="w-full xl:w-[320px] xl:sticky xl:top-6 h-[calc(100vh-3rem)] overflow-y-auto bg-slate-800/60 backdrop-blur-md rounded-[2rem] border border-slate-700 shadow-2xl p-6 flex-shrink-0 custom-scrollbar">
-            <h2 class="text-2xl font-black text-blue-400 mb-6 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📚</span> 股票小教室</h2>
+            <h2 class="text-2xl font-black text-blue-400 mb-6 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📜</span> 阿土伯實戰鐵律</h2>
             <div class="flex flex-col gap-4 text-sm pb-4">
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-yellow-400 font-black mb-2 text-base">📈 均線 (MA)</h3><p class="text-slate-300 leading-relaxed text-sm">大家的平均成本。<br><span class="text-slate-400 text-xs mt-1 block">· <b>5MA (周)</b>：短線防守。<br>· <b>20MA (月)</b>：中期趨勢。<br>· <b>60MA (季)</b>：長線大方向。</span></p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-sky-500/20 shadow-[0_0_10px_rgba(14,165,233,0.1)]"><h3 class="text-sky-400 font-black mb-2 text-base">🛡️ 布林通道 (BB)</h3><p class="text-slate-300 leading-relaxed text-sm">股價的高速公路。縮口代表準備表態！</p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-cyan-500/20 shadow-[0_0_10px_rgba(6,182,212,0.1)]"><h3 class="text-cyan-400 font-black mb-2 text-base">⚔️ 動能 (MACD)</h3><p class="text-slate-300 leading-relaxed text-sm">柱狀綠翻紅代表多頭發力！</p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-pink-400 font-black mb-2 text-base">🔥 熱度 (RSI)</h3><p class="text-slate-300 leading-relaxed text-sm">衡量買賣盤力道 (0~100)。<br><span class="text-red-400 font-bold text-xs">> 70 過熱</span><span class="text-slate-400 text-xs">：小心拉回。</span><br><span class="text-green-400 font-bold text-xs">< 30 超賣</span><span class="text-slate-400 text-xs">：醞釀反彈。</span></p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-purple-400 font-black mb-2 text-base">📏 乖離率 (Bias)</h3><p class="text-slate-300 leading-relaxed text-sm">股價偏離月線的程度。<br><span class="text-slate-400 text-xs">超過 ±10% 是極端值，隨時可能反轉。</span></p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-blue-400 font-black mb-2 text-base">💰 基本面 (PE / EPS)</h3><p class="text-slate-300 leading-relaxed text-sm"><span class="text-slate-200 font-bold">本益比 (P/E)：</span>越小代表越便宜。<br><span class="text-slate-200 font-bold">每股盈餘 (EPS)：</span>數值越大越會賺錢！</p></div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5"><h3 class="text-orange-400 font-black mb-2 text-base">🌊 量能比例</h3><p class="text-slate-300 leading-relaxed text-sm">今日成交量對比近5日平均。<br><span class="text-slate-400 text-xs">大於 <b>1.5倍</b> 且上漲，代表大戶表態！</span></p></div>
+                <div class="bg-red-900/20 p-4 rounded-2xl border border-red-500/30 shadow-[0_0_10px_rgba(239,68,68,0.1)]">
+                    <h3 class="text-red-400 font-black mb-2 text-base">⚠️ 進出最高指導原則</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm">
+                        <span class="text-green-400 font-bold">【做多條件】</span> 股價必須站上 20MA (月線)！<br>
+                        <span class="text-red-400 font-bold">【空手觀望】</span> 股價跌破 20MA，絕對不摸底接刀！<br>
+                        <span class="text-purple-400 font-bold">【無情停損】</span> 跌破系統算出的「最佳甜蜜點」，無條件砍單，嚴禁凹單！
+                    </p>
+                </div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
+                    <h3 class="text-yellow-400 font-black mb-2 text-base">📈 均線 (MA) 生命線</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm">
+                        <span class="text-slate-400 text-xs mt-1 block">· <b>5MA (周線)</b>：短線強弱分界，沿此線飆漲勿亂賣。<br>· <b>20MA (月線)</b>：<span class="text-yellow-300 font-bold">多空生命線！站上才找買點！</span><br>· <b>60MA (季線)</b>：長線大趨勢方向。</span>
+                    </p>
+                </div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
+                    <h3 class="text-pink-400 font-black mb-2 text-base">🔥 熱度 (RSI) 探測器</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm">
+                        <span class="text-red-400 font-bold text-xs">> 75 過熱</span><span class="text-slate-400 text-xs">：隨時拉回，空手者嚴禁追高！</span><br>
+                        <span class="text-green-400 font-bold text-xs">< 25 超賣</span><span class="text-slate-400 text-xs">：醞釀反彈，但仍需等站上5MA再試單。</span>
+                    </p>
+                </div>
+                <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
+                    <h3 class="text-purple-400 font-black mb-2 text-base">📏 乖離率 (Bias) 橡皮筋</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm">
+                        股價偏離月線的程度。就像拉橡皮筋：<br>
+                        <span class="text-slate-400 text-xs">正乖離過大 (如 +10%) 隨時回檔；負乖離過大雖然便宜，但不代表馬上會漲。</span>
+                    </p>
+                </div>
             </div>
         </aside>
 
@@ -258,6 +279,13 @@
                 let rsiBadge = ""; if (stock.rsi >= 70) rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>`; else if (stock.rsi >= 50) rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">📈偏多</span>`; else if (stock.rsi <= 30) rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>`; else rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">📉偏空</span>`;
                 let biasBadge = ""; if (stock.bias > 10) biasBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">⚠️極高</span>`; else if (stock.bias < -10) biasBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">✅超跌</span>`; else biasBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-slate-500/20 text-slate-300 border border-slate-500/30">🛡️正常</span>`;
                 let biasStr = stock.bias > 0 ? `+${stock.bias}%` : `${stock.bias}%`;
+                // 💡 阿土伯新增：多空紅綠燈防呆機制
+                let trendBadge = "";
+                if (stock.price > ma20) {
+                trendBadge = `<span class="bg-green-500/20 text-green-400 border border-green-500/50 px-3 py-1 rounded-full text-xs font-black shadow-[0_0_10px_rgba(34,197,94,0.3)] animate-pulse">🟢 站上月線 (偏多)</span>`;
+                } else {
+                trendBadge = `<span class="bg-red-500/20 text-red-400 border border-red-500/50 px-3 py-1 rounded-full text-xs font-black shadow-[0_0_10px_rgba(239,68,68,0.2)]">🔴 跌破月線 (觀望)</span>`;
+                }
                 
 // ... 前面的狀態判斷 (rsiBadge, biasBadge 等等) 保持不變 ...
 
@@ -285,7 +313,10 @@ card.innerHTML = `
             <span class="bg-black/50 text-white text-xs px-3.5 py-1.5 rounded-full font-bold tracking-widest uppercase border border-white/10">${stock.category}</span>
             <span class="text-sm font-mono font-bold text-white/40 tracking-widest">${stock.symbol}</span>
         </div>
-        <h2 class="text-3xl font-black mb-4 text-white tracking-tight">${stock.name}</h2>
+        <div class="flex items-center gap-3 mb-4">
+            <h2 class="text-3xl font-black text-white tracking-tight">${stock.name}</h2>
+            ${trendBadge}
+        </div>
         
         <div class="bg-black/40 p-5 rounded-2xl mb-4 border border-white/5">
             <div class="flex justify-between items-start mb-5">
