@@ -1,19 +1,33 @@
 {
-    "last_update": "2026-03-05 [15:58]",
+    "last_update": "2026-03-05 [16:15]",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia",
             "category": "美國科技",
-            "price": 183.67,
-            "rsi": 46.5,
-            "bias": -1.19,
+            "price": 183.46,
+            "rsi": 43.36,
+            "bias": -1.06,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 3,
             "ev": -0.15,
             "win_rate": 38.91,
             "history": [
+                {
+                    "date": "2025-12-05",
+                    "price": 182.41,
+                    "volume": 143971100,
+                    "ma5": 181.35,
+                    "ma20": 184.47,
+                    "ma60": 185.41,
+                    "macd": -2.26,
+                    "macd_signal": -2.11,
+                    "macd_hist": -0.16,
+                    "rsi": 41.72,
+                    "bb_upper": 196.36,
+                    "bb_lower": 172.58
+                },
                 {
                     "date": "2025-12-08",
                     "price": 185.55,
@@ -828,35 +842,21 @@
                 },
                 {
                     "date": "2026-03-04",
-                    "price": 183.04,
+                    "price": 183.46,
                     "volume": 177134000,
-                    "ma5": 181.53,
-                    "ma20": 185.41,
+                    "ma5": 181.61,
+                    "ma20": 185.43,
                     "ma60": 184.93,
-                    "macd": -0.65,
-                    "macd_signal": 0.22,
-                    "macd_hist": -0.87,
-                    "rsi": 42.88,
-                    "bb_upper": 197.63,
-                    "bb_lower": 173.18
-                },
-                {
-                    "date": "2026-03-05",
-                    "price": 183.67,
-                    "volume": 53792254,
-                    "ma5": 181.29,
-                    "ma20": 185.88,
-                    "ma60": 184.95,
-                    "macd": -0.7,
-                    "macd_signal": 0.04,
-                    "macd_hist": -0.74,
-                    "rsi": 46.5,
-                    "bb_upper": 196.96,
-                    "bb_lower": 174.8
+                    "macd": -0.62,
+                    "macd_signal": 0.23,
+                    "macd_hist": -0.84,
+                    "rsi": 43.36,
+                    "bb_upper": 197.64,
+                    "bb_lower": 173.22
                 }
             ],
-            "rs_score": 6.29,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 【主力資金偏好】近期表現強於大盤 6.29%！",
+            "rs_score": 5.0,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -867,9 +867,9 @@
             "symbol": "TSLA",
             "name": "Tesla",
             "category": "美國科技",
-            "price": 405.42,
-            "rsi": 42.58,
-            "bias": -1.16,
+            "price": 405.4,
+            "rsi": 42.57,
+            "bias": -1.17,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 3,
@@ -1704,20 +1704,20 @@
                 },
                 {
                     "date": "2026-03-05",
-                    "price": 405.42,
-                    "volume": 17023435,
+                    "price": 405.4,
+                    "volume": 18901731,
                     "ma5": 401.92,
-                    "ma20": 410.2,
+                    "ma20": 410.19,
                     "ma60": 435.52,
-                    "macd": -7.09,
+                    "macd": -7.1,
                     "macd_signal": -7.31,
-                    "macd_hist": 0.22,
-                    "rsi": 42.58,
+                    "macd_hist": 0.21,
+                    "rsi": 42.57,
                     "bb_upper": 427.99,
                     "bb_lower": 392.4
                 }
             ],
-            "rs_score": 1.49,
+            "rs_score": 1.74,
             "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
@@ -1729,9 +1729,9 @@
             "symbol": "SPY",
             "name": "S&P 500",
             "category": "美股大盤",
-            "price": 681.46,
-            "rsi": 50.18,
-            "bias": -0.69,
+            "price": 679.82,
+            "rsi": 48.64,
+            "bias": -0.92,
             "vol_ratio": 1.2,
             "optimal_sl": 4,
             "actual_sl": 3,
@@ -2566,21 +2566,21 @@
                 },
                 {
                     "date": "2026-03-05",
-                    "price": 681.46,
-                    "volume": 26895440,
-                    "ma5": 683.86,
-                    "ma20": 686.19,
-                    "ma60": 686.84,
-                    "macd": -1.1,
-                    "macd_signal": -0.55,
-                    "macd_hist": -0.56,
-                    "rsi": 50.18,
-                    "bb_upper": 695.62,
-                    "bb_lower": 676.76
+                    "price": 679.82,
+                    "volume": 30870814,
+                    "ma5": 683.53,
+                    "ma20": 686.11,
+                    "ma60": 686.81,
+                    "macd": -1.23,
+                    "macd_signal": -0.57,
+                    "macd_hist": -0.66,
+                    "rsi": 48.64,
+                    "bb_upper": 695.74,
+                    "bb_lower": 676.48
                 }
             ],
-            "rs_score": -0.01,
-            "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤破線，已強制縮緊至 3% 防守！ 【溫吞股】近期表現落後大盤 -0.01%。",
+            "rs_score": 0.0,
+            "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7769,8 +7769,12 @@
             "2727"
         ],
         "bull_view": "神基衝軍工營運吃補，全年相關業績看增逾",
-        "bear_view": "台股大跌0050打折，旺宏5902萬違約金額爆大量",
+        "bear_view": "台股大跌0050打折，清流君曬0050歷史回",
         "raw_links": [
+            {
+                "title": "[新聞] 台灣、中國股市兩樣情！外媒曝光北京最大",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772726362.A.817.html"
+            },
             {
                 "title": "Re: [新聞] 台股大跌0050打折！清流君曬0050歷史回",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772724841.A.75D.html"
@@ -7786,10 +7790,6 @@
             {
                 "title": "[新聞] 神基衝軍工營運吃補 全年相關業績看增逾",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772720494.A.9DC.html"
-            },
-            {
-                "title": "[新聞] 台股前日重挫違約金額爆大量 旺宏5902萬",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772719550.A.1DD.html"
             }
         ]
     },
