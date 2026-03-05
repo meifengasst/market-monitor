@@ -29,7 +29,7 @@ def send_line_alert(message):
     except Exception as e:
         print(f"❌ LINE 系統錯誤: {e}")
 
-# --- 2. PTT 爬蟲與 AI 情緒分析 (阿土伯新增) ---
+# --- 2. PTT 爬蟲與 AI 情緒分析 ---
 def get_ptt_news():
     print("📡 啟動 PTT 爬蟲，潛水抓取鄉民留言...")
     try:
@@ -38,7 +38,7 @@ def get_ptt_news():
         ns = {'atom': 'http://www.w3.org/2005/Atom'}
         entries = root.findall('atom:entry', ns)
         ptt_list = []
-        for entry in entries[:20]: # 抓前20篇熱門文章
+        for entry in entries[:20]:
             title = entry.find('atom:title', ns).text
             link = entry.find('atom:link', ns).attrib['href']
             ptt_list.append({"title": title, "link": link})
@@ -48,12 +48,9 @@ def get_ptt_news():
         return []
 
 def get_ptt_sentiment(ptt_list):
-    api_key = os.environ.get('GEMINI_API_KEY') # 這裡實際上是對接 Groq 的 API Key
-    
-    # 防呆：如果沒抓到文章或沒設定 API Key，給予預設值
+    api_key = os.environ.get('GEMINI_API_KEY') 
     default_response = {"score": 50, "sentiment": "中立", "summary": "系統暫無情緒數據", "top_stocks": [], "bull_view": "無", "bear_view": "無", "raw_links": ptt_list[:5]}
-    if not api_key or not ptt_list:
-        return default_response
+    if not api_key or not ptt_list: return default_response
 
     print("🧠 啟動 LLM 語意分析，解讀散戶貪婪指數...")
     titles = [p['title'] for p in ptt_list]
@@ -70,10 +67,9 @@ def get_ptt_sentiment(ptt_list):
         if res.status_code == 200:
             text = res.json()['choices'][0]['message']['content'].strip()
             result = json.loads(text)
-            result["raw_links"] = ptt_list[:5] # 附上最新5篇連結給前端的「吃瓜傳送門」
+            result["raw_links"] = ptt_list[:5] 
             return result
-        else:
-            return default_response
+        else: return default_response
     except Exception as e:
         print(f"❌ LLM 分析失敗: {e}")
         return default_response
@@ -113,21 +109,49 @@ def calculate_strategy_ev(ticker, start_date, end_date, stop_loss_pct):
     ev = (p_win * avg_win) - (p_loss * avg_loss)
     return {"ev": round(ev * 100, 2), "win_rate": round(p_win * 100, 2)}
 
-# --- 4. 大盤環境偵測器 ---
+# --- 4. 雙引擎大盤環境偵測器 (阿土伯升級版) ---
 def check_market_regime():
-    print("🌍 正在偵測大盤多空環境 (0050.TW)...")
-    df = yf.download("0050.TW", period="2mo", progress=False)
-    if isinstance(df.columns, pd.MultiIndex): df.columns = df.columns.droplevel(1)
-    latest_close = df['Close'].iloc[-1]
-    ma20 = df['Close'].rolling(window=20).mean().iloc[-1]
-    if latest_close >= ma20:
-        print("✅ 大盤站上月線，多頭環境")
-        return 0.05
-    else:
-        alert_msg = f"⚠️【阿土伯戰報】\n大盤跌破月線！\n收盤 {latest_close:.2f} < 月線 {ma20:.2f}\n\n🚨 系統已啟動防禦模式，停損縮緊至 3%！"
-        print(alert_msg)
+    print("🌍 正在偵測大盤多空環境 (台股 0050 & 美股 SPY)...")
+    stop_loss_config = {"TW": 0.05, "US": 0.05} # 預設都是多頭 5%
+    alert_triggered = False
+    alert_msg = "⚠️【阿土伯雙引擎戰報】\n大盤跌破月線防禦區！\n\n"
+
+    # A. 偵測台股 (0050.TW)
+    try:
+        df_tw = yf.download("0050.TW", period="2mo", progress=False)
+        if isinstance(df_tw.columns, pd.MultiIndex): df_tw.columns = df_tw.columns.droplevel(1)
+        close_tw = df_tw['Close'].iloc[-1]
+        ma20_tw = df_tw['Close'].rolling(window=20).mean().iloc[-1]
+        if close_tw < ma20_tw:
+            print("⚠️ 台股大盤跌破月線，啟動防禦！")
+            stop_loss_config["TW"] = 0.03
+            alert_triggered = True
+            alert_msg += f"🇹🇼 台股 (0050): 收盤 {close_tw:.2f} < 月線 {ma20_tw:.2f}\n👉 策略停損縮緊至 3%\n\n"
+        else:
+            print("✅ 台股大盤站上月線，維持 5% 停損")
+    except: pass
+
+    # B. 偵測美股 (SPY)
+    try:
+        df_us = yf.download("SPY", period="2mo", progress=False)
+        if isinstance(df_us.columns, pd.MultiIndex): df_us.columns = df_us.columns.droplevel(1)
+        close_us = df_us['Close'].iloc[-1]
+        ma20_us = df_us['Close'].rolling(window=20).mean().iloc[-1]
+        if close_us < ma20_us:
+            print("⚠️ 美股大盤跌破月線，啟動防禦！")
+            stop_loss_config["US"] = 0.03
+            alert_triggered = True
+            alert_msg += f"🇺🇸 美股 (SPY): 收盤 {close_us:.2f} < 月線 {ma20_us:.2f}\n👉 策略停損縮緊至 3%\n\n"
+        else:
+            print("✅ 美股大盤站上月線，維持 5% 停損")
+    except: pass
+
+    # 如果有任何一個市場破線，發送 LINE 警報
+    if alert_triggered:
+        alert_msg += "🚨 系統已自動進入防禦模式，請嚴控資金風險！"
         send_line_alert(alert_msg)
-        return 0.03
+
+    return stop_loss_config
 
 # --- 5. 阿土狗決策大腦 ---
 def get_expert_commentary(stock_name, ev, win_rate, rsi, bias, price, ma20, stop_loss):
@@ -145,30 +169,28 @@ def get_expert_commentary(stock_name, ev, win_rate, rsi, bias, price, ma20, stop
     else: tech_msg = "技術指標目前處於溫和區間，請耐心等待量能表態的關鍵紅K。"
     return f"{base_msg} {tech_msg}"
 
-# --- 6. 產生前端所需資料 ---
-# --- 6. 產生前端所需資料 ---
+# --- 6. 產生前端所需資料 (加入美股) ---
 STOCKS = {
-    # 🍔 美股陣營
     "NVDA": {"name": "Nvidia (AI之王)", "category": "美國科技"},
     "TSLA": {"name": "Tesla (電動車)", "category": "美國科技"},
     "SPY": {"name": "S&P 500 ETF", "category": "美股大盤"},
-    
-    # 🧋 台股陣營
     "2330.TW": {"name": "台積電", "category": "晶圓代工"},
-    "2337.TW": {"name": "旺宏", "category": "記憶體製造"},
+    "2303.TW": {"name": "聯電", "category": "晶圓代工"},
     "0050.TW": {"name": "元大台灣50", "category": "台股龍頭"},
     "9802.TW": {"name": "鈺齊-KY", "category": "運動鞋"},
-    "9910.TW": {"name": "豐泰", "category": "運動鞋"}
+    "9910.TW": {"name": "豐泰", "category": "運動鞋"},
+    "9904.TW": {"name": "寶成", "category": "運動鞋"}
 }
 
 def generate_dashboard_data():
     print(f"🚀 阿土伯資料中心啟動 [{datetime.now().strftime('%H:%M:%S')}]")
     
-    # 執行 PTT 情緒分析
     ptt_articles = get_ptt_news()
     ptt_data = get_ptt_sentiment(ptt_articles)
     
-    current_stop_loss = check_market_regime()
+    # 取得雙引擎停損設定 {"TW": 0.05/0.03, "US": 0.05/0.03}
+    stop_loss_config = check_market_regime() 
+    
     dashboard_data = []
     backtest_start = "2021-01-01"
     today_str = datetime.now().strftime("%Y-%m-%d")
@@ -219,6 +241,10 @@ def generate_dashboard_data():
         ma20_val = round(df['ma20'].iloc[-1], 2)
         bias = round(((latest_price - ma20_val) / ma20_val) * 100, 2) if ma20_val != 0 else 0
         
+        # 💡 阿土伯核心邏輯：判斷這檔股票是美股還是台股，套用各自的大盤停損！
+        market_type = "TW" if symbol.endswith(".TW") else "US"
+        current_stop_loss = stop_loss_config[market_type]
+        
         strategy_result = calculate_strategy_ev(symbol, backtest_start, today_str, stop_loss_pct=current_stop_loss)
         ev_val = strategy_result['ev'] if strategy_result else 0
         win_rate_val = strategy_result['win_rate'] if strategy_result else 0
@@ -231,22 +257,25 @@ def generate_dashboard_data():
             "vol_ratio": 1.2, "eps": "N/A", "pe_ratio": "N/A",
             "ev": ev_val, "win_rate": win_rate_val, 
             "history": history_data, 
-            "ai_summary": smart_summary,
+            "ai_summary": f"[{'台股' if market_type=='TW' else '美股'}防禦等級: 停損 {int(current_stop_loss*100)}%] " + smart_summary,
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         }
         dashboard_data.append(stock_obj)
 
+    # 💡 完美串接前端的總經速報區塊
+    tw_status = "✅ 0050 穩居月線之上，維持 5% 停損" if stop_loss_config["TW"] == 0.05 else "⚠️ 0050 跌破月線！已啟動 3% 避險停損！"
+    us_status = "✅ SPY 穩居月線之上，維持 5% 停損" if stop_loss_config["US"] == 0.05 else "⚠️ SPY 跌破月線！已啟動 3% 避險停損！"
+
     final_output = {
         "last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"),
         "data": dashboard_data,
-        "ptt": ptt_data, # 🌟 關鍵修復：把 LLM 算出來的情緒資料塞進去！
-        "macro": {"tw_insight": f"大盤停損防護網啟動中，目前限制: {int(current_stop_loss*100)}%", "us_insight": "美股數據讀取中"}
+        "ptt": ptt_data, 
+        "macro": {"tw_insight": tw_status, "us_insight": us_status}
     }
 
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(final_output, f, ensure_ascii=False, indent=4)
-    print("✅ data.json 更新完成！戰情室已全副武裝！")
+    print("✅ data.json 更新完成！台美雙引擎戰情室已全副武裝！")
 
 if __name__ == "__main__":
     generate_dashboard_data()
-
