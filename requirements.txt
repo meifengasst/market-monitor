@@ -1,0 +1,19 @@
+# 基礎數據處理
+pandas
+numpy
+
+# 抓取台股/美股歷史報價
+yfinance
+
+# 網路請求與爬蟲 (抓 PTT 或新聞)
+requests
+beautifulsoup4
+
+# 算技術指標 (RSI, MACD, 布林通道)
+ta
+
+# AI 點評大腦 (這裡取決於你用哪家 AI)
+# 如果你用 ChatGPT，請加這行：
+openai
+# 如果你用 Google Gemini，請加這行：
+google-generativeai
