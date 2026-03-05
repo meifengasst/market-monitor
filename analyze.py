@@ -146,13 +146,19 @@ def get_expert_commentary(stock_name, ev, win_rate, rsi, bias, price, ma20, stop
     return f"{base_msg} {tech_msg}"
 
 # --- 6. 產生前端所需資料 ---
+# --- 6. 產生前端所需資料 ---
 STOCKS = {
+    # 🍔 美股陣營
+    "NVDA": {"name": "Nvidia (AI之王)", "category": "美國科技"},
+    "TSLA": {"name": "Tesla (電動車)", "category": "美國科技"},
+    "SPY": {"name": "S&P 500 ETF", "category": "美股大盤"},
+    
+    # 🧋 台股陣營
     "2330.TW": {"name": "台積電", "category": "晶圓代工"},
-    "2303.TW": {"name": "聯電", "category": "晶圓代工"},
+    "2337.TW": {"name": "旺宏", "category": "記憶體製造"},
     "0050.TW": {"name": "元大台灣50", "category": "台股龍頭"},
     "9802.TW": {"name": "鈺齊-KY", "category": "運動鞋"},
-    "9910.TW": {"name": "豐泰", "category": "運動鞋"},
-    "9904.TW": {"name": "寶成", "category": "運動鞋"}
+    "9910.TW": {"name": "豐泰", "category": "運動鞋"}
 }
 
 def generate_dashboard_data():
@@ -243,3 +249,4 @@ def generate_dashboard_data():
 
 if __name__ == "__main__":
     generate_dashboard_data()
+
