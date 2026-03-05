@@ -1,99 +1,95 @@
 import yfinance as yf
-import json
 import pandas as pd
-import os
-import requests
-import time
-import xml.etree.ElementTree as ET
-from datetime import datetime
-import urllib.parse
+import numpy as np
 
-# 1. 統一鑰匙庫
-GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY') 
-LINE_ACCESS_TOKEN = os.environ.get("LINE_ACCESS_TOKEN")
-LINE_TARGET_ID = os.environ.get("LINE_TARGET_ID")
-
-# 🛡️ 幫你把終極偽裝面具加回來！沒有這個，PTT 和 Google 很容易把你擋在門外
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-}
-
-CATEGORIES = {"美國科技": ["NVDA", "TSLA"], "美股大盤": ["SPY"], "台股龍頭": ["0050.TW", "2330.TW"], "晶圓代工": ["2330.TW", "2303.TW"], "運動鞋": ["9802.TW", "9910.TW", "9904.TW"]}
-STOCKS = {"NVDA": "Nvidia (AI之王)", "TSLA": "Tesla (電動車)", "SPY": "S&P 500 ETF", "0050.TW": "元大台灣50", "2330.TW": "台積電", "2303.TW": "聯電", "9802.TW": "鈺齊-KY", "9910.TW": "豐泰", "9904.TW": "寶成"}
-
-def get_google_news(is_taiwan=True):
-    url = "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=zh-TW&gl=TW&ceid=TW:zh-Hant" if is_taiwan else "https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en"
-    try:
-        # 加上 headers 偽裝成真人瀏覽器
-        res = requests.get(url, headers=HEADERS, timeout=10)
-        root = ET.fromstring(res.text)
-        return [item.find('title').text for item in root.findall('.//item')[:5]]
-    except: return ["暫無新聞"]
-
-# 🚀 統一使用 Google 跨國新聞雷達 (拋棄不穩定的 Yahoo)
-def get_specific_stock_news(keyword, is_taiwan=True):
-    encoded_kw = urllib.parse.quote(keyword)
-    if is_taiwan:
-        url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
-    else:
-        url = f"https://news.google.com/rss/search?q={encoded_kw}&hl=en-US&gl=US&ceid=US:en"
+def calculate_strategy_ev(ticker, start_date, end_date, stop_loss_pct=0.05):
+    """
+    阿土伯的期望值計算機 (進階版：加入強制停損防護網)
+    stop_loss_pct: 預設為 0.05，代表 5% 強制停損
+    """
+    print(f"📊 正在載入 {ticker} 從 {start_date} 到 {end_date} 的海量數據...")
+    # 1. 抓取歷史數據
+    df = yf.download(ticker, start=start_date, end=end_date, progress=False)
     
-    try:
-        # 加上 headers
-        res = requests.get(url, headers=HEADERS, timeout=10)
-        root = ET.fromstring(res.text)
-        news = []
-        for item in root.findall('.//item')[:3]: # 抓前3篇
-            news.append({'title': item.find('title').text, 'link': item.find('link').text})
-        return news
-    except: return []
+    if df.empty:
+        return "找不到數據，請確認股票代號或日期。"
 
-def get_ptt_news():
-    try:
-        # PTT 抓取也必須加上 headers，否則高機率被擋
-        res = requests.get("https://www.ptt.cc/atom/stock.xml", headers=HEADERS, timeout=10)
-        root = ET.fromstring(res.text)
-        ns = {'atom': 'http://www.w3.org/2005/Atom'}
-        entries = root.findall('atom:entry', ns)
-        ptt_list = []
-        for entry in entries[:50]:
-            title = entry.find('atom:title', ns).text
-            link = entry.find('atom:link', ns).attrib['href']
-            ptt_list.append({"title": title, "link": link})
-        return ptt_list
-    except: return []
+    # 確保資料格式正確 (處理 yfinance 可能產生的 MultiIndex 問題)
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = df.columns.droplevel(1)
 
-def get_ptt_sentiment(ptt_list):
-    if not GEMINI_API_KEY: return {"score": 50, "sentiment": "未連線", "summary": "找不到鑰匙"}
-    if not ptt_list: return {"score": 50, "sentiment": "抓取失敗", "summary": "無法讀取 PTT 股版"}
+    # 2. 定義策略：突破20日均線買進，跌破20日均線賣出
+    df['SMA_20'] = df['Close'].rolling(window=20).mean()
+    df['Signal'] = 0
     
-    titles = [p['title'] for p in ptt_list]
-    prompt = """你是頂級股市心理學家。請分析以下PTT股版最新標題，判斷台灣散戶情緒。
-請嚴格輸出 JSON 格式，必須包含以下 key，不要任何其他文字：
-{"score": 貪婪指數(0-100的整數), "sentiment": "極度恐慌|恐慌|中立|貪婪|極度貪婪", "summary": "25字以內的點評", "top_stocks": ["熱門股1", "熱門股2", "熱門股3"], "bull_view": "多方論點(30字)", "bear_view": "空方擔憂(30字)"}
-標題：\n""" + "\n".join(titles)
+    # 產生進出場訊號 (用收盤價判定)
+    df.loc[df['Close'] > df['SMA_20'], 'Signal'] = 1  # 多方環境
+    df.loc[df['Close'] < df['SMA_20'], 'Signal'] = -1 # 空方環境
 
-    url = "https://api.groq.com/openai/v1/chat/completions"
-    data = {"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.3, "response_format": {"type": "json_object"}}
-    try:
-        # ⚠️ 注意這裡雖然變數叫 GEMINI_API_KEY，但實際上是打向 Groq 的 API
-        res = requests.post(url, headers={"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}, json=data, timeout=20)
-        
-        if res.status_code == 200:
-            text = res.json()['choices'][0]['message']['content'].strip()
+    # 3. 模擬交易與停損邏輯
+    trades = []
+    entry_price = 0
+    in_position = False
+
+    for index, row in df.iterrows():
+        # -- 已經持有部位的狀態 --
+        if in_position:
+            # 🛑 優先檢查：盤中是否觸發強制停損 (最低價 <= 停損價)
+            stop_loss_price = entry_price * (1 - stop_loss_pct)
             
-            # 🎯 完整修復：防呆機制，剝除 LLM 可能偷加的 Markdown 語法
-            if text.startswith('```json'):
-                text = text[7:-3].strip()
-            elif text.startswith('```'):
-                text = text[3:-3].strip()
-            
-            try:
-                return json.loads(text)
-            except json.JSONDecodeError:
-                return {"score": 50, "sentiment": "解析失敗", "summary": "LLM 回傳的不是合法 JSON"}
-        else:
-            return {"score": 50, "sentiment": "API 錯誤", "summary": f"狀態碼: {res.status_code}"}
-            
-    except Exception as e:
-        return {"score": 50, "sentiment": "連線失敗", "summary": f"系統錯誤: {str(e)}"}
+            if row['Low'] <= stop_loss_price:
+                # 觸發停損，假設我們以停損價精準砍倉 (實戰可能會有滑價，這裡先簡化)
+                trade_return = -stop_loss_pct
+                trades.append(trade_return)
+                in_position = False
+                continue # 這筆交易結束，跳到下一天
+                
+            # 📉 檢查正常出場訊號：跌破 20 日均線
+            elif row['Signal'] == -1:
+                exit_price = row['Close']
+                trade_return = (exit_price - entry_price) / entry_price
+                trades.append(trade_return)
+                in_position = False
+
+        # -- 空手狀態 --
+        # 📈 檢查進場訊號：突破 20 日均線
+        elif not in_position and row['Signal'] == 1:
+            entry_price = row['Close']
+            in_position = True
+
+    if not trades:
+        return "這段期間內沒有觸發任何完整交易。"
+
+    # 4. 數據清洗與期望值 (EV) 計算
+    trades_series = pd.Series(trades)
+    winning_trades = trades_series[trades_series > 0]
+    losing_trades = trades_series[trades_series <= 0]
+
+    # 計算公式所需的四個變數
+    p_win = len(winning_trades) / len(trades_series) if len(trades_series) > 0 else 0
+    p_loss = len(losing_trades) / len(trades_series) if len(trades_series) > 0 else 0
+    avg_win = winning_trades.mean() if not winning_trades.empty else 0
+    avg_loss = abs(losing_trades.mean()) if not losing_trades.empty else 0 
+
+    # 帶入阿土伯的期望值公式
+    ev = (p_win * avg_win) - (p_loss * avg_loss)
+
+    # 5. 輸出戰情報表
+    report = {
+        "測試標的": ticker,
+        "停損設定": f"{stop_loss_pct * 100}%",
+        "總交易次數": len(trades_series),
+        "勝率 (%)": round(p_win * 100, 2),
+        "平均獲利 (%)": round(avg_win * 100, 2),
+        "平均虧損 (%)": round(avg_loss * 100, 2), # 有了停損，這個數字絕對不會超過 5% 太多！
+        "單筆期望值 (%)": round(ev * 100, 2)
+    }
+    
+    return report
+
+# 🚀 執行範例：跑跑看台積電 (2330.TW)，比較看看有沒有停損的威力
+print("--- 加上 5% 停損的績效 ---")
+print(calculate_strategy_ev("2330.TW", "2015-01-01", "2026-03-01", stop_loss_pct=0.05))
+
+print("\n--- 不設停損 (設為 100% 等同於不停損) 的績效 ---")
+print(calculate_strategy_ev("2330.TW", "2015-01-01", "2026-03-01", stop_loss_pct=1.00))
