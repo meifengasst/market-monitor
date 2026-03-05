@@ -1,19 +1,19 @@
 {
-    "last_update": "2026-03-05 [02:16]",
+    "last_update": "2026-03-05 [02:35]",
     "data": [
         {
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "晶圓代工",
-            "price": 1925.0,
-            "rsi": 61.9,
-            "bias": 3.33,
+            "price": 1920.0,
+            "rsi": 61.54,
+            "bias": 3.07,
             "vol_ratio": 1.2,
             "eps": "N/A",
             "pe_ratio": "N/A",
-            "ev": 1.51,
-            "win_rate": 31.25,
-            "ai_summary": "阿土伯分析：目前歷史策略期望值為 1.51%，勝率 31.25%。",
+            "ev": 1.48,
+            "win_rate": 30.77,
+            "ai_summary": "阿土伯分析：目前大盤停損機制設為 5%，此策略歷史期望值為 1.48%，勝率 30.77%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -24,15 +24,15 @@
             "symbol": "2303.TW",
             "name": "聯電",
             "category": "晶圓代工",
-            "price": 61.9,
-            "rsi": 53.29,
-            "bias": -3.93,
+            "price": 61.7,
+            "rsi": 52.73,
+            "bias": -4.22,
             "vol_ratio": 1.2,
             "eps": "N/A",
             "pe_ratio": "N/A",
             "ev": 0.38,
             "win_rate": 29.73,
-            "ai_summary": "阿土伯分析：目前歷史策略期望值為 0.38%，勝率 29.73%。",
+            "ai_summary": "阿土伯分析：目前大盤停損機制設為 5%，此策略歷史期望值為 0.38%，勝率 29.73%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -43,15 +43,53 @@
             "symbol": "0050.TW",
             "name": "元大台灣50",
             "category": "台股龍頭",
-            "price": 77.45,
-            "rsi": 69.26,
-            "bias": 2.62,
+            "price": 77.4,
+            "rsi": 69.03,
+            "bias": 2.57,
             "vol_ratio": 1.2,
             "eps": "N/A",
             "pe_ratio": "N/A",
             "ev": 1.15,
             "win_rate": 32.79,
-            "ai_summary": "阿土伯分析：目前歷史策略期望值為 1.15%，勝率 32.79%。",
+            "ai_summary": "阿土伯分析：目前大盤停損機制設為 5%，此策略歷史期望值為 1.15%，勝率 32.79%。",
+            "lights": {
+                "short": "⚪",
+                "mid": "⚪",
+                "long": "⚪"
+            }
+        },
+        {
+            "symbol": "9802.TW",
+            "name": "鈺齊-KY",
+            "category": "運動鞋",
+            "price": 91.3,
+            "rsi": 44.31,
+            "bias": -2.97,
+            "vol_ratio": 1.2,
+            "eps": "N/A",
+            "pe_ratio": "N/A",
+            "ev": 0.3,
+            "win_rate": 28.0,
+            "ai_summary": "阿土伯分析：目前大盤停損機制設為 5%，此策略歷史期望值為 0.3%，勝率 28.0%。",
+            "lights": {
+                "short": "⚪",
+                "mid": "⚪",
+                "long": "⚪"
+            }
+        },
+        {
+            "symbol": "9910.TW",
+            "name": "豐泰",
+            "category": "運動鞋",
+            "price": 95.4,
+            "rsi": 59.56,
+            "bias": 1.86,
+            "vol_ratio": 1.2,
+            "eps": "N/A",
+            "pe_ratio": "N/A",
+            "ev": -1.0,
+            "win_rate": 14.63,
+            "ai_summary": "阿土伯分析：目前大盤停損機制設為 5%，此策略歷史期望值為 -1.0%，勝率 14.63%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -60,12 +98,12 @@
         }
     ],
     "ptt": {
-        "score": 55,
+        "score": 50,
         "sentiment": "中立",
-        "summary": "範例資料"
+        "summary": "請結合你的 PTT 爬蟲"
     },
     "macro": {
-        "tw_insight": "大盤量縮整理中",
-        "us_insight": "等待通膨數據"
+        "tw_insight": "大盤停損防護網啟動，目前停損限制: 5%",
+        "us_insight": "美股數據讀取中"
     }
 }
