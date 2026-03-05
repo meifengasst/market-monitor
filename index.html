@@ -392,10 +392,10 @@
                 else if (stock.rs_score > 0) rsBadge = `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-[10px] font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>`;
                 else rsBadge = `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-[10px] font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`;
 
-                // 期望值標籤
+                // 期望值標籤 (阿土伯修正：統一改為台股紅賺綠賠)
                 let evBadge = "";
                 if (stock.ev !== undefined) {
-                    let colorClass = stock.ev > 0 ? "green" : "red";
+                    let colorClass = stock.ev > 0 ? "red" : "green";
                     evBadge = `<div class="flex justify-between items-center bg-${colorClass}-900/30 p-2.5 rounded-xl border border-${colorClass}-500/40 mb-3 shadow-inner">
                         <span class="text-xs text-${colorClass}-200 font-bold">${stock.ev > 0 ? '🏆' : '⚠️'} 策略期望值 (含停損)</span>
                         <span class="text-base font-mono font-black text-${colorClass}-400">${stock.ev > 0 ? '+' : ''}${stock.ev}%</span>
