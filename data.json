@@ -1,13 +1,13 @@
 {
-    "last_update": "2026-03-05 [14:34]",
+    "last_update": "2026-03-05 [14:44]",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia",
             "category": "美國科技",
-            "price": 181.63,
-            "rsi": 44.41,
-            "bias": -2.23,
+            "price": 181.24,
+            "rsi": 44.05,
+            "bias": -2.43,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 3,
@@ -842,20 +842,20 @@
                 },
                 {
                     "date": "2026-03-05",
-                    "price": 181.63,
-                    "volume": 9324296,
-                    "ma5": 180.88,
-                    "ma20": 185.78,
+                    "price": 181.24,
+                    "volume": 16453396,
+                    "ma5": 180.8,
+                    "ma20": 185.76,
                     "ma60": 184.91,
-                    "macd": -0.86,
-                    "macd_signal": 0.0,
-                    "macd_hist": -0.87,
-                    "rsi": 44.41,
-                    "bb_upper": 196.98,
-                    "bb_lower": 174.58
+                    "macd": -0.9,
+                    "macd_signal": -0.0,
+                    "macd_hist": -0.89,
+                    "rsi": 44.05,
+                    "bb_upper": 196.99,
+                    "bb_lower": 174.53
                 }
             ],
-            "rs_score": 4.76,
+            "rs_score": 4.71,
             "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
@@ -867,29 +867,15 @@
             "symbol": "TSLA",
             "name": "Tesla",
             "category": "美國科技",
-            "price": 404.73,
-            "rsi": 36.63,
-            "bias": -1.33,
+            "price": 403.69,
+            "rsi": 41.67,
+            "bias": -1.57,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 3,
             "ev": -0.12,
             "win_rate": 37.88,
             "history": [
-                {
-                    "date": "2025-12-05",
-                    "price": 455.0,
-                    "volume": 56427500,
-                    "ma5": 443.13,
-                    "ma20": 423.07,
-                    "ma60": 433.06,
-                    "macd": 3.78,
-                    "macd_signal": -1.34,
-                    "macd_hist": 5.12,
-                    "rsi": 77.04,
-                    "bb_upper": 462.16,
-                    "bb_lower": 383.98
-                },
                 {
                     "date": "2025-12-08",
                     "price": 439.58,
@@ -1704,21 +1690,35 @@
                 },
                 {
                     "date": "2026-03-04",
-                    "price": 404.73,
+                    "price": 405.94,
                     "volume": 68140300,
-                    "ma5": 402.31,
-                    "ma20": 410.16,
-                    "ma60": 436.33,
-                    "macd": -7.61,
-                    "macd_signal": -7.38,
-                    "macd_hist": -0.23,
-                    "rsi": 36.63,
-                    "bb_upper": 428.0,
-                    "bb_lower": 392.33
+                    "ma5": 402.56,
+                    "ma20": 410.23,
+                    "ma60": 436.35,
+                    "macd": -7.51,
+                    "macd_signal": -7.36,
+                    "macd_hist": -0.15,
+                    "rsi": 37.49,
+                    "bb_upper": 427.99,
+                    "bb_lower": 392.46
+                },
+                {
+                    "date": "2026-03-05",
+                    "price": 403.69,
+                    "volume": 4803342,
+                    "ma5": 401.58,
+                    "ma20": 410.11,
+                    "ma60": 435.5,
+                    "macd": -7.23,
+                    "macd_signal": -7.34,
+                    "macd_hist": 0.11,
+                    "rsi": 41.67,
+                    "bb_upper": 428.02,
+                    "bb_lower": 392.2
                 }
             ],
-            "rs_score": -1.23,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 【溫吞股】近期表現落後大盤 -1.23%。",
+            "rs_score": 0.89,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1729,9 +1729,9 @@
             "symbol": "SPY",
             "name": "S&P 500",
             "category": "美股大盤",
-            "price": 683.86,
-            "rsi": 52.63,
-            "bias": -0.36,
+            "price": 682.62,
+            "rsi": 51.34,
+            "bias": -0.53,
             "vol_ratio": 1.2,
             "optimal_sl": 4,
             "actual_sl": 3,
@@ -2566,17 +2566,17 @@
                 },
                 {
                     "date": "2026-03-05",
-                    "price": 683.86,
-                    "volume": 4050581,
-                    "ma5": 684.34,
-                    "ma20": 686.31,
-                    "ma60": 686.88,
-                    "macd": -0.91,
-                    "macd_signal": -0.51,
-                    "macd_hist": -0.4,
-                    "rsi": 52.63,
-                    "bb_upper": 695.54,
-                    "bb_lower": 677.08
+                    "price": 682.62,
+                    "volume": 6812948,
+                    "ma5": 684.09,
+                    "ma20": 686.25,
+                    "ma60": 686.86,
+                    "macd": -1.01,
+                    "macd_signal": -0.53,
+                    "macd_hist": -0.48,
+                    "rsi": 51.34,
+                    "bb_upper": 695.57,
+                    "bb_lower": 676.93
                 }
             ],
             "rs_score": 0.0,
@@ -7763,14 +7763,18 @@
     "ptt": {
         "score": 60,
         "sentiment": "中立",
-        "summary": "軍工概念股漲",
+        "summary": "觀望",
         "top_stocks": [
-            "神基",
+            "王品",
             "祥碩"
         ],
-        "bull_view": "軍工概念股漲,散戶看好",
-        "bear_view": "台股大跌,投資者謹慎",
+        "bull_view": "神基衝軍工營運吃補，科威特外海大爆炸可能帶動軍工相關股",
+        "bear_view": "台股前日重挫，中國經濟成長目標設4.5%至5%可能影響市場信心",
         "raw_links": [
+            {
+                "title": "[新聞] 中國今年經濟成長目標設「4.5%至5%」林",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772721368.A.EC8.html"
+            },
             {
                 "title": "[新聞] 神基衝軍工營運吃補 全年相關業績看增逾",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772720494.A.9DC.html"
@@ -7786,10 +7790,6 @@
             {
                 "title": "[新聞] 快訊／科威特外海大爆炸！伊朗革命衛隊",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772717170.A.584.html"
-            },
-            {
-                "title": "[新聞]比爾蓋茲支持 TerraPower 先進核反應爐獲准建造，2031 年商轉",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772717020.A.EAF.html"
             }
         ]
     },
