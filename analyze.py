@@ -106,10 +106,16 @@ def check_market_regime():
     ma20 = df['Close'].rolling(window=20).mean().iloc[-1]
     
     if latest_close >= ma20:
-        print("✅ 大盤站上月線，多頭環境：策略停損放寬至 5%")
+        print("✅ 大盤站上月線，多頭環境")
         return 0.05
     else:
-        print("⚠️ 大盤跌破月線，空頭環境：強制啟動避險，策略停損縮緊至 3%")
+        # ⚠️ 觸發阿土伯避險警報！
+        alert_msg = f"⚠️【阿土伯緊急戰報】\n大盤(0050)跌破月線！\n目前收盤 {latest_close:.2f} < 月線 {ma20:.2f}\n\n🚨 系統已自動進入防禦模式，所有策略停損全面縮緊至 3%！請嚴控資金風險，切勿賭徒式加碼！"
+        print(alert_msg)
+        
+        # 呼叫剛剛寫好的發射器，把訊息推到你的手機！
+        send_line_alert(alert_msg)
+        
         return 0.03
 
 # --- 3. 股票清單與主程式 ---
@@ -198,4 +204,5 @@ def generate_dashboard_data():
 
 if __name__ == "__main__":
     generate_dashboard_data()
+
 
