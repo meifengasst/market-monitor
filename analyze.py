@@ -3,6 +3,42 @@ import pandas as pd
 import json
 from datetime import datetime
 import numpy as np
+import requests
+import os
+
+def send_line_alert(message):
+    """阿土伯專屬 LINE 警報系統 (Messaging API 版)"""
+    token = os.environ.get("LINE_ACCESS_TOKEN")
+    target_id = os.environ.get("LINE_TARGET_ID")
+    
+    # 防呆：如果在本地端測試沒設定環境變數，就只印在螢幕上
+    if not token or not target_id:
+        print(f"🔕 [未連線 LINE] 模擬發送通知：{message}")
+        return
+        
+    url = "https://api.line.me/v2/bot/message/push"
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {token}"
+    }
+    data = {
+        "to": target_id,
+        "messages": [
+            {
+                "type": "text",
+                "text": message
+            }
+        ]
+    }
+    
+    try:
+        response = requests.post(url, headers=headers, json=data)
+        if response.status_code == 200:
+            print("✅ LINE 警報發送成功！")
+        else:
+            print(f"❌ LINE 警報發送失敗: {response.status_code}, {response.text}")
+    except Exception as e:
+        print(f"❌ LINE 系統發生錯誤: {e}")
 
 # --- 1. 期望值計算機 (核心大腦) ---
 def calculate_strategy_ev(ticker, start_date, end_date, stop_loss_pct):
@@ -162,3 +198,4 @@ def generate_dashboard_data():
 
 if __name__ == "__main__":
     generate_dashboard_data()
+
