@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-05 [06:22]",
+    "last_update": "2026-03-05 [06:47]",
     "data": [
         {
             "symbol": "NVDA",
@@ -2594,8 +2594,8 @@
             "vol_ratio": 1.2,
             "optimal_sl": 3,
             "actual_sl": 3,
-            "ev": 1.53,
-            "win_rate": 30.77,
+            "ev": 1.56,
+            "win_rate": 31.25,
             "history": [
                 {
                     "date": "2025-11-28",
@@ -3438,7 +3438,7 @@
                     "bb_lower": 1694.63
                 }
             ],
-            "ai_summary": "🎯 歷史最佳停損為 3%。目前大盤穩定，套用最佳停損。 (目前期望值 1.53%)",
+            "ai_summary": "🎯 歷史最佳停損為 3%。目前大盤穩定，套用最佳停損。 (目前期望值 1.56%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7752,16 +7752,28 @@
         }
     ],
     "ptt": {
-        "score": 60,
-        "sentiment": "貪婪",
+        "score": 40,
+        "sentiment": "恐慌",
         "summary": "油價上漲",
         "top_stocks": [
             "8046南電",
             "2609陽明"
         ],
-        "bull_view": "油價上漲帶動相關股票上漲，投資者看好市場前景",
-        "bear_view": "國際局勢不穩，油價上漲可能是短期現象",
+        "bull_view": "需求從非常高變成更高，不考慮投降",
+        "bear_view": "油價來到2022年的位置，投資者恐慌",
         "raw_links": [
+            {
+                "title": "[心得] 油價來到2022年的位置 各位還敢買股？",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772692923.A.052.html"
+            },
+            {
+                "title": "[新聞] 陸鋼減產來真的！1月年減14％ 亞洲鋼廠",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772692377.A.EED.html"
+            },
+            {
+                "title": "[新聞] 本打算4周結束戰爭 美媒：川普政府如今評",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772691765.A.530.html"
+            },
             {
                 "title": "[新聞] 黃仁勳：需求從非常高變成更高 不考慮投",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772691099.A.39B.html"
@@ -7769,18 +7781,6 @@
             {
                 "title": "[閒聊] 2026/03/05 盤後閒聊",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772690403.A.8A6.html"
-            },
-            {
-                "title": "[新聞] 荷姆茲海峽封鎖第5天！國際油價衝上年內高點 市場警告：100",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772690188.A.184.html"
-            },
-            {
-                "title": "[新聞] 中國要求前幾大煉油廠暫停出口",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772688875.A.63D.html"
-            },
-            {
-                "title": "[請益] 期貨追繳保證金問題",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772687535.A.00C.html"
             }
         ]
     },
