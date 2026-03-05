@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-05 [07:14]",
+    "last_update": "2026-03-05 [07:41]",
     "data": [
         {
             "symbol": "NVDA",
@@ -7762,15 +7762,27 @@
     ],
     "ptt": {
         "score": 60,
-        "sentiment": "中立",
-        "summary": "觀望",
+        "sentiment": "貪婪",
+        "summary": "市場氣氛樂觀",
         "top_stocks": [
-            "8016",
-            "3443"
+            "威剛",
+            "矽創"
         ],
-        "bull_view": "油價上漲，鋼廠減產，帶動相關股價",
-        "bear_view": "國際局勢不穩，投資者觀望",
+        "bull_view": "威剛獲利大爆發，股利發放創新高，市場氣氛樂觀",
+        "bear_view": "油價上漲，國際局勢不穩，投資者仍需謹慎",
         "raw_links": [
+            {
+                "title": "[新聞] 威剛去年獲利大爆發 每股擬配發17元創新",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772696008.A.8E3.html"
+            },
+            {
+                "title": "[情報] 115年03月05日 三大法人買賣金額統計表",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772695538.A.4D7.html"
+            },
+            {
+                "title": "[情報] 3023 信邦 114年EPS: 13.02 股利:10",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772695302.A.81D.html"
+            },
             {
                 "title": "[情報] 8016 矽創 114年EPS：14.66 股利：11.5",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772694289.A.CDF.html"
@@ -7778,18 +7790,6 @@
             {
                 "title": "[請益] 請教高手勝率較高的加減碼機制",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772694133.A.6B5.html"
-            },
-            {
-                "title": "[情報] 台股前十大漲點紀錄(今天第五名)",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772694108.A.E9D.html"
-            },
-            {
-                "title": "[新聞] 最新股票抽籤／ABF載板廠抽到價差14萬「",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772693981.A.75E.html"
-            },
-            {
-                "title": "[情報] 0305 上市投信買賣超排行",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772693355.A.7B5.html"
             }
         ]
     },
