@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-05 [05:59]",
+    "last_update": "2026-03-05 [06:22]",
     "data": [
         {
             "symbol": "NVDA",
@@ -7754,16 +7754,24 @@
     "ptt": {
         "score": 60,
         "sentiment": "貪婪",
-        "summary": "市場情緒趨於樂觀",
+        "summary": "油價上漲",
         "top_stocks": [
-            "3443",
-            "8046"
+            "8046南電",
+            "2609陽明"
         ],
-        "bull_view": "台積電、陽明等個股走高，市場氣氛活躍",
-        "bear_view": "韓國股市暴跌，投資者仍需謹慎觀察",
+        "bull_view": "油價上漲帶動相關股票上漲，投資者看好市場前景",
+        "bear_view": "國際局勢不穩，油價上漲可能是短期現象",
         "raw_links": [
             {
-                "title": "[新聞] 荷姆茲海峽封鎖第5天！",
+                "title": "[新聞] 黃仁勳：需求從非常高變成更高 不考慮投",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772691099.A.39B.html"
+            },
+            {
+                "title": "[閒聊] 2026/03/05 盤後閒聊",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772690403.A.8A6.html"
+            },
+            {
+                "title": "[新聞] 荷姆茲海峽封鎖第5天！國際油價衝上年內高點 市場警告：100",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772690188.A.184.html"
             },
             {
@@ -7773,14 +7781,6 @@
             {
                 "title": "[請益] 期貨追繳保證金問題",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772687535.A.00C.html"
-            },
-            {
-                "title": "[請益] 八方雲集",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772687046.A.FA4.html"
-            },
-            {
-                "title": "Re: [新聞]伊朗嚴詞否認秘密和談傳聞，指責《紐約時報",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772685109.A.38F.html"
             }
         ]
     },
