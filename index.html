@@ -320,16 +320,35 @@ if (stock.ev !== undefined) {
 
                 if (totalCapital > 0 && isUptrend) {
                     // 帶入公式：N = (C * R) / (Price * StopLossPct)
-                    let stopLossDecimal = stock.actual_sl / 100; // 將 5% 轉為 0.05
-                    let riskPerShare = stock.price * stopLossDecimal; // 買一股會賠多少
+                    let stopLossDecimal = stock.actual_sl / 100;
+                    let riskPerShare = stock.price * stopLossDecimal; 
                     let sharesToBuy = riskPerShare > 0 ? Math.floor((totalCapital * riskPct) / riskPerShare) : 0;
                     let totalInvestment = Math.round(sharesToBuy * stock.price);
+                    
+                    // 💡 阿土伯的智慧單位換算器
+                    let sharesDisplay = "";
+                    if (stock.symbol.endsWith(".TW")) {
+                        // 台股邏輯：換算成「張」與「股」
+                        let lots = Math.floor(sharesToBuy / 1000);
+                        let remainShares = sharesToBuy % 1000;
+                        
+                        if (lots > 0 && remainShares > 0) {
+                            sharesDisplay = `${lots} <span class="text-sm text-green-400/70">張</span> ${remainShares} <span class="text-sm text-green-400/70">股</span>`;
+                        } else if (lots > 0 && remainShares === 0) {
+                            sharesDisplay = `${lots} <span class="text-sm text-green-400/70">張</span>`;
+                        } else {
+                            sharesDisplay = `${remainShares} <span class="text-sm text-green-400/70">股</span>`;
+                        }
+                    } else {
+                        // 美股邏輯：保持純股數顯示
+                        sharesDisplay = `${sharesToBuy.toLocaleString()} <span class="text-sm text-green-400/70">股</span>`;
+                    }
                     
                     positionHtml = `
                     <div class="mt-4 bg-green-900/30 p-4 rounded-xl border border-green-500/40 shadow-inner flex justify-between items-center transform transition-transform hover:scale-[1.02]">
                         <div>
                             <p class="text-[11px] text-green-400 font-bold mb-1 tracking-wide">🛡️ 2% 風控建議買進</p>
-                            <p class="text-2xl font-mono font-black text-green-300">${sharesToBuy.toLocaleString()} <span class="text-sm">股</span></p>
+                            <p class="text-2xl font-mono font-black text-green-300">${sharesDisplay}</p>
                         </div>
                         <div class="text-right">
                             <p class="text-[10px] text-green-400/70 font-bold mb-1 tracking-wide">預計投入金額</p>
