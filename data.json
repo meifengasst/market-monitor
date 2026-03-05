@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-05 [14:16]",
+    "last_update": "2026-03-05 [14:26]",
     "data": [
         {
             "symbol": "NVDA",
@@ -2597,8 +2597,8 @@
             "vol_ratio": 1.2,
             "optimal_sl": 7,
             "actual_sl": 7,
-            "ev": 1.99,
-            "win_rate": 33.33,
+            "ev": 2.02,
+            "win_rate": 33.85,
             "history": [
                 {
                     "date": "2025-11-28",
@@ -7761,16 +7761,20 @@
         }
     ],
     "ptt": {
-        "score": 40,
-        "sentiment": "恐慌",
-        "summary": "台股重挫",
+        "score": 60,
+        "sentiment": "中立",
+        "summary": "觀望",
         "top_stocks": [
-            "王品",
-            "祥碩"
+            "2727 王品",
+            "1342 八貫"
         ],
-        "bull_view": "比爾蓋茲支持先進核反應爐，帶來正面消息",
-        "bear_view": "中東戰火、台股重挫，投資者信心受損",
+        "bull_view": "軍工營運增長，科威特外海事件可能刺激相關股票",
+        "bear_view": "台股重挫，違約金額增加，中東戰火影響市場信心",
         "raw_links": [
+            {
+                "title": "[新聞] 神基衝軍工營運吃補 全年相關業績看增逾",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772720494.A.9DC.html"
+            },
             {
                 "title": "[新聞] 台股前日重挫違約金額爆大量 旺宏5902萬",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772719550.A.1DD.html"
@@ -7786,10 +7790,6 @@
             {
                 "title": "[新聞]比爾蓋茲支持 TerraPower 先進核反應爐獲准建造，2031 年商轉",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772717020.A.EAF.html"
-            },
-            {
-                "title": "[情報] 2727 王品 114年EPS:16.02 股利:16.11",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772716463.A.8BA.html"
             }
         ]
     },
