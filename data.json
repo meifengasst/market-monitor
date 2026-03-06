@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-06 [10:50]",
+    "last_update": "2026-03-06 [11:13]",
     "data": [
         {
             "symbol": "NVDA",
@@ -843,7 +843,7 @@
                 {
                     "date": "2026-03-05",
                     "price": 183.34,
-                    "volume": 190766610,
+                    "volume": 198153200,
                     "ma5": 181.22,
                     "ma20": 185.86,
                     "ma60": 184.94,
@@ -1705,7 +1705,7 @@
                 {
                     "date": "2026-03-05",
                     "price": 405.55,
-                    "volume": 51653564,
+                    "volume": 51772200,
                     "ma5": 401.95,
                     "ma20": 410.2,
                     "ma60": 435.53,
@@ -2567,7 +2567,7 @@
                 {
                     "date": "2026-03-05",
                     "price": 681.31,
-                    "volume": 98846225,
+                    "volume": 106241400,
                     "ma5": 683.83,
                     "ma20": 686.18,
                     "ma60": 686.84,
@@ -2591,9 +2591,9 @@
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "晶圓代工",
-            "price": 1900.0,
-            "rsi": 61.86,
-            "bias": 1.73,
+            "price": 1890.0,
+            "rsi": 60.61,
+            "bias": 1.22,
             "vol_ratio": 1.2,
             "optimal_sl": 7,
             "actual_sl": 7,
@@ -3428,21 +3428,21 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 1900.0,
-                    "volume": 15853131,
-                    "ma5": 1915.0,
-                    "ma20": 1867.75,
-                    "ma60": 1675.94,
-                    "macd": 58.64,
-                    "macd_signal": 67.29,
-                    "macd_hist": -8.64,
-                    "rsi": 61.86,
-                    "bb_upper": 2031.09,
-                    "bb_lower": 1704.41
+                    "price": 1890.0,
+                    "volume": 17743582,
+                    "ma5": 1913.0,
+                    "ma20": 1867.25,
+                    "ma60": 1675.77,
+                    "macd": 57.85,
+                    "macd_signal": 67.13,
+                    "macd_hist": -9.28,
+                    "rsi": 60.61,
+                    "bb_upper": 2030.23,
+                    "bb_lower": 1704.27
                 }
             ],
-            "rs_score": -1.35,
-            "ai_summary": "🎯 最佳移動停利/停損為 7%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -1.35%。",
+            "rs_score": -1.22,
+            "ai_summary": "🎯 最佳移動停利/停損為 7%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -1.22%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3453,9 +3453,9 @@
             "symbol": "2337.TW",
             "name": "旺宏",
             "category": "記憶體",
-            "price": 109.5,
-            "rsi": 61.7,
-            "bias": 12.67,
+            "price": 106.5,
+            "rsi": 60.05,
+            "bias": 9.75,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 12,
@@ -4290,21 +4290,21 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 109.5,
-                    "volume": 100655248,
-                    "ma5": 107.1,
-                    "ma20": 97.19,
-                    "ma60": 65.18,
-                    "macd": 10.7,
-                    "macd_signal": 11.19,
-                    "macd_hist": -0.49,
-                    "rsi": 61.7,
-                    "bb_upper": 119.35,
-                    "bb_lower": 75.03
+                    "price": 106.5,
+                    "volume": 115536155,
+                    "ma5": 106.5,
+                    "ma20": 97.04,
+                    "ma60": 65.13,
+                    "macd": 10.46,
+                    "macd_signal": 11.14,
+                    "macd_hist": -0.68,
+                    "rsi": 60.05,
+                    "bb_upper": 118.89,
+                    "bb_lower": 75.19
                 }
             ],
-            "rs_score": 24.92,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【主力資金偏好】近期表現強於大盤 24.92%！",
+            "rs_score": 22.02,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【主力資金偏好】近期表現強於大盤 22.02%！",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -4315,9 +4315,9 @@
             "symbol": "0050.TW",
             "name": "台灣50",
             "category": "台股龍頭",
-            "price": 77.25,
-            "rsi": 62.29,
-            "bias": 2.15,
+            "price": 76.75,
+            "rsi": 61.18,
+            "bias": 1.52,
             "vol_ratio": 1.2,
             "optimal_sl": 4,
             "actual_sl": 4,
@@ -5152,16 +5152,16 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 77.25,
-                    "volume": 75636342,
-                    "ma5": 78.62,
-                    "ma20": 75.62,
+                    "price": 76.75,
+                    "volume": 86988399,
+                    "ma5": 78.52,
+                    "ma20": 75.6,
                     "ma60": 68.94,
-                    "macd": 2.35,
-                    "macd_signal": 2.51,
-                    "macd_hist": -0.15,
-                    "rsi": 62.29,
-                    "bb_upper": 82.08,
+                    "macd": 2.31,
+                    "macd_signal": 2.5,
+                    "macd_hist": -0.19,
+                    "rsi": 61.18,
+                    "bb_upper": 82.03,
                     "bb_lower": 69.17
                 }
             ],
@@ -5177,9 +5177,9 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 90.5,
-            "rsi": 35.37,
-            "bias": -3.48,
+            "price": 90.0,
+            "rsi": 34.21,
+            "bias": -3.98,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 12,
@@ -6014,21 +6014,21 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 90.5,
-                    "volume": 435674,
-                    "ma5": 91.98,
-                    "ma20": 93.76,
-                    "ma60": 100.76,
-                    "macd": -2.0,
-                    "macd_signal": -1.93,
-                    "macd_hist": -0.07,
-                    "rsi": 35.37,
-                    "bb_upper": 97.05,
-                    "bb_lower": 90.47
+                    "price": 90.0,
+                    "volume": 584889,
+                    "ma5": 91.88,
+                    "ma20": 93.73,
+                    "ma60": 100.75,
+                    "macd": -2.04,
+                    "macd_signal": -1.94,
+                    "macd_hist": -0.11,
+                    "rsi": 34.21,
+                    "bb_upper": 97.14,
+                    "bb_lower": 90.33
                 }
             ],
-            "rs_score": -11.97,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -11.97%。",
+            "rs_score": -11.8,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -11.8%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6039,14 +6039,14 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 92.1,
-            "rsi": 46.96,
-            "bias": -1.45,
+            "price": 91.2,
+            "rsi": 44.74,
+            "bias": -2.37,
             "vol_ratio": 1.2,
-            "optimal_sl": 6,
-            "actual_sl": 6,
-            "ev": -0.88,
-            "win_rate": 19.19,
+            "optimal_sl": 3,
+            "actual_sl": 3,
+            "ev": -0.89,
+            "win_rate": 25.85,
             "history": [
                 {
                     "date": "2025-12-01",
@@ -6876,21 +6876,21 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 92.1,
-                    "volume": 1570960,
-                    "ma5": 93.14,
-                    "ma20": 93.46,
-                    "ma60": 106.59,
-                    "macd": -2.59,
-                    "macd_signal": -3.35,
-                    "macd_hist": 0.75,
-                    "rsi": 46.96,
-                    "bb_upper": 95.93,
-                    "bb_lower": 90.98
+                    "price": 91.2,
+                    "volume": 1878098,
+                    "ma5": 92.96,
+                    "ma20": 93.41,
+                    "ma60": 106.57,
+                    "macd": -2.66,
+                    "macd_signal": -3.36,
+                    "macd_hist": 0.7,
+                    "rsi": 44.74,
+                    "bb_upper": 96.02,
+                    "bb_lower": 90.8
                 }
             ],
-            "rs_score": -8.29,
-            "ai_summary": "🎯 最佳移動停利/停損為 6%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -8.29%。",
+            "rs_score": -8.56,
+            "ai_summary": "🎯 最佳移動停利/停損為 3%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -8.56%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6901,9 +6901,9 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.1,
-            "rsi": 42.39,
-            "bias": -1.74,
+            "price": 30.0,
+            "rsi": 41.11,
+            "bias": -2.05,
             "vol_ratio": 1.2,
             "optimal_sl": 6,
             "actual_sl": 6,
@@ -7738,21 +7738,21 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 30.1,
-                    "volume": 2469596,
-                    "ma5": 30.0,
+                    "price": 30.0,
+                    "volume": 2810627,
+                    "ma5": 29.98,
                     "ma20": 30.63,
                     "ma60": 30.85,
-                    "macd": -0.24,
+                    "macd": -0.25,
                     "macd_signal": -0.11,
-                    "macd_hist": -0.13,
-                    "rsi": 42.39,
+                    "macd_hist": -0.14,
+                    "rsi": 41.11,
                     "bb_upper": 31.66,
-                    "bb_lower": 29.61
+                    "bb_lower": 29.59
                 }
             ],
-            "rs_score": -8.18,
-            "ai_summary": "🎯 最佳移動停利/停損為 6%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -8.18%。",
+            "rs_score": -7.82,
+            "ai_summary": "🎯 最佳移動停利/停損為 6%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -7.82%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7762,34 +7762,34 @@
     ],
     "ptt": {
         "score": 60,
-        "sentiment": "中立",
-        "summary": "觀望",
+        "sentiment": "貪婪",
+        "summary": "台股國家隊護盤",
         "top_stocks": [
-            "1464.TW",
-            "6525"
+            "中鋼",
+            "得力"
         ],
-        "bull_view": "台股反攻，央行表態震盪結束，投資者信心增強",
+        "bull_view": "央行表示震盪應已結束，台股國家隊護盤，市場信心增強",
         "bear_view": "全球局勢不穩，戰火擾股匯，投資者仍需謹慎",
         "raw_links": [
             {
+                "title": "[新聞] 國家藥物韌性整備計畫 估2027成立全台第",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772766567.A.03B.html"
+            },
+            {
+                "title": "[請益] 新手一筆閒錢投入ETF真的不用等低點嗎?",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772765699.A.E65.html"
+            },
+            {
+                "title": "[新聞] 台股國家隊護盤本周敲進逾500億元　齊心",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772765689.A.62B.html"
+            },
+            {
+                "title": "[新聞] 無懼國旅低迷…四大飯店集團 啟動擴張潮",
+                "link": "https://www.ptt.cc/bbs/Stock/M.1772765608.A.3F1.html"
+            },
+            {
                 "title": "[新聞] 中鋼線材盤價傳Q2調漲",
                 "link": "https://www.ptt.cc/bbs/Stock/M.1772764642.A.850.html"
-            },
-            {
-                "title": "[標的] 1464.TW 得力 谷底長線多",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772763735.A.B4F.html"
-            },
-            {
-                "title": "Re: [標的] 捷敏6525 多",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772761060.A.329.html"
-            },
-            {
-                "title": "[新聞] 美想主導全球算力！擬推AI晶片全球許可制",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772759810.A.C43.html"
-            },
-            {
-                "title": "[新聞] 戰火擾股匯 央行︰最大震盪應已結束",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772758133.A.880.html"
             }
         ]
     },
