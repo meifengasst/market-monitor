@@ -42,5 +42,10 @@ jobs:
         run: |
           git config --global user.name "股市阿土伯機器人"
           git config --global user.email "actions@github.com"
-          git add data.json
+          - name: 💾 5. 將最新戰報存檔推送到網頁
+        run: |
+          git config --global user.name "股市阿土伯機器人"
+          git config --global user.email "actions@github.com"
+          git add *.json  # 💡 阿土伯修改：把 data.json 和 portfolio.json 一次打包！
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新盤中報價與停損警報" && git push)
           git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新盤中報價與期望值" && git push)
