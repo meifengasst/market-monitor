@@ -609,7 +609,7 @@
 
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
-                    let trade = myPortfolio[stock.symbol];
+                    let trade = myPortfolio[symbol];
                     if (stock.price > trade.peakPrice) {
                         trade.peakPrice = stock.price;
                         localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
@@ -618,10 +618,23 @@
                     let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), trade.peakPrice * (1 - slDecimal)).toFixed(2);
                     let unrealizedPnL = (stock.price - trade.entryPrice) * trade.shares;
                     let pnlPct = (((stock.price - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
-                    let pnlColor = unrealizedPnL >= 0 ? 'text-red-400' : 'text-green-400';
-                    let pnlBg = unrealizedPnL >= 0 ? 'bg-red-900/20 border-red-500/40' : 'bg-green-900/20 border-green-500/40';
+                    
+                    // 💡 阿土伯新增：判斷是否跌破嚴格停損價！
+                    let isStopLossTriggered = stock.price <= actualExitPrice;
 
-                    positionHtml = `<div class="mt-4 ${pnlBg} p-4 rounded-xl border shadow-inner relative group cursor-default" onclick="event.stopPropagation()">
+                    let pnlColor = unrealizedPnL >= 0 ? 'text-red-400' : 'text-green-400';
+                    
+                    // 🚨 警報 UI：如果破線，整個部位框變成刺眼的綠色閃爍 (台股綠色代表跌)
+                    let pnlBg = isStopLossTriggered 
+                        ? 'bg-green-900 border-green-400 animate-pulse shadow-[0_0_20px_rgba(34,197,94,0.6)]' 
+                        : (unrealizedPnL >= 0 ? 'bg-red-900/20 border-red-500/40' : 'bg-green-900/20 border-green-500/40');
+                    
+                    // 🚨 警報 UI：替換停損標籤文字
+                    let stopLossLabel = isStopLossTriggered
+                        ? `<span class="text-[11px] text-white bg-green-600 px-2 py-1 rounded font-black">🚨 跌破停損！立即清倉</span>`
+                        : `<span class="text-[9px] text-purple-400 font-bold animate-pulse">🎯 嚴格停損出場價</span>`;
+
+                    positionHtml = `<div class="mt-4 ${pnlBg} p-4 rounded-xl border transition-colors shadow-inner relative group cursor-default" onclick="event.stopPropagation()">
                         <button onclick="removeTrade(event, '${stock.symbol}')" class="absolute top-2 right-2 text-slate-500 hover:text-white bg-slate-800 rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
                         <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2">
                             <span class="text-[11px] font-black text-blue-300 tracking-widest">💼 我的實戰部位</span>
@@ -633,7 +646,7 @@
                         </div>
                         <div class="bg-black/30 rounded-lg p-2.5 flex justify-between items-center border border-white/5">
                             <div><p class="text-[9px] text-slate-500 font-bold">成本價</p><p class="text-sm font-mono font-bold text-slate-300">${trade.entryPrice}</p></div>
-                            <div class="text-right"><p class="text-[9px] text-purple-400 font-bold animate-pulse">🎯 嚴格停損出場價</p><p class="text-base font-mono font-black text-purple-300">${actualExitPrice}</p></div>
+                            <div class="text-right">${stopLossLabel}<p class="text-base font-mono font-black text-white mt-1">${actualExitPrice}</p></div>
                         </div>
                     </div>`;
                 } else {
