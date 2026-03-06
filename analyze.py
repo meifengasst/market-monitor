@@ -19,27 +19,9 @@ def send_line_alert(message):
                       json={"to": target_id, "messages": [{"type": "text", "text": message}]})
     except: pass
 
-def get_ptt_news():
-    try:
-        res = requests.get("https://www.ptt.cc/atom/stock.xml", headers=HEADERS, timeout=10)
-        root = ET.fromstring(res.text)
-        ns = {'atom': 'http://www.w3.org/2005/Atom'}
-        return [{"title": entry.find('atom:title', ns).text, "link": entry.find('atom:link', ns).attrib['href']} for entry in root.findall('atom:entry', ns)[:20]]
-    except: return []
 
-def get_ptt_sentiment(ptt_list):
-    api_key = os.environ.get('GEMINI_API_KEY') 
-    default_response = {"score": 50, "sentiment": "中立", "summary": "系統暫無情緒數據", "top_stocks": [], "bull_view": "無", "bear_view": "無", "raw_links": ptt_list[:5]}
-    if not api_key or not ptt_list: return default_response
-    prompt = """你是頂級股市心理學家。請分析以下PTT股版最新標題，判斷台灣散戶情緒。嚴格輸出JSON：{"score": 整數0-100, "sentiment": "極度恐慌|恐慌|中立|貪婪|極度貪婪", "summary": "25字以內", "top_stocks": ["股1", "股2"], "bull_view": "30字", "bear_view": "30字"}\n""" + "\n".join([p['title'] for p in ptt_list])
-    try:
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}, json={"model": "llama-3.3-70b-versatile", "messages": [{"role": "user", "content": prompt}], "temperature": 0.3, "response_format": {"type": "json_object"}}, timeout=20)
-        if res.status_code == 200:
-            result = json.loads(res.json()['choices'][0]['message']['content'].strip())
-            result["raw_links"] = ptt_list[:5] 
-            return result
-    except: pass
-    return default_response
+
+
 
 def calculate_ev_from_df(df, stop_loss_pct):
     trades, entry_price, in_position = [], 0, False
@@ -223,13 +205,44 @@ def generate_dashboard_data():
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
-    with open("data.json", "w", encoding="utf-8") as f:
-        json.dump({"last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"), "data": dashboard_data, "ptt": ptt_data, "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"}}, f, ensure_ascii=False, indent=4)
+    # (這裡是你原本整理 dashboard_data.append 的地方)
+        # ... 上面保持不變 ...
 
+    # 💡 阿土伯新增：爬取 VIX 恐慌指數
+    try:
+        vix_price = round(yf.Ticker("^VIX").fast_info.get('lastPrice', 0), 2)
+    except:
+        vix_price = 0
+
+    # 💡 阿土伯新增：計算自選股多空健康度 (% 數站上月線)
+    above_20ma_count = sum(1 for d in dashboard_data if d['price'] > d['history'][-1]['ma20'])
+    health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
+
+    market_health = {
+        "vix": vix_price,
+        "health_pct": health_pct
+    }
+
+    # 💡 存檔時，把原本的 "ptt": ptt_data 換成 "market_health": market_health
+    with open("data.json", "w", encoding="utf-8") as f:
+        json.dump({
+            "last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"), 
+            "data": dashboard_data, 
+            "market_health": market_health, # 👈 這裡換成客觀數據雷達
+            "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"}
+        }, f, ensure_ascii=False, indent=4)
+
+    # 💡 將更新後的庫存存回雲端
+    if portfolio_updated:
+        with open(portfolio_file, "w", encoding="utf-8") as f:
+            json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
+
+if __name__ == "__main__": generate_dashboard_data()
     # 💡 將更新後的庫存(最高價、警報狀態)存回雲端
     if portfolio_updated:
         with open(portfolio_file, "w", encoding="utf-8") as f:
             json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__": generate_dashboard_data()
+
 
