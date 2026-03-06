@@ -1,33 +1,19 @@
 {
-    "last_update": "2026-03-06 [22:00]",
+    "last_update": "2026-03-06 [22:54]",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia",
             "category": "美國科技",
-            "price": 183.34,
-            "rsi": 46.12,
-            "bias": -1.36,
+            "price": 181.93,
+            "rsi": 48.99,
+            "bias": -2.38,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 3,
             "ev": -0.15,
             "win_rate": 38.91,
             "history": [
-                {
-                    "date": "2025-12-08",
-                    "price": 185.55,
-                    "volume": 204378100,
-                    "ma5": 182.47,
-                    "ma20": 184.34,
-                    "ma60": 185.54,
-                    "macd": -1.83,
-                    "macd_signal": -2.05,
-                    "macd_hist": 0.22,
-                    "rsi": 48.88,
-                    "bb_upper": 196.12,
-                    "bb_lower": 172.56
-                },
                 {
                     "date": "2025-12-09",
                     "price": 184.97,
@@ -853,10 +839,24 @@
                     "rsi": 46.12,
                     "bb_upper": 196.96,
                     "bb_lower": 174.77
+                },
+                {
+                    "date": "2026-03-06",
+                    "price": 181.93,
+                    "volume": 25824411,
+                    "ma5": 182.17,
+                    "ma20": 186.37,
+                    "ma60": 184.88,
+                    "macd": -0.89,
+                    "macd_signal": -0.15,
+                    "macd_hist": -0.74,
+                    "rsi": 48.99,
+                    "bb_upper": 195.53,
+                    "bb_lower": 177.2
                 }
             ],
-            "rs_score": 6.12,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 【主力資金偏好】近期表現強於大盤 6.12%！",
+            "rs_score": 1.0,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -867,29 +867,15 @@
             "symbol": "TSLA",
             "name": "Tesla",
             "category": "美國科技",
-            "price": 405.55,
-            "rsi": 42.65,
-            "bias": -1.13,
+            "price": 396.27,
+            "rsi": 37.88,
+            "bias": -3.39,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 3,
             "ev": -0.12,
             "win_rate": 37.88,
             "history": [
-                {
-                    "date": "2025-12-08",
-                    "price": 439.58,
-                    "volume": 69165800,
-                    "ma5": 445.02,
-                    "ma20": 423.57,
-                    "ma60": 433.79,
-                    "macd": 3.96,
-                    "macd_signal": -0.28,
-                    "macd_hist": 4.24,
-                    "rsi": 64.67,
-                    "bb_upper": 463.26,
-                    "bb_lower": 383.88
-                },
                 {
                     "date": "2025-12-09",
                     "price": 445.17,
@@ -1715,10 +1701,24 @@
                     "rsi": 42.65,
                     "bb_upper": 427.99,
                     "bb_lower": 392.42
+                },
+                {
+                    "date": "2026-03-06",
+                    "price": 396.27,
+                    "volume": 9544686,
+                    "ma5": 400.7,
+                    "ma20": 410.16,
+                    "ma60": 434.8,
+                    "macd": -7.41,
+                    "macd_signal": -7.33,
+                    "macd_hist": -0.08,
+                    "rsi": 37.88,
+                    "bb_upper": 428.09,
+                    "bb_lower": 392.22
                 }
             ],
-            "rs_score": 1.56,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
+            "rs_score": -0.73,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 【溫吞股】近期表現落後大盤 -0.73%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1729,29 +1729,15 @@
             "symbol": "SPY",
             "name": "S&P 500",
             "category": "美股大盤",
-            "price": 681.31,
-            "rsi": 50.04,
-            "bias": -0.71,
+            "price": 670.93,
+            "rsi": 41.23,
+            "bias": -2.18,
             "vol_ratio": 1.2,
             "optimal_sl": 4,
             "actual_sl": 3,
             "ev": 0.27,
             "win_rate": 33.77,
             "history": [
-                {
-                    "date": "2025-12-08",
-                    "price": 681.62,
-                    "volume": 55231500,
-                    "ma5": 681.81,
-                    "ma20": 672.91,
-                    "ma60": 668.96,
-                    "macd": 3.48,
-                    "macd_signal": 2.03,
-                    "macd_hist": 1.45,
-                    "rsi": 65.04,
-                    "bb_upper": 693.24,
-                    "bb_lower": 652.58
-                },
                 {
                     "date": "2025-12-09",
                     "price": 681.03,
@@ -2577,9 +2563,23 @@
                     "rsi": 50.04,
                     "bb_upper": 695.63,
                     "bb_lower": 676.74
+                },
+                {
+                    "date": "2026-03-06",
+                    "price": 670.93,
+                    "volume": 15897601,
+                    "ma5": 680.82,
+                    "ma20": 685.85,
+                    "ma60": 686.66,
+                    "macd": -2.18,
+                    "macd_signal": -0.87,
+                    "macd_hist": -1.31,
+                    "rsi": 41.23,
+                    "bb_upper": 696.9,
+                    "bb_lower": 674.79
                 }
             ],
-            "rs_score": 0.0,
+            "rs_score": 0.03,
             "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
             "lights": {
                 "short": "⚪",
@@ -7761,7 +7761,7 @@
         }
     ],
     "market_health": {
-        "vix": 26.77,
+        "vix": 28.18,
         "health_pct": 33
     },
     "macro": {
