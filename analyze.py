@@ -78,7 +78,7 @@ STOCKS = {
 }
 
 def generate_dashboard_data():
-    ptt_data = get_ptt_sentiment(get_ptt_news())
+    #ptt_data = get_ptt_sentiment(get_ptt_news())
     bear_markets = check_market_regime() 
     
     # 💡 阿土伯新增：讀取雲端庫存保險箱
@@ -232,17 +232,15 @@ def generate_dashboard_data():
             "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"}
         }, f, ensure_ascii=False, indent=4)
 
+    # (這段原本就在 generate_dashboard_data 函數的最後面，保持這樣即可)
     # 💡 將更新後的庫存存回雲端
     if portfolio_updated:
         with open(portfolio_file, "w", encoding="utf-8") as f:
             json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
 
-if __name__ == "__main__": generate_dashboard_data()
-    # 💡 將更新後的庫存(最高價、警報狀態)存回雲端
-    if portfolio_updated:
-        with open(portfolio_file, "w", encoding="utf-8") as f:
-            json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
+# 確保這行是在最外層（沒有縮排）
+if __name__ == "__main__": 
+    generate_dashboard_data()
 
-if __name__ == "__main__": generate_dashboard_data()
 
 
