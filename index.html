@@ -609,7 +609,7 @@
 
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
-                    let trade = myPortfolio[symbol];
+                    let trade = myPortfolio[stock.symbol]; // 👈 加上 stock. 就天下太平了！
                     if (stock.price > trade.peakPrice) {
                         trade.peakPrice = stock.price;
                         localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
