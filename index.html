@@ -229,6 +229,7 @@
         
         // 💡 渲染庫存清單大腦
         // 💡 渲染庫存清單大腦 (阿土伯升級版：加入市值與元)
+        // 💡 渲染庫存清單大腦 (阿土伯終極版：停損血紅警報 + 總曝險控制條)
         function renderPortfolioSummary() {
             const summarySection = document.getElementById('portfolioSummarySection');
             const listContainer = document.getElementById('portfolioList');
@@ -241,7 +242,10 @@
 
             summarySection.classList.remove('hidden');
             listContainer.innerHTML = '';
+            
             let totalPnL = 0;
+            let totalRiskAmount = 0; // 💡 總風險金額累加器
+            let totalCapital = parseFloat(document.getElementById('capitalInput').value) || 100000;
 
             for (let symbol in myPortfolio) {
                 let trade = myPortfolio[symbol];
@@ -249,32 +253,48 @@
 
                 let currentPrice = stock ? stock.price : trade.entryPrice;
                 let stockName = stock ? stock.name : symbol;
+                
+                // 💡 計算嚴格停損價
+                let actualSl = stock ? stock.actual_sl : 5; 
+                let slDecimal = actualSl / 100;
+                let peakPrice = trade.peakPrice || trade.entryPrice;
+                if (currentPrice > peakPrice) { peakPrice = currentPrice; trade.peakPrice = currentPrice; }
+                let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), peakPrice * (1 - slDecimal));
 
+                // 🌟 第 1 道防線邏輯：是否跌破停損價？
+                let isStopLossTriggered = currentPrice <= actualExitPrice;
+
+                // 🌟 第 2 道防線邏輯：計算這檔股票「真正可能虧損的本金」
+                // 如果停損價已經高於成本價(獲利保護中)，則本金風險降為 0！
+                let riskPerShare = Math.max(0, trade.entryPrice - actualExitPrice);
+                totalRiskAmount += (riskPerShare * trade.shares);
+
+                // 計算損益與市值
                 let pnl = (currentPrice - trade.entryPrice) * trade.shares;
                 totalPnL += pnl;
-                
-                // 💡 新增：計算這檔股票當前的總市值 (現值)
                 let currentValue = Math.round(currentPrice * trade.shares);
 
                 let pnlColor = pnl >= 0 ? 'text-red-400' : 'text-green-400';
                 let pnlSign = pnl > 0 ? '+' : (pnl < 0 ? '-' : '');
                 let absPnlStr = Math.abs(Math.round(pnl)).toLocaleString();
 
-                let sharesDisplay = "";
-                if (symbol.endsWith(".TW")) {
-                    let lots = Math.floor(trade.shares / 1000);
-                    let remain = trade.shares % 1000;
-                    if (lots > 0 && remain > 0) sharesDisplay = `${lots}張 ${remain}股`;
-                    else if (lots > 0) sharesDisplay = `${lots}張`;
-                    else sharesDisplay = `${remain}股`;
-                } else {
-                    sharesDisplay = `${trade.shares.toLocaleString()}股`;
-                }
+                let sharesDisplay = symbol.endsWith(".TW") 
+                    ? (Math.floor(trade.shares/1000) > 0 ? `${Math.floor(trade.shares/1000)}張 ${trade.shares%1000}股` : `${trade.shares}股`) 
+                    : `${trade.shares.toLocaleString()}股`;
+
+                // 🚨 第 1 道防線 UI：觸發停損時，背景變血紅色閃爍！
+                let cardBg = isStopLossTriggered 
+                    ? "bg-green-900/60 border-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" // 台股綠色代表跌
+                    : "bg-black/30 border-white/10 hover:bg-slate-700 hover:border-blue-500";
+                
+                let warningIcon = isStopLossTriggered 
+                    ? `<span class="text-[10px] bg-green-600 text-white px-1.5 py-0.5 rounded font-black animate-bounce inline-block ml-1">🚨 觸發停損</span>` 
+                    : "";
 
                 let itemHtml = `
-                <div class="bg-black/30 p-3 rounded-xl border border-white/10 flex justify-between items-center cursor-pointer hover:bg-slate-700 hover:border-blue-500 transition-colors" onclick="document.getElementById('searchInput').value='${symbol}'; renderData('${symbol}');">
+                <div class="p-3 rounded-xl border flex justify-between items-center cursor-pointer transition-all ${cardBg}" onclick="document.getElementById('searchInput').value='${symbol}'; renderData('${symbol}');">
                     <div>
-                        <p class="text-sm font-black text-white">${stockName} <span class="text-[10px] text-slate-400 font-mono ml-1">${symbol}</span></p>
+                        <p class="text-sm font-black text-white">${stockName} <span class="text-[10px] text-slate-400 font-mono ml-1">${symbol}</span> ${warningIcon}</p>
                         <p class="text-[11px] text-slate-400 mt-1 font-bold">持有: <span class="text-blue-300">${sharesDisplay}</span></p>
                         <p class="text-[10px] text-slate-500 mt-0.5 font-bold">現值: <span class="text-slate-300">$${currentValue.toLocaleString()} 元</span></p>
                     </div>
@@ -287,13 +307,41 @@
                 listContainer.innerHTML += itemHtml;
             }
 
+            // 更新總損益
             let totalPnLColor = totalPnL >= 0 ? 'text-red-400' : 'text-green-400';
             let totalPnLSign = totalPnL > 0 ? '+' : (totalPnL < 0 ? '-' : '');
             let absTotalPnlStr = Math.abs(Math.round(totalPnL)).toLocaleString();
-            
             totalPnLDisplay.className = `text-3xl font-mono font-black ${totalPnLColor}`;
-            // 💡 新增：總未實現損益加上「元」單位
             totalPnLDisplay.innerText = `${totalPnLSign}$${absTotalPnlStr} 元`;
+
+            // 🌟 第 2 道防線 UI：畫出總曝險控制條 (自動插入到總損益下方)
+            let riskSection = document.getElementById('riskExposureSection');
+            if(!riskSection) {
+                const pnlParent = totalPnLDisplay.parentElement;
+                pnlParent.insertAdjacentHTML('afterend', `
+                    <div id="riskExposureSection" class="mt-4 pt-4 border-t border-slate-700">
+                        <div class="flex justify-between items-end mb-1.5">
+                            <p class="text-[11px] text-slate-400 font-bold tracking-widest">🛡️ 總資金本金曝險 (建議 < 10%)</p>
+                            <p id="totalRiskText" class="text-sm font-mono font-black text-white">0%</p>
+                        </div>
+                        <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-600 shadow-inner">
+                            <div id="totalRiskBar" class="h-full transition-all duration-1000 ease-out" style="width: 0%"></div>
+                        </div>
+                    </div>
+                `);
+            }
+            
+            // 計算風險 % 數並決定進度條顏色
+            let riskPct = totalCapital > 0 ? (totalRiskAmount / totalCapital) * 100 : 0;
+            let displayRiskPct = riskPct.toFixed(1);
+            let riskBarColor = "bg-blue-500";
+            if (riskPct >= 10) riskBarColor = "bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]"; // 超過 10% 亮綠色警報(台股跌的顏色)
+            else if (riskPct >= 6) riskBarColor = "bg-yellow-500";
+
+            document.getElementById('totalRiskText').innerText = `${displayRiskPct}%`;
+            document.getElementById('totalRiskText').className = `text-sm font-mono font-black ${riskPct >= 10 ? 'text-green-400 animate-pulse' : 'text-white'}`;
+            document.getElementById('totalRiskBar').className = `h-full transition-all duration-1000 ease-out ${riskBarColor}`;
+            document.getElementById('totalRiskBar').style.width = `${Math.min(riskPct, 100)}%`;
         }
 
         const SECRET_PASSWORD = "29399909"; 
