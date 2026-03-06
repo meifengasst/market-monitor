@@ -41,30 +41,20 @@ def get_ptt_sentiment(ptt_list):
     except: pass
     return default_response
 
-# 💡 壓箱寶一：階梯式移動停利 (Trailing Stop) 回測大腦
 def calculate_ev_from_df(df, stop_loss_pct):
     trades, entry_price, in_position = [], 0, False
-    peak_price = 0 # 紀錄買進後的最高價
+    peak_price = 0 
     
     for index, row in df.iterrows():
         if in_position:
-            # 每天更新最高價
             peak_price = max(peak_price, row['High'])
-            
-            # 計算兩種停損價：
-            # 1. 原始保本停損 (買進價往下跌 5%)
             fixed_stop = entry_price * (1 - stop_loss_pct)
-            # 2. 移動停利 (最高價往下跌 5%)
             trailing_stop = peak_price * (1 - stop_loss_pct)
-            
-            # 系統會非常聰明地取兩者「較高」的那個作為出場點！
             actual_exit_price = max(fixed_stop, trailing_stop)
 
-            # 觸發停損/停利
             if row['Low'] <= actual_exit_price:
                 trades.append((actual_exit_price - entry_price) / entry_price)
                 in_position = False
-            # 或者跌破月線出場
             elif row['Signal'] == -1:
                 trades.append((row['Close'] - entry_price) / entry_price)
                 in_position = False
@@ -109,7 +99,15 @@ def generate_dashboard_data():
     ptt_data = get_ptt_sentiment(get_ptt_news())
     bear_markets = check_market_regime() 
     
-    # 💡 壓箱寶二前期準備：抓取大盤資料，用來算相對強弱指標
+    # 💡 阿土伯新增：讀取雲端庫存保險箱
+    portfolio_file = "portfolio.json"
+    try:
+        with open(portfolio_file, "r", encoding="utf-8") as f:
+            cloud_portfolio = json.load(f)
+    except:
+        cloud_portfolio = {}
+    portfolio_updated = False
+    
     tw_idx = yf.download("0050.TW", period="6mo", progress=False)
     us_idx = yf.download("SPY", period="6mo", progress=False)
     if isinstance(tw_idx.columns, pd.MultiIndex): tw_idx.columns = tw_idx.columns.droplevel(1)
@@ -125,20 +123,18 @@ def generate_dashboard_data():
             
         # 💡 阿土伯升級：美股/台股 雙引擎即時報價系統
         if not symbol.endswith(".TW"):
-            # 如果是美股 (如 NVDA, TSLA, SPY)，啟動 Finnhub 引擎
             finnhub_key = os.environ.get("FINNHUB_API_KEY")
             if finnhub_key:
                 try:
                     res = requests.get(f"https://finnhub.io/api/v1/quote?symbol={symbol}&token={finnhub_key}", timeout=5)
                     if res.status_code == 200:
-                        real_time_price = res.json().get('c') # 'c' 代表 current price (現價)
+                        real_time_price = res.json().get('c')
                         if real_time_price and real_time_price > 0:
                             df.iloc[-1, df.columns.get_loc('Close')] = round(real_time_price, 2)
                             print(f"⚡ {symbol} 成功獲取 Finnhub 即時報價: {real_time_price}")
                 except Exception as e:
                     print(f"⚠️ {symbol} Finnhub 報價失敗，退回歷史收盤價")
         else:
-            # 如果是台股，維持 Yahoo 報價
             try: df.iloc[-1, df.columns.get_loc('Close')] = round(yf.Ticker(symbol).fast_info.get('lastPrice', df['Close'].iloc[-1]), 2)
             except: pass
         
@@ -153,11 +149,9 @@ def generate_dashboard_data():
         df['macd_hist'] = df['macd'] - df['macd_signal']
         delta = df['Close'].diff()
         df['rsi'] = 100 - (100 / (1 + (delta.where(delta > 0, 0).rolling(14).mean() / -delta.where(delta < 0, 0).rolling(14).mean())))
-        
         df['Signal'] = np.where(df['Close'] > df['ma20'], 1, np.where(df['Close'] < df['ma20'], -1, 0))
         df = df.fillna(0)
         
-        # 💡 壓箱寶二核心：計算個股 vs 大盤的「相對強弱指標 (RS)」 (看近 20 天)
         try:
             market_idx = tw_idx if symbol.endswith(".TW") else us_idx
             stock_ret_20 = (df['Close'].iloc[-1] - df['Close'].iloc[-20]) / df['Close'].iloc[-20]
@@ -166,7 +160,6 @@ def generate_dashboard_data():
         except:
             rs_score = 0
         
-        # 尋找含「移動停利」的最佳甜蜜點
         best_sl, best_ev = 0.05, -999
         for sl in [0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12]:
             res = calculate_ev_from_df(df, sl)
@@ -178,17 +171,46 @@ def generate_dashboard_data():
         actual_ev = actual_res['ev'] if actual_res else 0
         actual_win = actual_res['win_rate'] if actual_res else 0
 
+        current_price = round(df['Close'].iloc[-1], 2)
+
+        # 🚨 阿土伯 LINE 專屬風險管家 (停損觸發檢查) 🚨
+        if symbol in cloud_portfolio:
+            trade = cloud_portfolio[symbol]
+            entry_price = trade.get('entryPrice', current_price)
+            peak_price = trade.get('peakPrice', entry_price)
+
+            # 1. 檢查是否創新高 (移動停利機制)
+            if current_price > peak_price:
+                trade['peakPrice'] = current_price
+                portfolio_updated = True
+                peak_price = current_price
+
+            # 2. 計算這檔股票的嚴格停損/停利價
+            actual_exit_price = max(entry_price * (1 - actual_sl), peak_price * (1 - actual_sl))
+
+            # 3. 檢查是否跌破防線
+            if current_price <= actual_exit_price:
+                if not trade.get('alerted', False): # 如果還沒叫過，就馬上發 LINE！
+                    alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}\n\n⚠️ 已跌破嚴格停損/停利線，請立即無情清倉，保護本金！"
+                    send_line_alert(alert_msg)
+                    trade['alerted'] = True
+                    portfolio_updated = True
+            else:
+                # 若股價爭氣站回防線之上，解除警報標記
+                if trade.get('alerted', False):
+                    trade['alerted'] = False
+                    portfolio_updated = True
+
         hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2)} for i, r in df.tail(60).iterrows()]
         
-        # 加上 AI 智庫評語
         rs_comment = f"【主力資金偏好】近期表現強於大盤 {rs_score}%！" if rs_score > 5 else (f"【溫吞股】近期表現落後大盤 {rs_score}%。" if rs_score < 0 else "與大盤同步。")
         
         dashboard_data.append({
             "symbol": symbol, "name": info["name"], "category": info["category"],
-            "price": round(df['Close'].iloc[-1], 2), "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((df['Close'].iloc[-1] - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
+            "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
-            "rs_score": rs_score, # 🌟 將 RS 傳給前端
+            "rs_score": rs_score, 
             "ai_summary": f"🎯 最佳移動停利/停損為 {int(best_sl*100)}%。{'目前大盤破線，已強制縮緊至 3% 防守！' if is_bear else '目前大盤穩定。'} {rs_comment}",
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
@@ -196,6 +218,9 @@ def generate_dashboard_data():
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump({"last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"), "data": dashboard_data, "ptt": ptt_data, "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"}}, f, ensure_ascii=False, indent=4)
 
+    # 💡 將更新後的庫存(最高價、警報狀態)存回雲端
+    if portfolio_updated:
+        with open(portfolio_file, "w", encoding="utf-8") as f:
+            json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
+
 if __name__ == "__main__": generate_dashboard_data()
-
-
