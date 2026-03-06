@@ -2,9 +2,7 @@ name: 🚀 阿土伯盤中戰情室 (15分鐘自動更新)
 
 on:
   schedule:
-    # 💡 阿土伯修正：把 1-5 改成明確的 1,2,3,4,5，這在 GitHub 系統裡最穩，絕對不會睡死！
-    # 💡 1-5 負責台股 (台灣 09:00~13:00)
-    # 💡 13-21 負責美股 (台灣 21:00~隔天凌晨 05:00，完美涵蓋美股夏令和冬令時間)
+    # 💡 1-5 負責台股, 13-21 負責美股 (錯開整點防塞車)
     - cron: '7,22,37,52 1-5,13-21 * * 1-5' 
   workflow_dispatch: # 手動執行按鈕
 
@@ -30,22 +28,17 @@ jobs:
 
       - name: 🧠 4. 執行阿土伯量化大腦
         env:
-          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }})
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
           LINE_TARGET_ID: ${{ secrets.LINE_TARGET_ID }}
-          # 🌟 阿土伯時區魔法：強制讓雲端主機變成台灣時間，這樣網頁的「最後更新」才會準！
-          TZ: Asia/Taipei 
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }} # 美股報價鑰匙
+          TZ: Asia/Taipei # 強制台灣時區
         run: python analyze.py
 
       - name: 💾 5. 將最新戰報存檔推送到網頁
+        # 🚨 注意看這裡，整個步驟只有一個 run: 和一條直線 |
         run: |
           git config --global user.name "股市阿土伯機器人"
           git config --global user.email "actions@github.com"
-          - name: 💾 5. 將最新戰報存檔推送到網頁
-        run: |
-          git config --global user.name "股市阿土伯機器人"
-          git config --global user.email "actions@github.com"
-          git add *.json  # 💡 阿土伯修改：把 data.json 和 portfolio.json 一次打包！
+          git add *.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新盤中報價與停損警報" && git push)
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新盤中報價與期望值" && git push)
