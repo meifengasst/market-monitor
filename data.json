@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-06 [12:57]",
+    "last_update": "2026-03-06 [17:45]",
     "data": [
         {
             "symbol": "NVDA",
@@ -1705,7 +1705,7 @@
                 {
                     "date": "2026-03-05",
                     "price": 405.55,
-                    "volume": 51653564,
+                    "volume": 51772200,
                     "ma5": 401.95,
                     "ma20": 410.2,
                     "ma60": 435.53,
@@ -2597,8 +2597,8 @@
             "vol_ratio": 1.2,
             "optimal_sl": 7,
             "actual_sl": 7,
-            "ev": 2.02,
-            "win_rate": 33.85,
+            "ev": 1.99,
+            "win_rate": 33.33,
             "history": [
                 {
                     "date": "2025-12-01",
@@ -3429,7 +3429,7 @@
                 {
                     "date": "2026-03-06",
                     "price": 1890.0,
-                    "volume": 25413005,
+                    "volume": 33712564,
                     "ma5": 1913.0,
                     "ma20": 1867.25,
                     "ma60": 1675.77,
@@ -3441,8 +3441,8 @@
                     "bb_lower": 1704.27
                 }
             ],
-            "rs_score": -1.36,
-            "ai_summary": "🎯 最佳移動停利/停損為 7%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -1.36%。",
+            "rs_score": 0.27,
+            "ai_summary": "🎯 最佳移動停利/停損為 7%。目前大盤穩定。 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3453,9 +3453,9 @@
             "symbol": "2337.TW",
             "name": "旺宏",
             "category": "記憶體",
-            "price": 103.5,
-            "rsi": 57.97,
-            "bias": 6.82,
+            "price": 102.5,
+            "rsi": 57.31,
+            "bias": 5.84,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 12,
@@ -4290,21 +4290,21 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 103.5,
-                    "volume": 150193233,
-                    "ma5": 105.9,
-                    "ma20": 96.89,
-                    "ma60": 65.08,
-                    "macd": 10.22,
-                    "macd_signal": 11.1,
-                    "macd_hist": -0.87,
-                    "rsi": 57.97,
-                    "bb_upper": 118.5,
-                    "bb_lower": 75.28
+                    "price": 102.5,
+                    "volume": 173657397,
+                    "ma5": 105.7,
+                    "ma20": 96.84,
+                    "ma60": 65.06,
+                    "macd": 10.14,
+                    "macd_signal": 11.08,
+                    "macd_hist": -0.94,
+                    "rsi": 57.31,
+                    "bb_upper": 118.39,
+                    "bb_lower": 75.29
                 }
             ],
-            "rs_score": 18.31,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【主力資金偏好】近期表現強於大盤 18.31%！",
+            "rs_score": 18.74,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【主力資金偏好】近期表現強於大盤 18.74%！",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -4315,29 +4315,15 @@
             "symbol": "0050.TW",
             "name": "台灣50",
             "category": "台股龍頭",
-            "price": 76.8,
-            "rsi": 61.29,
-            "bias": 1.58,
+            "price": 76.85,
+            "rsi": 60.88,
+            "bias": 1.36,
             "vol_ratio": 1.2,
             "optimal_sl": 4,
             "actual_sl": 4,
             "ev": 1.64,
             "win_rate": 38.46,
             "history": [
-                {
-                    "date": "2025-11-28",
-                    "price": 61.48,
-                    "volume": 66700125,
-                    "ma5": 60.25,
-                    "ma20": 61.18,
-                    "ma60": 59.11,
-                    "macd": -0.08,
-                    "macd_signal": 0.05,
-                    "macd_hist": -0.13,
-                    "rsi": 45.58,
-                    "bb_upper": 63.92,
-                    "bb_lower": 58.43
-                },
                 {
                     "date": "2025-12-01",
                     "price": 60.64,
@@ -5151,22 +5137,36 @@
                     "bb_lower": 68.8
                 },
                 {
-                    "date": "2026-03-06",
-                    "price": 76.8,
-                    "volume": 129614988,
-                    "ma5": 78.53,
-                    "ma20": 75.6,
-                    "ma60": 68.94,
-                    "macd": 2.32,
-                    "macd_signal": 2.5,
-                    "macd_hist": -0.18,
-                    "rsi": 61.29,
-                    "bb_upper": 82.04,
+                    "date": "2026-03-05",
+                    "price": 77.4,
+                    "volume": 194777972,
+                    "ma5": 78.65,
+                    "ma20": 75.63,
+                    "ma60": 68.95,
+                    "macd": 2.36,
+                    "macd_signal": 2.51,
+                    "macd_hist": -0.14,
+                    "rsi": 62.61,
+                    "bb_upper": 82.1,
                     "bb_lower": 69.17
+                },
+                {
+                    "date": "2026-03-06",
+                    "price": 76.85,
+                    "volume": 150959699,
+                    "ma5": 77.79,
+                    "ma20": 75.82,
+                    "ma60": 69.2,
+                    "macd": 2.16,
+                    "macd_signal": 2.44,
+                    "macd_hist": -0.28,
+                    "rsi": 60.88,
+                    "bb_upper": 82.19,
+                    "bb_lower": 69.46
                 }
             ],
-            "rs_score": -0.07,
-            "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -0.07%。",
+            "rs_score": 0.0,
+            "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤穩定。 與大盤同步。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5177,9 +5177,9 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 90.0,
-            "rsi": 34.21,
-            "bias": -3.98,
+            "price": 90.1,
+            "rsi": 34.44,
+            "bias": -3.88,
             "vol_ratio": 1.2,
             "optimal_sl": 12,
             "actual_sl": 12,
@@ -6014,21 +6014,21 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 90.0,
-                    "volume": 704025,
-                    "ma5": 91.88,
-                    "ma20": 93.73,
-                    "ma60": 100.75,
+                    "price": 90.1,
+                    "volume": 835133,
+                    "ma5": 91.9,
+                    "ma20": 93.74,
+                    "ma60": 100.76,
                     "macd": -2.04,
                     "macd_signal": -1.94,
-                    "macd_hist": -0.11,
-                    "rsi": 34.21,
-                    "bb_upper": 97.14,
-                    "bb_lower": 90.33
+                    "macd_hist": -0.1,
+                    "rsi": 34.44,
+                    "bb_upper": 97.12,
+                    "bb_lower": 90.36
                 }
             ],
-            "rs_score": -11.94,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -11.94%。",
+            "rs_score": -10.2,
+            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -10.2%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6877,7 +6877,7 @@
                 {
                     "date": "2026-03-06",
                     "price": 90.6,
-                    "volume": 3111445,
+                    "volume": 3727937,
                     "ma5": 92.84,
                     "ma20": 93.38,
                     "ma60": 106.56,
@@ -6889,8 +6889,8 @@
                     "bb_lower": 90.65
                 }
             ],
-            "rs_score": -9.33,
-            "ai_summary": "🎯 最佳移動停利/停損為 3%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -9.33%。",
+            "rs_score": -7.7,
+            "ai_summary": "🎯 最佳移動停利/停損為 3%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -7.7%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6901,9 +6901,9 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 29.9,
-            "rsi": 39.77,
-            "bias": -2.36,
+            "price": 30.1,
+            "rsi": 42.39,
+            "bias": -1.74,
             "vol_ratio": 1.2,
             "optimal_sl": 6,
             "actual_sl": 6,
@@ -7738,21 +7738,21 @@
                 },
                 {
                     "date": "2026-03-06",
-                    "price": 29.9,
-                    "volume": 3898820,
-                    "ma5": 29.96,
-                    "ma20": 30.62,
-                    "ma60": 30.84,
-                    "macd": -0.25,
+                    "price": 30.1,
+                    "volume": 4857458,
+                    "ma5": 30.0,
+                    "ma20": 30.63,
+                    "ma60": 30.85,
+                    "macd": -0.24,
                     "macd_signal": -0.11,
-                    "macd_hist": -0.14,
-                    "rsi": 39.77,
-                    "bb_upper": 31.67,
-                    "bb_lower": 29.57
+                    "macd_hist": -0.13,
+                    "rsi": 42.39,
+                    "bb_upper": 31.66,
+                    "bb_lower": 29.61
                 }
             ],
-            "rs_score": -8.28,
-            "ai_summary": "🎯 最佳移動停利/停損為 6%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -8.28%。",
+            "rs_score": -6.0,
+            "ai_summary": "🎯 最佳移動停利/停損為 6%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -6.0%。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7760,38 +7760,9 @@
             }
         }
     ],
-    "ptt": {
-        "score": 60,
-        "sentiment": "中立",
-        "summary": "觀望",
-        "top_stocks": [
-            "昇達科",
-            "敦泰"
-        ],
-        "bull_view": "皇昌財報多，營收多，國家隊護盤",
-        "bear_view": "戰火擾股匯，Apple Intelligence使用率低迷",
-        "raw_links": [
-            {
-                "title": "[請益] 昇達科 發生啥事？",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772772453.A.0EA.html"
-            },
-            {
-                "title": "[請益]敦泰發生了什麼事？",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772770781.A.6F8.html"
-            },
-            {
-                "title": "[標的] 2616山隆 發生啥事?",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772770195.A.E87.html"
-            },
-            {
-                "title": "Re: [標的] 美股CIVI",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772768530.A.073.html"
-            },
-            {
-                "title": "[標的] 2543 皇昌 財報多 標案多 營收多",
-                "link": "https://www.ptt.cc/bbs/Stock/M.1772767930.A.9DA.html"
-            }
-        ]
+    "market_health": {
+        "vix": 24.2,
+        "health_pct": 33
     },
     "macro": {
         "tw_insight": "✅ 0050多頭穩定",
