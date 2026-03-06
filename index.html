@@ -74,8 +74,8 @@
         <aside class="w-full xl:w-[340px] xl:sticky xl:top-8 h-[calc(100vh-4rem)] overflow-y-auto custom-scrollbar flex-shrink-0 space-y-6">
             
             <div id="portfolioSummarySection" class="glass-card rounded-[2rem] p-6 hidden">
-                <h2 class="text-xl font-black text-emerald-400 mb-5 flex items-center gap-3 border-b border-slate-700/50 pb-3 uppercase tracking-wider">
-                    <span class="bg-emerald-500/20 p-2 rounded-lg text-lg">💼</span> Active Assets
+                <h2 class="text-xl font-black text-rose-400 mb-5 flex items-center gap-3 border-b border-slate-700/50 pb-3 uppercase tracking-wider">
+                    <span class="bg-rose-500/20 p-2 rounded-lg text-lg">💼</span> Active Assets
                 </h2>
                 <div id="portfolioList" class="space-y-4"></div>
                 <div class="mt-6 pt-5 border-t border-slate-700/50 flex justify-between items-end">
@@ -92,7 +92,7 @@
                 </h2>
                 <div class="bg-slate-900/50 rounded-2xl p-5 border-l-4 border-red-500 shadow-inner">
                     <p class="text-slate-300 leading-relaxed text-sm font-medium">
-                        <span class="text-emerald-400 font-black block mb-1">● LONG POSITION</span>
+                        <span class="text-rose-400 font-black block mb-1">● LONG POSITION</span>
                         Must stay above <span class="text-white underline">20MA (Monthly Line)</span>.<br><br>
                         <span class="text-red-400 font-black block mb-1">● STOP LOSS</span>
                         Zero tolerance for "Hope". Exit immediately at <span class="text-white underline">Defense Line</span>.
@@ -121,7 +121,7 @@
                     <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 tracking-tight">戰情控制台</h1>
                     <div class="flex items-center gap-4 mt-3">
                         <div class="flex items-center gap-2 bg-slate-800/50 px-3 py-1.5 rounded-full border border-slate-700">
-                            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                            <span class="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span>
                             <p class="text-slate-400 text-xs font-bold">Syncing: <span id="update-time" class="text-slate-200 font-mono">--:--</span></p>
                         </div>
                         <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="bg-blue-600/10 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-xl text-xs font-black transition-all flex items-center gap-2 hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/10">
@@ -131,8 +131,8 @@
                 </div>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <div class="relative group">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-emerald-400">💰</span>
-                        <input type="number" id="capitalInput" value="100000" class="w-full sm:w-56 bg-slate-900/80 border border-slate-700 rounded-2xl py-4 pl-12 pr-4 text-emerald-400 font-mono font-black focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all shadow-inner group-hover:border-slate-500" placeholder="TOTAL CAPITAL">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-rose-400">💰</span>
+                        <input type="number" id="capitalInput" value="100000" class="w-full sm:w-56 bg-slate-900/80 border border-slate-700 rounded-2xl py-4 pl-12 pr-4 text-rose-400 font-mono font-black focus:outline-none focus:ring-2 focus:ring-rose-500/50 transition-all shadow-inner group-hover:border-slate-500" placeholder="TOTAL CAPITAL">
                         <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[10px] text-slate-600 font-black uppercase">Capital</span>
                     </div>
                     <div class="relative group">
@@ -143,7 +143,7 @@
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-card rounded-[2.5rem] p-7 border-t-4 border-emerald-500">
+                <div class="glass-card rounded-[2.5rem] p-7 border-t-4 border-rose-500">
                     <div class="flex justify-between items-start mb-6">
                         <div class="flex items-center gap-3">
                             <span class="text-3xl filter grayscale group-hover:grayscale-0 transition-all">🇹🇼</span>
@@ -159,7 +159,7 @@
                         <span id="health-score" class="text-4xl font-mono font-black text-slate-100">--%</span>
                     </div>
                     <div class="w-full bg-slate-950 h-3 rounded-full overflow-hidden p-0.5 border border-slate-800 shadow-inner">
-                        <div id="health-bar" class="h-full bg-gradient-to-r from-emerald-600 to-emerald-400 transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(16,185,129,0.3)]" style="width: 0%;"></div>
+                        <div id="health-bar" class="h-full bg-gradient-to-r from-rose-600 to-rose-400 transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(16,185,129,0.3)]" style="width: 0%;"></div>
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@
                         <span id="vix-score" class="text-4xl font-mono font-black text-slate-100">--</span>
                     </div>
                     <div class="w-full bg-slate-950 h-3 rounded-full overflow-hidden p-0.5 border border-slate-800 shadow-inner relative">
-                        <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-yellow-500/20 to-red-500/20"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-rose-500/20 via-yellow-500/20 to-red-500/20"></div>
                         <div id="vix-pointer" class="absolute top-0 bottom-0 w-1.5 bg-white shadow-[0_0_15px_white] transition-all duration-1000 ease-out z-10" style="left: 50%;"></div>
                     </div>
                 </div>
@@ -322,7 +322,7 @@
                 let pnl = (currentPrice - trade.entryPrice) * trade.shares;
                 totalPnL += pnl;
                 let currentValue = Math.round(currentPrice * trade.shares);
-                let pnlColor = pnl >= 0 ? 'text-rose-400' : 'text-emerald-400';
+                let pnlColor = pnl >= 0 ? 'text-emerald-400' : 'text-rose-400';
                 let pnlSign = pnl > 0 ? '+' : (pnl < 0 ? '-' : '');
                 let absPnlStr = Math.abs(Math.round(pnl)).toLocaleString();
 
@@ -347,7 +347,7 @@
                 </div>`;
             }
 
-            let totalPnLColor = totalPnL >= 0 ? 'text-rose-400' : 'text-emerald-400';
+            let totalPnLColor = totalPnL >= 0 ? 'text-emerald-400' : 'text-rose-400';
             totalPnLDisplay.className = `text-4xl font-mono font-black ${totalPnLColor} drop-shadow-[0_0_15px_rgba(0,0,0,0.3)]`;
             totalPnLDisplay.innerText = `${totalPnL >= 0 ? '+' : '-'}$${Math.abs(Math.round(totalPnL)).toLocaleString()}`;
 
@@ -389,7 +389,7 @@
                     const usEl = document.getElementById('macro-us');
                     twEl.innerText = (json.macro.tw_insight || "STABLE").toUpperCase();
                     usEl.innerText = (json.macro.us_insight || "STABLE").toUpperCase();
-                    twEl.className = twEl.innerText.includes('⚠️') ? "text-[10px] px-2 py-1 rounded-lg font-black border bg-red-500/10 text-red-400 border-red-500/50 animate-pulse" : "text-[10px] px-2 py-1 rounded-lg font-black border bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
+                    twEl.className = twEl.innerText.includes('⚠️') ? "text-[10px] px-2 py-1 rounded-lg font-black border bg-red-500/10 text-red-400 border-red-500/50 animate-pulse" : "text-[10px] px-2 py-1 rounded-lg font-black border bg-rose-500/10 text-rose-400 border-rose-500/30";
                     usEl.className = usEl.innerText.includes('⚠️') ? "text-[10px] px-2 py-1 rounded-lg font-black border bg-red-500/10 text-red-400 border-red-500/50 animate-pulse" : "text-[10px] px-2 py-1 rounded-lg font-black border bg-blue-500/10 text-blue-400 border-blue-500/30";
                 }
                 
@@ -399,13 +399,13 @@
                     document.getElementById('health-bar').style.width = `${healthData.health_pct}%`;
                     let hDesc = healthData.health_pct >= 70 ? "BULLISH PARTY" : (healthData.health_pct <= 30 ? "BEARISH WINTER" : "MARKET CHOPPY");
                     document.getElementById('health-desc').innerText = `STATUS: ${hDesc}`;
-                    document.getElementById('health-score').className = `text-4xl font-mono font-black ${healthData.health_pct >= 70 ? 'text-rose-400' : (healthData.health_pct <= 30 ? 'text-emerald-400' : 'text-white')}`;
+                    document.getElementById('health-score').className = `text-4xl font-mono font-black ${healthData.health_pct >= 70 ? 'text-emerald-400' : (healthData.health_pct <= 30 ? 'text-rose-400' : 'text-white')}`;
 
                     document.getElementById('vix-score').innerText = healthData.vix;
                     let vixPos = Math.min(Math.max((healthData.vix - 10) / 25 * 100, 0), 100); 
                     document.getElementById('vix-pointer').style.left = `${vixPos}%`;
                     document.getElementById('vix-desc').innerText = healthData.vix >= 25 ? "🚨 EXTREME FEAR" : (healthData.vix <= 15 ? "🤑 EXTREME GREED" : "NEUTRAL SENTIMENT");
-                    document.getElementById('vix-score').className = `text-4xl font-mono font-black ${healthData.vix >= 25 ? 'text-emerald-400' : (healthData.vix <= 15 ? 'text-rose-400' : 'text-yellow-400')}`;
+                    document.getElementById('vix-score').className = `text-4xl font-mono font-black ${healthData.vix >= 25 ? 'text-rose-400' : (healthData.vix <= 15 ? 'text-emerald-400' : 'text-yellow-400')}`;
                 }
 
                 renderData(document.getElementById('searchInput').value);
@@ -468,10 +468,10 @@
                 const latestHist = stock.history && stock.history.length > 0 ? stock.history[stock.history.length - 1] : {};
                 const ma20 = latestHist.ma20 || '-';
 
-                let rsiBadge = stock.rsi >= 70 ? `<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] px-2 py-0.5 rounded-full font-black">OVERHEATED</span>` : (stock.rsi <= 30 ? `<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-black">OVERSOLD</span>` : `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px] px-2 py-0.5 rounded-full font-black">STABLE</span>`);
+                let rsiBadge = stock.rsi >= 70 ? `<span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-black">OVERHEATED</span>` : (stock.rsi <= 30 ? `<span class="bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] px-2 py-0.5 rounded-full font-black">OVERSOLD</span>` : `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px] px-2 py-0.5 rounded-full font-black">STABLE</span>`);
                 
                 let isUp = stock.price > ma20;
-                let headerTheme = isUp ? "from-rose-900/40 to-transparent border-rose-500/40 text-rose-400" : "from-emerald-900/40 to-transparent border-emerald-500/40 text-emerald-400";
+                let headerTheme = isUp ? "from-emerald-900/40 to-transparent border-emerald-500/40 text-emerald-400" : "from-rose-900/40 to-transparent border-rose-500/40 text-rose-400";
                 let statusLabel = isUp ? "MOON MISSION 🚀" : "MONTHLY SUPPORT BROKEN 🚨";
                 
                 let positionHtml = "";
@@ -483,7 +483,7 @@
                     let unrealizedPnL = (stock.price - trade.entryPrice) * trade.shares;
                     let pnlPct = (((stock.price - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
                     let isStopLossTriggered = stock.price <= parseFloat(actualExitPrice);
-                    let pnlColor = unrealizedPnL >= 0 ? 'text-rose-400' : 'text-emerald-400';
+                    let pnlColor = unrealizedPnL >= 0 ? 'text-emerald-400' : 'text-rose-400';
 
                     positionHtml = `
                     <div class="mt-6 p-5 rounded-[1.5rem] border transition-all ${isStopLossTriggered ? 'stop-loss-alert' : 'bg-slate-950/60 border-white/10 shadow-inner'} relative overflow-hidden group/pos">
@@ -508,9 +508,9 @@
                         let slDecimal = stock.actual_sl / 100;
                         let buyShares = Math.floor((totalCapital * 0.02) / (stock.price * slDecimal));
                         let displayShares = stock.symbol.endsWith(".TW") ? `${Math.floor(buyShares/1000)}張 ${buyShares%1000}股` : `${buyShares.toLocaleString()}股`;
-                        positionHtml = `<div class="mt-6 bg-rose-600/5 hover:bg-rose-600/10 border border-rose-500/20 p-5 rounded-[1.5rem] flex justify-between items-center group/btn transition-all"><div class="flex flex-col"><p class="text-[9px] text-rose-400 font-black uppercase">Rec. Purchase (2%)</p><p class="text-xl font-mono font-black text-rose-100">${displayShares}</p></div><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="bg-rose-600 hover:bg-rose-500 text-white p-3 rounded-xl transition-all shadow-lg shadow-rose-600/20 active:scale-90">➕</button></div>`;
+                        positionHtml = `<div class="mt-6 bg-emerald-600/5 hover:bg-emerald-600/10 border border-emerald-500/20 p-5 rounded-[1.5rem] flex justify-between items-center group/btn transition-all"><div class="flex flex-col"><p class="text-[9px] text-emerald-400 font-black uppercase">Rec. Purchase (2%)</p><p class="text-xl font-mono font-black text-emerald-100">${displayShares}</p></div><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="bg-emerald-600 hover:bg-emerald-500 text-white p-3 rounded-xl transition-all shadow-lg shadow-emerald-600/20 active:scale-90">➕</button></div>`;
                     } else if (!isUp) {
-                        positionHtml = `<div class="mt-6 bg-emerald-500/5 border border-emerald-500/20 p-4 rounded-[1.5rem] text-center"><p class="text-xs text-emerald-400 font-black tracking-widest uppercase">System Locked: Monthly Support Broken</p></div>`;
+                        positionHtml = `<div class="mt-6 bg-rose-500/5 border border-rose-500/20 p-4 rounded-[1.5rem] text-center"><p class="text-xs text-rose-400 font-black tracking-widest uppercase">System Locked: Monthly Support Broken</p></div>`;
                     } else {
                         positionHtml = `<div class="mt-6 bg-slate-800/30 p-4 rounded-[1.5rem] text-center border border-dashed border-slate-700"><p class="text-[10px] text-slate-500 font-black uppercase">Enter Capital to Enable Calculator</p></div>`;
                     }
@@ -541,7 +541,7 @@
                         <div class="grid grid-cols-3 gap-2 px-2 py-4 border-y border-slate-800/50 mb-2">
                             <div class="text-center"><p class="text-[8px] text-slate-600 font-black uppercase mb-1">Win Rate</p><p class="text-sm font-mono font-black text-blue-400">${stock.win_rate}%</p></div>
                             <div class="text-center border-x border-slate-800/50"><p class="text-[8px] text-slate-600 font-black uppercase mb-1">Best SL</p><p class="text-sm font-mono font-black text-purple-400">${stock.optimal_sl}%</p></div>
-                            <div class="text-center"><p class="text-[8px] text-slate-600 font-black uppercase mb-1">Actual SL</p><p class="text-sm font-mono font-black ${stock.actual_sl < stock.optimal_sl ? 'text-rose-400' : 'text-emerald-400'}">${stock.actual_sl}%</p></div>
+                            <div class="text-center"><p class="text-[8px] text-slate-600 font-black uppercase mb-1">Actual SL</p><p class="text-sm font-mono font-black ${stock.actual_sl < stock.optimal_sl ? 'text-emerald-400' : 'text-rose-400'}">${stock.actual_sl}%</p></div>
                         </div>
                         ${positionHtml}
                         <div class="mt-6 bg-slate-950/40 p-5 rounded-[1.5rem] border border-white/5">
@@ -551,11 +551,11 @@
                     </div>
                     <div class="mt-8">
                         <div class="flex justify-between items-end mb-2 px-2">
-                            <p class="text-[10px] font-black ${stock.vol_ratio > 1.5 ? 'text-rose-400 animate-pulse' : 'text-blue-500'} uppercase">${stock.vol_ratio > 1.5 ? 'Whale Alert 🐋' : 'Retail Consolidation'}</p>
+                            <p class="text-[10px] font-black ${stock.vol_ratio > 1.5 ? 'text-emerald-400 animate-pulse' : 'text-blue-500'} uppercase">${stock.vol_ratio > 1.5 ? 'Whale Alert 🐋' : 'Retail Consolidation'}</p>
                             <p class="text-[10px] font-mono font-black text-slate-500">${stock.vol_ratio}x Vol</p>
                         </div>
                         <div class="w-full bg-slate-950 h-1.5 rounded-full overflow-hidden shadow-inner">
-                            <div class="${stock.vol_ratio > 1.5 ? 'bg-rose-500 shadow-[0_0_10px_#f43f5e]' : 'bg-blue-600'} h-full transition-all duration-1000" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
+                            <div class="${stock.vol_ratio > 1.5 ? 'bg-emerald-500 shadow-[0_0_10px_#f43f5e]' : 'bg-blue-600'} h-full transition-all duration-1000" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
                         </div>
                     </div>`;
                 list.appendChild(card);
