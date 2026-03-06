@@ -71,7 +71,12 @@
 
         <main class="flex-1 w-full min-w-0">
             <header class="mb-6 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-700 pb-4">
-                <div><h1 class="text-4xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1><p class="text-slate-400 mt-2 text-base font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p></div>
+                <div><h1 class="text-4xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1><div class="flex items-center gap-4 mt-2">
+                    <p class="text-slate-400 text-base font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p>
+                    <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/50 px-3 py-1.5 rounded-lg text-xs font-black transition-colors flex items-center gap-1.5 shadow-[0_0_10px_rgba(37,99,235,0.2)]">
+                        <span id="updateIcon">🔄</span> 點我強制更新
+                    </button>
+                </div></div>
                 <div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-3 w-full md:w-auto items-center">
                     <div class="relative w-full md:w-56">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-green-400 text-lg">💰</span>
@@ -335,6 +340,74 @@
         // 💡 設定每 60 秒背景偷查一次資料
         setInterval(() => loadData(true), 60000);
 
+// 💡 阿土伯新增：手動觸發 GitHub Actions 的雲端魔法
+        const GITHUB_OWNER = "meifengasst"; // ⚠️ 請改成你的帳號，例如 "Justin123"
+        const GITHUB_REPO = "market-monitor";    // ⚠️ 請改成你的倉庫，例如 "atu-dashboard"
+        const WORKFLOW_FILENAME = "main.yml"; // 你的排程檔案名稱
+
+        async function triggerGitHubAction() {
+            // 從瀏覽器本地保險箱拿鑰匙
+            let token = localStorage.getItem('atu_github_token');
+            
+            // 如果沒鑰匙，就跳出視窗請主人輸入
+            if (!token) {
+                token = prompt("🕵️‍♂️ 阿土伯保安檢查：\n請輸入你的 GitHub Personal Access Token (ghp_開頭)：\n(只需輸入一次，會安全儲存在你這台電腦的瀏覽器中)");
+                if (!token) return; 
+                localStorage.setItem('atu_github_token', token);
+            }
+
+            const btn = document.getElementById('forceUpdateBtn');
+            const originalText = btn.innerHTML;
+
+            // 變更按鈕狀態，防止重複點擊
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin inline-block">⏳</span> 雲端運算中...`;
+            btn.classList.replace('text-blue-400', 'text-yellow-400');
+            btn.classList.replace('border-blue-500/50', 'border-yellow-500/50');
+
+            try {
+                // 發射信號給 GitHub！
+                const response = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILENAME}/dispatches`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ ref: 'main' }) // 假設你的預設分支叫 main
+                });
+
+                if (response.ok) {
+                    // 成功觸發！開始 50 秒倒數計時 (因為 Python 爬蟲 + AI 點評大約需要 40~50 秒)
+                    let countdown = 50;
+                    const timer = setInterval(() => {
+                        countdown--;
+                        btn.innerHTML = `<span class="animate-spin inline-block">⏳</span> AI 結算中... ${countdown}s 後重整`;
+                        if (countdown <= 0) {
+                            clearInterval(timer);
+                            // 倒數結束，把按鈕恢復原狀
+                            btn.disabled = false;
+                            btn.innerHTML = originalText;
+                            btn.classList.replace('text-yellow-400', 'text-blue-400');
+                            btn.classList.replace('border-yellow-500/50', 'border-blue-500/50');
+                            // 🔥 強制網頁重新讀取熱騰騰的 JSON！
+                            loadData(true); 
+                        }
+                    }, 1000);
+                } else {
+                    const errData = await response.json();
+                    alert(`❌ 呼叫失敗！可能是 Token 填錯了，或是分支名稱不叫 main。\n錯誤訊息: ${errData.message}`);
+                    localStorage.removeItem('atu_github_token'); // 清除錯誤的鑰匙
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                }
+            } catch (error) {
+                alert("❌ 網路連線錯誤，無法呼叫 GitHub！");
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+        
         function openModal(stock) {
             document.getElementById('dataModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
