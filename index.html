@@ -87,22 +87,35 @@
                 </div>
             </header>
 
-            <div onclick="openPttModal()" class="mb-6 bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md transform transition-all hover:scale-[1.01] cursor-pointer hover:border-blue-500/50 group">
-                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-purple-500 to-pink-500"></div>
-                <div class="flex flex-col md:flex-row items-center justify-between gap-6 pl-4">
-                    <div class="flex items-center gap-4 w-full md:w-2/3">
-                        <span class="text-4xl group-hover:animate-pulse">📡</span>
-                        <div>
-                            <div class="flex items-center gap-3 mb-1">
-                                <h3 class="text-white font-black tracking-widest text-xl group-hover:text-blue-300 transition-colors">PTT 股版散戶情緒指標 <span class="text-xs text-blue-400 ml-2 animate-pulse">▶ 點擊看深度戰報</span></h3>
-                                <span id="ptt-badge" class="text-xs px-2.5 py-1 rounded-full bg-slate-700 text-slate-300 font-bold border border-slate-500">解析中</span>
-                            </div>
-                            <p class="text-slate-400 text-sm font-bold" id="ptt-summary">AI 正在深度解析鄉民留言中...</p>
+            <div class="mb-6 bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-blue-500 to-cyan-500"></div>
+                
+                <div class="flex items-center gap-4 w-full md:w-1/2 pl-4 border-r border-slate-700/50">
+                    <span class="text-5xl">⚡</span>
+                    <div class="w-full pr-6">
+                        <div class="flex justify-between items-end mb-1">
+                            <h3 class="text-white font-black tracking-widest text-lg">自選股大盤溫度計</h3>
+                            <span id="health-score" class="text-2xl font-mono font-black text-blue-400">--%</span>
+                        </div>
+                        <p class="text-slate-400 text-xs font-bold mb-2" id="health-desc">計算清單內站上月線之強勢股比例</p>
+                        <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-700 shadow-inner">
+                            <div id="health-bar" class="h-full bg-gradient-to-r from-green-500 to-red-500 transition-all duration-1000 ease-out" style="width: 50%;"></div>
                         </div>
                     </div>
-                    <div class="flex flex-col items-end w-full md:w-1/3">
-                        <div class="flex justify-between w-full mb-2"><span class="text-xs font-black text-green-400">極度恐慌</span><span class="text-2xl font-mono font-black text-white" id="ptt-score-text">--</span><span class="text-xs font-black text-red-400">極度貪婪</span></div>
-                        <div class="w-full bg-slate-900 h-4 rounded-full overflow-hidden border border-slate-700 relative shadow-inner"><div class="absolute inset-0 bg-gradient-to-r from-green-500 via-yellow-400 to-red-500 opacity-80"></div><div id="ptt-pointer" class="absolute top-0 bottom-0 w-1.5 bg-white shadow-[0_0_15px_white] transition-all duration-1000 ease-out z-10" style="left: 50%;"></div></div>
+                </div>
+
+                <div class="flex items-center gap-4 w-full md:w-1/2 pl-2">
+                    <span class="text-5xl">📉</span>
+                    <div class="w-full pr-4">
+                        <div class="flex justify-between items-end mb-1">
+                            <h3 class="text-white font-black tracking-widest text-lg">華爾街 VIX 恐慌指數</h3>
+                            <span id="vix-score" class="text-2xl font-mono font-black text-yellow-400">--</span>
+                        </div>
+                        <p class="text-slate-400 text-xs font-bold mb-2" id="vix-desc">目前市場情緒評估中...</p>
+                        <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-700 shadow-inner relative">
+                            <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 opacity-80"></div>
+                            <div id="vix-pointer" class="absolute top-0 bottom-0 w-1.5 bg-white shadow-[0_0_10px_white] transition-all duration-1000 ease-out z-10" style="left: 50%;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -373,17 +386,25 @@
                 document.getElementById('update-time').innerText = json.last_update;
                 if (json.macro) { document.getElementById('macro-us').innerText = json.macro.us_insight || "暫無資料"; document.getElementById('macro-tw').innerText = json.macro.tw_insight || "暫無資料"; }
                 
-                if (pttData && pttData.score !== undefined) {
-                    const score = pttData.score;
-                    document.getElementById('ptt-score-text').innerText = score;
-                    document.getElementById('ptt-summary').innerText = "💬 AI 點評：" + pttData.summary;
-                    document.getElementById('ptt-pointer').style.left = `${score}%`;
-                    let badge = document.getElementById('ptt-badge');
-                    badge.innerText = pttData.sentiment;
-                    badge.className = "text-xs px-2.5 py-1 rounded-full font-bold border ";
-                    if (score >= 70) badge.className += "bg-red-500/20 text-red-400 border-red-500/50";
-                    else if (score <= 30) badge.className += "bg-green-500/20 text-green-400 border-green-500/50";
-                    else badge.className += "bg-yellow-500/20 text-yellow-400 border-yellow-500/50";
+                // 💡 渲染客觀數據雷達
+                let healthData = json.market_health;
+                if (healthData) {
+                    // 1. 自選股溫度計 UI
+                    let healthPct = healthData.health_pct;
+                    document.getElementById('health-score').innerText = `${healthPct}%`;
+                    document.getElementById('health-bar').style.width = `${healthPct}%`;
+                    let healthDesc = healthPct >= 70 ? "🔥 多頭狂歡：多數個股強勢" : (healthPct <= 30 ? "❄️ 空頭凜冬：多數個股破線" : "⚖️ 震盪盤整：多空勢均力敵");
+                    document.getElementById('health-desc').innerText = healthDesc;
+                    document.getElementById('health-score').className = `text-2xl font-mono font-black ${healthPct >= 70 ? 'text-red-400' : (healthPct <= 30 ? 'text-green-400' : 'text-blue-400')}`;
+
+                    // 2. VIX 恐慌指數 UI (正常區間約 10~35，我們將它映射到 0-100% 的進度條)
+                    let vix = healthData.vix;
+                    document.getElementById('vix-score').innerText = vix;
+                    let vixPos = Math.min(Math.max((vix - 10) / 25 * 100, 0), 100); // 將 VIX 轉換為長條圖位置
+                    document.getElementById('vix-pointer').style.left = `${vixPos}%`;
+                    let vixDesc = vix >= 25 ? "🚨 極度恐慌 (撿便宜時機?)" : (vix <= 15 ? "🤑 極度貪婪 (留意回檔風險)" : "📊 情緒穩定");
+                    document.getElementById('vix-desc').innerText = vixDesc;
+                    document.getElementById('vix-score').className = `text-2xl font-mono font-black ${vix >= 25 ? 'text-green-400' : (vix <= 15 ? 'text-red-400' : 'text-yellow-400')}`;
                 }
                 renderData(document.getElementById('searchInput').value);
                 renderPortfolioSummary(); // 💡 更新司令台
