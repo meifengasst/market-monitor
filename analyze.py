@@ -191,7 +191,15 @@ def generate_dashboard_data():
             # 3. 檢查是否跌破防線
             if current_price <= actual_exit_price:
                 if not trade.get('alerted', False): # 如果還沒叫過，就馬上發 LINE！
-                    alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}\n\n⚠️ 已跌破嚴格停損/停利線，請立即無情清倉，保護本金！"
+                    
+                    # 💡 阿土伯新增：動態判斷並生成「收緊原因」的文字
+                    if is_bear:
+                        reason_msg = f"\n⚠️ [大盤避險啟動]\n停損已由 {int(best_sl*100)}% 強制收緊至 3%！"
+                    else:
+                        reason_msg = f"\n(套用系統最佳停損 {int(best_sl*100)}%)"
+
+                    alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}{reason_msg}\n\n⚡ 已跌破嚴格防線，請立即無情清倉，保護本金！"
+                    
                     send_line_alert(alert_msg)
                     trade['alerted'] = True
                     portfolio_updated = True
@@ -224,3 +232,4 @@ def generate_dashboard_data():
             json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__": generate_dashboard_data()
+
