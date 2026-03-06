@@ -35,48 +35,39 @@
                     <p class="text-slate-300 leading-relaxed text-sm">
                         <span class="text-green-400 font-bold">【做多條件】</span> 股價必須站上 20MA (月線)！<br>
                         <span class="text-red-400 font-bold">【空手觀望】</span> 股價跌破 20MA，絕對不摸底接刀！<br>
-                        <span class="text-purple-400 font-bold">【無情停損】</span> 跌破系統算出的「甜蜜點」，無條件砍單，嚴禁凹單！
+                        <span class="text-purple-400 font-bold">【無情停損】</span> 跌破系統算出的防線，無條件砍單，嚴禁凹單！
                     </p>
                 </div>
             </div>
 
-            <h2 class="text-2xl font-black text-purple-400 mb-6 mt-8 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📖</span> 阿土伯術語深度解讀</h2>
+            <h2 class="text-2xl font-black text-purple-400 mb-6 mt-8 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📖</span> 術語深度解讀</h2>
             <div class="flex flex-col gap-4 text-sm pb-4">
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
                     <h3 class="text-green-400 font-black mb-2 text-base">🏆 策略期望值 (EV)</h3>
-                    <p class="text-slate-300 leading-relaxed text-sm">
-                        每一次交易所預期的平均獲利%。長期來看，此數值必須為正。我們的策略是：在正期望值時進場，並使用停損保護。
-                    </p>
+                    <p class="text-slate-300 leading-relaxed text-sm">每一次交易所預期的平均獲利%。長期來看此數值必須為正。</p>
                 </div>
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
-                    <h3 class="text-purple-400 font-black mb-2 text-base">🎯 最佳停損 / 移動停利 (壓箱寶一)</h3>
-                    <p class="text-slate-300 leading-relaxed text-sm">
-                        最佳停損由系統網格測試得出，能創造最高期望值。移動停利 (壓箱寶一) 則是在獲利時，將出場點上移，鎖定利潤。兩者皆能有效保護資金並截斷虧損。
-                    </p>
+                    <h3 class="text-purple-400 font-black mb-2 text-base">🎯 最佳防線 (壓箱寶)</h3>
+                    <p class="text-slate-300 leading-relaxed text-sm">最佳停損由系統網格測試得出。移動停利則是在獲利時，將出場點上移，鎖定利潤。</p>
                 </div>
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
                     <h3 class="text-red-400 font-black mb-2 text-base">現行套用停損 (大盤避險)</h3>
-                    <p class="text-slate-300 leading-relaxed text-sm">
-                        根據大盤狀態（0050/SPY）動態調整後的實際執行停損。例如大盤轉弱破月線時，停損會被強制收緊（如從5%至3%）以優先保護資金。
-                    </p>
-                </div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
-                    <h3 class="text-blue-400 font-black mb-2 text-base">相對強弱 RS Radar (👑壓箱寶二)</h3>
-                    <p class="text-slate-300 leading-relaxed text-sm">
-                        個股相對於大盤（0050/SPY）的表現。<span class="text-blue-300">擊敗大盤</span>代表資金流入；<span class="text-yellow-300 font-bold">主力強勢股</span>則是相對漲幅最極端的股票，代表市場最關注的核心。
-                    </p>
+                    <p class="text-slate-300 leading-relaxed text-sm">根據大盤動態調整。大盤轉弱破月線時，停損會被強制收緊以優先保護資金。</p>
                 </div>
             </div>
         </aside>
 
         <main class="flex-1 w-full min-w-0">
             <header class="mb-6 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-700 pb-4">
-                <div><h1 class="text-4xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1><div class="flex items-center gap-4 mt-2">
-                    <p class="text-slate-400 text-base font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p>
-                    <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/50 px-3 py-1.5 rounded-lg text-xs font-black transition-colors flex items-center gap-1.5 shadow-[0_0_10px_rgba(37,99,235,0.2)]">
-                        <span id="updateIcon">🔄</span> 點我強制更新
-                    </button>
-                </div></div>
+                <div>
+                    <h1 class="text-4xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1>
+                    <div class="flex items-center gap-4 mt-2">
+                        <p class="text-slate-400 text-base font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p>
+                        <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/50 px-3 py-1.5 rounded-lg text-xs font-black transition-colors flex items-center gap-1.5 shadow-[0_0_10px_rgba(37,99,235,0.2)]">
+                            <span id="updateIcon">🔄</span> 點我強制更新
+                        </button>
+                    </div>
+                </div>
                 <div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-3 w-full md:w-auto items-center">
                     <div class="relative w-full md:w-56">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-green-400 text-lg">💰</span>
@@ -87,42 +78,37 @@
                 </div>
             </header>
 
-            <div class="mb-6 bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-blue-500 to-cyan-500"></div>
-                
-                <div class="flex items-center gap-4 w-full md:w-1/2 pl-4 border-r border-slate-700/50">
-                    <span class="text-5xl">⚡</span>
-                    <div class="w-full pr-6">
-                        <div class="flex justify-between items-end mb-1">
-                            <h3 class="text-white font-black tracking-widest text-lg">自選股大盤溫度計</h3>
-                            <span id="health-score" class="text-2xl font-mono font-black text-blue-400">--%</span>
-                        </div>
-                        <p class="text-slate-400 text-xs font-bold mb-2" id="health-desc">計算清單內站上月線之強勢股比例</p>
-                        <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-700 shadow-inner">
-                            <div id="health-bar" class="h-full bg-gradient-to-r from-green-500 to-red-500 transition-all duration-1000 ease-out" style="width: 50%;"></div>
-                        </div>
+            <div class="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md group hover:border-emerald-500/50 transition-colors">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-2"><span class="text-3xl group-hover:animate-bounce">🇹🇼</span><h3 class="text-emerald-400 font-black tracking-widest text-lg">台股多空溫度計</h3></div>
+                        <span id="macro-tw" class="text-xs px-3 py-1 rounded-full font-black border transition-colors shadow-inner">讀取中...</span>
+                    </div>
+                    <div class="flex items-end justify-between mb-2 mt-4">
+                        <p class="text-slate-400 text-xs font-bold" id="health-desc">計算清單內站上月線之強勢股比例</p>
+                        <span id="health-score" class="text-3xl font-mono font-black text-slate-300">--%</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-700 shadow-inner">
+                        <div id="health-bar" class="h-full bg-gradient-to-r from-green-500 via-yellow-500 to-red-500 transition-all duration-1000 ease-out" style="width: 0%;"></div>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-4 w-full md:w-1/2 pl-2">
-                    <span class="text-5xl">📉</span>
-                    <div class="w-full pr-4">
-                        <div class="flex justify-between items-end mb-1">
-                            <h3 class="text-white font-black tracking-widest text-lg">華爾街 VIX 恐慌指數</h3>
-                            <span id="vix-score" class="text-2xl font-mono font-black text-yellow-400">--</span>
-                        </div>
-                        <p class="text-slate-400 text-xs font-bold mb-2" id="vix-desc">目前市場情緒評估中...</p>
-                        <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-700 shadow-inner relative">
-                            <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 opacity-80"></div>
-                            <div id="vix-pointer" class="absolute top-0 bottom-0 w-1.5 bg-white shadow-[0_0_10px_white] transition-all duration-1000 ease-out z-10" style="left: 50%;"></div>
-                        </div>
+                <div class="bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md group hover:border-blue-500/50 transition-colors">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-blue-500"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-2"><span class="text-3xl group-hover:animate-bounce">🌎</span><h3 class="text-blue-400 font-black tracking-widest text-lg">華爾街恐慌指數</h3></div>
+                        <span id="macro-us" class="text-xs px-3 py-1 rounded-full font-black border transition-colors shadow-inner">讀取中...</span>
+                    </div>
+                    <div class="flex items-end justify-between mb-2 mt-4">
+                        <p class="text-slate-400 text-xs font-bold" id="vix-desc">目前市場情緒評估中...</p>
+                        <span id="vix-score" class="text-3xl font-mono font-black text-slate-300">--</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-3 rounded-full overflow-hidden border border-slate-700 shadow-inner relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 opacity-80"></div>
+                        <div id="vix-pointer" class="absolute top-0 bottom-0 w-1.5 bg-white shadow-[0_0_10px_white] transition-all duration-1000 ease-out z-10" style="left: 50%;"></div>
                     </div>
                 </div>
-            </div>
-
-            <div class="mb-8 grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div class="bg-blue-900/20 border border-blue-500/30 rounded-2xl p-6 shadow-lg relative"><div class="absolute top-0 left-0 w-1.5 h-full bg-blue-500"></div><div class="flex items-center gap-2 mb-3"><span class="text-2xl">🌎</span><h3 class="text-blue-300 font-black tracking-widest uppercase text-base">國際總經與美股速報</h3></div><p id="macro-us" class="text-slate-300 text-base leading-relaxed font-medium">系統分析中，請稍候...</p></div>
-                <div class="bg-emerald-900/20 border border-emerald-500/30 rounded-2xl p-6 shadow-lg relative"><div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div><div class="flex items-center gap-2 mb-3"><span class="text-2xl">🇹🇼</span><h3 class="text-emerald-400 font-black tracking-widest uppercase text-base">國內財經與台股速報</h3></div><p id="macro-tw" class="text-slate-300 text-base leading-relaxed font-medium">系統分析中，請稍候...</p></div>
             </div>
 
             <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-6"></div>
@@ -146,19 +132,26 @@
                 <div><h3 class="text-2xl font-black text-blue-400 flex items-center gap-2"><span class="text-3xl">📰</span> AI 深度新聞解讀</h3><p id="newsModalSub" class="text-slate-400 text-sm mt-1">載入中...</p></div>
                 <button onclick="closeModal('newsModal')" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
             </div>
-            <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar" id="newsListContainer">
-                </div>
+            <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar" id="newsListContainer"></div>
         </div>
     </div>
 
-    <div id="pttModal" onclick="if(event.target === this) closeModal('pttModal')" class="fixed inset-0 bg-black/90 hidden z-[60] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
-        <div class="bg-slate-800 rounded-3xl w-full max-w-3xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh] cursor-auto" id="pttModalContent">
-            <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
-                <div><h3 class="text-2xl font-black text-purple-400 flex items-center gap-2"><span class="text-3xl">🗣️</span> PTT 鄉民深度戰報</h3><p class="text-slate-400 text-sm mt-1">AI 從股版熱門文章萃取的核心情報</p></div>
-                <button onclick="closeModal('pttModal')" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
+    <div id="tradeModal" onclick="if(event.target === this) closeTradeModal()" class="fixed inset-0 bg-black/90 hidden z-[70] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-sm border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col cursor-auto p-6" id="tradeModalContent">
+            <h3 class="text-2xl font-black text-blue-400 mb-4 flex items-center gap-2"><span>💼</span> 紀錄實戰部位</h3>
+            <p class="text-slate-400 text-sm mb-6 font-bold">為 <span id="tradeSymbol" class="text-white font-mono text-base"></span> 設定買進紀錄，系統將自動啟動移動停利追蹤。</p>
+            <div class="mb-4">
+                <label class="block text-slate-500 text-xs font-bold mb-2">買進成交均價</label>
+                <input type="number" id="tradePrice" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white font-mono font-black focus:border-blue-500 focus:outline-none" placeholder="例如: 1000">
             </div>
-            <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar" id="pttContentContainer">
-                </div>
+            <div class="mb-6">
+                <label class="block text-slate-500 text-xs font-bold mb-2">買進總股數 (台股請換算成股)</label>
+                <input type="number" id="tradeShares" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white font-mono font-black focus:border-blue-500 focus:outline-none" placeholder="例如: 1000">
+            </div>
+            <div class="flex gap-3">
+                <button onclick="saveTrade()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">💾 儲存</button>
+                <button onclick="closeTradeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button>
+            </div>
         </div>
     </div>
 
@@ -168,125 +161,92 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
     </style>
-
-    <div id="tradeModal" onclick="if(event.target === this) closeTradeModal()" class="fixed inset-0 bg-black/90 hidden z-[70] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
-        <div class="bg-slate-800 rounded-3xl w-full max-w-sm border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col cursor-auto p-6" id="tradeModalContent">
-            <h3 class="text-2xl font-black text-blue-400 mb-4 flex items-center gap-2"><span>💼</span> 紀錄實戰部位</h3>
-            <p class="text-slate-400 text-sm mb-6 font-bold">為 <span id="tradeSymbol" class="text-white font-mono text-base"></span> 設定買進紀錄，系統將自動啟動移動停利追蹤。</p>
-            
-            <div class="mb-4">
-                <label class="block text-slate-500 text-xs font-bold mb-2">買進成交均價</label>
-                <input type="number" id="tradePrice" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white font-mono font-black focus:border-blue-500 focus:outline-none" placeholder="例如: 1000">
-            </div>
-            <div class="mb-6">
-                <label class="block text-slate-500 text-xs font-bold mb-2">買進總股數 (台股請換算成股, 例: 1張=1000)</label>
-                <input type="number" id="tradeShares" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white font-mono font-black focus:border-blue-500 focus:outline-none" placeholder="例如: 1000">
-            </div>
-            
-            <div class="flex gap-3">
-                <button onclick="saveTrade()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">💾 儲存部位</button>
-                <button onclick="closeTradeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button>
-            </div>
-        </div>
-    </div>
     
     <script>
         let rawData = [];
-        let pttData = {}; 
         let stockMap = {}; 
         let priceChart = null; let rsiChart = null; let macdChart = null;
         let myPortfolio = JSON.parse(localStorage.getItem('atu_portfolio')) || {};
 
+        // 登入驗證
+        const SECRET_PASSWORD = "29399909"; 
+        document.getElementById("passInput").addEventListener("keypress", function(event) { if (event.key === "Enter") { event.preventDefault(); checkPassword(); } });
+        function checkPassword() {
+            if (document.getElementById('passInput').value === SECRET_PASSWORD) {
+                document.getElementById('loginScreen').classList.add('opacity-0');
+                setTimeout(() => { document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('dashboardContent').classList.remove('hidden'); document.getElementById('dashboardContent').classList.add('flex'); setTimeout(() => { document.getElementById('dashboardContent').classList.remove('opacity-0'); }, 50); loadData(); }, 500);
+            } else {
+                document.getElementById('errorMsg').classList.remove('opacity-0'); document.getElementById('passInput').value = ""; setTimeout(() => { document.getElementById('errorMsg').classList.add('opacity-0'); }, 2000);
+            }
+        }
+
+        // 交易與部位管理
         function openTradeModal(symbol, currentPrice) {
             document.getElementById('tradeModal').classList.remove('hidden');
-            setTimeout(() => { 
-                document.getElementById('tradeModal').classList.remove('opacity-0'); 
-                document.getElementById('tradeModalContent').classList.remove('scale-95'); 
-            }, 10);
+            setTimeout(() => { document.getElementById('tradeModal').classList.remove('opacity-0'); document.getElementById('tradeModalContent').classList.remove('scale-95'); }, 10);
             document.getElementById('tradeSymbol').innerText = symbol;
             document.getElementById('tradePrice').value = currentPrice;
             document.getElementById('tradeShares').value = "";
         }
-
         function closeTradeModal() {
             document.getElementById('tradeModal').classList.add('opacity-0');
             document.getElementById('tradeModalContent').classList.add('scale-95');
             setTimeout(() => document.getElementById('tradeModal').classList.add('hidden'), 300);
         }
-
         function saveTrade() {
             let symbol = document.getElementById('tradeSymbol').innerText;
             let price = parseFloat(document.getElementById('tradePrice').value);
             let shares = parseInt(document.getElementById('tradeShares').value);
-            
             if (price > 0 && shares > 0) {
                 myPortfolio[symbol] = { entryPrice: price, shares: shares, peakPrice: price };
                 localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
                 closeTradeModal();
                 renderData(document.getElementById('searchInput').value); 
-                renderPortfolioSummary(); // 💡 更新司令台
-            } else {
-                alert("請輸入正確的價格與股數！");
-            }
+                renderPortfolioSummary();
+            } else { alert("請輸入正確的價格與股數！"); }
         }
-
         function removeTrade(event, symbol) {
             event.stopPropagation(); 
             if(confirm(`確定要將 ${symbol} 從實戰部位中移除嗎？`)) {
                 delete myPortfolio[symbol];
                 localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
                 renderData(document.getElementById('searchInput').value);
-                renderPortfolioSummary(); // 💡 更新司令台
+                renderPortfolioSummary();
             }
         }
-        
-        // 💡 渲染庫存清單大腦
-        // 💡 渲染庫存清單大腦 (阿土伯升級版：加入市值與元)
-        // 💡 渲染庫存清單大腦 (阿土伯終極版：停損血紅警報 + 總曝險控制條)
+
+        // 庫存結算司令台 (含曝險進度條與台幣現值)
         function renderPortfolioSummary() {
             const summarySection = document.getElementById('portfolioSummarySection');
             const listContainer = document.getElementById('portfolioList');
             const totalPnLDisplay = document.getElementById('totalPnL');
-
-            if (Object.keys(myPortfolio).length === 0) {
-                summarySection.classList.add('hidden');
-                return;
-            }
-
+            if (Object.keys(myPortfolio).length === 0) { summarySection.classList.add('hidden'); return; }
             summarySection.classList.remove('hidden');
             listContainer.innerHTML = '';
             
             let totalPnL = 0;
-            let totalRiskAmount = 0; // 💡 總風險金額累加器
+            let totalRiskAmount = 0; 
             let totalCapital = parseFloat(document.getElementById('capitalInput').value) || 100000;
 
             for (let symbol in myPortfolio) {
                 let trade = myPortfolio[symbol];
                 let stock = stockMap[symbol];
-
                 let currentPrice = stock ? stock.price : trade.entryPrice;
                 let stockName = stock ? stock.name : symbol;
                 
-                // 💡 計算嚴格停損價
                 let actualSl = stock ? stock.actual_sl : 5; 
                 let slDecimal = actualSl / 100;
                 let peakPrice = trade.peakPrice || trade.entryPrice;
                 if (currentPrice > peakPrice) { peakPrice = currentPrice; trade.peakPrice = currentPrice; }
                 let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), peakPrice * (1 - slDecimal));
 
-                // 🌟 第 1 道防線邏輯：是否跌破停損價？
                 let isStopLossTriggered = currentPrice <= actualExitPrice;
-
-                // 🌟 第 2 道防線邏輯：計算這檔股票「真正可能虧損的本金」
-                // 如果停損價已經高於成本價(獲利保護中)，則本金風險降為 0！
                 let riskPerShare = Math.max(0, trade.entryPrice - actualExitPrice);
                 totalRiskAmount += (riskPerShare * trade.shares);
 
-                // 計算損益與市值
                 let pnl = (currentPrice - trade.entryPrice) * trade.shares;
                 totalPnL += pnl;
                 let currentValue = Math.round(currentPrice * trade.shares);
-
                 let pnlColor = pnl >= 0 ? 'text-red-400' : 'text-green-400';
                 let pnlSign = pnl > 0 ? '+' : (pnl < 0 ? '-' : '');
                 let absPnlStr = Math.abs(Math.round(pnl)).toLocaleString();
@@ -295,16 +255,12 @@
                     ? (Math.floor(trade.shares/1000) > 0 ? `${Math.floor(trade.shares/1000)}張 ${trade.shares%1000}股` : `${trade.shares}股`) 
                     : `${trade.shares.toLocaleString()}股`;
 
-                // 🚨 第 1 道防線 UI：觸發停損時，背景變血紅色閃爍！
                 let cardBg = isStopLossTriggered 
-                    ? "bg-green-900/60 border-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" // 台股綠色代表跌
+                    ? "bg-green-900/60 border-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" 
                     : "bg-black/30 border-white/10 hover:bg-slate-700 hover:border-blue-500";
-                
-                let warningIcon = isStopLossTriggered 
-                    ? `<span class="text-[10px] bg-green-600 text-white px-1.5 py-0.5 rounded font-black animate-bounce inline-block ml-1">🚨 觸發停損</span>` 
-                    : "";
+                let warningIcon = isStopLossTriggered ? `<span class="text-[10px] bg-green-600 text-white px-1.5 py-0.5 rounded font-black animate-bounce inline-block ml-1">🚨 觸發停損</span>` : "";
 
-                let itemHtml = `
+                listContainer.innerHTML += `
                 <div class="p-3 rounded-xl border flex justify-between items-center cursor-pointer transition-all ${cardBg}" onclick="document.getElementById('searchInput').value='${symbol}'; renderData('${symbol}');">
                     <div>
                         <p class="text-sm font-black text-white">${stockName} <span class="text-[10px] text-slate-400 font-mono ml-1">${symbol}</span> ${warningIcon}</p>
@@ -315,62 +271,31 @@
                         <p class="text-[10px] text-slate-500 mb-0.5 font-bold">損益</p>
                         <p class="text-sm font-mono font-black ${pnlColor}">${pnlSign}$${absPnlStr} 元</p>
                     </div>
-                </div>
-                `;
-                listContainer.innerHTML += itemHtml;
+                </div>`;
             }
 
-            // 更新總損益
             let totalPnLColor = totalPnL >= 0 ? 'text-red-400' : 'text-green-400';
             let totalPnLSign = totalPnL > 0 ? '+' : (totalPnL < 0 ? '-' : '');
-            let absTotalPnlStr = Math.abs(Math.round(totalPnL)).toLocaleString();
             totalPnLDisplay.className = `text-3xl font-mono font-black ${totalPnLColor}`;
-            totalPnLDisplay.innerText = `${totalPnLSign}$${absTotalPnlStr} 元`;
+            totalPnLDisplay.innerText = `${totalPnLSign}$${Math.abs(Math.round(totalPnL)).toLocaleString()} 元`;
 
-            // 🌟 第 2 道防線 UI：畫出總曝險控制條 (自動插入到總損益下方)
             let riskSection = document.getElementById('riskExposureSection');
             if(!riskSection) {
-                const pnlParent = totalPnLDisplay.parentElement;
-                pnlParent.insertAdjacentHTML('afterend', `
+                totalPnLDisplay.parentElement.insertAdjacentHTML('afterend', `
                     <div id="riskExposureSection" class="mt-4 pt-4 border-t border-slate-700">
-                        <div class="flex justify-between items-end mb-1.5">
-                            <p class="text-[11px] text-slate-400 font-bold tracking-widest">🛡️ 總資金本金曝險 (建議 < 10%)</p>
-                            <p id="totalRiskText" class="text-sm font-mono font-black text-white">0%</p>
-                        </div>
-                        <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-600 shadow-inner">
-                            <div id="totalRiskBar" class="h-full transition-all duration-1000 ease-out" style="width: 0%"></div>
-                        </div>
-                    </div>
-                `);
+                        <div class="flex justify-between items-end mb-1.5"><p class="text-[11px] text-slate-400 font-bold tracking-widest">🛡️ 總資金本金曝險 (建議 < 10%)</p><p id="totalRiskText" class="text-sm font-mono font-black text-white">0%</p></div>
+                        <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-600 shadow-inner"><div id="totalRiskBar" class="h-full transition-all duration-1000 ease-out" style="width: 0%"></div></div>
+                    </div>`);
             }
-            
-            // 計算風險 % 數並決定進度條顏色
             let riskPct = totalCapital > 0 ? (totalRiskAmount / totalCapital) * 100 : 0;
-            let displayRiskPct = riskPct.toFixed(1);
-            let riskBarColor = "bg-blue-500";
-            if (riskPct >= 10) riskBarColor = "bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]"; // 超過 10% 亮綠色警報(台股跌的顏色)
-            else if (riskPct >= 6) riskBarColor = "bg-yellow-500";
-
-            document.getElementById('totalRiskText').innerText = `${displayRiskPct}%`;
+            let riskBarColor = riskPct >= 10 ? "bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]" : (riskPct >= 6 ? "bg-yellow-500" : "bg-blue-500");
+            document.getElementById('totalRiskText').innerText = `${riskPct.toFixed(1)}%`;
             document.getElementById('totalRiskText').className = `text-sm font-mono font-black ${riskPct >= 10 ? 'text-green-400 animate-pulse' : 'text-white'}`;
             document.getElementById('totalRiskBar').className = `h-full transition-all duration-1000 ease-out ${riskBarColor}`;
             document.getElementById('totalRiskBar').style.width = `${Math.min(riskPct, 100)}%`;
         }
 
-        const SECRET_PASSWORD = "29399909"; 
-
-        document.getElementById("passInput").addEventListener("keypress", function(event) { if (event.key === "Enter") { event.preventDefault(); checkPassword(); } });
-
-        function checkPassword() {
-            if (document.getElementById('passInput').value === SECRET_PASSWORD) {
-                document.getElementById('loginScreen').classList.add('opacity-0');
-                setTimeout(() => { document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('dashboardContent').classList.remove('hidden'); document.getElementById('dashboardContent').classList.add('flex'); setTimeout(() => { document.getElementById('dashboardContent').classList.remove('opacity-0'); }, 50); loadData(); }, 500);
-            } else {
-                document.getElementById('errorMsg').classList.remove('opacity-0'); document.getElementById('passInput').value = ""; setTimeout(() => { document.getElementById('errorMsg').classList.add('opacity-0'); }, 2000);
-            }
-        }
-
-        // 💡 加入自動刷新大腦
+        // 讀取資料大腦
         let currentUpdateTime = "";
         function loadData(isAutoRefresh = false) {
             fetch('data.json?t=' + new Date().getTime())
@@ -378,111 +303,89 @@
             .then(json => {
                 if (isAutoRefresh && json.last_update === currentUpdateTime) return;
                 currentUpdateTime = json.last_update;
-                
                 rawData = json.data;
-                pttData = json.ptt || {};
                 rawData.forEach(s => stockMap[s.symbol] = s);
-
                 document.getElementById('update-time').innerText = json.last_update;
-                if (json.macro) { document.getElementById('macro-us').innerText = json.macro.us_insight || "暫無資料"; document.getElementById('macro-tw').innerText = json.macro.tw_insight || "暫無資料"; }
+
+                if (json.macro) { 
+                    const twEl = document.getElementById('macro-tw');
+                    const usEl = document.getElementById('macro-us');
+                    twEl.innerText = json.macro.tw_insight || "暫無資料";
+                    usEl.innerText = json.macro.us_insight || "暫無資料";
+                    twEl.className = twEl.innerText.includes('⚠️') ? "text-xs px-3 py-1 rounded-full font-black border bg-green-900/40 text-green-400 border-green-500 animate-pulse" : "text-xs px-3 py-1 rounded-full font-black border bg-red-900/30 text-red-400 border-red-500/50";
+                    usEl.className = usEl.innerText.includes('⚠️') ? "text-xs px-3 py-1 rounded-full font-black border bg-green-900/40 text-green-400 border-green-500 animate-pulse" : "text-xs px-3 py-1 rounded-full font-black border bg-red-900/30 text-red-400 border-red-500/50";
+                }
                 
-                // 💡 渲染客觀數據雷達
-                let healthData = json.market_health;
-                if (healthData) {
-                    // 1. 自選股溫度計 UI
+                if (json.market_health) {
+                    let healthData = json.market_health;
                     let healthPct = healthData.health_pct;
                     document.getElementById('health-score').innerText = `${healthPct}%`;
                     document.getElementById('health-bar').style.width = `${healthPct}%`;
-                    let healthDesc = healthPct >= 70 ? "🔥 多頭狂歡：多數個股強勢" : (healthPct <= 30 ? "❄️ 空頭凜冬：多數個股破線" : "⚖️ 震盪盤整：多空勢均力敵");
-                    document.getElementById('health-desc').innerText = healthDesc;
-                    document.getElementById('health-score').className = `text-2xl font-mono font-black ${healthPct >= 70 ? 'text-red-400' : (healthPct <= 30 ? 'text-green-400' : 'text-blue-400')}`;
+                    document.getElementById('health-desc').innerText = healthPct >= 70 ? "🔥 多頭狂歡：多數個股強勢" : (healthPct <= 30 ? "❄️ 空頭凜冬：多數個股破線" : "⚖️ 震盪盤整：多空勢均力敵");
+                    document.getElementById('health-score').className = `text-3xl font-mono font-black ${healthPct >= 70 ? 'text-red-400' : (healthPct <= 30 ? 'text-green-400' : 'text-slate-200')}`;
 
-                    // 2. VIX 恐慌指數 UI (正常區間約 10~35，我們將它映射到 0-100% 的進度條)
                     let vix = healthData.vix;
                     document.getElementById('vix-score').innerText = vix;
-                    let vixPos = Math.min(Math.max((vix - 10) / 25 * 100, 0), 100); // 將 VIX 轉換為長條圖位置
+                    let vixPos = Math.min(Math.max((vix - 10) / 25 * 100, 0), 100); 
                     document.getElementById('vix-pointer').style.left = `${vixPos}%`;
-                    let vixDesc = vix >= 25 ? "🚨 極度恐慌 (撿便宜時機?)" : (vix <= 15 ? "🤑 極度貪婪 (留意回檔風險)" : "📊 情緒穩定");
-                    document.getElementById('vix-desc').innerText = vixDesc;
-                    document.getElementById('vix-score').className = `text-2xl font-mono font-black ${vix >= 25 ? 'text-green-400' : (vix <= 15 ? 'text-red-400' : 'text-yellow-400')}`;
+                    document.getElementById('vix-desc').innerText = vix >= 25 ? "🚨 極度恐慌 (撿便宜時機?)" : (vix <= 15 ? "🤑 極度貪婪 (留意回檔風險)" : "📊 情緒穩定");
+                    document.getElementById('vix-score').className = `text-3xl font-mono font-black ${vix >= 25 ? 'text-green-400' : (vix <= 15 ? 'text-red-400' : 'text-slate-200')}`;
                 }
+
                 renderData(document.getElementById('searchInput').value);
-                renderPortfolioSummary(); // 💡 更新司令台
-                console.log("🔄 戰情室資料已在背景自動更新！");
+                renderPortfolioSummary(); 
             }).catch(err => console.log("等待資料庫更新中..."));
         }
-        
-        // 💡 設定每 60 秒背景偷查一次資料
         setInterval(() => loadData(true), 60000);
 
-// 💡 阿土伯新增：手動觸發 GitHub Actions 的雲端魔法
-        const GITHUB_OWNER = "meifengasst"; // ⚠️ 請改成你的帳號，例如 "Justin123"
-        const GITHUB_REPO = "market-monitor";    // ⚠️ 請改成你的倉庫，例如 "atu-dashboard"
-        const WORKFLOW_FILENAME = "main.yml"; // 你的排程檔案名稱
-
+        // Webhook 強制觸發大腦
+        const GITHUB_OWNER = "meifengasst"; 
+        const GITHUB_REPO = "market-monitor";    
+        const WORKFLOW_FILENAME = "main.yml"; 
         async function triggerGitHubAction() {
-            // 從瀏覽器本地保險箱拿鑰匙
             let token = localStorage.getItem('atu_github_token');
-            
-            // 如果沒鑰匙，就跳出視窗請主人輸入
             if (!token) {
-                token = prompt("🕵️‍♂️ 阿土伯保安檢查：\n請輸入你的 GitHub Personal Access Token (ghp_開頭)：\n(只需輸入一次，會安全儲存在你這台電腦的瀏覽器中)");
+                token = prompt("🕵️‍♂️ 阿土伯保安檢查：\n請輸入你的 GitHub Personal Access Token (ghp_開頭)：\n(只需輸入一次，會安全儲存在瀏覽器中)");
                 if (!token) return; 
                 localStorage.setItem('atu_github_token', token);
             }
-
             const btn = document.getElementById('forceUpdateBtn');
             const originalText = btn.innerHTML;
-
-            // 變更按鈕狀態，防止重複點擊
             btn.disabled = true;
             btn.innerHTML = `<span class="animate-spin inline-block">⏳</span> 雲端運算中...`;
             btn.classList.replace('text-blue-400', 'text-yellow-400');
             btn.classList.replace('border-blue-500/50', 'border-yellow-500/50');
 
             try {
-                // 發射信號給 GitHub！
                 const response = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILENAME}/dispatches`, {
                     method: 'POST',
-                    headers: {
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Authorization': `token ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ ref: 'main' }) // 假設你的預設分支叫 main
+                    headers: { 'Accept': 'application/vnd.github.v3+json', 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ref: 'main' }) 
                 });
-
                 if (response.ok) {
-                    // 成功觸發！開始 50 秒倒數計時 (因為 Python 爬蟲 + AI 點評大約需要 40~50 秒)
                     let countdown = 50;
                     const timer = setInterval(() => {
                         countdown--;
                         btn.innerHTML = `<span class="animate-spin inline-block">⏳</span> AI 結算中... ${countdown}s 後重整`;
                         if (countdown <= 0) {
                             clearInterval(timer);
-                            // 倒數結束，把按鈕恢復原狀
                             btn.disabled = false;
                             btn.innerHTML = originalText;
                             btn.classList.replace('text-yellow-400', 'text-blue-400');
                             btn.classList.replace('border-yellow-500/50', 'border-blue-500/50');
-                            // 🔥 強制網頁重新讀取熱騰騰的 JSON！
                             loadData(true); 
                         }
                     }, 1000);
                 } else {
                     const errData = await response.json();
-                    alert(`❌ 呼叫失敗！可能是 Token 填錯了，或是分支名稱不叫 main。\n錯誤訊息: ${errData.message}`);
-                    localStorage.removeItem('atu_github_token'); // 清除錯誤的鑰匙
-                    btn.disabled = false;
-                    btn.innerHTML = originalText;
+                    alert(`❌ 呼叫失敗！錯誤訊息: ${errData.message}`);
+                    localStorage.removeItem('atu_github_token'); 
+                    btn.disabled = false; btn.innerHTML = originalText;
                 }
-            } catch (error) {
-                alert("❌ 網路連線錯誤，無法呼叫 GitHub！");
-                btn.disabled = false;
-                btn.innerHTML = originalText;
-            }
+            } catch (error) { alert("❌ 網路連線錯誤！"); btn.disabled = false; btn.innerHTML = originalText; }
         }
-        
+
+        // 畫圖與 Modal 控制
         function openModal(stock) {
             document.getElementById('dataModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
@@ -498,244 +401,100 @@
             if(rsiChart) rsiChart.destroy();
             rsiChart = new Chart(ctxRsi, { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: true, ticks: {color: '#64748b'} } }, plugins: { legend: { display: false } } } });
         }
-
         function openNewsModal(symbol) {
             const stock = stockMap[symbol];
             if(!stock) return;
-            document.getElementById('newsModalSub').innerText = `${stock.name} (${stock.symbol}) - 近期國際焦點`;
-            
+            document.getElementById('newsModalSub').innerText = `${stock.name} (${stock.symbol}) - 近期焦點`;
             const container = document.getElementById('newsListContainer');
             container.innerHTML = '';
-            
-            if (!stock.news_items || stock.news_items.length === 0) {
-                container.innerHTML = `<div class="text-center text-slate-400 py-10">目前無重大新聞或 AI 尚未解析完畢。</div>`;
-            } else {
+            if (!stock.news_items || stock.news_items.length === 0) { container.innerHTML = `<div class="text-center text-slate-400 py-10">目前無重大新聞。</div>`; } 
+            else {
                 stock.news_items.forEach(news => {
                     let badgeColor = "bg-slate-500/20 text-slate-300 border-slate-500";
                     if(news.sentiment.includes('多')) badgeColor = "bg-red-500/20 text-red-400 border-red-500";
                     else if(news.sentiment.includes('空')) badgeColor = "bg-green-500/20 text-green-400 border-green-500";
-                    
-                    container.innerHTML += `
-                        <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700 mb-4 hover:border-blue-500/50 transition-colors">
-                            <div class="flex items-start justify-between gap-4">
-                                <h4 class="text-white text-lg font-bold leading-relaxed flex-1">${news.title}</h4>
-                                <span class="text-xs px-3 py-1 rounded-full border font-black shrink-0 ${badgeColor}">${news.sentiment}</span>
-                            </div>
-                            <a href="${news.link}" target="_blank" class="text-blue-400 text-sm hover:text-blue-300 mt-3 inline-flex items-center gap-1 font-bold">查看原文 🔗</a>
-                        </div>
-                    `;
+                    container.innerHTML += `<div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700 mb-4 hover:border-blue-500/50 transition-colors"><div class="flex items-start justify-between gap-4"><h4 class="text-white text-lg font-bold leading-relaxed flex-1">${news.title}</h4><span class="text-xs px-3 py-1 rounded-full border font-black shrink-0 ${badgeColor}">${news.sentiment}</span></div><a href="${news.link}" target="_blank" class="text-blue-400 text-sm hover:text-blue-300 mt-3 inline-flex items-center gap-1 font-bold">查看原文 🔗</a></div>`;
                 });
             }
-
-            document.getElementById('newsModal').classList.remove('hidden'); 
-            setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
+            document.getElementById('newsModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
         }
-
-        function openPttModal() {
-            const container = document.getElementById('pttContentContainer');
-            if(!pttData || !pttData.top_stocks) {
-                container.innerHTML = `<div class="text-center text-slate-400 py-10">AI 仍在努力潛水爬文中，請稍後再試。</div>`;
-            } else {
-                let stocksHtml = pttData.top_stocks.map(s => `<span class="bg-blue-900/50 text-blue-300 px-4 py-1.5 rounded-full font-black text-sm border border-blue-500/30">${s}</span>`).join('');
-                
-                let linksHtml = '';
-                if(pttData.raw_links) {
-                    pttData.raw_links.forEach((l, idx) => {
-                        linksHtml += `<a href="${l.link}" target="_blank" class="block bg-black/30 hover:bg-black/50 p-3 rounded-xl border border-white/5 text-slate-300 text-sm truncate hover:text-blue-400 transition-colors">🔥 [熱門 ${idx+1}] ${l.title}</a>`;
-                    });
-                }
-
-                container.innerHTML = `
-                    <div class="mb-6">
-                        <p class="text-slate-400 text-sm font-bold mb-3">🔥 今日鄉民熱搜股：</p>
-                        <div class="flex flex-wrap gap-2">${stocksHtml}</div>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-                        <div class="bg-red-900/20 p-5 rounded-2xl border border-red-500/30">
-                            <h4 class="text-red-400 font-black mb-2 flex items-center gap-2">🐂 多方護盤觀點</h4>
-                            <p class="text-slate-300 text-sm leading-relaxed">${pttData.bull_view}</p>
-                        </div>
-                        <div class="bg-green-900/20 p-5 rounded-2xl border border-green-500/30">
-                            <h4 class="text-green-400 font-black mb-2 flex items-center gap-2">🐻 空方砸盤觀點</h4>
-                            <p class="text-slate-300 text-sm leading-relaxed">${pttData.bear_view}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <p class="text-slate-400 text-sm font-bold mb-3 flex items-center gap-2"><span class="text-lg">🍿</span> 吃瓜傳送門 (最新熱門文章)：</p>
-                        <div class="flex flex-col gap-2">${linksHtml}</div>
-                    </div>
-                `;
-            }
-
-            document.getElementById('pttModal').classList.remove('hidden'); 
-            setTimeout(() => { document.getElementById('pttModal').classList.remove('opacity-0'); document.getElementById('pttModalContent').classList.remove('scale-95'); }, 10);
-        }
-
         function closeModal(modalId) { 
             const modal = document.getElementById(modalId);
-            const content = modal.children[0];
-            modal.classList.add('opacity-0'); 
-            content.classList.add('scale-95'); 
+            modal.classList.add('opacity-0'); modal.children[0].classList.add('scale-95'); 
             setTimeout(() => modal.classList.add('hidden'), 300); 
         }
 
+        // 渲染股票卡片大腦
         function renderData(filterText = '') {
             const list = document.getElementById('stock-list'); 
             list.innerHTML = ''; 
             const search = filterText.toLowerCase().trim();
-            const filtered = rawData.filter(item => { 
-                return (item.symbol || "").toLowerCase().includes(search) || 
-                       (item.name || "").toLowerCase().includes(search) || 
-                       (item.category || "").toLowerCase().includes(search); 
-            });
+            const filtered = rawData.filter(item => (item.symbol || "").toLowerCase().includes(search) || (item.name || "").toLowerCase().includes(search) || (item.category || "").toLowerCase().includes(search));
 
             filtered.forEach(stock => {
-                const card = document.createElement('div'); 
-                card.onclick = () => openModal(stock);
-                
+                const card = document.createElement('div'); card.onclick = () => openModal(stock);
                 let statusColor = "border-slate-700 bg-slate-800/50";
                 const latestHist = stock.history && stock.history.length > 0 ? stock.history[stock.history.length - 1] : {};
-                const ma5 = latestHist.ma5 || '-'; 
-                const ma20 = latestHist.ma20 || '-'; 
-                const ma60 = latestHist.ma60 || '-';
+                const ma5 = latestHist.ma5 || '-'; const ma20 = latestHist.ma20 || '-'; const ma60 = latestHist.ma60 || '-';
 
-                let rsiBadge = ""; 
-                if (stock.rsi >= 70) rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>`; 
-                else if (stock.rsi <= 30) rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>`; 
-                else rsiBadge = `<span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">⚖️正常</span>`;
-
-                let headerTheme = "";
-                let statusLabel = "";
-                if (stock.price > ma20) {
-                    headerTheme = "bg-gradient-to-r from-red-900/40 to-transparent text-red-400 border-red-500/50 shadow-[0_0_25px_rgba(239,68,68,0.3)] ring-1 ring-red-500/30";
-                    statusLabel = "<span class='text-base animate-bounce inline-block'>🚀</span> 站上月線 <span class='text-red-300 font-black tracking-widest'>(恭喜大漲！抱牢)</span>";
-                } else {
-                    headerTheme = "bg-green-900/40 text-green-400 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.5)] ring-1 ring-green-400 animate-pulse";
-                    statusLabel = "<span class='text-base inline-block'>🚨</span> 跌破月線 <span class='text-green-300 font-black tracking-widest'>(注意！紀律賣出)</span>";
-                }
-
-                let rsBadge = "";
-                if (stock.rs_score > 5) rsBadge = `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-xs font-black animate-bounce">👑 主力強勢股 (+${stock.rs_score}%)</span>`;
-                else if (stock.rs_score > 0) rsBadge = `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-[10px] font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>`;
-                else rsBadge = `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-[10px] font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`;
+                let rsiBadge = stock.rsi >= 70 ? `<span class="text-[11px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>` : (stock.rsi <= 30 ? `<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>` : `<span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">⚖️正常</span>`);
+                
+                let headerTheme = stock.price > ma20 ? "bg-gradient-to-r from-red-900/40 to-transparent text-red-400 border-red-500/50 shadow-[0_0_25px_rgba(239,68,68,0.3)] ring-1 ring-red-500/30" : "bg-green-900/40 text-green-400 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.5)] ring-1 ring-green-400 animate-pulse";
+                let statusLabel = stock.price > ma20 ? "<span class='text-base animate-bounce inline-block'>🚀</span> 站上月線 <span class='text-red-300 font-black tracking-widest'>(恭喜大漲！抱牢)</span>" : "<span class='text-base inline-block'>🚨</span> 跌破月線 <span class='text-green-300 font-black tracking-widest'>(注意！紀律賣出)</span>";
+                
+                let rsBadge = stock.rs_score > 5 ? `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-xs font-black animate-bounce">👑 主力強勢 (+${stock.rs_score}%)</span>` : (stock.rs_score > 0 ? `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-[10px] font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>` : `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-[10px] font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
 
                 let evBadge = "";
                 if (stock.ev !== undefined) {
                     let colorClass = stock.ev > 0 ? "red" : "green";
-                    evBadge = `<div class="flex justify-between items-center bg-${colorClass}-900/30 p-2.5 rounded-xl border border-${colorClass}-500/40 mb-3 shadow-inner">
-                        <span class="text-xs text-${colorClass}-200 font-bold">${stock.ev > 0 ? '🏆' : '⚠️'} 策略期望值 (含停損)</span>
-                        <span class="text-base font-mono font-black text-${colorClass}-400">${stock.ev > 0 ? '+' : ''}${stock.ev}%</span>
-                    </div>`;
+                    evBadge = `<div class="flex justify-between items-center bg-${colorClass}-900/30 p-2.5 rounded-xl border border-${colorClass}-500/40 mb-3 shadow-inner"><span class="text-xs text-${colorClass}-200 font-bold">${stock.ev > 0 ? '🏆' : '⚠️'} 期望值(含停損)</span><span class="text-base font-mono font-black text-${colorClass}-400">${stock.ev > 0 ? '+' : ''}${stock.ev}%</span></div>`;
                 }
 
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
-                    let trade = myPortfolio[stock.symbol]; // 👈 加上 stock. 就天下太平了！
-                    if (stock.price > trade.peakPrice) {
-                        trade.peakPrice = stock.price;
-                        localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-                    }
+                    let trade = myPortfolio[stock.symbol]; // 🐛 阿土伯除蟲：正確抓取
+                    if (stock.price > trade.peakPrice) { trade.peakPrice = stock.price; localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio)); }
                     let slDecimal = stock.actual_sl / 100;
                     let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), trade.peakPrice * (1 - slDecimal)).toFixed(2);
                     let unrealizedPnL = (stock.price - trade.entryPrice) * trade.shares;
                     let pnlPct = (((stock.price - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
                     
-                    // 💡 阿土伯新增：判斷是否跌破嚴格停損價！
-                    let isStopLossTriggered = stock.price <= actualExitPrice;
-
+                    let isStopLossTriggered = stock.price <= parseFloat(actualExitPrice);
                     let pnlColor = unrealizedPnL >= 0 ? 'text-red-400' : 'text-green-400';
-                    
-                    // 🚨 警報 UI：如果破線，整個部位框變成刺眼的綠色閃爍 (台股綠色代表跌)
-                    let pnlBg = isStopLossTriggered 
-                        ? 'bg-green-900 border-green-400 animate-pulse shadow-[0_0_20px_rgba(34,197,94,0.6)]' 
-                        : (unrealizedPnL >= 0 ? 'bg-red-900/20 border-red-500/40' : 'bg-green-900/20 border-green-500/40');
-                    
-                    // 🚨 警報 UI：替換停損標籤文字
-                    let stopLossLabel = isStopLossTriggered
-                        ? `<span class="text-[11px] text-white bg-green-600 px-2 py-1 rounded font-black">🚨 跌破停損！立即清倉</span>`
-                        : `<span class="text-[9px] text-purple-400 font-bold animate-pulse">🎯 嚴格停損出場價</span>`;
+                    let pnlBg = isStopLossTriggered ? 'bg-green-900 border-green-400 animate-pulse shadow-[0_0_20px_rgba(34,197,94,0.6)]' : (unrealizedPnL >= 0 ? 'bg-red-900/20 border-red-500/40' : 'bg-green-900/20 border-green-500/40');
+                    let stopLossLabel = isStopLossTriggered ? `<span class="text-[11px] text-white bg-green-600 px-2 py-1 rounded font-black">🚨 跌破停損！立即清倉</span>` : `<span class="text-[9px] text-purple-400 font-bold animate-pulse">🎯 嚴格停損出場價</span>`;
 
                     positionHtml = `<div class="mt-4 ${pnlBg} p-4 rounded-xl border transition-colors shadow-inner relative group cursor-default" onclick="event.stopPropagation()">
                         <button onclick="removeTrade(event, '${stock.symbol}')" class="absolute top-2 right-2 text-slate-500 hover:text-white bg-slate-800 rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
-                        <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2">
-                            <span class="text-[11px] font-black text-blue-300 tracking-widest">💼 我的實戰部位</span>
-                            <span class="text-sm font-mono font-black text-white">${trade.shares.toLocaleString()} 股</span>
-                        </div>
-                        <div class="flex justify-between items-end mb-3">
-                            <div><p class="text-[10px] text-slate-400 font-bold mb-0.5">未實現損益</p><p class="text-2xl font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}$${Math.round(unrealizedPnL).toLocaleString()}</p></div>
-                            <div class="text-right"><p class="text-[10px] text-slate-400 font-bold mb-0.5">報酬率</p><p class="text-lg font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}${pnlPct}%</p></div>
-                        </div>
-                        <div class="bg-black/30 rounded-lg p-2.5 flex justify-between items-center border border-white/5">
-                            <div><p class="text-[9px] text-slate-500 font-bold">成本價</p><p class="text-sm font-mono font-bold text-slate-300">${trade.entryPrice}</p></div>
-                            <div class="text-right">${stopLossLabel}<p class="text-base font-mono font-black text-white mt-1">${actualExitPrice}</p></div>
-                        </div>
+                        <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2"><span class="text-[11px] font-black text-blue-300 tracking-widest">💼 我的實戰部位</span><span class="text-sm font-mono font-black text-white">${trade.shares.toLocaleString()} 股</span></div>
+                        <div class="flex justify-between items-end mb-3"><div><p class="text-[10px] text-slate-400 font-bold mb-0.5">未實現損益</p><p class="text-2xl font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}$${Math.round(unrealizedPnL).toLocaleString()}</p></div><div class="text-right"><p class="text-[10px] text-slate-400 font-bold mb-0.5">報酬率</p><p class="text-lg font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}${pnlPct}%</p></div></div>
+                        <div class="bg-black/30 rounded-lg p-2.5 flex justify-between items-center border border-white/5"><div><p class="text-[9px] text-slate-500 font-bold">成本價</p><p class="text-sm font-mono font-bold text-slate-300">${trade.entryPrice}</p></div><div class="text-right">${stopLossLabel}<p class="text-base font-mono font-black text-white mt-1">${actualExitPrice}</p></div></div>
                     </div>`;
                 } else {
                     const totalCapital = parseFloat(document.getElementById('capitalInput').value) || 0;
-                    let isUptrend = stock.price > ma20;
-                    if (totalCapital > 0 && isUptrend) {
-                        let stopLossDecimal = stock.actual_sl / 100;
-                        let riskPerShare = stock.price * stopLossDecimal; 
+                    if (totalCapital > 0 && stock.price > ma20) {
+                        let slDecimal = stock.actual_sl / 100;
+                        let riskPerShare = stock.price * slDecimal; 
                         let sharesToBuy = riskPerShare > 0 ? Math.floor((totalCapital * 0.02) / riskPerShare) : 0;
                         let totalInvestment = Math.round(sharesToBuy * stock.price);
                         let sharesDisplay = stock.symbol.endsWith(".TW") ? `${Math.floor(sharesToBuy/1000)}張 ${sharesToBuy%1000}股` : `${sharesToBuy.toLocaleString()}股`;
-                        
-                        positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 shadow-inner group">
-                            <div class="flex justify-between items-center mb-1">
-                                <p class="text-[11px] text-red-400 font-bold tracking-wide">🛡️ 2% 風控建議買進</p>
-                                <button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold transition-colors">➕ 記錄買進</button>
-                            </div>
-                            <div class="flex justify-between items-end">
-                                <p class="text-2xl font-mono font-black text-red-300">${sharesDisplay}</p>
-                                <div class="text-right"><p class="text-[10px] text-red-400/70 font-bold mb-0.5 tracking-wide">預計投入金額</p><p class="text-base font-mono font-black text-red-200">$${totalInvestment.toLocaleString()}</p></div>
-                            </div>
-                        </div>`;
-                    } else if (!isUptrend) {
-                        positionHtml = `<div class="mt-4 bg-green-900/20 p-4 rounded-xl border border-green-500/30 shadow-inner text-center"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破月線，風控系統鎖定</p></div>`;
-                    } else {
-                        positionHtml = `<div class="mt-4 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-inner text-center"><p class="text-xs text-slate-400 font-bold">請輸入本金以啟用計算機</p></div>`;
-                    }
+                        positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 shadow-inner group"><div class="flex justify-between items-center mb-1"><p class="text-[11px] text-red-400 font-bold tracking-wide">🛡️ 2% 風控建議買進</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold transition-colors">➕ 記錄買進</button></div><div class="flex justify-between items-end"><p class="text-2xl font-mono font-black text-red-300">${sharesDisplay}</p><div class="text-right"><p class="text-[10px] text-red-400/70 font-bold mb-0.5 tracking-wide">預計投入金額</p><p class="text-base font-mono font-black text-red-200">$${totalInvestment.toLocaleString()}</p></div></div></div>`;
+                    } else if (stock.price <= ma20) { positionHtml = `<div class="mt-4 bg-green-900/20 p-4 rounded-xl border border-green-500/30 shadow-inner text-center"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破月線，風控系統鎖定</p></div>`; } 
+                    else { positionHtml = `<div class="mt-4 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-inner text-center"><p class="text-xs text-slate-400 font-bold">請輸入本金以啟用計算機</p></div>`; }
                 }
 
                 card.className = `${statusColor} p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group`;
                 card.innerHTML = `
                     <div class="flex flex-col h-full">
-                        <div class="flex justify-between items-center mb-5">
-                            <span class="bg-black/50 text-white text-xs px-3.5 py-1.5 rounded-full font-bold uppercase border border-white/10">${stock.category}</span>
-                            <span class="text-sm font-mono font-bold text-white/40">${stock.symbol}</span>
-                        </div>
-                        <div class="flex items-center justify-between gap-2 mb-5 p-4 rounded-[1.5rem] border ${headerTheme} transition-all duration-300">
-                            <div>
-                                <h2 class="text-3xl font-black tracking-tight leading-none">${stock.name}</h2>
-                            </div>
-                            <div class="flex flex-col items-end gap-1.5 shrink-0">
-                                <span class="text-[10px] whitespace-nowrap font-black px-2.5 py-1 rounded-lg bg-black/30 border border-white/5">${statusLabel}</span>
-                                ${rsBadge}
-                            </div>
-                        </div>
+                        <div class="flex justify-between items-center mb-5"><span class="bg-black/50 text-white text-xs px-3.5 py-1.5 rounded-full font-bold uppercase border border-white/10">${stock.category}</span><span class="text-sm font-mono font-bold text-white/40">${stock.symbol}</span></div>
+                        <div class="flex items-center justify-between gap-2 mb-5 p-4 rounded-[1.5rem] border ${headerTheme} transition-all duration-300"><div><h2 class="text-3xl font-black tracking-tight leading-none">${stock.name}</h2></div><div class="flex flex-col items-end gap-1.5 shrink-0"><span class="text-[10px] whitespace-nowrap font-black px-2.5 py-1 rounded-lg bg-black/30 border border-white/5">${statusLabel}</span>${rsBadge}</div></div>
                         <div class="bg-black/40 p-5 rounded-2xl mb-4 border border-white/5">
-                            <div class="flex justify-between items-start mb-5">
-                                <div><p class="text-7xl font-mono font-black text-white tracking-tighter">${stock.price}</p></div>
-                                <div class="text-right flex flex-col items-end gap-2.5">
-                                    <div class="flex items-center gap-1.5 justify-end mb-1"><p class="text-[11px] text-white/50 font-bold">熱度 (RSI)</p>${rsiBadge}</div>
-                                    <p class="text-4xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : (stock.rsi < 30 ? 'text-green-400' : 'text-slate-200')}">${stock.rsi}</p>
-                                </div>
-                            </div>
+                            <div class="flex justify-between items-start mb-5"><div><p class="text-7xl font-mono font-black text-white tracking-tighter">${stock.price}</p></div><div class="text-right flex flex-col items-end gap-2.5"><div class="flex items-center gap-1.5 justify-end mb-1"><p class="text-[11px] text-white/50 font-bold">熱度 (RSI)</p>${rsiBadge}</div><p class="text-4xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : (stock.rsi < 30 ? 'text-green-400' : 'text-slate-200')}">${stock.rsi}</p></div></div>
                             ${evBadge}
                             <div class="flex justify-between items-center bg-slate-800/80 p-3.5 rounded-xl border border-slate-600/50 mt-2 shadow-inner overflow-hidden">
-                                <div class="text-center w-1/3 border-r border-slate-600/50">
-                                    <p class="text-[11px] whitespace-nowrap text-slate-400 font-bold mb-1">歷史勝率</p>
-                                    <p class="text-2xl font-mono font-black text-blue-300">${stock.win_rate}%</p>
-                                </div>
-                                <div class="text-center w-1/3 border-r border-slate-600/50 relative">
-                                    <div class="absolute -top-3 -right-2 text-base animate-pulse">🎯</div>
-                                    <p class="text-[11px] whitespace-nowrap tracking-tighter text-purple-300 font-bold mb-1">最佳停損/移動停利</p>
-                                    <p class="text-2xl font-mono font-black text-purple-400">${stock.optimal_sl}%</p>
-                                </div>
-                                <div class="text-center w-1/3">
-                                    <p class="text-[11px] whitespace-nowrap tracking-tighter text-slate-400 font-bold mb-1">現行套用停損</p>
-                                    <p class="text-2xl font-mono font-black ${stock.actual_sl < stock.optimal_sl ? 'text-red-400' : 'text-green-400'}">${stock.actual_sl}%</p>
-                                </div>
+                                <div class="text-center w-1/3 border-r border-slate-600/50"><p class="text-[11px] whitespace-nowrap text-slate-400 font-bold mb-1">歷史勝率</p><p class="text-2xl font-mono font-black text-blue-300">${stock.win_rate}%</p></div>
+                                <div class="text-center w-1/3 border-r border-slate-600/50 relative"><div class="absolute -top-3 -right-2 text-base animate-pulse">🎯</div><p class="text-[11px] whitespace-nowrap tracking-tighter text-purple-300 font-bold mb-1">最佳停損/移動停利</p><p class="text-2xl font-mono font-black text-purple-400">${stock.optimal_sl}%</p></div>
+                                <div class="text-center w-1/3"><p class="text-[11px] whitespace-nowrap tracking-tighter text-slate-400 font-bold mb-1">現行套用停損</p><p class="text-2xl font-mono font-black ${stock.actual_sl < stock.optimal_sl ? 'text-red-400' : 'text-green-400'}">${stock.actual_sl}%</p></div>
                             </div>
                             ${positionHtml}
                             <div class="flex justify-between items-center bg-black/30 p-3.5 rounded-xl border border-white/5 mb-4 mt-3 shadow-inner">
@@ -743,21 +502,11 @@
                                 <div class="text-center w-1/3 border-r border-white/10"><p class="text-[10px] text-slate-500 font-bold mb-1">20MA</p><p class="text-sm font-mono font-black ${stock.price > ma20 ? 'text-red-400' : 'text-green-400'}">${ma20}</p></div>
                                 <div class="text-center w-1/3"><p class="text-[10px] text-slate-500 font-bold mb-1">60MA</p><p class="text-sm font-mono font-black ${stock.price > ma60 ? 'text-red-400' : 'text-green-400'}">${ma60}</p></div>
                             </div>
-                            <div class="pt-3 border-t border-slate-700/50">
-                                <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/30">
-                                    <p class="text-xs font-black text-blue-300 mb-1">🤖 阿土狗點評：</p>
-                                    <p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.ai_summary || '讀取中'}</p>
-                                </div>
-                            </div>
+                            <div class="pt-3 border-t border-slate-700/50"><div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/30"><p class="text-xs font-black text-blue-300 mb-1">🤖 系統點評：</p><p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.ai_summary || '讀取中'}</p></div></div>
                         </div>
                         <div class="bg-blue-900/30 p-4 rounded-xl border border-blue-500/30 mt-auto">
-                            <div class="flex justify-between items-end mb-2">
-                                <p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.vol_ratio > 1.5 ? '🔥 大戶進場表態' : '💤 散戶量縮盤整'}</p>
-                                <p class="text-[11px] font-mono font-black text-blue-200">量能 ${stock.vol_ratio}x</p>
-                            </div>
-                            <div class="w-full bg-black/50 h-2 rounded-full overflow-hidden">
-                                <div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
-                            </div>
+                            <div class="flex justify-between items-end mb-2"><p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.vol_ratio > 1.5 ? '🔥 大戶進場表態' : '💤 散戶量縮盤整'}</p><p class="text-[11px] font-mono font-black text-blue-200">量能 ${stock.vol_ratio}x</p></div>
+                            <div class="w-full bg-black/50 h-2 rounded-full overflow-hidden"><div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div></div>
                         </div>
                     </div>
                 `;
@@ -765,7 +514,7 @@
             });
         }
         document.getElementById('searchInput').addEventListener('input', (e) => renderData(e.target.value));
-        document.getElementById('capitalInput').addEventListener('input', () => renderData(document.getElementById('searchInput').value));
+        document.getElementById('capitalInput').addEventListener('input', () => { renderData(document.getElementById('searchInput').value); renderPortfolioSummary(); });
     </script>
 </body>
 </html>
