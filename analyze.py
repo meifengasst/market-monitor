@@ -123,8 +123,24 @@ def generate_dashboard_data():
         if df.empty: continue
         if isinstance(df.columns, pd.MultiIndex): df.columns = df.columns.droplevel(1)
             
-        try: df.iloc[-1, df.columns.get_loc('Close')] = round(yf.Ticker(symbol).fast_info.get('lastPrice', df['Close'].iloc[-1]), 2)
-        except: pass
+        # 💡 阿土伯升級：美股/台股 雙引擎即時報價系統
+        if not symbol.endswith(".TW"):
+            # 如果是美股 (如 NVDA, TSLA, SPY)，啟動 Finnhub 引擎
+            finnhub_key = os.environ.get("FINNHUB_API_KEY")
+            if finnhub_key:
+                try:
+                    res = requests.get(f"https://finnhub.io/api/v1/quote?symbol={symbol}&token={finnhub_key}", timeout=5)
+                    if res.status_code == 200:
+                        real_time_price = res.json().get('c') # 'c' 代表 current price (現價)
+                        if real_time_price and real_time_price > 0:
+                            df.iloc[-1, df.columns.get_loc('Close')] = round(real_time_price, 2)
+                            print(f"⚡ {symbol} 成功獲取 Finnhub 即時報價: {real_time_price}")
+                except Exception as e:
+                    print(f"⚠️ {symbol} Finnhub 報價失敗，退回歷史收盤價")
+        else:
+            # 如果是台股，維持 Yahoo 報價
+            try: df.iloc[-1, df.columns.get_loc('Close')] = round(yf.Ticker(symbol).fast_info.get('lastPrice', df['Close'].iloc[-1]), 2)
+            except: pass
         
         # 技術指標計算
         df['ma5'] = df['Close'].rolling(5).mean()
@@ -181,4 +197,5 @@ def generate_dashboard_data():
         json.dump({"last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"), "data": dashboard_data, "ptt": ptt_data, "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"}}, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__": generate_dashboard_data()
+
 
