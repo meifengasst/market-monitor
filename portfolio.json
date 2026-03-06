@@ -2,6 +2,7 @@
     "9910.TW": {
         "entryPrice": 107.5,
         "shares": 2000,
-        "peakPrice": 96.2
+        "peakPrice": 96.2,
+        "alerted": true
     }
 }
