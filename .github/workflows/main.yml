@@ -2,16 +2,15 @@ name: 🚀 阿土伯盤中戰情室 (15分鐘自動更新)
 
 on:
   schedule:
-    # UTC 1-5 點 = 台灣時間早上 9 點 到 下午 1 點
-    # */15 代表每 15 分鐘跑一次，達成你想要「隨時看都是最新」的願望！
-    - cron: '*/15 1-5 * * 1-5' 
+    # 💡 阿土伯修正：把 1-5 改成明確的 1,2,3,4,5，這在 GitHub 系統裡最穩，絕對不會睡死！
+    - cron: '*/15 1,2,3,4,5 * * 1-5' 
   workflow_dispatch: # 手動執行按鈕
 
 jobs:
   update-data:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 給予寫入 data.json 的權限
+      contents: write
 
     steps:
       - name: 📥 1. 下載專案程式碼
@@ -22,17 +21,18 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 📦 3. 讀取清單安裝套件 (requirements.txt)
+      - name: 📦 3. 讀取清單安裝套件
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🧠 4. 執行阿土伯量化大腦 (analyze.py)
+      - name: 🧠 4. 執行阿土伯量化大腦
         env:
-          # 這裡把 GitHub 保險箱裡的密碼，交給 Python
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
           LINE_TARGET_ID: ${{ secrets.LINE_TARGET_ID }}
+          # 🌟 阿土伯時區魔法：強制讓雲端主機變成台灣時間，這樣網頁的「最後更新」才會準！
+          TZ: Asia/Taipei 
         run: python analyze.py
 
       - name: 💾 5. 將最新戰報存檔推送到網頁
@@ -40,5 +40,4 @@ jobs:
           git config --global user.name "股市阿土伯機器人"
           git config --global user.email "actions@github.com"
           git add data.json
-          # 如果資料有變動才 commit，沒變動就優雅結束
           git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新盤中報價與期望值" && git push)
