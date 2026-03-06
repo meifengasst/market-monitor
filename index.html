@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阿土伯投資儀表板 - 專屬金庫</title>
@@ -11,12 +12,12 @@
 
     <div id="loginScreen" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-900 transition-opacity duration-500">
         <div class="text-center mb-8"><div class="text-6xl mb-4">🕵️‍♂️</div><h1 class="text-4xl font-black text-blue-400 tracking-widest">阿土伯戰情室</h1><p class="text-slate-500 mt-2 font-bold tracking-widest">PRIVATE VAULT</p></div>
-        <div class="bg-slate-800/80 p-8 rounded-[2rem] border border-slate-700 shadow-2xl flex flex-col items-center backdrop-blur-sm w-11/12 max-w-sm"><p class="text-slate-400 mb-4 font-bold text-sm">請輸入通關密碼</p><input type="password" id="passInput" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-5 py-4 text-center text-2xl tracking-[0.5em] focus:outline-none focus:border-blue-500 mb-6 text-white" placeholder="••••"><button onclick="checkPassword()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-xl transition-colors shadow-[0_0_15px_rgba(37,99,235,0.4)]">解鎖進入</button><p id="errorMsg" class="text-red-400 font-bold mt-4 opacity-0 text-sm">❌ 密碼錯誤，請重試！</p></div>
+        <div class="bg-slate-800/80 p-8 rounded-none border border-slate-700 pixel-box flex flex-col items-center backdrop-blur-sm w-11/12 max-w-sm"><p class="text-slate-400 mb-4 font-bold text-sm">請輸入通關密碼</p><input type="password" id="passInput" class="w-full bg-slate-900 border border-slate-600 rounded-none px-5 py-4 text-center text-2xl tracking-[0.5em] focus:outline-none focus:border-blue-500 mb-6 text-white" placeholder="••••"><button onclick="checkPassword()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-none transition-colors shadow-[0_0_15px_rgba(37,99,235,0.4)]">解鎖進入</button><p id="errorMsg" class="text-red-400 font-bold mt-4 opacity-0 text-sm">❌ 密碼錯誤，請重試！</p></div>
     </div>
 
     <div id="dashboardContent" class="hidden p-4 md:p-6 w-full max-w-[1800px] mx-auto flex-col xl:flex-row gap-6 xl:gap-8 opacity-0 transition-opacity duration-700">
         
-        <aside class="w-full xl:w-[320px] xl:sticky xl:top-6 h-[calc(100vh-3rem)] overflow-y-auto bg-slate-800/60 backdrop-blur-md rounded-[2rem] border border-slate-700 shadow-2xl p-6 flex-shrink-0 custom-scrollbar">
+        <aside class="w-full xl:w-[320px] xl:sticky xl:top-6 h-[calc(100vh-3rem)] overflow-y-auto bg-slate-800/60 backdrop-blur-md rounded-none border border-slate-700 pixel-box p-6 flex-shrink-0 custom-scrollbar">
             
             <div id="portfolioSummarySection" class="mb-8 hidden">
                 <h2 class="text-2xl font-black text-green-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-3"><span>💼</span> 目前實戰庫存</h2>
@@ -30,7 +31,7 @@
 
             <h2 class="text-2xl font-black text-blue-400 mb-6 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📜</span> 阿土伯實戰鐵律</h2>
             <div class="flex flex-col gap-4 text-sm pb-4">
-                <div class="bg-red-900/20 p-4 rounded-2xl border border-red-500/30 shadow-[0_0_10px_rgba(239,68,68,0.1)]">
+                <div class="bg-red-900/20 p-4 rounded-none border border-red-500/30 shadow-[0_0_10px_rgba(239,68,68,0.1)]">
                     <h3 class="text-red-400 font-black mb-2 text-base">⚠️ 進出最高指導原則 (最重要)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">
                         <span class="text-green-400 font-bold">【做多條件】</span> 股價必須站上 20MA (月線)！<br>
@@ -42,15 +43,15 @@
 
             <h2 class="text-2xl font-black text-purple-400 mb-6 mt-8 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📖</span> 術語深度解讀</h2>
             <div class="flex flex-col gap-4 text-sm pb-4">
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
+                <div class="bg-black/20 p-4 rounded-none border border-white/5">
                     <h3 class="text-green-400 font-black mb-2 text-base">🏆 策略期望值 (EV)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">每一次交易所預期的平均獲利%。長期來看此數值必須為正。</p>
                 </div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
+                <div class="bg-black/20 p-4 rounded-none border border-white/5">
                     <h3 class="text-purple-400 font-black mb-2 text-base">🎯 最佳防線 (壓箱寶)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">最佳停損由系統網格測試得出。移動停利則是在獲利時，將出場點上移，鎖定利潤。</p>
                 </div>
-                <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
+                <div class="bg-black/20 p-4 rounded-none border border-white/5">
                     <h3 class="text-red-400 font-black mb-2 text-base">現行套用停損 (大盤避險)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">根據大盤動態調整。大盤轉弱破月線時，停損會被強制收緊以優先保護資金。</p>
                 </div>
@@ -58,28 +59,27 @@
         </aside>
 
         <main class="flex-1 w-full min-w-0">
-            <header class="mb-6 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-700 pb-4">
+            <header class="mb-6 flex flex-col md:flex-row md:items-end justify-between border-b-4 border-slate-700 pb-4">
                 <div>
-                    <h1 class="text-4xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1>
+                    <h1 class="text-4xl font-black text-blue-400 tracking-tight">🕹️ 阿土伯多空戰情室 <span class="text-xs align-top bg-blue-600 text-white px-1">Ver 1.0</span></h1>
                     <div class="flex items-center gap-4 mt-2">
                         <p class="text-slate-400 text-base font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p>
-                        <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/50 px-3 py-1.5 rounded-lg text-xs font-black transition-colors flex items-center gap-1.5 shadow-[0_0_10px_rgba(37,99,235,0.2)]">
-                            <span id="updateIcon">🔄</span> 點我強制更新
+                        <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="pixel-btn bg-blue-600 hover:bg-blue-400 text-white px-4 py-2 text-xs font-black transition-colors flex items-center gap-1.5 rounded-none">
+                            <span id="updateIcon">🔄</span> 點我強制更新 (START)
                         </button>
                     </div>
                 </div>
                 <div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-3 w-full md:w-auto items-center">
                     <div class="relative w-full md:w-56">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-green-400 text-lg">💰</span>
-                        <input type="number" id="capitalInput" placeholder="輸入總本金 (例: 100000)" value="100000" class="w-full bg-slate-900 border-2 border-slate-600 rounded-xl py-3 pl-12 pr-4 text-base focus:outline-none focus:border-green-500 shadow-inner text-green-400 font-black tracking-wider transition-colors">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500 text-xs font-bold">2%風控</span>
+                        <input type="number" id="capitalInput" placeholder="GOLD" value="100000" class="w-full bg-slate-900 border-2 border-slate-600 rounded-none py-3 pl-12 pr-4 text-base focus:outline-none focus:border-green-500 shadow-inner text-green-400 font-black tracking-wider transition-colors">
                     </div>
-                    <input type="text" id="searchInput" placeholder="🔍 搜尋代號或名稱..." class="w-full md:w-72 bg-slate-800 border border-slate-600 rounded-xl px-5 py-3 text-base focus:outline-none focus:border-blue-500 shadow-inner">
+                    <input type="text" id="searchInput" placeholder="🔍 SEARCH ITEM..." class="w-full md:w-72 bg-slate-800 border-2 border-slate-600 rounded-none px-5 py-3 text-base focus:outline-none focus:border-blue-500">
                 </div>
             </header>
 
             <div class="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md group hover:border-emerald-500/50 transition-colors">
+                <div class="bg-slate-800/80 border border-slate-600 rounded-none p-6 pixel-box relative overflow-hidden backdrop-blur-md group hover:border-emerald-500/50 transition-colors">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-2"><span class="text-3xl group-hover:animate-bounce">🇹🇼</span><h3 class="text-emerald-400 font-black tracking-widest text-lg">台股多空溫度計</h3></div>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div class="bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 shadow-2xl relative overflow-hidden backdrop-blur-md group hover:border-blue-500/50 transition-colors">
+                <div class="bg-slate-800/80 border border-slate-600 rounded-none p-6 pixel-box relative overflow-hidden backdrop-blur-md group hover:border-blue-500/50 transition-colors">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-blue-500"></div>
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-2"><span class="text-3xl group-hover:animate-bounce">🌎</span><h3 class="text-blue-400 font-black tracking-widest text-lg">華爾街恐慌指數</h3></div>
@@ -116,7 +116,7 @@
     </div>
 
     <div id="dataModal" onclick="if(event.target === this) closeModal('dataModal')" class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
-        <div class="bg-slate-800 rounded-3xl w-full max-w-6xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[95vh] cursor-auto" id="modalContent">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-6xl border border-slate-600 pixel-box transform scale-95 transition-transform duration-300 flex flex-col max-h-[95vh] cursor-auto" id="modalContent">
             <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0"><div><h3 class="text-3xl font-black text-white" id="modalTitle">股票名稱</h3><p class="text-slate-400 text-base mt-1">法人級技術分析：布林通道、MACD 與 RSI</p></div><button onclick="closeModal('dataModal')" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button></div>
             <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar">
                 <div class="h-[300px] mb-4 relative"><span class="absolute top-0 left-0 text-slate-500 text-xs font-bold z-10">價格與布林通道</span><canvas id="historyChart"></canvas></div>
@@ -127,7 +127,7 @@
     </div>
 
     <div id="newsModal" onclick="if(event.target === this) closeModal('newsModal')" class="fixed inset-0 bg-black/90 hidden z-[60] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
-        <div class="bg-slate-800 rounded-3xl w-full max-w-2xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[80vh] cursor-auto" id="newsModalContent">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-2xl border border-slate-600 pixel-box transform scale-95 transition-transform duration-300 flex flex-col max-h-[80vh] cursor-auto" id="newsModalContent">
             <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
                 <div><h3 class="text-2xl font-black text-blue-400 flex items-center gap-2"><span class="text-3xl">📰</span> AI 深度新聞解讀</h3><p id="newsModalSub" class="text-slate-400 text-sm mt-1">載入中...</p></div>
                 <button onclick="closeModal('newsModal')" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
@@ -137,29 +137,56 @@
     </div>
 
     <div id="tradeModal" onclick="if(event.target === this) closeTradeModal()" class="fixed inset-0 bg-black/90 hidden z-[70] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
-        <div class="bg-slate-800 rounded-3xl w-full max-w-sm border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col cursor-auto p-6" id="tradeModalContent">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-sm border border-slate-600 pixel-box transform scale-95 transition-transform duration-300 flex flex-col cursor-auto p-6" id="tradeModalContent">
             <h3 class="text-2xl font-black text-blue-400 mb-4 flex items-center gap-2"><span>💼</span> 紀錄實戰部位</h3>
             <p class="text-slate-400 text-sm mb-6 font-bold">為 <span id="tradeSymbol" class="text-white font-mono text-base"></span> 設定買進紀錄，系統將自動啟動移動停利追蹤。</p>
             <div class="mb-4">
                 <label class="block text-slate-500 text-xs font-bold mb-2">買進成交均價</label>
-                <input type="number" id="tradePrice" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white font-mono font-black focus:border-blue-500 focus:outline-none" placeholder="例如: 1000">
+                <input type="number" id="tradePrice" class="w-full bg-slate-900 border border-slate-600 rounded-none px-4 py-3 text-white font-mono font-black focus:border-blue-500 focus:outline-none" placeholder="例如: 1000">
             </div>
             <div class="mb-6">
                 <label class="block text-slate-500 text-xs font-bold mb-2">買進總股數 (台股請換算成股)</label>
-                <input type="number" id="tradeShares" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white font-mono font-black focus:border-blue-500 focus:outline-none" placeholder="例如: 1000">
+                <input type="number" id="tradeShares" class="w-full bg-slate-900 border border-slate-600 rounded-none px-4 py-3 text-white font-mono font-black focus:border-blue-500 focus:outline-none" placeholder="例如: 1000">
             </div>
             <div class="flex gap-3">
-                <button onclick="saveTrade()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">💾 儲存</button>
-                <button onclick="closeTradeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button>
+                <button onclick="saveTrade()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-none transition-colors pixel-box">💾 儲存</button>
+                <button onclick="closeTradeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-none transition-colors">取消</button>
             </div>
         </div>
     </div>
 
     <style>
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+        /* 套用全局像素字體 */
+        body {
+            font-family: 'DotGothic16', sans-serif;
+            background-color: #0f172a;
+        }
+
+        /* 🎮 像素風按鈕專屬樣式 */
+        .pixel-btn {
+            background-color: #2563eb;
+            color: white !important;
+            border: 3px solid #ffffff;
+            border-radius: 0px !important; /* 確保絕對直角 */
+            box-shadow: 4px 4px 0px #000000;
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.05s;
+        }
+
+        /* 按鈕按下去的陷落位移 */
+        .pixel-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000000;
+        }
+        
+        /* 其他方正風格調整 */
+        input, aside, div {
+            border-radius: 0px !important;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; border-radius: 0px; }
     </style>
     
     <script>
@@ -261,7 +288,7 @@
                 let warningIcon = isStopLossTriggered ? `<span class="text-[10px] bg-green-600 text-white px-1.5 py-0.5 rounded font-black animate-bounce inline-block ml-1">🚨 觸發停損</span>` : "";
 
                 listContainer.innerHTML += `
-                <div class="p-3 rounded-xl border flex justify-between items-center cursor-pointer transition-all ${cardBg}" onclick="document.getElementById('searchInput').value='${symbol}'; renderData('${symbol}');">
+                <div class="p-3 rounded-none border flex justify-between items-center cursor-pointer transition-all ${cardBg}" onclick="document.getElementById('searchInput').value='${symbol}'; renderData('${symbol}');">
                     <div>
                         <p class="text-sm font-black text-white">${stockName} <span class="text-[10px] text-slate-400 font-mono ml-1">${symbol}</span> ${warningIcon}</p>
                         <p class="text-[11px] text-slate-400 mt-1 font-bold">持有: <span class="text-blue-300">${sharesDisplay}</span></p>
@@ -413,7 +440,7 @@
                     let badgeColor = "bg-slate-500/20 text-slate-300 border-slate-500";
                     if(news.sentiment.includes('多')) badgeColor = "bg-red-500/20 text-red-400 border-red-500";
                     else if(news.sentiment.includes('空')) badgeColor = "bg-green-500/20 text-green-400 border-green-500";
-                    container.innerHTML += `<div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700 mb-4 hover:border-blue-500/50 transition-colors"><div class="flex items-start justify-between gap-4"><h4 class="text-white text-lg font-bold leading-relaxed flex-1">${news.title}</h4><span class="text-xs px-3 py-1 rounded-full border font-black shrink-0 ${badgeColor}">${news.sentiment}</span></div><a href="${news.link}" target="_blank" class="text-blue-400 text-sm hover:text-blue-300 mt-3 inline-flex items-center gap-1 font-bold">查看原文 🔗</a></div>`;
+                    container.innerHTML += `<div class="bg-slate-800/60 p-5 rounded-none border border-slate-700 mb-4 hover:border-blue-500/50 transition-colors"><div class="flex items-start justify-between gap-4"><h4 class="text-white text-lg font-bold leading-relaxed flex-1">${news.title}</h4><span class="text-xs px-3 py-1 rounded-full border font-black shrink-0 ${badgeColor}">${news.sentiment}</span></div><a href="${news.link}" target="_blank" class="text-blue-400 text-sm hover:text-blue-300 mt-3 inline-flex items-center gap-1 font-bold">查看原文 🔗</a></div>`;
                 });
             }
             document.getElementById('newsModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
@@ -447,7 +474,7 @@
                 let evBadge = "";
                 if (stock.ev !== undefined) {
                     let colorClass = stock.ev > 0 ? "red" : "green";
-                    evBadge = `<div class="flex justify-between items-center bg-${colorClass}-900/30 p-2.5 rounded-xl border border-${colorClass}-500/40 mb-3 shadow-inner"><span class="text-xs text-${colorClass}-200 font-bold">${stock.ev > 0 ? '🏆' : '⚠️'} 期望值(含停損)</span><span class="text-base font-mono font-black text-${colorClass}-400">${stock.ev > 0 ? '+' : ''}${stock.ev}%</span></div>`;
+                    evBadge = `<div class="flex justify-between items-center bg-${colorClass}-900/30 p-2.5 rounded-none border border-${colorClass}-500/40 mb-3 shadow-inner"><span class="text-xs text-${colorClass}-200 font-bold">${stock.ev > 0 ? '🏆' : '⚠️'} 期望值(含停損)</span><span class="text-base font-mono font-black text-${colorClass}-400">${stock.ev > 0 ? '+' : ''}${stock.ev}%</span></div>`;
                 }
 
                 let positionHtml = "";
@@ -464,7 +491,7 @@
                     let pnlBg = isStopLossTriggered ? 'bg-green-900 border-green-400 animate-pulse shadow-[0_0_20px_rgba(34,197,94,0.6)]' : (unrealizedPnL >= 0 ? 'bg-red-900/20 border-red-500/40' : 'bg-green-900/20 border-green-500/40');
                     let stopLossLabel = isStopLossTriggered ? `<span class="text-[11px] text-white bg-green-600 px-2 py-1 rounded font-black">🚨 跌破停損！立即清倉</span>` : `<span class="text-[9px] text-purple-400 font-bold animate-pulse">🎯 嚴格停損出場價</span>`;
 
-                    positionHtml = `<div class="mt-4 ${pnlBg} p-4 rounded-xl border transition-colors shadow-inner relative group cursor-default" onclick="event.stopPropagation()">
+                    positionHtml = `<div class="mt-4 ${pnlBg} p-4 rounded-none border transition-colors shadow-inner relative group cursor-default" onclick="event.stopPropagation()">
                         <button onclick="removeTrade(event, '${stock.symbol}')" class="absolute top-2 right-2 text-slate-500 hover:text-white bg-slate-800 rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
                         <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2"><span class="text-[11px] font-black text-blue-300 tracking-widest">💼 我的實戰部位</span><span class="text-sm font-mono font-black text-white">${trade.shares.toLocaleString()} 股</span></div>
                         <div class="flex justify-between items-end mb-3"><div><p class="text-[10px] text-slate-400 font-bold mb-0.5">未實現損益</p><p class="text-2xl font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}$${Math.round(unrealizedPnL).toLocaleString()}</p></div><div class="text-right"><p class="text-[10px] text-slate-400 font-bold mb-0.5">報酬率</p><p class="text-lg font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}${pnlPct}%</p></div></div>
@@ -478,33 +505,33 @@
                         let sharesToBuy = riskPerShare > 0 ? Math.floor((totalCapital * 0.02) / riskPerShare) : 0;
                         let totalInvestment = Math.round(sharesToBuy * stock.price);
                         let sharesDisplay = stock.symbol.endsWith(".TW") ? `${Math.floor(sharesToBuy/1000)}張 ${sharesToBuy%1000}股` : `${sharesToBuy.toLocaleString()}股`;
-                        positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 shadow-inner group"><div class="flex justify-between items-center mb-1"><p class="text-[11px] text-red-400 font-bold tracking-wide">🛡️ 2% 風控建議買進</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold transition-colors">➕ 記錄買進</button></div><div class="flex justify-between items-end"><p class="text-2xl font-mono font-black text-red-300">${sharesDisplay}</p><div class="text-right"><p class="text-[10px] text-red-400/70 font-bold mb-0.5 tracking-wide">預計投入金額</p><p class="text-base font-mono font-black text-red-200">$${totalInvestment.toLocaleString()}</p></div></div></div>`;
-                    } else if (stock.price <= ma20) { positionHtml = `<div class="mt-4 bg-green-900/20 p-4 rounded-xl border border-green-500/30 shadow-inner text-center"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破月線，風控系統鎖定</p></div>`; } 
-                    else { positionHtml = `<div class="mt-4 bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-inner text-center"><p class="text-xs text-slate-400 font-bold">請輸入本金以啟用計算機</p></div>`; }
+                        positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-none border border-red-500/40 shadow-inner group"><div class="flex justify-between items-center mb-1"><p class="text-[11px] text-red-400 font-bold tracking-wide">🛡️ 2% 風控建議買進</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold transition-colors">➕ 記錄買進</button></div><div class="flex justify-between items-end"><p class="text-2xl font-mono font-black text-red-300">${sharesDisplay}</p><div class="text-right"><p class="text-[10px] text-red-400/70 font-bold mb-0.5 tracking-wide">預計投入金額</p><p class="text-base font-mono font-black text-red-200">$${totalInvestment.toLocaleString()}</p></div></div></div>`;
+                    } else if (stock.price <= ma20) { positionHtml = `<div class="mt-4 bg-green-900/20 p-4 rounded-none border border-green-500/30 shadow-inner text-center"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破月線，風控系統鎖定</p></div>`; } 
+                    else { positionHtml = `<div class="mt-4 bg-slate-800 p-4 rounded-none border border-slate-700 shadow-inner text-center"><p class="text-xs text-slate-400 font-bold">請輸入本金以啟用計算機</p></div>`; }
                 }
 
-                card.className = `${statusColor} p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group`;
+                card.className = `${statusColor} p-6 rounded-none border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group`;
                 card.innerHTML = `
                     <div class="flex flex-col h-full">
                         <div class="flex justify-between items-center mb-5"><span class="bg-black/50 text-white text-xs px-3.5 py-1.5 rounded-full font-bold uppercase border border-white/10">${stock.category}</span><span class="text-sm font-mono font-bold text-white/40">${stock.symbol}</span></div>
                         <div class="flex items-center justify-between gap-2 mb-5 p-4 rounded-[1.5rem] border ${headerTheme} transition-all duration-300"><div><h2 class="text-3xl font-black tracking-tight leading-none">${stock.name}</h2></div><div class="flex flex-col items-end gap-1.5 shrink-0"><span class="text-[10px] whitespace-nowrap font-black px-2.5 py-1 rounded-lg bg-black/30 border border-white/5">${statusLabel}</span>${rsBadge}</div></div>
-                        <div class="bg-black/40 p-5 rounded-2xl mb-4 border border-white/5">
+                        <div class="bg-black/40 p-5 rounded-none mb-4 border border-white/5">
                             <div class="flex justify-between items-start mb-5"><div><p class="text-7xl font-mono font-black text-white tracking-tighter">${stock.price}</p></div><div class="text-right flex flex-col items-end gap-2.5"><div class="flex items-center gap-1.5 justify-end mb-1"><p class="text-[11px] text-white/50 font-bold">熱度 (RSI)</p>${rsiBadge}</div><p class="text-4xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : (stock.rsi < 30 ? 'text-green-400' : 'text-slate-200')}">${stock.rsi}</p></div></div>
                             ${evBadge}
-                            <div class="flex justify-between items-center bg-slate-800/80 p-3.5 rounded-xl border border-slate-600/50 mt-2 shadow-inner overflow-hidden">
+                            <div class="flex justify-between items-center bg-slate-800/80 p-3.5 rounded-none border border-slate-600/50 mt-2 shadow-inner overflow-hidden">
                                 <div class="text-center w-1/3 border-r border-slate-600/50"><p class="text-[11px] whitespace-nowrap text-slate-400 font-bold mb-1">歷史勝率</p><p class="text-2xl font-mono font-black text-blue-300">${stock.win_rate}%</p></div>
                                 <div class="text-center w-1/3 border-r border-slate-600/50 relative"><div class="absolute -top-3 -right-2 text-base animate-pulse">🎯</div><p class="text-[11px] whitespace-nowrap tracking-tighter text-purple-300 font-bold mb-1">最佳停損/移動停利</p><p class="text-2xl font-mono font-black text-purple-400">${stock.optimal_sl}%</p></div>
                                 <div class="text-center w-1/3"><p class="text-[11px] whitespace-nowrap tracking-tighter text-slate-400 font-bold mb-1">現行套用停損</p><p class="text-2xl font-mono font-black ${stock.actual_sl < stock.optimal_sl ? 'text-red-400' : 'text-green-400'}">${stock.actual_sl}%</p></div>
                             </div>
                             ${positionHtml}
-                            <div class="flex justify-between items-center bg-black/30 p-3.5 rounded-xl border border-white/5 mb-4 mt-3 shadow-inner">
+                            <div class="flex justify-between items-center bg-black/30 p-3.5 rounded-none border border-white/5 mb-4 mt-3 shadow-inner">
                                 <div class="text-center w-1/3 border-r border-white/10"><p class="text-[10px] text-slate-500 font-bold mb-1">5MA</p><p class="text-sm font-mono font-black ${stock.price > ma5 ? 'text-red-400' : 'text-green-400'}">${ma5}</p></div>
                                 <div class="text-center w-1/3 border-r border-white/10"><p class="text-[10px] text-slate-500 font-bold mb-1">20MA</p><p class="text-sm font-mono font-black ${stock.price > ma20 ? 'text-red-400' : 'text-green-400'}">${ma20}</p></div>
                                 <div class="text-center w-1/3"><p class="text-[10px] text-slate-500 font-bold mb-1">60MA</p><p class="text-sm font-mono font-black ${stock.price > ma60 ? 'text-red-400' : 'text-green-400'}">${ma60}</p></div>
                             </div>
-                            <div class="pt-3 border-t border-slate-700/50"><div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/30"><p class="text-xs font-black text-blue-300 mb-1">🤖 系統點評：</p><p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.ai_summary || '讀取中'}</p></div></div>
+                            <div class="pt-3 border-t border-slate-700/50"><div class="bg-blue-900/20 p-4 rounded-none border border-blue-500/30"><p class="text-xs font-black text-blue-300 mb-1">🤖 系統點評：</p><p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.ai_summary || '讀取中'}</p></div></div>
                         </div>
-                        <div class="bg-blue-900/30 p-4 rounded-xl border border-blue-500/30 mt-auto">
+                        <div class="bg-blue-900/30 p-4 rounded-none border border-blue-500/30 mt-auto">
                             <div class="flex justify-between items-end mb-2"><p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.vol_ratio > 1.5 ? '🔥 大戶進場表態' : '💤 散戶量縮盤整'}</p><p class="text-[11px] font-mono font-black text-blue-200">量能 ${stock.vol_ratio}x</p></div>
                             <div class="w-full bg-black/50 h-2 rounded-full overflow-hidden"><div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div></div>
                         </div>
