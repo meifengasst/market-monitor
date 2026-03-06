@@ -228,6 +228,7 @@
         }
         
         // 💡 渲染庫存清單大腦
+        // 💡 渲染庫存清單大腦 (阿土伯升級版：加入市值與元)
         function renderPortfolioSummary() {
             const summarySection = document.getElementById('portfolioSummarySection');
             const listContainer = document.getElementById('portfolioList');
@@ -251,6 +252,9 @@
 
                 let pnl = (currentPrice - trade.entryPrice) * trade.shares;
                 totalPnL += pnl;
+                
+                // 💡 新增：計算這檔股票當前的總市值 (現值)
+                let currentValue = Math.round(currentPrice * trade.shares);
 
                 let pnlColor = pnl >= 0 ? 'text-red-400' : 'text-green-400';
                 let pnlSign = pnl > 0 ? '+' : (pnl < 0 ? '-' : '');
@@ -272,10 +276,11 @@
                     <div>
                         <p class="text-sm font-black text-white">${stockName} <span class="text-[10px] text-slate-400 font-mono ml-1">${symbol}</span></p>
                         <p class="text-[11px] text-slate-400 mt-1 font-bold">持有: <span class="text-blue-300">${sharesDisplay}</span></p>
+                        <p class="text-[10px] text-slate-500 mt-0.5 font-bold">現值: <span class="text-slate-300">$${currentValue.toLocaleString()} 元</span></p>
                     </div>
                     <div class="text-right">
                         <p class="text-[10px] text-slate-500 mb-0.5 font-bold">損益</p>
-                        <p class="text-sm font-mono font-black ${pnlColor}">${pnlSign}$${absPnlStr}</p>
+                        <p class="text-sm font-mono font-black ${pnlColor}">${pnlSign}$${absPnlStr} 元</p>
                     </div>
                 </div>
                 `;
@@ -287,7 +292,8 @@
             let absTotalPnlStr = Math.abs(Math.round(totalPnL)).toLocaleString();
             
             totalPnLDisplay.className = `text-3xl font-mono font-black ${totalPnLColor}`;
-            totalPnLDisplay.innerText = `${totalPnLSign}$${absTotalPnlStr}`;
+            // 💡 新增：總未實現損益加上「元」單位
+            totalPnLDisplay.innerText = `${totalPnLSign}$${absTotalPnlStr} 元`;
         }
 
         const SECRET_PASSWORD = "29399909"; 
