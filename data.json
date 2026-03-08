@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-08 [22:58]",
+    "last_update": "2026-03-08 [23:05]",
     "data": [
         {
             "symbol": "NVDA",
@@ -2597,8 +2597,8 @@
             "vol_ratio": 1.2,
             "optimal_sl": 7,
             "actual_sl": 7,
-            "ev": 1.99,
-            "win_rate": 33.33,
+            "ev": 2.02,
+            "win_rate": 33.85,
             "history": [
                 {
                     "date": "2025-12-01",
@@ -7781,7 +7781,7 @@
                 "pct": 24.17
             }
         },
-        "ai_script": "⚠️ 未設定 GROQ_API_KEY，無法產生晨間劇本。請遵守 20MA 紀律操作。"
+        "ai_script": "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
     },
     "macro": {
         "tw_insight": "✅ 0050多頭穩定",
