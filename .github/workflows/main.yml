@@ -31,6 +31,7 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
           LINE_TARGET_ID: ${{ secrets.LINE_TARGET_ID }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }} # 美股報價鑰匙
           TZ: Asia/Taipei # 強制台灣時區
         run: python analyze.py
