@@ -133,7 +133,7 @@ def generate_morning_script_via_groq(market_data):
             "Content-Type": "application/json"
         }
         payload = {
-            "model": "llama3-70b-8192", # 或者用 llama3-8b-8192 求快
+            "model": "llama3-8b-8192",
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
@@ -320,6 +320,7 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
