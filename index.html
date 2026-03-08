@@ -28,20 +28,7 @@
                 </div>
             </div>
 
-            <h2 class="text-2xl font-black text-blue-400 mb-6 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📜</span> 阿土伯實戰鐵律</h2>
-            <div class="flex flex-col gap-4 text-sm pb-4">
-                <div class="bg-red-900/20 p-4 rounded-2xl border border-red-500/30 shadow-[0_0_10px_rgba(239,68,68,0.1)]">
-                    <h3 class="text-red-400 font-black mb-2 text-base">⚠️ 進出最高指導原則 (最重要)</h3>
-                    <p class="text-slate-300 leading-relaxed text-sm">
-                        <span class="text-green-400 font-bold">【做多條件】</span> 股價必須站上 20MA (月線)！<br>
-                        <span class="text-red-400 font-bold">【空手觀望】</span> 股價跌破 20MA，絕對不摸底接刀！<br>
-                        <span class="text-purple-400 font-bold">【無情停損】</span> 跌破系統算出的防線，無條件砍單，嚴禁凹單！
-                    </p>
-                </div>
-            </div>
-
-            <h2 class="text-2xl font-black text-purple-400 mb-6 mt-8 flex items-center gap-2 border-b border-slate-700 pb-4"><span>📖</span> 術語深度解讀</h2>
-            <div class="flex flex-col gap-4 text-sm pb-4">
+            
                 <div class="bg-black/20 p-4 rounded-2xl border border-white/5">
                     <h3 class="text-green-400 font-black mb-2 text-base">🏆 策略期望值 (EV)</h3>
                     <p class="text-slate-300 leading-relaxed text-sm">每一次交易所預期的平均獲利%。長期來看此數值必須為正。</p>
@@ -55,6 +42,18 @@
                     <p class="text-slate-300 leading-relaxed text-sm">根據大盤動態調整。大盤轉弱破月線時，停損會被強制收緊以優先保護資金。</p>
                 </div>
             </div>
+
+<button onclick="openRulesModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 hover:border-blue-500 rounded-2xl py-4 px-5 flex items-center justify-between transition-all shadow-lg group mt-4">
+    <div class="flex items-center gap-3">
+        <span class="text-2xl group-hover:animate-bounce">💡</span>
+        <div class="text-left">
+            <p class="font-black text-blue-400 text-sm tracking-widest mb-0.5">阿土伯實戰心法</p>
+            <p class="text-xs text-slate-400 font-bold">鐵律與術語白話文翻譯</p>
+        </div>
+    </div>
+    <span class="text-slate-500 group-hover:text-blue-400 transition-colors font-black text-xl">👉</span>
+</button>
+    
         </aside>
 
         <main class="flex-1 w-full min-w-0">
@@ -155,6 +154,68 @@
         </div>
     </div>
 
+<div id="rulesModal" onclick="if(event.target === this) closeModal('rulesModal')" class="fixed inset-0 bg-black/90 hidden z-[80] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
+    <div class="bg-slate-800 rounded-3xl w-full max-w-3xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh] cursor-auto">
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
+            <div>
+                <h3 class="text-2xl font-black text-blue-400 flex items-center gap-2"><span>💡</span> 阿土伯實戰心法與術語寶典</h3>
+                <p class="text-slate-400 text-sm mt-1 font-bold">進場前先唸三遍，保證不當韭菜</p>
+            </div>
+            <button onclick="closeModal('rulesModal')" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
+        </div>
+        <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar space-y-8">
+            
+            <div>
+                <h2 class="text-xl font-black text-blue-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2"><span>📜</span> 進出最高指導原則</h2>
+                <div class="bg-red-900/20 p-5 rounded-2xl border border-red-500/30 shadow-[0_0_10px_rgba(239,68,68,0.1)]">
+                    <p class="text-slate-300 leading-relaxed text-sm space-y-2">
+                        <span class="block"><span class="text-green-400 font-bold inline-block w-24">【做多條件】</span> 股價必須站上 20MA (月線)！</span>
+                        <span class="block"><span class="text-red-400 font-bold inline-block w-24">【空手觀望】</span> 股價跌破 20MA，絕對不摸底接刀！</span>
+                        <span class="block"><span class="text-purple-400 font-bold inline-block w-24">【無情停損】</span> 跌破系統算出的防線，無條件砍單，嚴禁凹單！</span>
+                    </p>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-black text-purple-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2"><span>📖</span> 術語白話文翻譯</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="bg-black/20 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                        <h3 class="text-green-400 font-black mb-1">📈 20MA (月線)</h3>
+                        <p class="text-slate-400 text-xs font-bold mb-2">多空生命線、紅綠燈</p>
+                        <p class="text-slate-300 leading-relaxed text-xs">站上就是綠燈可通行，跌破就是紅燈。代表過去一個月大家的平均成本。</p>
+                    </div>
+                    <div class="bg-black/20 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                        <h3 class="text-red-400 font-black mb-1">🔥 RSI (熱度)</h3>
+                        <p class="text-slate-400 text-xs font-bold mb-2">餐廳排隊人潮</p>
+                        <p class="text-slate-300 leading-relaxed text-xs">>70 代表人太多容易追高買貴；<30 代表門可羅雀，可能有便宜撿但也可能有雷。</p>
+                    </div>
+                    <div class="bg-black/20 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                        <h3 class="text-blue-400 font-black mb-1">⚡ MACD (動能)</h3>
+                        <p class="text-slate-400 text-xs font-bold mb-2">油門與剎車</p>
+                        <p class="text-slate-300 leading-relaxed text-xs">紅柱代表多方猛踩油門，有爆發力；綠柱代表空方踩剎車，動能減弱。</p>
+                    </div>
+                    <div class="bg-black/20 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                        <h3 class="text-yellow-400 font-black mb-1">🌎 VIX (恐慌指數)</h3>
+                        <p class="text-slate-400 text-xs font-bold mb-2">大盤地震警報器</p>
+                        <p class="text-slate-300 leading-relaxed text-xs">數值越高代表大家越害怕崩盤。但阿土伯說：別人恐慌我貪婪，常是撿便宜時機。</p>
+                    </div>
+                    <div class="bg-black/20 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                        <h3 class="text-emerald-400 font-black mb-1">🏆 期望值 (EV)</h3>
+                        <p class="text-slate-400 text-xs font-bold mb-2">賭場老闆思維</p>
+                        <p class="text-slate-300 leading-relaxed text-xs">做 100 次最後是賺還是賠？只要贏的時候大賺，輸的時候小賠，勝率不到一半也能賺錢。</p>
+                    </div>
+                    <div class="bg-black/20 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
+                        <h3 class="text-purple-400 font-black mb-1">🎯 移動停利</h3>
+                        <p class="text-slate-400 text-xs font-bold mb-2">爬樓梯拉安全網</p>
+                        <p class="text-slate-300 leading-relaxed text-xs">股價往上漲，底下的停損網也跟著往上拉。讓獲利奔跑，把風險鎖死！</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    
     <style>
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
@@ -423,6 +484,16 @@
             modal.classList.add('opacity-0'); modal.children[0].classList.add('scale-95'); 
             setTimeout(() => modal.classList.add('hidden'), 300); 
         }
+
+        // 💡 開啟實戰心法 Modal
+function openRulesModal() {
+    const modal = document.getElementById('rulesModal');
+    modal.classList.remove('hidden');
+    setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.children[0].classList.remove('scale-95');
+    }, 10);
+}
 
         // 渲染股票卡片大腦
         function renderData(filterText = '') {
