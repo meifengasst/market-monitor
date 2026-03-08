@@ -133,16 +133,22 @@ def generate_morning_script_via_groq(market_data):
             "Content-Type": "application/json"
         }
         payload = {
-            "model": "llama3-8b-8192", # 👈 換回這顆最穩定的腦袋
+            # 💡 換成 Groq 目前官方最新、最穩定的模型名稱
+            "model": "llama-3.1-8b-instant", 
             "messages": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            "temperature": 0.3, # 溫度調低，讓它冷靜一點
+            "temperature": 0.3,
             "max_tokens": 150
         }
         
-        response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=10)
+        response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
+        
+        # 💡 阿土伯超級抓蟲器：如果伺服器退件，印出「詳細退件原因」
+        if response.status_code != 200:
+            print(f"❌ Groq 退件詳細原因: {response.text}")
+            
         response.raise_for_status()
         script = response.json()["choices"][0]["message"]["content"].strip()
         return script
@@ -320,6 +326,7 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
