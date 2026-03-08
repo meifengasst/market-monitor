@@ -363,14 +363,7 @@
                 rawData.forEach(s => stockMap[s.symbol] = s);
                 document.getElementById('update-time').innerText = json.last_update;
 
-                if (json.macro) { 
-                    const twEl = document.getElementById('macro-tw');
-                    const usEl = document.getElementById('macro-us');
-                    twEl.innerText = json.macro.tw_insight || "暫無資料";
-                    usEl.innerText = json.macro.us_insight || "暫無資料";
-                    twEl.className = twEl.innerText.includes('⚠️') ? "text-xs px-3 py-1 rounded-full font-black border bg-green-900/40 text-green-400 border-green-500 animate-pulse" : "text-xs px-3 py-1 rounded-full font-black border bg-red-900/30 text-red-400 border-red-500/50";
-                    usEl.className = usEl.innerText.includes('⚠️') ? "text-xs px-3 py-1 rounded-full font-black border bg-green-900/40 text-green-400 border-green-500 animate-pulse" : "text-xs px-3 py-1 rounded-full font-black border bg-red-900/30 text-red-400 border-red-500/50";
-                }
+                
                 
                 if (json.market_health) {
                     let healthData = json.market_health;
