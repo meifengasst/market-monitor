@@ -77,6 +77,79 @@ STOCKS = {
     "9904.TW": {"name": "寶成", "category": "運動鞋"}
 }
 
+def get_us_market_summary():
+    """抓取昨夜美股四大關鍵指標的漲跌幅"""
+    symbols = {"SPY": "標普500", "SOXX": "費城半導體", "TSM": "台積電ADR", "^VIX": "恐慌指數"}
+    summary = {}
+    
+    print("🌍 阿土伯正在收集昨夜美股戰報...")
+    for sym, name in symbols.items():
+        try:
+            # 抓近兩天收盤價來算漲跌幅
+            data = yf.download(sym, period="5d", progress=False)
+            if len(data) >= 2:
+                # 取得最後兩天的收盤價 (處理 yfinance 可能的 MultiIndex 格式)
+                close_prices = data['Close'].iloc[-2:].values.flatten()
+                prev_close = close_prices[0]
+                last_close = close_prices[1]
+                
+                pct_change = ((last_close - prev_close) / prev_close) * 100
+                summary[name] = {"price": round(last_close, 2), "pct": round(pct_change, 2)}
+            else:
+                summary[name] = {"price": 0, "pct": 0}
+        except Exception as e:
+            print(f"⚠️ 抓取 {name} 失敗: {e}")
+            summary[name] = {"price": 0, "pct": 0}
+            
+    return summary
+
+def generate_morning_script_via_groq(market_data):
+    """將數據餵給 Groq，產出阿土伯的嚴格晨間劇本"""
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    if not groq_api_key:
+        return "⚠️ 未設定 GROQ_API_KEY，無法產生晨間劇本。請遵守 20MA 紀律操作。"
+
+    # 組合給 AI 看的數據
+    data_str = ", ".join([f"{k}: 變化 {v['pct']}% (收 {v['price']})" for k, v in market_data.items()])
+    
+    # 💡 這就是【阿土伯專屬 Prompt】，鎖死它的語氣與風控邏輯！
+    system_prompt = """
+    你現在是台灣股市老手「阿土伯」，極度重視風險控制，極度痛恨賭徒式加碼與凹單。
+    你的任務是根據提供的【昨夜美股數據】，給出【今日台股開盤的行動指南】。
+    
+    規則：
+    1. 語氣要果斷、嚴厲、接地氣（可使用「接刀」、「韭菜」、「抱牢」、「紀律」等詞彙）。
+    2. 必須給出「今日資金曝險上限建議（例如 20% 或 50%）」。
+    3. 如果費半(SOXX)或台積電ADR(TSM)大跌，必須嚴格警告「開盤嚴禁接刀」。
+    4. 字數嚴格限制在 80 字以內，不要廢話，直接給指令！
+    """
+    
+    user_prompt = f"昨夜美股數據：{data_str}。請阿土伯下達今日台股操作鐵律！"
+
+    try:
+        print("🧠 呼叫 Groq AI 撰寫晨間劇本...")
+        headers = {
+            "Authorization": f"Bearer {groq_api_key}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "llama3-70b-8192", # 或者用 llama3-8b-8192 求快
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            "temperature": 0.3, # 溫度調低，讓它冷靜一點
+            "max_tokens": 150
+        }
+        
+        response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=10)
+        response.raise_for_status()
+        script = response.json()["choices"][0]["message"]["content"].strip()
+        return script
+    except Exception as e:
+        print(f"⚠️ Groq API 呼叫失敗: {e}")
+        return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
+
 def generate_dashboard_data():
     #ptt_data = get_ptt_sentiment(get_ptt_news())
     bear_markets = check_market_regime() 
@@ -214,13 +287,19 @@ def generate_dashboard_data():
     except:
         vix_price = 0
 
-    # 💡 阿土伯新增：計算自選股多空健康度 (% 數站上月線)
+    # 💡 呼叫阿土伯晨間戰情室 (獲取昨夜美股 + Groq AI 劇本)
+    us_market_data = get_us_market_summary()
+    morning_script = generate_morning_script_via_groq(us_market_data)
+
     above_20ma_count = sum(1 for d in dashboard_data if d['price'] > d['history'][-1]['ma20'])
     health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
 
+    # 把 AI 劇本跟美股數據一起打包
     market_health = {
-        "vix": vix_price,
-        "health_pct": health_pct
+        "vix": us_market_data.get("恐慌指數", {}).get("price", 0),
+        "health_pct": health_pct,
+        "us_summary": us_market_data,     # 傳給前端顯示紅綠燈
+        "ai_script": morning_script       # 傳給前端顯示阿土伯指令
     }
 
     # 💡 存檔時，把原本的 "ptt": ptt_data 換成 "market_health": market_health
@@ -241,6 +320,7 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
