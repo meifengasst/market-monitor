@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-08 [23:05]",
+    "last_update": "2026-03-08 [23:25]",
     "data": [
         {
             "symbol": "NVDA",
@@ -2597,8 +2597,8 @@
             "vol_ratio": 1.2,
             "optimal_sl": 7,
             "actual_sl": 7,
-            "ev": 2.02,
-            "win_rate": 33.85,
+            "ev": 1.99,
+            "win_rate": 33.33,
             "history": [
                 {
                     "date": "2025-12-01",
