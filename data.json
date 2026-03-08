@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-08 [22:08]",
+    "last_update": "2026-03-08 [22:42]",
     "data": [
         {
             "symbol": "NVDA",
@@ -7762,7 +7762,26 @@
     ],
     "market_health": {
         "vix": 29.49,
-        "health_pct": 33
+        "health_pct": 33,
+        "us_summary": {
+            "標普500": {
+                "price": 672.38,
+                "pct": -1.31
+            },
+            "費城半導體": {
+                "price": 323.51,
+                "pct": -4.22
+            },
+            "台積電ADR": {
+                "price": 338.89,
+                "pct": -4.23
+            },
+            "恐慌指數": {
+                "price": 29.49,
+                "pct": 24.17
+            }
+        },
+        "ai_script": "⚠️ 未設定 GROQ_API_KEY，無法產生晨間劇本。請遵守 20MA 紀律操作。"
     },
     "macro": {
         "tw_insight": "✅ 0050多頭穩定",
