@@ -399,12 +399,13 @@
                             let sign = item.pct > 0 ? '+' : '';
                             let bgClass = item.pct > 0 ? 'bg-red-900/20 border-red-500/30' : (item.pct < 0 ? 'bg-green-900/20 border-green-500/30' : 'bg-slate-800 border-slate-700');
                             
+                            // 💡 替換成阿土伯的老花眼友善放大版！
                             usGrid.innerHTML += `
-                            <div class="p-3 rounded-xl border ${bgClass} flex flex-col justify-center shadow-inner transition-colors hover:border-blue-500/50">
-                                <p class="text-[11px] text-slate-400 font-bold mb-1">${key}</p>
-                                <div class="flex items-end justify-between">
-                                    <p class="text-sm font-mono font-black text-white">${item.price}</p>
-                                    <p class="text-[11px] font-mono font-black ${colorClass}">${sign}${item.pct}%</p>
+                            <div class="p-4 md:p-5 rounded-2xl border ${bgClass} flex flex-col justify-center shadow-inner transition-colors hover:border-blue-500/50">
+                                <p class="text-sm md:text-base text-slate-400 font-bold mb-2 tracking-wide">${key}</p>
+                                <div class="flex items-baseline justify-between mt-1">
+                                    <p class="text-xl md:text-2xl font-mono font-black text-white tracking-wider">${item.price}</p>
+                                    <p class="text-sm md:text-base font-mono font-black ${colorClass}">${sign}${item.pct}%</p>
                                 </div>
                             </div>`;
                         }
