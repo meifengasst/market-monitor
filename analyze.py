@@ -23,33 +23,38 @@ def send_line_alert(message):
 
 
 
-def calculate_ev_from_df(df, stop_loss_pct):
-    trades, entry_price, in_position = [], 0, False
-    peak_price = 0 
+def calculate_ev_from_df(df, atr_period=14, atr_multiplier=1.5):
+    """
+    阿土伯的 ATR 動態期望值與勝率回測系統
+    """
+    # 先呼叫 ATR 函數算出每天的波動
+    df = calculate_atr_stop_loss(df, period=atr_period, multiplier=atr_multiplier)
+
+    trades, entry_price, in_position, peak_price = [], 0, False, 0 
     
     for index, row in df.iterrows():
+        if pd.isna(row['ATR']): continue
+
         if in_position:
             peak_price = max(peak_price, row['High'])
-            fixed_stop = entry_price * (1 - stop_loss_pct)
-            trailing_stop = peak_price * (1 - stop_loss_pct)
-            actual_exit_price = max(fixed_stop, trailing_stop)
-
-            if row['Low'] <= actual_exit_price:
+            trailing_stop = peak_price - (row['ATR'] * atr_multiplier) # 動態防守線
+            
+            if row['Low'] <= trailing_stop:
+                actual_exit_price = min(row['Open'], trailing_stop)
                 trades.append((actual_exit_price - entry_price) / entry_price)
                 in_position = False
-            elif row['Signal'] == -1:
+            elif row.get('Signal', 0) == -1:
                 trades.append((row['Close'] - entry_price) / entry_price)
                 in_position = False
-        elif not in_position and row['Signal'] == 1:
-            entry_price, in_position = row['Close'], True
-            peak_price = row['Close']
+        elif not in_position and row.get('Signal', 0) == 1:
+            entry_price, in_position, peak_price = row['Close'], True, row['Close']
 
-    if not trades: return None
+    if not trades: return {"ev": 0.0, "win_rate": 0.0, "trades_count": 0}
     ts = pd.Series(trades)
     win_ts, loss_ts = ts[ts > 0], ts[ts <= 0]
     p_win = len(win_ts) / len(ts) if len(ts) > 0 else 0
-    ev = (p_win * (win_ts.mean() if not win_ts.empty else 0)) - ((len(loss_ts) / len(ts) if len(ts) > 0 else 0) * (abs(loss_ts.mean()) if not loss_ts.empty else 0))
-    return {"ev": round(ev * 100, 2), "win_rate": round(p_win * 100, 2)}
+    ev = (p_win * (win_ts.mean() if not win_ts.empty else 0)) - ((1 - p_win) * (abs(loss_ts.mean()) if not loss_ts.empty else 0))
+    return {"ev": round(ev * 100, 2), "win_rate": round(p_win * 100, 2), "trades_count": len(ts)}
 
 def check_market_regime():
     regime = {"TW": False, "US": False} 
@@ -235,111 +240,62 @@ def generate_dashboard_data():
     
     dashboard_data = []
 
-    for symbol, info in STOCKS.items():
+for symbol, info in STOCKS.items():
         print(f"處理中: {symbol}")
         df = yf.download(symbol, start="2021-01-01", progress=False)
         if df.empty: continue
         if isinstance(df.columns, pd.MultiIndex): df.columns = df.columns.droplevel(1)
             
-        # 💡 阿土伯升級：美股/台股 雙引擎即時報價系統
-        if not symbol.endswith(".TW"):
-            finnhub_key = os.environ.get("FINNHUB_API_KEY")
-            if finnhub_key:
-                try:
-                    res = requests.get(f"https://finnhub.io/api/v1/quote?symbol={symbol}&token={finnhub_key}", timeout=5)
-                    if res.status_code == 200:
-                        real_time_price = res.json().get('c')
-                        if real_time_price and real_time_price > 0:
-                            df.iloc[-1, df.columns.get_loc('Close')] = round(real_time_price, 2)
-                            print(f"⚡ {symbol} 成功獲取 Finnhub 即時報價: {real_time_price}")
-                except Exception as e:
-                    print(f"⚠️ {symbol} Finnhub 報價失敗，退回歷史收盤價")
-        else:
-            try: df.iloc[-1, df.columns.get_loc('Close')] = round(yf.Ticker(symbol).fast_info.get('lastPrice', df['Close'].iloc[-1]), 2)
-            except: pass
+        # ... (中間你原本獲取 Finnhub 即時報價跟計算 ma, macd, rsi 的程式碼保持不變) ...
+        # (從 df['Signal'] = ... 之後接續以下內容)
         
-        # 技術指標計算
-        df['ma5'] = df['Close'].rolling(5).mean()
-        df['ma20'] = df['Close'].rolling(20).mean()
-        df['ma60'] = df['Close'].rolling(60).mean()
-        df['std'] = df['Close'].rolling(20).std()
-        df['bb_upper'], df['bb_lower'] = df['ma20'] + 2 * df['std'], df['ma20'] - 2 * df['std']
-        df['macd'] = df['Close'].ewm(span=12).mean() - df['Close'].ewm(span=26).mean()
-        df['macd_signal'] = df['macd'].ewm(span=9).mean()
-        df['macd_hist'] = df['macd'] - df['macd_signal']
-        delta = df['Close'].diff()
-        df['rsi'] = 100 - (100 / (1 + (delta.where(delta > 0, 0).rolling(14).mean() / -delta.where(delta < 0, 0).rolling(14).mean())))
-        df['Signal'] = np.where(df['Close'] > df['ma20'], 1, np.where(df['Close'] < df['ma20'], -1, 0))
-        df = df.fillna(0)
-        
-        try:
-            market_idx = tw_idx if symbol.endswith(".TW") else us_idx
-            stock_ret_20 = (df['Close'].iloc[-1] - df['Close'].iloc[-20]) / df['Close'].iloc[-20]
-            idx_ret_20 = (market_idx['Close'].iloc[-1] - market_idx['Close'].iloc[-20]) / market_idx['Close'].iloc[-20]
-            rs_score = round((stock_ret_20 - idx_ret_20) * 100, 2)
-        except:
-            rs_score = 0
-        
-        best_sl, best_ev = 0.05, -999
-        for sl in [0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12]:
-            res = calculate_ev_from_df(df, sl)
-            if res and res['ev'] > best_ev: best_ev, best_sl = res['ev'], sl
+        # 確保我們先算出基礎的 ATR
+        df = calculate_atr_stop_loss(df, period=14, multiplier=1.5)
+        current_price = round(df['Close'].iloc[-1], 2)
+        current_atr = df['ATR'].iloc[-1] if not pd.isna(df['ATR'].iloc[-1]) else (current_price * 0.03) # 防呆
+
+        # 💡 阿土伯 ATR 動態回測 (尋找最佳 ATR 倍數)
+        best_multiplier, best_ev = 1.5, -999
+        for mult in [1.5, 2.0, 2.5, 3.0]:
+            res = calculate_ev_from_df(df, atr_period=14, atr_multiplier=mult)
+            if res and res['ev'] > best_ev: best_ev, best_multiplier = res['ev'], mult
                 
         is_bear = bear_markets["TW"] if symbol.endswith(".TW") else bear_markets["US"]
-        actual_sl = 0.03 if is_bear else best_sl
-        actual_res = calculate_ev_from_df(df, actual_sl)
+        # 如果大盤破線，防守倍數強制收緊至 1 倍 ATR，否則用最佳倍數
+        actual_multiplier = 1.0 if is_bear else best_multiplier 
+        actual_res = calculate_ev_from_df(df, atr_period=14, atr_multiplier=actual_multiplier)
         actual_ev = actual_res['ev'] if actual_res else 0
         actual_win = actual_res['win_rate'] if actual_res else 0
 
-        current_price = round(df['Close'].iloc[-1], 2)
+        # 為了配合前端網頁，將 ATR 距離換算回百分比 (%)
+        best_sl_pct = (current_atr * best_multiplier) / current_price
+        actual_sl_pct = (current_atr * actual_multiplier) / current_price
 
-        # 🚨 阿土伯 LINE 專屬風險管家 (停損觸發檢查) 🚨
-        if symbol in cloud_portfolio:
-            trade = cloud_portfolio[symbol]
-            entry_price = trade.get('entryPrice', current_price)
-            peak_price = trade.get('peakPrice', entry_price)
-
-            # 1. 檢查是否創新高 (移動停利機制)
-            if current_price > peak_price:
-                trade['peakPrice'] = current_price
-                portfolio_updated = True
-                peak_price = current_price
-
-            # 2. 計算這檔股票的嚴格停損/停利價
-            actual_exit_price = max(entry_price * (1 - actual_sl), peak_price * (1 - actual_sl))
-
-            # 3. 檢查是否跌破防線
-            if current_price <= actual_exit_price:
-                if not trade.get('alerted', False): # 如果還沒叫過，就馬上發 LINE！
-                    
-                    # 💡 阿土伯新增：動態判斷並生成「收緊原因」的文字
-                    if is_bear:
-                        reason_msg = f"\n⚠️ [大盤避險啟動]\n停損已由 {int(best_sl*100)}% 強制收緊至 3%！"
-                    else:
-                        reason_msg = f"\n(套用系統最佳停損 {int(best_sl*100)}%)"
-
-                    alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}{reason_msg}\n\n⚡ 已跌破嚴格防線，請立即無情清倉，保護本金！"
-                    
-                    send_line_alert(alert_msg)
-                    trade['alerted'] = True
-                    portfolio_updated = True
-            else:
-                # 若股價爭氣站回防線之上，解除警報標記
-                if trade.get('alerted', False):
-                    trade['alerted'] = False
-                    portfolio_updated = True
+        # ... (中間你原本 LINE 警報檢查的程式碼保持不變，將 actual_sl 替換為 actual_sl_pct 即可) ...
 
         hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2)} for i, r in df.tail(60).iterrows()]
         
         rs_comment = f"【主力資金偏好】近期表現強於大盤 {rs_score}%！" if rs_score > 5 else (f"【溫吞股】近期表現落後大盤 {rs_score}%。" if rs_score < 0 else "與大盤同步。")
         
+        # 💡 動態生成系統點評 (消滅死板的 3%)
+        ai_msg = f"🎯 最佳動態停損為 {int(best_sl_pct*100)}% (ATR {best_multiplier}倍)。"
+        if is_bear:
+            ai_msg += f"目前大盤破線，防守強制收緊至 {int(actual_sl_pct*100)}% (ATR 1倍)！ {rs_comment}"
+        else:
+            ai_msg += f"目前大盤穩定。 {rs_comment}"
+
+        # 💡 呼叫 AI 新聞掃雷器，把菜煮好！
+        news_list = get_ai_news_sentiment(symbol, info["name"])
+        
+        # 👉 將所有數據正式打包進 JSON (包含新聞！)
         dashboard_data.append({
             "symbol": symbol, "name": info["name"], "category": info["category"],
             "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
-            "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
+            "vol_ratio": 1.2, "optimal_sl": int(best_sl_pct*100), "actual_sl": int(actual_sl_pct*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
             "rs_score": rs_score, 
-            "ai_summary": f"🎯 最佳移動停利/停損為 {int(best_sl*100)}%。{'目前大盤破線，已強制縮緊至 3% 防守！' if is_bear else '目前大盤穩定。'} {rs_comment}",
+            "ai_summary": ai_msg,
+            "news_items": news_list, # 👈 關鍵！終於把新聞塞進去了！
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
@@ -385,6 +341,7 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
