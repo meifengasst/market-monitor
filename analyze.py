@@ -160,15 +160,14 @@ def generate_dashboard_data():
     #ptt_data = get_ptt_sentiment(get_ptt_news())
     bear_markets = check_market_regime() 
     
-    # 💡 確保 Python 讀取的是最新的雲端檔案
-portfolio_file = "portfolio.json"
-try:
-    with open(portfolio_file, "r", encoding="utf-8") as f:
-        cloud_portfolio = json.load(f)
-    print(f"✅ 成功讀取雲端庫存，共有 {len(cloud_portfolio)} 檔標的")
-except Exception as e:
-    print(f"⚠️ 讀取庫存失敗: {e}")
-    cloud_portfolio = {}
+    # 💡 阿土伯新增：讀取雲端庫存保險箱
+    portfolio_file = "portfolio.json"
+    try:
+        with open(portfolio_file, "r", encoding="utf-8") as f:
+            cloud_portfolio = json.load(f)
+    except:
+        cloud_portfolio = {}
+    portfolio_updated = False
     
     tw_idx = yf.download("0050.TW", period="6mo", progress=False)
     us_idx = yf.download("SPY", period="6mo", progress=False)
@@ -273,19 +272,11 @@ except Exception as e:
 
         hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2)} for i, r in df.tail(60).iterrows()]
         
-        # 💡 阿土伯新增：從庫存保險箱抓取你的「買進均價」與「持有股數」
-        # 如果庫存裡沒有這檔股票，預設就給 0
-        my_entry_price = cloud_portfolio.get(symbol, {}).get('entryPrice', 0)
-        my_shares = cloud_portfolio.get(symbol, {}).get('shares', 0)
-
         rs_comment = f"【主力資金偏好】近期表現強於大盤 {rs_score}%！" if rs_score > 5 else (f"【溫吞股】近期表現落後大盤 {rs_score}%。" if rs_score < 0 else "與大盤同步。")
         
         dashboard_data.append({
             "symbol": symbol, "name": info["name"], "category": info["category"],
-            "price": current_price, 
-            "entry_price": my_entry_price,  # 👈 阿土伯加這行：買進均價
-            "shares": my_shares,            # 👈 阿土伯加這行：持有股數 (實戰計算總損益必備)
-            "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
+            "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
             "rs_score": rs_score, 
@@ -335,9 +326,6 @@ except Exception as e:
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
-
-
-
 
 
 
