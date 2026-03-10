@@ -1,20 +1,14 @@
 {
-    "2330.TW": {
-        "entryPrice": 1050,
-        "shares": 15,
-        "peakPrice": 1885.0,
+    "0050.TW": {
+        "entryPrice": 76.25,
+        "peakPrice": 76.25,
+        "shares": 655,
         "alerted": false
     },
-    "0050.TW": {
-        "entryPrice": 185,
-        "shares": 645,
-        "peakPrice": 185,
-        "alerted": true
-    },
-    "2337.TW": {
-        "entryPrice": 38.5,
-        "shares": 161,
-        "peakPrice": 96.0,
-        "alerted": true
+    "2330.TW": {
+        "entryPrice": 1880.0,
+        "peakPrice": 1880.0,
+        "shares": 13,
+        "alerted": false
     }
 }
