@@ -249,27 +249,104 @@
             document.getElementById('tradeModalContent').classList.add('scale-95');
             setTimeout(() => document.getElementById('tradeModal').classList.add('hidden'), 300);
         }
-        function saveTrade() {
-            let symbol = document.getElementById('tradeSymbol').innerText;
-            let price = parseFloat(document.getElementById('tradePrice').value);
-            let shares = parseInt(document.getElementById('tradeShares').value);
-            if (price > 0 && shares > 0) {
-                myPortfolio[symbol] = { entryPrice: price, shares: shares, peakPrice: price };
-                localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-                closeTradeModal();
-                renderData(document.getElementById('searchInput').value); 
-                renderPortfolioSummary();
-            } else { alert("請輸入正確的價格與股數！"); }
+
+// ==========================================
+// 💡 阿土伯全自動化同步區塊
+// ==========================================
+
+// 1. 新增：遠端同步函數 (負責把網頁變動傳上雲端)
+async function syncPortfolioToGithub() {
+    const token = localStorage.getItem('atu_github_token');
+    if (!token) {
+        alert("🕵️‍♂️ 偵測不到 GitHub Token，請點擊『強制更新』按鈕設定 Token 後才能同步！");
+        return;
+    }
+
+    const path = "portfolio.json"; 
+    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+    const portfolioData = JSON.stringify(myPortfolio, null, 4);
+
+    try {
+        console.log("🚀 正在啟動雲端同步...");
+        
+        // A. 先取得檔案的 SHA (GitHub API 必要步驟)
+        const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+        let sha = "";
+        if (getRes.ok) {
+            const fileInfo = await getRes.json();
+            sha = fileInfo.sha;
         }
-        function removeTrade(event, symbol) {
-            event.stopPropagation(); 
-            if(confirm(`確定要將 ${symbol} 從實戰部位中移除嗎？`)) {
-                delete myPortfolio[symbol];
-                localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-                renderData(document.getElementById('searchInput').value);
-                renderPortfolioSummary();
-            }
+
+        // B. 將最新的 myPortfolio 推送到 GitHub
+        const putRes = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `🤖 阿土伯自動同步庫存: ${new Date().toLocaleString()}`,
+                content: btoa(unescape(encodeURIComponent(portfolioData))), // 處理 UTF-8 編碼
+                sha: sha
+            })
+        });
+
+        if (putRes.ok) {
+            console.log("✅ 雲端庫存同步成功！");
+            // C. 同步完後，順便叫 Python 腳本跑一遍 (LINE 才會更新)
+            triggerGitHubAction(); 
+        } else {
+            const err = await putRes.json();
+            alert(`❌ 同步失敗：${err.message}`);
         }
+    } catch (error) {
+        console.error("⚠️ 同步出錯:", error);
+        alert("❌ 網路連線異常，無法同步雲端庫存。");
+    }
+}
+
+// 2. 修改：儲存交易函數 (加上同步邏輯)
+function saveTrade() {
+    let symbol = document.getElementById('tradeSymbol').innerText;
+    let price = parseFloat(document.getElementById('tradePrice').value);
+    let shares = parseInt(document.getElementById('tradeShares').value);
+    
+    if (price > 0 && shares > 0) {
+        // 更新本地端資料
+        myPortfolio[symbol] = { 
+            entryPrice: price, 
+            shares: shares, 
+            peakPrice: price,
+            alerted: false 
+        };
+        localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
+        
+        closeTradeModal();
+        renderData(document.getElementById('searchInput').value); 
+        renderPortfolioSummary();
+
+        // 💡 關鍵：自動同步到雲端 GitHub
+        syncPortfolioToGithub(); 
+    } else { 
+        alert("請輸入正確的價格與股數！"); 
+    }
+}
+
+// 3. 修改：移除交易函數 (加上同步邏輯)
+function removeTrade(event, symbol) {
+    event.stopPropagation(); 
+    if(confirm(`確定要將 ${symbol} 從實戰部位中移除嗎？`)) {
+        // 刪除本地端資料
+        delete myPortfolio[symbol];
+        localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
+        
+        renderData(document.getElementById('searchInput').value);
+        renderPortfolioSummary();
+
+        // 💡 關鍵：自動同步到雲端 GitHub
+        syncPortfolioToGithub();
+    }
+}
 
         // 庫存結算司令台 (含曝險進度條與台幣現值)
         function renderPortfolioSummary() {
