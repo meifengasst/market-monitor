@@ -26,10 +26,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           # 👉 重點是這一段！讓機器人去讀取裝備清單並安裝
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+ 
 
       - name: 🧠 4. 執行阿土伯量化大腦
         env:
