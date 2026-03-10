@@ -77,6 +77,65 @@ STOCKS = {
     "9904.TW": {"name": "寶成", "category": "運動鞋"}
 }
 
+def get_ai_news_sentiment(symbol, stock_name):
+    """抓取 Yahoo 財經新聞，並交給 Groq AI 判定多空情緒"""
+    print(f"📰 正在掃描 {stock_name} 的新聞籌碼...")
+    try:
+        # 1. 抓取近期 3 條新聞 (避免塞爆 API)
+        news_data = yf.Ticker(symbol).news[:3]
+        if not news_data: 
+            return []
+        news_list = [{"title": n.get("title", ""), "link": n.get("link", "")} for n in news_data]
+    except Exception as e:
+        print(f"⚠️ 抓取 {symbol} 新聞失敗: {e}")
+        return []
+
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    if not groq_api_key:
+        return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
+
+    # 2. 組合給 AI 看的 Prompt
+    titles_text = "\n".join([f"新聞 {i+1}：{n['title']}" for i, n in enumerate(news_list)])
+    system_prompt = """
+    你是一位台灣股市資深操盤手。請判斷以下新聞標題對該公司股價是「利多」、「利空」還是「中立」。
+    請務必嚴格以純 JSON 陣列格式回傳，不要加上任何 markdown 標記 (如 ```json) 或廢話！
+    格式範例：
+    [
+        {"sentiment": "利多 🔴", "title": "新聞標題1"},
+        {"sentiment": "利空 🟢", "title": "新聞標題2"}
+    ]
+    """
+    user_prompt = f"股票：{stock_name}\n新聞列表：\n{titles_text}"
+
+    # 3. 呼叫 Groq AI
+    try:
+        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
+        payload = {
+            "model": "llama-3.1-8b-instant",
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+            "temperature": 0.1
+        }
+        res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=15)
+        res.raise_for_status()
+        
+        # 處理 AI 回傳的字串，確保能被轉換為 JSON
+        ai_text = res.json()["choices"][0]["message"]["content"].strip()
+        if ai_text.startswith("
+http://googleusercontent.com/immersive_entry_chip/0
+http://googleusercontent.com/immersive_entry_chip/1
+http://googleusercontent.com/immersive_entry_chip/2
+
+---
+
+### 🚀 驗收成果
+
+1.  把這兩邊改完之後，推送到 GitHub。
+2.  點擊你網頁上的 **「🔄 點我強制更新」**，讓 Python 重新跑一遍（這次會稍微久一點點，因為 AI 正在讀新聞）。
+3.  更新完成後，每一張股票卡片的左上角都會多出一個藍色的 **「📰 AI 掃雷」** 按鈕。
+4.  點擊它！你就會看到阿土伯 AI 幫你整理的最新新聞，並且貼上了清晰的「🔴 利多」或「🟢 利空」標籤。
+
+快去改看看！如果 Python 在看新聞的時候出錯了，隨時把 Log 貼給阿土伯！
+
 def get_us_market_summary():
     """抓取昨夜美股四大關鍵指標的漲跌幅"""
     symbols = {"SPY": "標普500", "SOXX": "費城半導體", "TSM": "台積電ADR", "^VIX": "恐慌指數"}
@@ -326,6 +385,7 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
