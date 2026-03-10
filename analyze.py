@@ -76,33 +76,73 @@ def send_line_alert(message):
                       json={"to": target_id, "messages": [{"type": "text", "text": message}]})
     except: pass
 
-def calculate_ev_from_df(df, stop_loss_pct):
-    trades, entry_price, in_position = [], 0, False
+def calculate_ev_from_df(df, atr_period=14, atr_multiplier=1.5):
+    """
+    阿土伯的 ATR 動態期望值與勝率回測系統
+    :param atr_period: ATR 計算天數 (預設 14)
+    :param atr_multiplier: 停損寬容度倍數 (預設 1.5 倍)
+    """
+    # 1. 呼叫我們剛剛寫好的 ATR 神器，先算出每天的波動與基本防守線
+    df = calculate_atr_stop_loss(df, period=atr_period, multiplier=atr_multiplier)
+
+    trades = []
+    entry_price = 0
+    in_position = False
     peak_price = 0 
     
     for index, row in df.iterrows():
-        if in_position:
-            peak_price = max(peak_price, row['High'])
-            fixed_stop = entry_price * (1 - stop_loss_pct)
-            trailing_stop = peak_price * (1 - stop_loss_pct)
-            actual_exit_price = max(fixed_stop, trailing_stop)
+        # 防呆機制：如果前面幾天還算不出 ATR (顯示 NaN)，就跳過不交易
+        if pd.isna(row['ATR']):
+            continue
 
-            if row['Low'] <= actual_exit_price:
+        if in_position:
+            # 隨時記錄這波持倉以來的「最高價」(用來做移動停利)
+            peak_price = max(peak_price, row['High'])
+            
+            # 👉 阿土伯核心心法：以最高價為基準，往下扣掉 N倍的「當日真實波動(ATR)」
+            # 這就是你的「動態移動防守線」！
+            trailing_stop = peak_price - (row['ATR'] * atr_multiplier)
+            
+            # 如果盤中最低價，跌破了我們的動態防守線，那就是主力在出貨了，砍！
+            if row['Low'] <= trailing_stop:
+                # 實戰中，如果遇到跳空開低跌破，成本會是開盤價，阿伯幫你加上這個防呆擬真
+                actual_exit_price = min(row['Open'], trailing_stop)
                 trades.append((actual_exit_price - entry_price) / entry_price)
                 in_position = False
-            elif row['Signal'] == -1:
+                
+            # 如果還沒跌破防守線，但是你的策略 AI 判斷趨勢反轉 (Signal == -1)，獲利了結！
+            elif row.get('Signal', 0) == -1:
                 trades.append((row['Close'] - entry_price) / entry_price)
                 in_position = False
-        elif not in_position and row['Signal'] == 1:
-            entry_price, in_position = row['Close'], True
-            peak_price = row['Close']
+                
+        # 空手時，如果策略發出買進訊號 (Signal == 1)，進場！
+        elif not in_position and row.get('Signal', 0) == 1:
+            entry_price = row['Close']
+            in_position = True
+            peak_price = row['Close'] # 剛進場時，最高價就是買進價
 
-    if not trades: return None
+    # --- 底下結算成績單 ---
+    if not trades: 
+        return {"ev": 0.0, "win_rate": 0.0, "trades_count": 0}
+        
     ts = pd.Series(trades)
     win_ts, loss_ts = ts[ts > 0], ts[ts <= 0]
+    
+    # 計算勝率
     p_win = len(win_ts) / len(ts) if len(ts) > 0 else 0
-    ev = (p_win * (win_ts.mean() if not win_ts.empty else 0)) - ((len(loss_ts) / len(ts) if len(ts) > 0 else 0) * (abs(loss_ts.mean()) if not loss_ts.empty else 0))
-    return {"ev": round(ev * 100, 2), "win_rate": round(p_win * 100, 2)}
+    
+    # 計算平均賺賠
+    avg_win = win_ts.mean() if not win_ts.empty else 0
+    avg_loss = abs(loss_ts.mean()) if not loss_ts.empty else 0
+    
+    # 期望值公式： (勝率 * 平均獲利) - (敗率 * 平均虧損)
+    ev = (p_win * avg_win) - ((1 - p_win) * avg_loss)
+    
+    return {
+        "ev": round(ev * 100, 2), 
+        "win_rate": round(p_win * 100, 2),
+        "trades_count": len(ts) # 阿伯多送你一個參數，告訴你這段期間交易了幾次，防過度交易
+    }
 
 def check_market_regime():
     regime = {"TW": False, "US": False} 
@@ -202,5 +242,6 @@ def get_ai_news_sentiment(symbol, stock_name):
         print(f"⚠️ AI 解讀失敗: {e}")
         # AI 壞掉時的保底機制
         return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
+
 
 
