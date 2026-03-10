@@ -6,6 +6,39 @@ import numpy as np
 import os
 import requests
 import time
+import feedparser
+import urllib.parse
+
+def get_robust_news(stock_name, limit=3):
+    """
+    阿土伯的精準情報網：Google News RSS 爬蟲
+    """
+    print(f"🕵️ 正在啟動深度爬蟲，搜索 {stock_name} 的最新情報...")
+    
+    # 將股票名稱編碼，加入 "stock" 關鍵字過濾雜訊
+    query = urllib.parse.quote(f"{stock_name} stock")
+    # 使用 Google News RSS 接口 (這裡設定抓取台灣繁體中文新聞，也可改為純英文)
+    url = f"https://news.google.com/rss/search?q={query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+    
+    try:
+        feed = feedparser.parse(url)
+        news_list = []
+        
+        for entry in feed.entries[:limit]:
+            news_list.append({
+                "title": entry.title,
+                "link": entry.link,
+                "published": entry.published # 可以順便抓取發布時間
+            })
+            
+        if not news_list:
+            print(f"⚠️ 找不到 {stock_name} 的近期新聞，可能是關鍵字太偏門。")
+            
+        return news_list
+        
+    except Exception as e:
+        print(f"💥 爬蟲連線異常: {e}")
+        return []
 
 def calculate_atr_stop_loss(df, period=14, multiplier=1.5):
     """
@@ -154,4 +187,5 @@ def get_ai_news_sentiment(symbol, stock_name):
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         if ai_text.startswith("
+
 
