@@ -160,14 +160,15 @@ def generate_dashboard_data():
     #ptt_data = get_ptt_sentiment(get_ptt_news())
     bear_markets = check_market_regime() 
     
-    # 💡 阿土伯新增：讀取雲端庫存保險箱
-    portfolio_file = "portfolio.json"
-    try:
-        with open(portfolio_file, "r", encoding="utf-8") as f:
-            cloud_portfolio = json.load(f)
-    except:
-        cloud_portfolio = {}
-    portfolio_updated = False
+    # 💡 確保 Python 讀取的是最新的雲端檔案
+portfolio_file = "portfolio.json"
+try:
+    with open(portfolio_file, "r", encoding="utf-8") as f:
+        cloud_portfolio = json.load(f)
+    print(f"✅ 成功讀取雲端庫存，共有 {len(cloud_portfolio)} 檔標的")
+except Exception as e:
+    print(f"⚠️ 讀取庫存失敗: {e}")
+    cloud_portfolio = {}
     
     tw_idx = yf.download("0050.TW", period="6mo", progress=False)
     us_idx = yf.download("SPY", period="6mo", progress=False)
@@ -334,6 +335,7 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
