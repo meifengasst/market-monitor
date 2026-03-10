@@ -7,6 +7,30 @@ import os
 import requests
 import time
 
+def calculate_atr_stop_loss(df, period=14, multiplier=1.5):
+    """
+    阿土伯的 ATR 動態停損計算機
+    :param df: 包含 High, Low, Close 的 yfinance DataFrame
+    :param period: ATR 計算週期 (通常用 14 天)
+    :param multiplier: 停損寬容度 (通常設 1.5 到 2 倍 ATR)
+    """
+    # 計算 True Range (TR)
+    high_low = df['High'] - df['Low']
+    high_close = np.abs(df['High'] - df['Close'].shift())
+    low_close = np.abs(df['Low'] - df['Close'].shift())
+    
+    ranges = pd.concat([high_low, high_close, low_close], axis=1)
+    true_range = np.max(ranges, axis=1)
+    
+    # 計算 ATR (簡單移動平均)
+    atr = true_range.rolling(window=period).mean()
+    df['ATR'] = atr
+    
+    # 計算動態停損點 (以收盤價往下扣除 N 倍 ATR)
+    df['Dynamic_Stop_Loss'] = df['Close'] - (atr * multiplier)
+    
+    return df
+
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36"}
 
 def send_line_alert(message):
@@ -130,3 +154,4 @@ def get_ai_news_sentiment(symbol, stock_name):
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         if ai_text.startswith("
+
