@@ -249,27 +249,104 @@
             document.getElementById('tradeModalContent').classList.add('scale-95');
             setTimeout(() => document.getElementById('tradeModal').classList.add('hidden'), 300);
         }
-        function saveTrade() {
-            let symbol = document.getElementById('tradeSymbol').innerText;
-            let price = parseFloat(document.getElementById('tradePrice').value);
-            let shares = parseInt(document.getElementById('tradeShares').value);
-            if (price > 0 && shares > 0) {
-                myPortfolio[symbol] = { entryPrice: price, shares: shares, peakPrice: price };
-                localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-                closeTradeModal();
-                renderData(document.getElementById('searchInput').value); 
-                renderPortfolioSummary();
-            } else { alert("請輸入正確的價格與股數！"); }
+
+// ==========================================
+// 💡 阿土伯全自動化同步區塊
+// ==========================================
+
+// 1. 新增：遠端同步函數 (負責把網頁變動傳上雲端)
+async function syncPortfolioToGithub() {
+    const token = localStorage.getItem('atu_github_token');
+    if (!token) {
+        alert("🕵️‍♂️ 偵測不到 GitHub Token，請點擊『強制更新』按鈕設定 Token 後才能同步！");
+        return;
+    }
+
+    const path = "portfolio.json"; 
+    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+    const portfolioData = JSON.stringify(myPortfolio, null, 4);
+
+    try {
+        console.log("🚀 正在啟動雲端同步...");
+        
+        // A. 先取得檔案的 SHA (GitHub API 必要步驟)
+        const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
+        let sha = "";
+        if (getRes.ok) {
+            const fileInfo = await getRes.json();
+            sha = fileInfo.sha;
         }
-        function removeTrade(event, symbol) {
-            event.stopPropagation(); 
-            if(confirm(`確定要將 ${symbol} 從實戰部位中移除嗎？`)) {
-                delete myPortfolio[symbol];
-                localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-                renderData(document.getElementById('searchInput').value);
-                renderPortfolioSummary();
-            }
+
+        // B. 將最新的 myPortfolio 推送到 GitHub
+        const putRes = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `🤖 阿土伯自動同步庫存: ${new Date().toLocaleString()}`,
+                content: btoa(unescape(encodeURIComponent(portfolioData))), // 處理 UTF-8 編碼
+                sha: sha
+            })
+        });
+
+        if (putRes.ok) {
+            console.log("✅ 雲端庫存同步成功！");
+            // C. 同步完後，順便叫 Python 腳本跑一遍 (LINE 才會更新)
+            triggerGitHubAction(); 
+        } else {
+            const err = await putRes.json();
+            alert(`❌ 同步失敗：${err.message}`);
         }
+    } catch (error) {
+        console.error("⚠️ 同步出錯:", error);
+        alert("❌ 網路連線異常，無法同步雲端庫存。");
+    }
+}
+
+// 2. 修改：儲存交易函數 (加上同步邏輯)
+function saveTrade() {
+    let symbol = document.getElementById('tradeSymbol').innerText;
+    let price = parseFloat(document.getElementById('tradePrice').value);
+    let shares = parseInt(document.getElementById('tradeShares').value);
+    
+    if (price > 0 && shares > 0) {
+        // 更新本地端資料
+        myPortfolio[symbol] = { 
+            entryPrice: price, 
+            shares: shares, 
+            peakPrice: price,
+            alerted: false 
+        };
+        localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
+        
+        closeTradeModal();
+        renderData(document.getElementById('searchInput').value); 
+        renderPortfolioSummary();
+
+        // 💡 關鍵：自動同步到雲端 GitHub
+        syncPortfolioToGithub(); 
+    } else { 
+        alert("請輸入正確的價格與股數！"); 
+    }
+}
+
+// 3. 修改：移除交易函數 (加上同步邏輯)
+function removeTrade(event, symbol) {
+    event.stopPropagation(); 
+    if(confirm(`確定要將 ${symbol} 從實戰部位中移除嗎？`)) {
+        // 刪除本地端資料
+        delete myPortfolio[symbol];
+        localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
+        
+        renderData(document.getElementById('searchInput').value);
+        renderPortfolioSummary();
+
+        // 💡 關鍵：自動同步到雲端 GitHub
+        syncPortfolioToGithub();
+    }
+}
 
         // 庫存結算司令台 (含曝險進度條與台幣現值)
         function renderPortfolioSummary() {
@@ -318,8 +395,6 @@
                // 💡 替換成阿土伯的老花眼友善放大版
                 let warningIcon = isStopLossTriggered ? `<span class="text-xs bg-green-600 text-white px-2 py-0.5 rounded font-black animate-bounce inline-block ml-2 shadow-lg">🚨 觸發停損</span>` : "";
 
-                // ... (前面的變數宣告保留不動) ...
-
                 listContainer.innerHTML += `
                 <div class="p-4 rounded-2xl border flex justify-between items-center cursor-pointer transition-all ${cardBg}" onclick="document.getElementById('searchInput').value='${symbol}'; renderData('${symbol}');">
                     <div>
@@ -366,12 +441,14 @@
             .then(json => {
                 if (isAutoRefresh && json.last_update === currentUpdateTime) return;
                 currentUpdateTime = json.last_update;
+                
+                // 🛡️ 防止 data.json 是空的時候當機
+                if (!json.data) return;
+                
                 rawData = json.data;
                 rawData.forEach(s => stockMap[s.symbol] = s);
                 document.getElementById('update-time').innerText = json.last_update;
 
-                
-                
                 if (json.market_health) {
                     let healthData = json.market_health;
                     
@@ -387,7 +464,6 @@
                     let scriptEl = document.getElementById('ai-script-text');
                     if (healthData.ai_script) {
                         scriptEl.innerText = healthData.ai_script;
-                        // 關鍵字變色警告：如果 AI 提到嚴禁、跌破、接刀，字體自動變紅警告
                         if (healthData.ai_script.includes('嚴禁') || healthData.ai_script.includes('接刀') || healthData.ai_script.includes('警告') || healthData.ai_script.includes('避險')) {
                             scriptEl.className = "text-red-400 text-lg md:text-xl font-black leading-relaxed tracking-wide min-h-[80px] flex items-center";
                         } else {
@@ -401,12 +477,10 @@
                         usGrid.innerHTML = '';
                         for (let key in healthData.us_summary) {
                             let item = healthData.us_summary[key];
-                            // 台股習慣：紅漲綠跌
                             let colorClass = item.pct > 0 ? 'text-red-400' : (item.pct < 0 ? 'text-green-400' : 'text-slate-400');
                             let sign = item.pct > 0 ? '+' : '';
                             let bgClass = item.pct > 0 ? 'bg-red-900/20 border-red-500/30' : (item.pct < 0 ? 'bg-green-900/20 border-green-500/30' : 'bg-slate-800 border-slate-700');
                             
-                            // 💡 替換成阿土伯的老花眼友善放大版！
                             usGrid.innerHTML += `
                             <div class="p-4 md:p-5 rounded-2xl border ${bgClass} flex flex-col justify-center shadow-inner transition-colors hover:border-blue-500/50">
                                 <p class="text-sm md:text-base text-slate-400 font-bold mb-2 tracking-wide">${key}</p>
@@ -474,22 +548,84 @@
             } catch (error) { alert("❌ 網路連線錯誤！"); btn.disabled = false; btn.innerHTML = originalText; }
         }
 
-        // 畫圖與 Modal 控制
+        // 畫圖與 Modal 控制 💡 (已為阿土伯修復的語法區塊)
         function openModal(stock) {
-            document.getElementById('dataModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
+            document.getElementById('dataModal').classList.remove('hidden'); 
+            setTimeout(() => { 
+                document.getElementById('dataModal').classList.remove('opacity-0'); 
+                document.getElementById('modalContent').classList.remove('scale-95'); 
+            }, 10);
+            
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
             let historyData = stock.history || [];
-            const labels = historyData.map(h => h.date); const prices = historyData.map(h => h.price); const volumes = historyData.map(h => h.volume); const ma5 = historyData.map(h => h.ma5); const ma20 = historyData.map(h => h.ma20); const ma60 = historyData.map(h => h.ma60); const rsis = historyData.map(h => h.rsi); const bbUpper = historyData.map(h => h.bb_upper); const bbLower = historyData.map(h => h.bb_lower); const macd = historyData.map(h => h.macd); const macdSignal = historyData.map(h => h.macd_signal); const macdHist = historyData.map(h => h.macd_hist);
+            const labels = historyData.map(h => h.date); 
+            const prices = historyData.map(h => h.price); 
+            const volumes = historyData.map(h => h.volume); 
+            const ma5 = historyData.map(h => h.ma5); 
+            const ma20 = historyData.map(h => h.ma20); 
+            const ma60 = historyData.map(h => h.ma60); 
+            const rsis = historyData.map(h => h.rsi); 
+            const bbUpper = historyData.map(h => h.bb_upper); 
+            const bbLower = historyData.map(h => h.bb_lower); 
+            const macd = historyData.map(h => h.macd); 
+            const macdSignal = historyData.map(h => h.macd_signal); 
+            const macdHist = historyData.map(h => h.macd_hist);
+
+            // --- 💡 阿土伯新增：成本均價線邏輯 ---
+            let datasets = [
+                { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, z: 10, yAxisID: 'y' },
+                { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' },
+                { label: '20MA', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
+                { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
+                { label: '布林上軌', data: bbUpper, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: false, yAxisID: 'y' },
+                { label: '布林下軌', data: bbLower, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(56, 189, 248, 0.12)', yAxisID: 'y' },
+                { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.2)', yAxisID: 'y1' }
+            ];
+
+            // 如果有買這檔股票，就塞入黃色的「成本均價線」
+            if (myPortfolio[stock.symbol]) {
+                const entryPrice = myPortfolio[stock.symbol].entryPrice;
+                const entryPriceLine = new Array(labels.length).fill(entryPrice);
+                datasets.push({
+                    label: `我的成本 ($${entryPrice})`,
+                    data: entryPriceLine,
+                    borderColor: '#facc15', // 黃色，顯眼！
+                    borderWidth: 3,
+                    borderDash: [10, 5],   // 長虛線
+                    pointRadius: 0,
+                    fill: false,
+                    z: 50,                  // 讓它疊在最上面
+                    yAxisID: 'y'
+                });
+            }
+
             const ctxPrice = document.getElementById('historyChart').getContext('2d');
             if(priceChart) priceChart.destroy();
-            priceChart = new Chart(ctxPrice, { type: 'line', data: { labels: labels, datasets: [ { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, z: 10, yAxisID: 'y' }, { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' }, { label: '20MA', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' }, { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' }, { label: '布林上軌', data: bbUpper, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: false, yAxisID: 'y' }, { label: '布林下軌', data: bbLower, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(56, 189, 248, 0.12)', yAxisID: 'y' }, { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.2)', yAxisID: 'y1' } ] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' } }, y1: { position: 'right', grid: { drawOnChartArea: false } }, x: { display: false } }, plugins: { legend: { labels: { color: '#cbd5e1', font: {size: 11} } } } } });
+            priceChart = new Chart(ctxPrice, { 
+                type: 'line', 
+                data: { labels: labels, datasets: datasets }, 
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    interaction: { mode: 'index', intersect: false }, 
+                    scales: { 
+                        y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' } }, 
+                        y1: { position: 'right', grid: { drawOnChartArea: false } }, 
+                        x: { display: false } 
+                    }, 
+                    plugins: { legend: { labels: { color: '#cbd5e1', font: {size: 11} } } } 
+                } 
+            });
+
             const ctxMacd = document.getElementById('macdChart').getContext('2d');
             if(macdChart) macdChart.destroy();
             macdChart = new Chart(ctxMacd, { type: 'bar', data: { labels: labels, datasets: [ { type: 'line', label: 'MACD 快線', data: macd, borderColor: '#0ea5e9', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'line', label: 'Signal 慢線', data: macdSignal, borderColor: '#eab308', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'bar', label: 'MACD 柱狀圖', data: macdHist, backgroundColor: macdHist.map(v => v >= 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)') } ] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: false } }, plugins: { legend: { display: false } } } });
+            
             const ctxRsi = document.getElementById('rsiChart').getContext('2d');
             if(rsiChart) rsiChart.destroy();
             rsiChart = new Chart(ctxRsi, { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: true, ticks: {color: '#64748b'} } }, plugins: { legend: { display: false } } } });
-        }
+        } // 💡 正確的括號位置！
+
         function openNewsModal(symbol) {
             const stock = stockMap[symbol];
             if(!stock) return;
@@ -514,14 +650,14 @@
         }
 
         // 💡 開啟實戰心法 Modal
-function openRulesModal() {
-    const modal = document.getElementById('rulesModal');
-    modal.classList.remove('hidden');
-    setTimeout(() => {
-        modal.classList.remove('opacity-0');
-        modal.children[0].classList.remove('scale-95');
-    }, 10);
-}
+        function openRulesModal() {
+            const modal = document.getElementById('rulesModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.children[0].classList.remove('scale-95');
+            }, 10);
+        }
 
         // 渲染股票卡片大腦
         function renderData(filterText = '') {
@@ -533,6 +669,8 @@ function openRulesModal() {
             filtered.forEach(stock => {
                 const card = document.createElement('div'); card.onclick = () => openModal(stock);
                 let statusColor = "border-slate-700 bg-slate-800/50";
+                
+                // 🛡️ 阿土伯防護網：防止讀不到 ma20 當機
                 const latestHist = stock.history && stock.history.length > 0 ? stock.history[stock.history.length - 1] : {};
                 const ma5 = latestHist.ma5 || '-'; const ma20 = latestHist.ma20 || '-'; const ma60 = latestHist.ma60 || '-';
 
@@ -551,7 +689,7 @@ function openRulesModal() {
 
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
-                    let trade = myPortfolio[stock.symbol]; // 🐛 阿土伯除蟲：正確抓取
+                    let trade = myPortfolio[stock.symbol]; 
                     if (stock.price > trade.peakPrice) { trade.peakPrice = stock.price; localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio)); }
                     let slDecimal = stock.actual_sl / 100;
                     let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), trade.peakPrice * (1 - slDecimal)).toFixed(2);
