@@ -2,7 +2,7 @@
     "2330.TW": {
         "entryPrice": 1050,
         "shares": 15,
-        "peakPrice": 1880.0,
+        "peakPrice": 1885.0,
         "alerted": false
     },
     "0050.TW": {
@@ -14,7 +14,7 @@
     "2337.TW": {
         "entryPrice": 38.5,
         "shares": 161,
-        "peakPrice": 95.3,
+        "peakPrice": 96.0,
         "alerted": false
     }
 }
