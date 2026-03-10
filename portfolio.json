@@ -1,43 +1,14 @@
-// 💡 阿土伯全自動化同步：將本地庫存推送到 GitHub 雲端
-async function syncPortfolioToGithub() {
-    const token = localStorage.getItem('atu_github_token');
-    if (!token) return; // 沒 Token 就不同步
-
-    const portfolioData = JSON.stringify(myPortfolio, null, 4);
-    const path = "portfolio.json"; // 雲端檔案路徑
-    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
-
-    try {
-        // 1. 先取得舊檔案的 SHA (GitHub API 更新檔案必備)
-        const getRes = await fetch(url, { headers: { 'Authorization': `token ${token}` } });
-        let sha = "";
-        if (getRes.ok) {
-            const fileInfo = await getRes.json();
-            sha = fileInfo.sha;
-        }
-
-        // 2. 執行 PUT 請求更新內容
-        const putRes = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: `🤖 阿土伯自動同步庫存: ${new Date().toLocaleString()}`,
-                content: btoa(unescape(encodeURIComponent(portfolioData))), // 轉成 Base64
-                sha: sha
-            })
-        });
-
-        if (putRes.ok) {
-            console.log("✅ 雲端庫存已同步！");
-            // 同步完後，順便觸發一次 GitHub Action 讓 Python 重新計算數據
-            triggerGitHubAction(); 
-        } else {
-            console.error("❌ 同步失敗");
-        }
-    } catch (error) {
-        console.error("⚠️ 網路錯誤:", error);
+{
+    "0050.TW": {
+        "entryPrice": 76.25,
+        "peakPrice": 76.25,
+        "shares": 655,
+        "alerted": false
+    },
+    "2330.TW": {
+        "entryPrice": 1880.0,
+        "peakPrice": 1880.0,
+        "shares": 13,
+        "alerted": false
     }
 }
