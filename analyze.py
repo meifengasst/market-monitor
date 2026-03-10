@@ -163,17 +163,20 @@ def generate_morning_script_via_groq(market_data):
     except: return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作。"
 
 # 💡 AI 功能 1：新聞掃雷
+# 💡 AI 功能 1：新聞掃雷 (阿土伯升級版)
 def get_ai_news_sentiment(symbol, stock_name):
     print(f"📰 正在掃描 {stock_name} 的新聞籌碼...")
-    try:
-        news_data = yf.Ticker(symbol).news[:3]
-        if not news_data: return []
-        news_list = [{"title": n.get("title", ""), "link": n.get("link", "")} for n in news_data]
-    except Exception as e:
+    
+    # 👉 這裡才是重點！呼叫我們自己寫的 Google News 爬蟲，拋棄 yfinance
+    news_list = get_robust_news(stock_name, limit=3)
+    
+    # 如果真的沒抓到新聞，直接回傳空陣列
+    if not news_list: 
         return []
 
     groq_api_key = os.environ.get("GROQ_API_KEY")
-    if not groq_api_key: return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
+    if not groq_api_key: 
+        return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
 
     titles_text = "\n".join([f"新聞 {i+1}：{n['title']}" for i, n in enumerate(news_list)])
     system_prompt = """你是一位台灣股市操盤手。請判斷以下新聞標題對該公司股價是「利多」、「利空」還是「中立」。
@@ -186,6 +189,18 @@ def get_ai_news_sentiment(symbol, stock_name):
         res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=15)
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
-        if ai_text.startswith("
+        
+        # 👉 幫你把剛剛斷掉的尾巴補上：防呆機制，清除 Groq 可能生成的 ```json 標籤
+        if ai_text.startswith("```json"):
+            ai_text = ai_text[7:-3].strip()
+        elif ai_text.startswith("```"):
+            ai_text = ai_text[3:-3].strip()
+            
+        return json.loads(ai_text)
+        
+    except Exception as e:
+        print(f"⚠️ AI 解讀失敗: {e}")
+        # AI 壞掉時的保底機制
+        return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
 
 
