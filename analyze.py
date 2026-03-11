@@ -78,63 +78,54 @@ STOCKS = {
 }
 
 def get_ai_news_sentiment(symbol, stock_name):
-    """抓取 Yahoo 財經新聞，並交給 Groq AI 判定多空情緒"""
-    print(f"📰 正在掃描 {stock_name} 的新聞籌碼...")
-    try:
-        # 1. 抓取近期 3 條新聞 (避免塞爆 API)
-        news_data = yf.Ticker(symbol).news[:3]
-        if not news_data: 
-            return []
-        news_list = [{"title": n.get("title", ""), "link": n.get("link", "")} for n in news_data]
-    except Exception as e:
-        print(f"⚠️ 抓取 {symbol} 新聞失敗: {e}")
-        return []
+    """抓取 Yahoo 財經新聞，並交給 Groq AI 判定多空情緒"""
+    print(f"📰 正在掃描 {stock_name} 的新聞籌碼...")
+    try:
+        news_data = yf.Ticker(symbol).news[:3]
+        if not news_data: 
+            return []
+        news_list = [{"title": n.get("title", ""), "link": n.get("link", "")} for n in news_data]
+    except Exception as e:
+        print(f"⚠️ 抓取 {symbol} 新聞失敗: {e}")
+        return []
 
-    groq_api_key = os.environ.get("GROQ_API_KEY")
-    if not groq_api_key:
-        return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    if not groq_api_key:
+        return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
 
-    # 2. 組合給 AI 看的 Prompt
-    titles_text = "\n".join([f"新聞 {i+1}：{n['title']}" for i, n in enumerate(news_list)])
-    system_prompt = """
-    你是一位台灣股市資深操盤手。請判斷以下新聞標題對該公司股價是「利多」、「利空」還是「中立」。
-    請務必嚴格以純 JSON 陣列格式回傳，不要加上任何 markdown 標記 (如 ```json) 或廢話！
-    格式範例：
-    [
-        {"sentiment": "利多 🔴", "title": "新聞標題1"},
-        {"sentiment": "利空 🟢", "title": "新聞標題2"}
-    ]
-    """
-    user_prompt = f"股票：{stock_name}\n新聞列表：\n{titles_text}"
+    titles_text = "\n".join([f"新聞 {i+1}：{n['title']}" for i, n in enumerate(news_list)])
+    system_prompt = """
+    你是一位台灣股市資深操盤手。請判斷以下新聞標題對該公司股價是「利多」、「利空」還是「中立」。
+    請務必嚴格以純 JSON 陣列格式回傳，不要加上任何 markdown 標記 (如 ```json) 或廢話！
+    格式範例：
+    [
+        {"sentiment": "利多 🔴", "title": "新聞標題1"},
+        {"sentiment": "利空 🟢", "title": "新聞標題2"}
+    ]
+    """
+    user_prompt = f"股票：{stock_name}\n新聞列表：\n{titles_text}"
 
-    # 3. 呼叫 Groq AI
-    try:
-        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
-        payload = {
-            "model": "llama-3.1-8b-instant",
-            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "temperature": 0.1
-        }
-        res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=15)
-        res.raise_for_status()
-        
-        # 處理 AI 回傳的字串，確保能被轉換為 JSON
-        ai_text = res.json()["choices"][0]["message"]["content"].strip()
-        if ai_text.startswith("
-http://googleusercontent.com/immersive_entry_chip/0
-http://googleusercontent.com/immersive_entry_chip/1
-http://googleusercontent.com/immersive_entry_chip/2
-
----
-
-### 🚀 驗收成果
-
-1.  把這兩邊改完之後，推送到 GitHub。
-2.  點擊你網頁上的 **「🔄 點我強制更新」**，讓 Python 重新跑一遍（這次會稍微久一點點，因為 AI 正在讀新聞）。
-3.  更新完成後，每一張股票卡片的左上角都會多出一個藍色的 **「📰 AI 掃雷」** 按鈕。
-4.  點擊它！你就會看到阿土伯 AI 幫你整理的最新新聞，並且貼上了清晰的「🔴 利多」或「🟢 利空」標籤。
-
-快去改看看！如果 Python 在看新聞的時候出錯了，隨時把 Log 貼給阿土伯！
+    try:
+        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
+        payload = {
+            "model": "llama-3.1-8b-instant",
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+            "temperature": 0.1
+        }
+        res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=15)
+        res.raise_for_status()
+        
+        # 💡 阿土伯防呆機制：清理 AI 可能自作聰明加上的 Markdown 標記
+        ai_text = res.json()["choices"][0]["message"]["content"].strip()
+        if ai_text.startswith("```json"):
+            ai_text = ai_text[7:]
+        if ai_text.endswith("```"):
+            ai_text = ai_text[:-3]
+            
+        return json.loads(ai_text.strip())
+    except Exception as e:
+        print(f"⚠️ AI 新聞解析失敗 ({stock_name}): {e}")
+        return [{"title": n["title"], "link": n["link"], "sentiment": "解析失敗 ⚠️"} for n in news_list]
 
 def get_us_market_summary():
     """抓取昨夜美股四大關鍵指標的漲跌幅"""
@@ -271,7 +262,43 @@ def generate_dashboard_data():
         df['rsi'] = 100 - (100 / (1 + (delta.where(delta > 0, 0).rolling(14).mean() / -delta.where(delta < 0, 0).rolling(14).mean())))
         df['Signal'] = np.where(df['Close'] > df['ma20'], 1, np.where(df['Close'] < df['ma20'], -1, 0))
         df = df.fillna(0)
-        
+
+# ... 前面的技術指標維持原樣 ...
+        df['rsi'] = 100 - (100 / (1 + (delta.where(delta > 0, 0).rolling(14).mean() / -delta.where(delta < 0, 0).rolling(14).mean())))
+        
+        # 💡 阿土伯新增：ATR (平均真實區間) 計算 (用來衡量近期波動幅度，抓波動風險必備！)
+        df['prev_close'] = df['Close'].shift(1)
+        df['tr1'] = df['High'] - df['Low']
+        df['tr2'] = abs(df['High'] - df['prev_close'])
+        df['tr3'] = abs(df['Low'] - df['prev_close'])
+        df['tr'] = df[['tr1', 'tr2', 'tr3']].max(axis=1)
+        df['atr'] = df['tr'].rolling(window=14).mean()
+        
+        df['Signal'] = np.where(df['Close'] > df['ma20'], 1, np.where(df['Close'] < df['ma20'], -1, 0))
+        df = df.fillna(0) # 填補缺失值
+        
+        # ... 中間算 EV 與停損的邏輯維持原樣 ...
+        
+        # 💡 阿土伯新增：在這裡正式呼叫 AI 掃雷器！
+        news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
+
+        hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2)} for i, r in df.tail(60).iterrows()]
+        
+        # ...
+        
+        # 💡 阿土伯提醒：記得把資料塞進 dashboard_data 給前端！
+        dashboard_data.append({
+            "symbol": symbol, "name": info["name"], "category": info["category"],
+            "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
+            "atr": round(df['atr'].iloc[-1], 2), # 👈 放進字典裡
+            "news_sentiment": news_sentiment_data, # 👈 放進字典裡
+            "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
+            "ev": actual_ev, "win_rate": actual_win, "history": hist, 
+            "rs_score": rs_score, 
+            "ai_summary": f"🎯 最佳移動停利/停損為 {int(best_sl*100)}%。{'目前大盤破線，已強制縮緊至 3% 防守！' if is_bear else '目前大盤穩定。'} {rs_comment}",
+            "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
+        })
+        
         try:
             market_idx = tw_idx if symbol.endswith(".TW") else us_idx
             stock_ret_20 = (df['Close'].iloc[-1] - df['Close'].iloc[-20]) / df['Close'].iloc[-20]
@@ -385,3 +412,4 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
