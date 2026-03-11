@@ -203,29 +203,35 @@ def generate_morning_script_via_groq(market_data):
         print(f"⚠️ Groq API 呼叫失敗: {e}")
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
         
-def get_ai_debate_insight(stock_name, price, ma20, rsi, rs_score):
-    """【進化二】多空雙 AI 辯論室：強迫 AI 產出多方、空方與最終裁決 (終極除錯版)"""
-    print(f"⚖️ 啟動多空辯論庭：{stock_name}...")
+def get_ai_technical_brain(stock_name, recent_df, rs_score):
+    """【進化三】連貫型態與多空辯論綜合大腦 (傳入近5日數據)"""
+    print(f"🕵️‍♂️ 啟動連貫型態掃描與多空辯論：{stock_name}...")
     groq_api_key = os.environ.get("GROQ_API_KEY")
     if not groq_api_key:
-        return {"bull": "無法連線", "bear": "無法連線", "judge": "⚠️ 未設定 API KEY，請回歸 20MA 紀律操作。"}
+        return {"pattern": "未知", "bull": "無法連線", "bear": "無法連線", "judge": "⚠️ 未設定 API KEY。"}
+
+    # 💡 阿土伯秘笈：把過去 5 天的「收盤價、成交量、月線、RSI」串成文字，讓 AI 看出連續動作！
+    trend_str = ""
+    for date, row in recent_df.iterrows():
+        trend_str += f"{date.strftime('%m/%d')} - 收:{row['Close']:.2f} | 量:{int(row['Volume'])} | 20MA:{row['ma20']:.2f} | RSI:{row['rsi']:.2f}\n"
 
     system_prompt = """
-    你現在是一個「台股多空辯論戰情室」。
-    請根據提供的股票數據，進行內部辯論，並【嚴格以純 JSON 格式】回傳。
+    你現在是一個「台股高階量化戰情室」。
+    請觀察提供的【近5日價格與量能變化】，辨識出目前的「籌碼型態」（例如：量縮洗盤、爆量長黑、底部分型、破線崩跌、帶量突破等），並進行多空辯論。
+    請【嚴格以純 JSON 格式】回傳。
     
-    【阿土伯鐵律 - 絕對不可違背】：
-    1. 如果 現價 < 20MA，最終裁決(judge)必須是「跌破月線，嚴禁接刀」或「趨勢轉弱，停損觀望」。
-    2. 絕對不可以有任何 markdown 標記 (如 ```json)，只能回傳大括號 { 開頭的純 JSON。
+    【阿土伯鐵律】：
+    最後一天的收盤價如果小於 20MA，最終裁決(judge)必須是偏空或觀望，嚴禁建議買進！
     
     【回傳 JSON 格式】：
     {
-        "bull": "多方買進理由(限15字，例如: RSI低檔，有機會反彈)",
-        "bear": "空方看跌理由(限15字，例如: 跌破月線，趨勢轉空)",
-        "judge": "阿土伯的最終裁決(限20字，嚴格遵守鐵律)"
+        "pattern": "型態名稱(限8個字，如: 價平量縮)",
+        "bull": "多方觀點(限15字，請結合近5日量價解讀)",
+        "bear": "空方觀點(限15字，請結合近5日量價解讀)",
+        "judge": "阿土伯最終裁決(限20字，嚴守紀律)"
     }
     """
-    user_prompt = f"股票：{stock_name}\n現價：{price}\n20日均線(月線)：{ma20}\nRSI(熱度)：{rsi}\n相對大盤強弱：{rs_score}%"
+    user_prompt = f"股票：{stock_name}\n相對大盤強弱：{rs_score}%\n近5日量價變化：\n{trend_str}"
 
     try:
         headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
@@ -233,34 +239,23 @@ def get_ai_debate_insight(stock_name, price, ma20, rsi, rs_score):
             "model": "llama-3.1-8b-instant",
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
             "temperature": 0.2, 
-            "max_tokens": 150
+            "max_tokens": 200
         }
         res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
         res.raise_for_status()
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
-        
-        # 💡 行車紀錄器：把 AI 真正回傳的字印在後台，看看它是不是在搞鬼
-        print(f"📝 {stock_name} AI 回傳內容: {ai_text}")
-        
-        # 強制脫掉 AI 喜歡亂加的 Markdown 外衣
         ai_text = re.sub(r'```json|```', '', ai_text).strip()
         
         match = re.search(r'\{.*\}', ai_text, re.DOTALL)
         if match:
             return json.loads(match.group(0))
         else:
-            return {"bull": "AI 沒照格式回傳", "bear": "AI 沒照格式回傳", "judge": "🤖 格式跑掉啦！"}
+            return {"pattern": "解析失敗", "bull": "格式錯誤", "bear": "格式錯誤", "judge": "🤖 格式跑掉啦！"}
             
-    except requests.exceptions.HTTPError as e:
-        print(f"⚠️ API 塞車限速 ({stock_name}): {e}")
-        return {"bull": "免費額度卡彈", "bear": "免費額度卡彈", "judge": "🤖 API 被降速了。"}
-    except json.JSONDecodeError as e:
-        print(f"⚠️ JSON 解析失敗 ({stock_name}): {e}")
-        return {"bull": "解讀失敗", "bear": "解讀失敗", "judge": "🤖 AI 講火星文。"}
     except Exception as e:
-        print(f"⚠️ 其他錯誤 ({stock_name}): {e}")
-        return {"bull": "系統異常", "bear": "系統異常", "judge": "🤖 連線中斷。"}
+        print(f"⚠️ 綜合大腦失敗 ({stock_name}): {e}")
+        return {"pattern": "連線中斷", "bull": "連線異常", "bear": "連線異常", "judge": "🤖 API 限速或異常。"}
 
 def get_fundamental_risk(symbol, stock_name):
     """阿土伯的財報照妖鏡：抓取基本面數據，交給 Groq AI 抓出隱藏風險"""
@@ -439,7 +434,9 @@ def generate_dashboard_data():
 
 # 💡 阿土伯特調：啟動多空雙 AI 辯論室！
         print(f"⚖️ 正在請求多空 AI 辯論 {info['name']} 的技術面...")
-        debate_result = get_ai_debate_insight(info["name"], current_price, round(df['ma20'].iloc[-1], 2), round(df['rsi'].iloc[-1], 2), rs_score)
+        # 💡 阿土伯特調：把最後 5 天的連續資料 (DataFrame) 切出來餵給 AI
+        recent_5d = df.tail(5)
+        debate_result = get_ai_technical_brain(info["name"], recent_5d, rs_score)
         
         # 💡 阿土伯升級：調用財報照妖鏡 (基本面掃雷)
         funda_insight = get_fundamental_risk(symbol, info["name"])
@@ -496,6 +493,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
