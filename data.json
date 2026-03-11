@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-11 [15:38]",
+    "last_update": "2026-03-11 [16:11]",
     "data": [
         {
             "symbol": "NVDA",
@@ -11,12 +11,12 @@
             "atr": 6.14,
             "news_sentiment": [
                 {
-                    "sentiment": "中立",
-                    "title": "Nvidia 輝達（NVDA）財報分析 2026 Q4！Q4 營收？Q1 財測？ - StockFeel 股感"
-                },
-                {
                     "sentiment": "利多",
                     "title": "Prediction: Nvidia Stock Will Soar to This Price in 2026 as the AI Boom Expands From Data Centers to Robotaxis"
+                },
+                {
+                    "sentiment": "中立",
+                    "title": "Nvidia 輝達（NVDA）財報分析 2026 Q4！Q4 營收？Q1 財測？"
                 },
                 {
                     "sentiment": "中立",
@@ -933,11 +933,11 @@
             "rs_score": 0.16,
             "ai_debate": {
                 "pattern": "量縮洗盤",
-                "bull": "近5日量價呈現洗盤型態，但仍有買點，RSI在40-50區間，表明市場尚未過度疲勞，多方可持續觀望",
-                "bear": "近5日收盤價下跌，量縮，RSI在40-50區間，表明市場疲勞，空方可看好下游的反彈機會",
-                "judge": "觀望，最後一天的收盤價小於20MA，嚴守阿土伯鐵律，未必建議買進"
+                "bull": "近5日量價震盪，RSI維持低位，可能是多方在買盤中，待價而沽",
+                "bear": "近5日收盤價震盪在180-185區間，量縮洗盤，RSI未能突破50，空方看好下跌機會",
+                "judge": "最後一天收盤價小於20MA，最終裁決偏空，建議觀望或短空"
             },
-            "funda_summary": "「本益比高達37倍，股價淨值比28倍，ROE超過100%，表明公司經營效率極高，但股價泡沫風險明顯。」",
+            "funda_summary": "「本益比高達37倍，股價淨值比28倍，股東權益報酬率超過100%，顯示明顯泡沫風險，投資者需謹慎評估。」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1871,12 +1871,12 @@
             ],
             "rs_score": -3.95,
             "ai_debate": {
-                "pattern": "連線中斷",
-                "bull": "連線異常",
-                "bear": "連線異常",
-                "judge": "🤖 API 限速或異常。"
+                "pattern": "價平量縮",
+                "bull": "近5日量價呈現震蕩下行，RSI維持在40左右，可能仍有買盤支撐",
+                "bear": "近5日收盤價連續下跌，量縮加重，RSI仍在低位，表明賣壓仍在增強",
+                "judge": "阿土伯最終裁決：觀望，最後一天的收盤價小於20MA，需等待市場反彈"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "本益比高達369倍，股價淨值比高達18倍，顯示市場對Tesla有過度樂觀的估值。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2802,11 +2802,11 @@
             "rs_score": 0.0,
             "ai_debate": {
                 "pattern": "量縮洗盤",
-                "bull": "近5日量價呈現洗盤趨勢，RSI維持在低位，可能是市場在整理資金，多方觀點認為市場可能有反彈機會",
-                "bear": "近5日量價下跌，RSI維持在低位，市場可能仍處於下跌趨勢，空方觀點認為市場可能會繼續下跌",
-                "judge": "阿土伯最終裁決：觀望，最後一天的收盤價小於 20MA，嚴守阿土伯鐵律"
+                "bull": "近5日量價呈現洗盤跡象，RSI波動在40-50區間，可能是市場整理中，多方觀點認為市場可能有反彈機會",
+                "bear": "近5日量價呈現洗盤跡象，RSI波動在40-50區間，可能是市場整理中，空方觀點認為市場可能繼續下跌",
+                "judge": "阿土伯最終裁決：觀望，市場目前呈現洗盤跡象，需要觀察市場的反彈機會"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "本益比高達27倍，表明市場對 S&P 500 的估值過高，泡沫風險存在。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2823,26 +2823,23 @@
             "atr": 63.57,
             "news_sentiment": [
                 {
-                    "title": "台積電副總增買自家股票 4位新任副總持股曝光 - 自由財經",
-                    "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9naThYVHZPanY3WFl1dkpQQ1Rqa29hUDlabnhkdXdJRUd3UWpWQ19OWndKeGtwY09CcFhrc1B4LVdyR1ZHTjVRaUdVMXdMcUZIbC1rckQzdjdHMjdwckEw0gFkQVVfeXFMT1U0YW5yTnVOa1hpMm1oU1B4eFlhVGxvVjlQMVZKZDNFYU5JRC1JWWZ5TGl0ejdaQjBpc3N0WHZPNHZqMTlyVHE5aXhxa3RMT0tVT01fZFg5RVMyQzhKV1pJWVVFZA?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "台積電副總增買自家股票 4位新任副總持股曝光 - 自由財經"
                 },
                 {
-                    "title": "台積電漲到1835元後翻黑！名師示警：短線已漲多 翻黑是好買點 - Yahoo股市",
-                    "link": "https://news.google.com/rss/articles/CBMimgNBVV95cUxQWTdScU1tWGtrMzk1cW9LTlc4QXctc3RVNXNyUWRrWDFFNEhZa3hXdGxsOFRMWXg3bTNNRjl0SlpKSXZ2czItX2o4MzhWTkhzWjJUc3R4MnRLREdKNXhKNFlydDZKaHpSVXQ2ZUJRbTdmWmh0RnViSzVva1FJRGgxNHZnb1BOc0pDY19UZ0hvSFNUOWt2cmNmYWJWSlU2Sk9veDBqLUMzLTFKVHM2ZGFjM044VTYxT2ZkMmk2T3ZvVDhHN21UZVAyT0pIOExpcklzc0lHejdPWUh5VUVKOHloZy04Y1pRdjVPWnV1QjVoMkFndlVkVTVVVUlYV1Bva1NHd1VYRHNjN3F4eUtYanNMLWlKcXRFTmxFU04tckQycXZBS3pLdkV6M3JEUTBiM0ZXVVBZb1BNMjAxOUZjaTN6YTYzcUgwaldENmhpM1NpQzNyNHZITjJtM0ZMd2k3ZDJGUVFsMTFHOUQxVW9vME9HZW1mSDZDcUZIUFV3NTZNR0xlOWQ5QTJ5WlA0R1czdk9iam82TFo5b3haUQ?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利空",
+                    "title": "台積電漲到1835元後翻黑！名師示警：短線已漲多 翻黑是好買點 - Yahoo股市"
                 },
                 {
-                    "title": "1股台積電（2330）都沒有別太難過？阿格力：因為9成以上的台灣人都無 - 聯合新聞網",
-                    "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1oQ0dwdUtyVURrcDdxdEM0TGFfSTE0cTR5RXhfbU93T1c4dERBVVVkX1BTN2RlZzBIZWZydy1KMW5mNFlDZlhxWGRjNF9pdXBDRlHSAVdBVV95cUxQdDNKeTNmQ0wwV2FRYkh5MExDUGMwSENNS2g3d1NKd0F6VVI0c0hqYm1JRmRZUzE0OHhKbUNCaDBfOW00M290cHVmelJWTjh6ZmVDczhZT2M?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "1股台積電（2330）都沒有別太難過？阿格力：因為9成以上的台灣人都無 - 聯合新聞網"
                 }
             ],
             "vol_ratio": 1.2,
             "optimal_sl": 8,
             "actual_sl": 8,
-            "ev": 1.97,
-            "win_rate": 32.31,
+            "ev": 1.94,
+            "win_rate": 31.82,
             "history": [
                 {
                     "date": "2025-12-04",
@@ -3747,12 +3744,12 @@
             ],
             "rs_score": 2.2,
             "ai_debate": {
-                "pattern": "連線中斷",
-                "bull": "連線異常",
-                "bear": "連線異常",
-                "judge": "🤖 API 限速或異常。"
+                "pattern": "量縮洗盤",
+                "bull": "近5日量價呈現洗盤跡象，RSI維持在中線區域，可能是多方在底部累積資金，待機待時",
+                "bear": "近5日收盤價下跌，量縮加劇，RSI下跌，可能是空方在壓制多方，短期內仍有下跌風險",
+                "judge": "阿土伯最終裁決：觀望，需觀察下一交易日的走勢，收盤價是否能突破20MA"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "本益比高達29倍，股價淨值比高達9倍，顯示市場對台積電有過度樂觀評估。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3769,19 +3766,16 @@
             "atr": 10.05,
             "news_sentiment": [
                 {
-                    "title": "【即時新聞】元晶近日亮燈漲停，外資狂掃「8316」張，這波反彈還能追嗎？ - CMoney投資網誌",
-                    "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNZkhhYlcyNXo0UF9jWGFld044bGJpUEdDVmZiQU9ZaXlwMnZtd0lBaVRNYkcwNW5JQ1l1dGxhUGp5T3BNVXZhakcwZVBYVzJlYnBKby1OekY3YWI4cUQ5ekJ4eVl3M3R3YkhNWUMtTmVBbldNck5KSU5lc0Ftc0RJMjNxT0tDMjFtSzA4RWFBY0Q?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利空 🟢",
+                    "title": "【Hot台股】旺宏一度跌9%失守百元關！網問「95接，是鑽石還是石頭？」 分析師這樣看"
                 },
                 {
-                    "title": "目標價喊到149！ 旺宏為何那麼旺 專家直指3關鍵 - Yahoo股市",
-                    "link": "https://news.google.com/rss/articles/CBMiuwJBVV95cUxNc0ZlSUpMU2ltakhkMmVLVUFtMTRLclJubVM4X1p2RW1maWN4bkRXc05McHV6cm5rM0hhVFBkN2NCVGpRZHlsM3lHMkx0WF93Y3V3Sm1ac09CS2RKV3UzR1BhVmxnNEx0aEZzTk5acTNud0NQaFZWX0ZudVNmVkhUbnhiV1JXdU5VU255N1VxbnFZTWgycVFCWU90Y2V3VUF3T1FGSnZyczlzVlQyT09aNUdCR2w5YUc4VFEtM3BEVzlqS3FZb0dZRC1PZ0dOd3hpaUlEeE5JVGlHVldqaU9PTTQ0MC1mTUFRbTE4V3hZS1E4UGI3bWFtN1ZTbFUyNmFsTUF3d3liWGw2TTA4WHJ3cXV1Rk9WQXhYMHhUbUxLN2hFTWlqblZ0Q0tDUVV1bVJwcHhFRDB4NkprU0U?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多 🔴",
+                    "title": "今日漲停跌停股｜記憶體、軍工、半導體設備三箭齊發！旺宏(2337)、雷虎(8033)、均華(6640)強勢領漲 0108"
                 },
                 {
-                    "title": "今日漲停跌停股｜記憶體、軍工、半導體設備三箭齊發！旺宏(2337)、雷虎(8033)、均華(6640)強勢領漲 0108 - sinotrade.com.tw",
-                    "link": "https://news.google.com/rss/articles/CBMilwRBVV95cUxQemVoOTI4WTFuWXhCRGF5U3ZEQ1cyTkw0N2pZZkZHbmF0MEZ2akNmYS02T3RZWFJvallYTWl5N1dPNGJLV01VV0o3SDVYeVkzV1U5dFE2Y3gyU2c5ek9Ga1hPX1Vxd0NpS0paYlQwdTVDZWhWVmswQjRadV93VFNmXzd4d2oyTXRtTU5vZ3E0UkwtQjNHNWNGbi05T1NtNnpfSS1JYm5oX0xCbW53WHRGN0Zubnc5dThRa25lZDBndU5IcE5nQzBCNlhjM2tZaHJFMjRjYmpEd2dNTUg3anNOeWVQbktDTzBkMVVYTWJZZGQ2T3ZfSmFNbkxsVlJtX2o0clJIRVJ3eGRIQ1E4Rk8yNFhOYV9IM2N6U0VSU2NwRnZsR0tjeUFZX2dfdzdsTmR0OGF2MTEyTlBScXNuVVU3ak9laGI1enE4bzZrdHdteEtWQ21iVUZYX1pkM3hxZ0ZrOEdkQk9LTkxJb3hTWGRhS2V2Vlhwdy1zNmxYelhCZlI2YkpseXRQalF3YkEzUXRDZGI4R3pTLUpmQ2V5cWl0VldOTXNBNXc1cXdaSDRFaExreWxWeWpiaFVrVkotNmlGX1EwS1JVSEpTaVpSWk54TWtqbFVmQjRiMzFxal84ZDJrclFzZVhRQ3U1dlkzRjhHR3QtazFuRjFvRUNYbkNwU3FiaC1xTGtXbVdkNDJRLXhMTy1tR2dR?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "【即時新聞】元晶近日亮燈漲停，外資狂掃「8316」張，這波反彈還能追嗎？"
                 }
             ],
             "vol_ratio": 1.2,
@@ -4693,12 +4687,12 @@
             ],
             "rs_score": 9.86,
             "ai_debate": {
-                "pattern": "連線中斷",
-                "bull": "連線異常",
-                "bear": "連線異常",
-                "judge": "🤖 API 限速或異常。"
+                "pattern": "量縮洗盤",
+                "bull": "近5日量價呈現洗盤跡象，短期內可能有反彈機會，但需觀察RSI指標是否有下跌趨勢",
+                "bear": "近5日量價下降且RSI指標持續下跌，表明市場可能仍在下跌中，需觀察是否有底部形成",
+                "judge": "觀望，需觀察是否有明確的反彈跡象，否則仍需保持偏空態度"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "「淨利率負11.45%，股東權益報酬率負7.36%，表明公司經營效率惡化，財務隱患重大」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5624,11 +5618,11 @@
             "rs_score": 37.15,
             "ai_debate": {
                 "pattern": "量縮洗盤",
-                "bull": "近5日量價呈現洗盤行情，多方觀點認為穩懋可能正在形成底部反彈機會，需要觀察下一波的量能變化",
-                "bear": "近5日量價呈現洗盤行情，空方觀點認為穩懋可能正在形成底部反彈的陷阱，需要觀察下一波的量能變化",
-                "judge": "最後一天的收盤價(299.00)大於20MA(276.23)，但仍需要觀察下一波的量能變化，目前裁決為觀望"
+                "bull": "近5日量價呈現洗盤跡象，多方觀點認為可能是短期低點，需要觀察下一波反彈",
+                "bear": "近5日量價下跌，RSI回落，空方觀點認為市場可能仍在下跌中，需要觀察是否能夠突破20MA",
+                "judge": "阿土伯最終裁決：觀望，需要觀察下一波反彈或是是否能夠突破20MA"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "本益比高達40倍，股價淨值比超過3倍，顯示明顯泡沫風險。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5653,8 +5647,8 @@
                     "title": "小資買不起一張180-200萬的台積電，可以買1-4萬「高含積」的ETF"
                 },
                 {
-                    "sentiment": "利空",
-                    "title": "「不配息0050」009816上市19天規模逼近800億元"
+                    "sentiment": "中立",
+                    "title": "009816 vs 0050超完整比較！超低規費、不配息賺更多？「股價上看2字頭」成分股、優缺點、甜甜價全解析"
                 }
             ],
             "vol_ratio": 1.2,
@@ -6566,12 +6560,12 @@
             ],
             "rs_score": 0.0,
             "ai_debate": {
-                "pattern": "連線中斷",
-                "bull": "連線異常",
-                "bear": "連線異常",
-                "judge": "🤖 API 限速或異常。"
+                "pattern": "量縮洗盤",
+                "bull": "近期量價震盪，RSI仍在中線，可能是多方試圖拉抬市場，需要觀察下一波走勢。",
+                "bear": "市場近期出現量縮洗盤，RSI下降，可能是空方壓力下市場出現短暫反彈，需要觀察下一波走勢。",
+                "judge": "觀望，市場未達出現明顯多空分歧，需要觀察下一波走勢，最後一天的收盤價小於 20MA，嚴守阿土伯鐵律，最終裁決偏空"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "本益比高達26倍，顯示市場對台灣50有過度樂觀，高風險。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6589,15 +6583,15 @@
             "news_sentiment": [
                 {
                     "sentiment": "利多",
-                    "title": "美股法說ONON｜瑞士運動品牌ON昂跑3Q25財報亮眼，台廠鈺齊搭上成長列車(ONON US)｜豐雲學堂2026 年 03 月 - sinotrade.com.tw"
-                },
-                {
-                    "sentiment": "利多",
                     "title": "你買鞋了嗎？昂跑(ONON)再上修全年財測！ 鈺齊-KY漲停。 低位階要留意 - 理財周刊"
                 },
                 {
-                    "sentiment": "中立",
+                    "sentiment": "利多",
                     "title": "關稅底定 鈺齊、喬山營運回神 - Yahoo股市"
+                },
+                {
+                    "sentiment": "利多",
+                    "title": "傳產股春天來了？製鞋股基期明顯偏低，分析師「點名3檔」值得關注！ - Smart自學網"
                 }
             ],
             "vol_ratio": 1.2,
@@ -7509,12 +7503,12 @@
             ],
             "rs_score": -14.95,
             "ai_debate": {
-                "pattern": "連線中斷",
-                "bull": "連線異常",
-                "bear": "連線異常",
-                "judge": "🤖 API 限速或異常。"
+                "pattern": "量縮洗盤",
+                "bull": "近5日收盤價持續下跌，但量縮減少，可能是市場在底部形成反彈機會",
+                "bear": "近5日收盤價連續下跌，量縮加劇，RSI指標深入低區，市場可能進入熊市",
+                "judge": "阿土伯最終裁決：觀望，最後一天的收盤價小於 20MA，嚴禁建議買進！"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "「本益比高達14倍，表明股價可能過高，投資風險增加。」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7531,16 +7525,16 @@
             "atr": 3.23,
             "news_sentiment": [
                 {
+                    "sentiment": "中立",
+                    "title": "台股高點徘徊，還有便宜股票可撿？當然有！艾蜜莉無私分享8檔口袋名單 - Smart自學網"
+                },
+                {
                     "sentiment": "利多",
                     "title": "9910 豐泰- 執行長以身做則加碼，用自己的錢跟他拼了👍團隊贏了，我就贏了｜CMoney 股市爆料同學會 - cmoney.tw"
                 },
                 {
                     "sentiment": "中立",
                     "title": "【13:03 即時新聞】南俊國際(6584)盤中強彈3%，法人回補助攻，AI伺服器滑軌題材續熱-CMoney 研究員 - CMoney投資網誌"
-                },
-                {
-                    "sentiment": "利多",
-                    "title": "來億-KY、豐泰、鈺齊-KY…，製鞋股最壞情況已過，3檔傳產股投資價值浮現-烱叔台股攻略-台股 - 商周財富網"
                 }
             ],
             "vol_ratio": 1.2,
@@ -8452,12 +8446,12 @@
             ],
             "rs_score": -12.65,
             "ai_debate": {
-                "pattern": "連線中斷",
-                "bull": "連線異常",
-                "bear": "連線異常",
-                "judge": "🤖 API 限速或異常。"
+                "pattern": "量縮洗盤",
+                "bull": "近5日量價呈現洗盤行情，短期內可能仍有反彈機會，但需觀察大盤趨勢",
+                "bear": "量縮洗盤通常是空方的勝利，短期內可能會持續下跌，需觀察20MA的支撐",
+                "judge": "觀望，需觀察大盤趨勢和20MA支撐，最後一天的收盤價小於 20MA，嚴禁建議買進！"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "「本益比高達16倍，股價淨值比高達3.74倍，表明股價過高，業績增長乏力。」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -9396,11 +9390,11 @@
             "rs_score": -9.51,
             "ai_debate": {
                 "pattern": "量縮洗盤",
-                "bull": "近5日收盤價在20MA之上，RSI在40以下，表現穩定，但量縮需關注",
-                "bear": "近5日量縮，收盤價在20MA之上但RSI低於40，表現疲弱，多空分歧",
+                "bull": "近5日收盤價在20MA之上，RSI在40以下，表明市場尚未超賣，仍有買氣存在",
+                "bear": "近5日量縮，收盤價在20MA之上但RSI在40以下，表明市場尚未超賣，但買氣減弱",
                 "judge": "觀望，需觀察下一交易日的走勢"
             },
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "funda_summary": "「本益比僅7.9倍，股價淨值比只有0.66倍，ROE相對穩定，但近期營收衰退達11.9%，淨利率仍然可觀。」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -9409,7 +9403,7 @@
         }
     ],
     "market_health": {
-        "vix": 24.95,
+        "vix": 25.25,
         "health_pct": 40,
         "us_summary": {
             "標普500": {
@@ -9425,11 +9419,11 @@
                 "pct": -0.46
             },
             "恐慌指數": {
-                "price": 24.95,
-                "pct": 0.08
+                "price": 25.25,
+                "pct": 1.28
             }
         },
-        "ai_script": "阿土伯嚴厲指示：今日台股開盤，資金曝險上限建議 30%。\n\n費半(SOXX)微幅上漲，台積電ADR(TSM)小幅下跌，無明顯警訊。今日台股開盤，抱牢核心股票，紀律執行買賣。開盤嚴禁接刀，韭菜勿近！"
+        "ai_script": "今日台股開盤，資金曝險上限建議 30%！費半(SOXX)微升，台積電ADR(TSM)小跌，恐慌指數升高，但仍在可控範圍內。今日台股操作鐵律：\n\n1. **抱牢**核心股：台積電、聯電、台塑等。\n2. **紀律**買入：選擇性買入費半、台積電等成長股。\n3. **嚴禁**接刀：今日台股開盤嚴禁接刀，避免風險過高。\n4. **韭菜**警戒：注意恐慌指數"
     },
     "macro": {
         "tw_insight": "✅ 0050多頭穩定",
