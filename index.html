@@ -727,10 +727,14 @@
                             </div>
                             
                             <!-- 💡 機器人點評區塊 -->
-                            <div class="pt-3 border-t border-slate-700/50">
-                                <div class="bg-blue-900/20 p-4 rounded-xl border border-blue-500/30">
-                                    <p class="text-xs font-black text-blue-300 mb-1">🤖 系統點評：</p>
-                                    <p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.ai_summary || '讀取中'}</p>
+                            <div class="pt-3 border-t border-slate-700/50 space-y-2">
+                                <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/30 shadow-inner">
+                                    <p class="text-[11px] font-black text-blue-300 mb-0.5">🤖 技術面系統點評：</p>
+                                    <p class="text-xs font-bold text-slate-200 leading-relaxed">${stock.ai_summary || '讀取中'}</p>
+                                </div>
+                                <div class="bg-purple-900/20 p-3 rounded-xl border border-purple-500/30 shadow-inner">
+                                    <p class="text-[11px] font-black text-purple-300 mb-0.5">🕵️‍♂️ 財報照妖鏡 (基本面)：</p>
+                                    <p class="text-xs font-bold text-slate-200 leading-relaxed">${stock.funda_summary || '讀取中'}</p>
                                 </div>
                             </div>
 
