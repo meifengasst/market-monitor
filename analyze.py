@@ -12,12 +12,16 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 def send_line_alert(message):
     token = os.environ.get("LINE_ACCESS_TOKEN")
     target_id = os.environ.get("LINE_TARGET_ID")
-    if not token or not target_id: return
-        try:
-            requests.post("https://api.line.me/v2/bot/message/push",
-                          headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"},
-                          json={"to": target_id, "messages": [{"type": "text", "text": message}]})
-            except: pass
+    
+    if not token or not target_id:
+        return
+        
+    try:
+        requests.post("https://api.line.me/v2/bot/message/push",
+                      headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"},
+                      json={"to": target_id, "messages": [{"type": "text", "text": message}]})
+    except Exception as e:
+        print(f"⚠️ LINE 警報發送失敗: {e}")
 
 
 
@@ -412,5 +416,6 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
