@@ -201,39 +201,53 @@ def generate_morning_script_via_groq(market_data):
     except Exception as e:
         print(f"⚠️ Groq API 呼叫失敗: {e}")
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
-def get_ai_stock_insight(stock_name, price, ma20, rsi, rs_score):
-    """把技術指標丟給 Groq AI，產生阿土伯風格的專屬個股點評"""
+def get_dual_ai_debate(stock_name, price, ma20, rsi, rs_score, funda_info):
+    """進化二：多空雙 AI 辯論室 (Agentic Workflow)"""
     groq_api_key = os.environ.get("GROQ_API_KEY")
     if not groq_api_key:
-        return "⚠️ 未設定 API KEY，請回歸 20MA 紀律操作。"
+        return {"bull": "缺乏連線", "bear": "缺乏連線", "judge": "⚠️ 未設定 API KEY，請回歸 20MA 紀律操作。"}
 
-    # 💡 阿土伯緊箍咒：把風控鐵律寫進 Prompt，防堵 AI 亂叫人接刀！
     system_prompt = """
-    你現在是台灣股市極度保守、紀律嚴明的資深操盤手「阿土伯」。
-    請根據以下技術面數據，用「一句話（嚴格限制 30 字以內）」給出操作建議。
+    你現在是一個「台灣股市多空辯論法庭」，裡面有三個角色同時運作。
+    請嚴格根據提供的技術面與基本面數據，進行三方對話。
+    必須嚴格以【純 JSON 格式】回傳，絕對不能有 markdown 標記 (如 ```json) 或是其他廢話！
     
-    【阿土伯鐵律 - 絕對不可違背】：
-    1. 如果「現價 < 20日均線(月線)」，絕對只能叫人「觀望、停損、空手、嚴禁接刀」，【絕對不可以】建議買進或抄底！
-    2. 如果「現價 >= 20日均線(月線)」，才可以建議「抱牢、偏多操作、設好停損」。
-    3. 語氣要果斷、嚴厲、接地氣（例如：破線就罵人接刀，站上就叫人抱牢）。
-    不要打招呼，直接給出點評！
+    格式範例與角色設定：
+    {
+        "bull": "死多頭的買進理由 (限20字內，極力看好)",
+        "bear": "死空頭的看跌理由 (限20字內，極力看壞)",
+        "judge": "阿土伯主裁判的最終結論 (限30字內，綜合兩者並加入防守建議)"
+    }
+    
+    【主裁判阿土伯鐵律 - 違者當機】：
+    1. 如果「現價 < 20日均線」，judge 絕對只能判「觀望、停損、嚴禁接刀」！
+    2. 只有「現價 >= 20日均線」，judge 才能判「抱牢、偏多操作」。
     """
     
-    user_prompt = f"股票：{stock_name}\n現價：{price}\n20日均線(月線)：{ma20}\nRSI(熱度)：{rsi}\n相對大盤強弱：{rs_score}%"
+    # 💡 把基本面 (照妖鏡的結果) 跟技術面一起餵給辯論庭！
+    user_prompt = f"股票：{stock_name}\n現價：{price}\n20日均線：{ma20}\nRSI：{rsi}\n相對大盤強弱：{rs_score}%\n基本面情報：{funda_info}"
 
     try:
         headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
         payload = {
             "model": "llama-3.1-8b-instant",
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "temperature": 0.2, # 💡 把溫度調低 (從 0.4 降到 0.2)，讓 AI 不要太有創意，乖乖聽話
-            "max_tokens": 100
+            "temperature": 0.3,
         }
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=10)
+        res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=15)
         res.raise_for_status()
-        return res.json()["choices"][0]["message"]["content"].strip()
+        
+        ai_text = res.json()["choices"][0]["message"]["content"].strip()
+        
+        # 用正則表達式把 JSON 字典挖出來
+        match = re.search(r'\{.*\}', ai_text, re.DOTALL)
+        if match:
+            return json.loads(match.group(0))
+        else:
+            return {"bull": "解析錯誤", "bear": "解析錯誤", "judge": "🤖 辯論庭休會中"}
     except Exception as e:
-        return "🤖 盤勢震盪，AI 連線異常，請手動依紀律操作。"
+        print(f"⚠️ 雙 AI 辯論失敗 ({stock_name}): {e}")
+        return {"bull": "連線異常", "bear": "連線異常", "judge": "🤖 盤勢震盪，請手動依紀律操作。"}
 
 def get_fundamental_risk(symbol, stock_name):
     """阿土伯的財報照妖鏡：抓取基本面數據，交給 Groq AI 抓出隱藏風險"""
@@ -414,11 +428,15 @@ def generate_dashboard_data():
         print(f"🧠 正在請求 AI 分析師點評 {info['name']} 的技術面...")
         ai_insight = get_ai_stock_insight(info["name"], current_price, round(df['ma20'].iloc[-1], 2), round(df['rsi'].iloc[-1], 2), rs_score)
         
-        # 💡 阿土伯升級：調用財報照妖鏡 (基本面掃雷)
+# 💡 第一步：先調用財報照妖鏡 (基本面掃雷)
         funda_insight = get_fundamental_risk(symbol, info["name"])
+
+        # 💡 第二步：帶著基本面與技術面，召開多空 AI 辯論庭！
+        print(f"⚖️ 正在召開 {info['name']} 的多空 AI 辯論庭...")
+        debate_result = get_dual_ai_debate(info["name"], current_price, round(df['ma20'].iloc[-1], 2), round(df['rsi'].iloc[-1], 2), rs_score, funda_insight)
         
-        # 組合最終的卡片點評
-        lively_summary = f"🎯 {ai_insight} (建議防守：{int(best_sl*100)}%)"
+        # 組合最終的卡片點評 (抓取主裁判的判決)
+        lively_summary = f"🎯 {debate_result['judge']} (建議防守：{int(best_sl*100)}%)"
         
         dashboard_data.append({
             "symbol": symbol, "name": info["name"], "category": info["category"],
@@ -428,8 +446,9 @@ def generate_dashboard_data():
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
             "rs_score": rs_score, 
-            "ai_summary": lively_summary, 
-            "funda_summary": funda_insight, # 👈 把財報掃雷結果打包進去！
+            "ai_summary": lively_summary,
+            "debate": debate_result,         # 👈 把整個辯論紀錄傳給前端！
+            "funda_summary": funda_insight, 
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
@@ -465,6 +484,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
