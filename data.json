@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-11 [13:20]",
+    "last_update": "2026-03-11 [14:01]",
     "data": [
         {
             "symbol": "NVDA",
@@ -16,11 +16,11 @@
                 },
                 {
                     "sentiment": "利多",
-                    "title": "Prediction: Nvidia Stock Will Soar to This Price in 2026 as the AI Boom Expands From Data Centers to Robotaxis - cmoney.tw"
+                    "title": "Prediction: Nvidia Stock Will Soar to This Price in 2026 as the AI Boom Expands From Data Centers to Robotaxis"
                 },
                 {
-                    "sentiment": "中立",
-                    "title": "2026年輝達是否仍值得買入？NVDA 市值能否在 2030 年達到 10 兆美元？ - TradingKey"
+                    "sentiment": "利多",
+                    "title": "2026年輝達是否仍值得買入？NVDA 市值能否在 2030 年達到 10 兆美元？"
                 }
             ],
             "vol_ratio": 1.2,
@@ -931,8 +931,12 @@
                 }
             ],
             "rs_score": 0.16,
-            "ai_summary": "🎯 抱牢！目前價格已站上20日均線，RSI在中線，相對大盤強弱不大，持續抱牢並設好停損。 (建議防守：12%)",
-            "funda_summary": "本益比高達37倍，股價淨值比高達28倍，顯示明顯泡沫風險，ROE過高可能是財務報表舞弊的跡象。",
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "「股價淨值比高達28倍，顯示明顯泡沫風險，ROE過高可能掩蓋潛在風險」。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1865,8 +1869,12 @@
                 }
             ],
             "rs_score": -3.95,
-            "ai_summary": "🎯 現價已站上20日均線，抱牢！ (建議防守：12%)",
-            "funda_summary": "「高本益比369倍，股價淨值比18倍，顯示明顯泡沫風險，ROE僅4.93%，營收衰退且淨利率僅4.0%」",
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "本益比高達369倍，股價淨值比18倍，表明市場對Tesla有過度樂觀的估值。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2790,8 +2798,12 @@
                 }
             ],
             "rs_score": 0.0,
-            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI在中性區間，相對大盤強弱為0，無明顯趨勢。 (建議防守：4%)",
-            "funda_summary": "本益比高達27倍，表明市場對S&P 500的估值過高，泡沫風險存在。",
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "本益比高達27倍，表明市場對S&P 500有過度樂觀，泡沫風險存在。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2813,7 +2825,7 @@
                 },
                 {
                     "sentiment": "利空",
-                    "title": "台積電漲到1835元後翻黑！名師示警：短線已漲多 翻黑是好買點 - Yahoo股市"
+                    "title": "台積電收跌70元至1865元！市值失守50兆元 專家喊「是黃金」 - Yahoo股市"
                 },
                 {
                     "sentiment": "中立",
@@ -3714,7 +3726,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 1940.0,
-                    "volume": 29856292,
+                    "volume": 38582492,
                     "ma5": 1878.0,
                     "ma20": 1877.25,
                     "ma60": 1697.84,
@@ -3727,9 +3739,13 @@
                     "atr": 63.57
                 }
             ],
-            "rs_score": 1.86,
-            "ai_summary": "🎯 台積電現價高於20日均線，抱牢！ (建議防守：8%)",
-            "funda_summary": "股價淨值比高達9倍，顯示市場對台積電估值過高，泡沫風險存在。",
+            "rs_score": 2.2,
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "本益比高達29倍，股價淨值比高達9倍，顯示明顯泡沫風險。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -4652,7 +4668,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 99.7,
-                    "volume": 130119937,
+                    "volume": 131306004,
                     "ma5": 98.54,
                     "ma20": 97.54,
                     "ma60": 68.1,
@@ -4665,9 +4681,13 @@
                     "atr": 10.05
                 }
             ],
-            "rs_score": 9.51,
-            "ai_summary": "🎯 旺宏站上20日均線，抱牢！停損設定在97.54，多點操作！ (建議防守：12%)",
-            "funda_summary": "旺宏的財務隱患：負ROE與負淨利率，表明公司經營效率惡化，營收增長率無法支撐公司的財務健康。",
+            "rs_score": 9.86,
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "「股價淨值比高達4倍，ROE負7.36%，淨利率負11.45%，顯示公司財務健康狀況嚴重惡化，投資風險極高。」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5577,7 +5597,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 299.0,
-                    "volume": 6952946,
+                    "volume": 7166349,
                     "ma5": 287.7,
                     "ma20": 276.23,
                     "ma60": 223.62,
@@ -5591,8 +5611,12 @@
                 }
             ],
             "rs_score": 37.15,
-            "ai_summary": "🎯 穩懋現價已站上20日均線，抱牢！停損設定在276.23。 (建議防守：12%)",
-            "funda_summary": "本益比高達40倍，顯示股價過高，泡沫風險高。",
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "本益比高達409倍，顯示明顯泡沫風險，股價過高。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5603,9 +5627,9 @@
             "symbol": "0050.TW",
             "name": "台灣50",
             "category": "台股龍頭",
-            "price": 78.45,
-            "rsi": 62.97,
-            "bias": 3.19,
+            "price": 78.2,
+            "rsi": 62.6,
+            "bias": 2.87,
             "atr": 2.41,
             "news_sentiment": [
                 {
@@ -5613,12 +5637,12 @@
                     "title": "0050、0056 及台灣中型100指數最新換股名單，金像電、華邦電、欣興入選0050成分股，將於3月20日收盤後生效"
                 },
                 {
-                    "sentiment": "利空",
-                    "title": "不配息0050\"009816上市19天規模逼近800億元"
+                    "sentiment": "中立",
+                    "title": "小資買不起一張180-200萬的台積電，可以買1-4萬「高含積」的ETF"
                 },
                 {
-                    "sentiment": "中立",
-                    "title": "股票小白手滑！APP按買進 \"一張0050\"超慌　前輩全笑了：沒差"
+                    "sentiment": "利空",
+                    "title": "「不配息0050」009816上市19天規模逼近800億元"
                 }
             ],
             "vol_ratio": 1.2,
@@ -6514,23 +6538,27 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 78.45,
-                    "volume": 132484425,
-                    "ma5": 76.38,
-                    "ma20": 76.03,
+                    "price": 78.2,
+                    "volume": 151189727,
+                    "ma5": 76.33,
+                    "ma20": 76.01,
                     "ma60": 69.71,
-                    "macd": 1.73,
+                    "macd": 1.71,
                     "macd_signal": 2.18,
-                    "macd_hist": -0.45,
-                    "rsi": 62.97,
-                    "bb_upper": 82.46,
-                    "bb_lower": 69.59,
+                    "macd_hist": -0.46,
+                    "rsi": 62.6,
+                    "bb_upper": 82.43,
+                    "bb_lower": 69.6,
                     "atr": 2.41
                 }
             ],
             "rs_score": 0.0,
-            "ai_summary": "🎯 「台灣50現價已站上20日均線，抱牢！」 (建議防守：4%)",
-            "funda_summary": "本益比高達26倍，顯示市場對台灣50有過度樂觀評估，風險高。",
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "本益比高達26倍，明顯有泡沫風險。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6541,9 +6569,9 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 86.3,
-            "rsi": 30.56,
-            "bias": -6.54,
+            "price": 87.2,
+            "rsi": 33.86,
+            "bias": -5.61,
             "atr": 2.34,
             "news_sentiment": [
                 {
@@ -7452,23 +7480,27 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 86.3,
-                    "volume": 852902,
-                    "ma5": 87.88,
-                    "ma20": 92.34,
-                    "ma60": 99.47,
-                    "macd": -2.86,
-                    "macd_signal": -2.3,
-                    "macd_hist": -0.56,
-                    "rsi": 30.56,
-                    "bb_upper": 98.37,
-                    "bb_lower": 86.31,
+                    "price": 87.2,
+                    "volume": 934467,
+                    "ma5": 88.06,
+                    "ma20": 92.38,
+                    "ma60": 99.48,
+                    "macd": -2.79,
+                    "macd_signal": -2.29,
+                    "macd_hist": -0.5,
+                    "rsi": 33.86,
+                    "bb_upper": 98.23,
+                    "bb_lower": 86.54,
                     "atr": 2.34
                 }
             ],
-            "rs_score": -16.25,
-            "ai_summary": "🎯 抱牢！鈺齊-KY已站上20日均線(月線)，可進行偏多操作，設好停損。 (建議防守：12%)",
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "rs_score": -14.95,
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "「本益比高達14.8倍，可能存在高估風險，股東權益報酬率僅8.69%，未能帶來相應的股價回報。」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7485,19 +7517,16 @@
             "atr": 3.23,
             "news_sentiment": [
                 {
-                    "title": "台股高點徘徊，還有便宜股票可撿？當然有！艾蜜莉無私分享8檔口袋名單 - Smart自學網",
-                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBxNmFFYnV6ZS0tbWJKZWJGcHIzR1VlRXZnU2M0NmtMRWxlSnptcE9NS0Jna3Z3VVZwMUtPZE10d1BGY3lQbXlYT0o3OWhkaFNiaTFJbGZCTjdxUVdqMGdNZklYRFRCV3lPVF85aXRVUmlWR2FTMDFCdGZYeXc?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "9910 豐泰- 執行長以身做則加碼，用自己的錢跟他拼了👍團隊贏了，我就贏了｜CMoney 股市爆料同學會 - cmoney.tw"
                 },
                 {
-                    "title": "9910 豐泰- 執行長以身做則加碼，用自己的錢跟他拼了👍團隊贏了，我就贏了｜CMoney 股市爆料同學會 - cmoney.tw",
-                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1ld1Q1RGJfTG1PWUFVd010ZENUNUZzeHdLSDFZTU5wTnlENFR2VEI2Qkh2N1BnUjZSWGsxckZGM1RTWDJ5dFFoUkJ2MkxhZ0xKOEZ6djJiYmk?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "【13:03 即時新聞】南俊國際(6584)盤中強彈3%，法人回補助攻，AI伺服器滑軌題材續熱-CMoney 研究員 - CMoney投資網誌"
                 },
                 {
-                    "title": "【13:03 即時新聞】南俊國際(6584)盤中強彈3%，法人回補助攻，AI伺服器滑軌題材續熱-CMoney 研究員 - CMoney投資網誌",
-                    "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxORlJiTHYyeWFBR3lEY040dzVQa1B5aW1xd3pSYXZnN3JxR1VXUEw3UjZFOEJNTVIxdWdZMENKZlBkcG5rZ0xPTDJmWGNZZlJIM2FYdTRzcnBZTnoyWjJCRXRzb2cyWmJoazBlS0F3aF9kNmhNZmVZemprVkQwcWVGQlZJOWpKdDlqV01MeXhR?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "來億-KY、豐泰、鈺齊-KY…，製鞋股最壞情況已過，3檔傳產股投資價值浮現-烱叔台股攻略-台股 - 商周財富網"
                 }
             ],
             "vol_ratio": 1.2,
@@ -8394,7 +8423,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 88.5,
-                    "volume": 1896585,
+                    "volume": 3024269,
                     "ma5": 90.42,
                     "ma20": 92.43,
                     "ma60": 104.56,
@@ -8407,9 +8436,13 @@
                     "atr": 3.23
                 }
             ],
-            "rs_score": -13.0,
-            "ai_summary": "🎯 🤖 盤勢震盪，AI 連線異常，請手動依紀律操作。 (建議防守：3%)",
-            "funda_summary": "「本益比高於16倍，股價淨值比超過3倍，ROE達22%，但近期營收衰退，淨利率僅6.13%」",
+            "rs_score": -12.65,
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "「本益比高於15倍，股價淨值比高於3倍，表明市場對豐泰有過度樂觀評估。」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -8420,25 +8453,22 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.2,
-            "rsi": 42.98,
-            "bias": -0.89,
+            "price": 30.05,
+            "rsi": 41.44,
+            "bias": -1.36,
             "atr": 0.67,
             "news_sentiment": [
                 {
-                    "title": "愛迪達上修財測 寶成漲逾3%領運動休閒股群攻 - Yahoo股市",
-                    "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxONlkzSENFWW5zUW5NSEVIbnQ1Vm1zaEtxaC0yX3p6QVdESXNndEtSZHpCeTRGOVJ3OXhnVG5hZWJWNjQ0ZFFyS09MV3RrbDJLRHoxY1BLUFYyVDJOOTFfTFFVSW1aVGF4YXJ6cDZIYkJ3TnljbVZwN1R5RWw5dkNscF9pUWlMYzg1UGtoVm5WUEtTaHllWW9XZldXVFlEdHAyTWowaU5tSG9ibW1HbnM0Y3BtNTh5TUNPenBSMExBV2EzQ3hHYTFIU3NrbXBIS2R4QXR2cGI4VW9DUzdrM2NqWEpsOUNGZUMwdVdFVy1pWUZoRnhKSF8xNExxMFFhOWZTaHU0UnVDcnN1eVFkUWFfQ2V3Xzhuc0JrbHdJYnBKNlh1OTVYWDc5S1VFOTRBWUg4aHlyLWEyZmx2TVE4eXVrRDJ3?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "愛迪達上修財測 寶成漲逾3%領運動休閒股群攻 - Yahoo股市"
                 },
                 {
-                    "title": "製鞋龍頭寶成(9904)，全球市占超過20%！ 這種壟斷的規模，可以用「這 5點」評估護城河優勢！-小資女艾蜜莉 - CMoney投資網誌",
-                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9HTWw4NDhJbUstU2thZkZnTy0wTEtKNVZINjdhamdaV1RIU1lDWXB0QmRDaWs1YkJqUGE1dmh6bEVfMG5uMUY5aHFFRTdnQzZ1U29GTklZR010VzhUTjF2RmRJdVFreG9aMWZySF9KQ0NiVldOMDl6dFpoY1k?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "製鞋龍頭寶成(9904)，全球市占超過20%！ 這種壟斷的規模，可以用「這 5點」評估護城河優勢！-小資女艾蜜莉 - CMoney投資網誌"
                 },
                 {
-                    "title": "南山人壽拖累，寶成營收年減3.5%，還能買？艾蜜莉點出1關鍵，靜待便宜價 - Smart自學網",
-                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBaMzU3U3VqanQ3MEJ3QThjOG5wM3UwVl9NcF9pVW9RQmFqU3IwUzBMMk9iYlRZb1QzR2p5ZzUtejBDVGdOYVp3VmpYbUJ2UVgzUTlkZ0JOWl91b2hxV2dHNnAyVHp5cTJDckx3aTl4ZkFPTjVLZldtaVRHVWo?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利空",
+                    "title": "南山人壽拖累，寶成營收年減3.5%，還能買？艾蜜莉點出1關鍵，靜待便宜價 - Smart自學網"
                 }
             ],
             "vol_ratio": 1.2,
@@ -9334,23 +9364,27 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 30.2,
-                    "volume": 5116008,
-                    "ma5": 29.8,
-                    "ma20": 30.47,
+                    "price": 30.05,
+                    "volume": 5664697,
+                    "ma5": 29.77,
+                    "ma20": 30.46,
                     "ma60": 30.77,
-                    "macd": -0.3,
+                    "macd": -0.32,
                     "macd_signal": -0.21,
-                    "macd_hist": -0.1,
-                    "rsi": 42.98,
+                    "macd_hist": -0.11,
+                    "rsi": 41.44,
                     "bb_upper": 31.71,
-                    "bb_lower": 29.24,
+                    "bb_lower": 29.22,
                     "atr": 0.67
                 }
             ],
-            "rs_score": -9.37,
-            "ai_summary": "🎯 🤖 盤勢震盪，AI 連線異常，請手動依紀律操作。 (建議防守：6%)",
-            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
+            "rs_score": -9.51,
+            "ai_debate": {
+                "bull": "連線中斷",
+                "bear": "連線中斷",
+                "judge": "🤖 盤勢震盪，連線異常。"
+            },
+            "funda_summary": "「本益比僅7倍，股價淨值比0.66倍，股東權益報酬率7.9%，但近期營收衰退11.9%，淨利率4.35%仍可支撐。」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
