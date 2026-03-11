@@ -534,27 +534,23 @@ dashboard_data.append({
             "rs_score": rs_score, 
             "ai_debate": debate_result, 
             "funda_summary": funda_insight, 
-            "best_ma_name": best_ma_name,       # 👈 塞入最強防守線名稱 (例如 "10MA")
-            "best_ma_price": best_ma_price,     # 👈 塞入最強防守線的價格
+            "best_ma_name": best_ma_name,       
+            "best_ma_price": best_ma_price,     
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
-
-    # 迴圈結束後，底下是算 VIX 跟晨間劇本的地方 (維持不變)
-    try:
-        vix_price = round(yf.Ticker("^VIX").fast_info.get('lastPrice', 0), 2)
-    except:
-        vix_price = 0
         except Exception as e:
             print(f"⚠️ 處理 {symbol} 時發生錯誤: {e}")
             
-        # 👇 注意這裡！這兩行要跟上面的 except 對齊！（前面剛好是 8 個半形空白）
+        # 👇 喝茶時間！這裡跟上面的 except 對齊 (8個半形空白)
         print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
         time.sleep(15)
 
-    # 👇 這是 for 迴圈結束後，準備回傳資料的地方（前面是 4 個空白）
-    return dashboard_data
+    # ==========================================
+    # 🌟 這裡代表 FOR 迴圈正式結束 (退回 4 個空白)
+    # ==========================================
 
+    print("📊 準備結算並產出 JSON 報表...")
     us_market_data = get_us_market_summary()
     morning_script = generate_morning_script_via_groq(us_market_data)
 
@@ -562,12 +558,13 @@ dashboard_data.append({
     health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
 
     market_health = {
-        "vix": us_market_data.get("恐慌指數", {}).get("price", 0),
+        "vix": us_market_data.get("恐慌指數", {}).get("price", 0) if isinstance(us_market_data, dict) else 0,
         "health_pct": health_pct,
         "us_summary": us_market_data,     
         "ai_script": morning_script       
     }
 
+    # 💾 把結果存檔成 data.json 給網頁讀取
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump({
             "last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"), 
@@ -576,30 +573,11 @@ dashboard_data.append({
             "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"}
         }, f, ensure_ascii=False, indent=4)
 
+    # 💾 同步雲端庫存
     if portfolio_updated:
         with open(portfolio_file, "w", encoding="utf-8") as f:
             json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
 
+# 🚀 執行主程式
 if __name__ == "__main__": 
     generate_dashboard_data()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
