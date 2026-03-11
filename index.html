@@ -856,24 +856,24 @@ let stopLossLabel = isStopLossTriggered ? `<span class="text-xs text-white bg-gr
                             
                             <!-- 💡 機器人點評區塊 -->
                             <div class="pt-3 border-t border-slate-700/50 space-y-2">
-                            <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-4 relative mt-3">
+                            <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-3 relative mt-3">
                                     <div class="absolute -top-3 -right-2 z-10">
                                         <span class="bg-yellow-500 text-slate-900 text-sm px-3.5 py-1 rounded-full font-black shadow-[0_0_10px_rgba(234,179,8,0.5)] border border-yellow-300 flex items-center gap-1 group-hover:animate-pulse">
                                             <span>🔎</span> ${stock.ai_debate && stock.ai_debate.pattern ? stock.ai_debate.pattern : '分析中'}
                                         </span>
                                     </div>
                                     
-                                    <div class="flex items-start gap-3 pt-2">
-                                        <span class="text-red-400 text-base md:text-lg font-black mt-0.5 whitespace-nowrap">🟢 多方:</span>
-                                        <p class="text-base md:text-lg font-bold text-slate-200 leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.bull : '讀取中...'}</p>
+                                    <div class="flex items-start gap-3 pt-1">
+                                        <span class="text-red-400 text-sm md:text-base font-black mt-0.5 whitespace-nowrap">🟢 多方:</span>
+                                        <p class="text-sm md:text-base font-bold text-slate-200 leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.bull : '讀取中...'}</p>
                                     </div>
                                     <div class="flex items-start gap-3">
-                                        <span class="text-green-400 text-base md:text-lg font-black mt-0.5 whitespace-nowrap">🔴 空方:</span>
-                                        <p class="text-base md:text-lg font-bold text-slate-200 leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.bear : '讀取中...'}</p>
+                                        <span class="text-green-400 text-sm md:text-base font-black mt-0.5 whitespace-nowrap">🔴 空方:</span>
+                                        <p class="text-sm md:text-base font-bold text-slate-200 leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.bear : '讀取中...'}</p>
                                     </div>
-                                    <div class="border-t border-slate-700 mt-2 pt-4 flex items-start gap-3">
-                                        <span class="text-blue-400 text-lg md:text-xl font-black mt-0.5 whitespace-nowrap">👨‍⚖️ 裁決:</span>
-                                        <p class="text-lg md:text-xl font-black text-white leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.judge : '讀取中...'}</p>
+                                    <div class="border-t border-slate-700 mt-1 pt-3 flex items-start gap-3">
+                                        <span class="text-blue-400 text-base md:text-lg font-black mt-0.5 whitespace-nowrap">👨‍⚖️ 裁決:</span>
+                                        <p class="text-base md:text-lg font-black text-white leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.judge : '讀取中...'}</p>
                                     </div>
                                 </div>
 
