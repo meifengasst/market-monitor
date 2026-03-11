@@ -513,8 +513,8 @@ dashboard_data.append({
         })
 
         # 💡 阿土伯降溫機制：每算完一檔股票，強迫 Python 休息 3 秒，避免塞爆 Groq API 導致斷線！
-        print(f"⏳ {info['name']} 運算完畢，冷卻 8 秒鐘...")
-        time.sleep(8)
+        print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
+        time.sleep(15)
 
     # 迴圈結束後，底下是算 VIX 跟晨間劇本的地方 (維持不變)
     try:
@@ -549,6 +549,7 @@ dashboard_data.append({
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
