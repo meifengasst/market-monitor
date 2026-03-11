@@ -1,4 +1,5 @@
 import yfinance as yf
+import feedparser
 import pandas as pd
 import json
 from datetime import datetime
@@ -355,3 +356,4 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
