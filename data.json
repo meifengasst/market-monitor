@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-11 [13:02]",
+    "last_update": "2026-03-11 [13:03]",
     "data": [
         {
             "symbol": "NVDA",
@@ -15,12 +15,12 @@
                     "title": "Prediction: Nvidia Stock Will Soar to This Price in 2026 as the AI Boom Expands From Data Centers to Robotaxis"
                 },
                 {
-                    "sentiment": "中立",
-                    "title": "Nvidia 輝達（NVDA）財報分析 2026 Q4！Q4 營收？Q1 財測？"
+                    "sentiment": "利多",
+                    "title": "2026年輝達是否仍值得買入？NVDA 市值能否在 2030 年達到 10 兆美元？"
                 },
                 {
-                    "sentiment": "中立",
-                    "title": "2026年輝達是否仍值得買入？NVDA 市值能否在 2030 年達到 10 兆美元？"
+                    "sentiment": "利空",
+                    "title": "Nvidia 輝達（NVDA）財報分析 2026 Q4！Q4 營收？Q1 財測？"
                 }
             ],
             "vol_ratio": 1.2,
@@ -931,7 +931,7 @@
                 }
             ],
             "rs_score": 0.16,
-            "ai_summary": "🎯 抱牢！月線站穩，RSI穩中偏低，買點來了！ (建議防守：12%)",
+            "ai_summary": "🎯 抱牢，偏多操作，設好停損。 (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -948,11 +948,11 @@
             "atr": 13.27,
             "news_sentiment": [
                 {
-                    "sentiment": "利多 🔴",
+                    "sentiment": "利多",
                     "title": "Tesla 股價有望創歷史新高，AI 熱潮撐起1.5 兆美元市值| 鏈新聞ABMedia"
                 },
                 {
-                    "sentiment": "利空 🟢",
+                    "sentiment": "利空",
                     "title": "Tesla(TSLA.US) Director Sells US$10.69 Million in Common Stock"
                 }
             ],
@@ -1864,7 +1864,7 @@
                 }
             ],
             "rs_score": -3.95,
-            "ai_summary": "🎯 挺穩，抱牢！ (建議防守：12%)",
+            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI在中線，相對大盤強弱不算差。 (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2788,7 +2788,7 @@
                 }
             ],
             "rs_score": 0.0,
-            "ai_summary": "🎯 買進！月線支持，RSI穩定，趁勢入場！ (建議防守：4%)",
+            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI在中線，相對大盤強弱為0，表現穩定。 (建議防守：4%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2799,9 +2799,9 @@
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "晶圓代工",
-            "price": 1940.0,
-            "rsi": 59.84,
-            "bias": 3.34,
+            "price": 1945.0,
+            "rsi": 60.16,
+            "bias": 3.6,
             "atr": 63.57,
             "news_sentiment": [
                 {
@@ -2810,7 +2810,7 @@
                 },
                 {
                     "sentiment": "利空",
-                    "title": "台積電漲到1835元後翻黑！名師示警：短線已漲多 翻黑是好買點 - Yahoo股市"
+                    "title": "台積電收跌70元至1865元！市值失守50兆元 專家喊「是黃金」 - Yahoo股市"
                 },
                 {
                     "sentiment": "中立",
@@ -3710,22 +3710,22 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 1940.0,
-                    "volume": 28890418,
-                    "ma5": 1878.0,
-                    "ma20": 1877.25,
-                    "ma60": 1697.84,
-                    "macd": 41.82,
-                    "macd_signal": 55.08,
-                    "macd_hist": -13.26,
-                    "rsi": 59.84,
-                    "bb_upper": 2035.15,
-                    "bb_lower": 1719.35,
+                    "price": 1945.0,
+                    "volume": 28997384,
+                    "ma5": 1879.0,
+                    "ma20": 1877.5,
+                    "ma60": 1697.92,
+                    "macd": 42.22,
+                    "macd_signal": 55.16,
+                    "macd_hist": -12.94,
+                    "rsi": 60.16,
+                    "bb_upper": 2035.83,
+                    "bb_lower": 1719.17,
                     "atr": 63.57
                 }
             ],
-            "rs_score": 1.86,
-            "ai_summary": "🎯 台積電破月線，熱度不高，趨勢正確，買入！ (建議防守：8%)",
+            "rs_score": 2.07,
+            "ai_summary": "🎯 台積電現價已站上20日均線，抱牢！ (建議防守：8%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3743,15 +3743,15 @@
             "news_sentiment": [
                 {
                     "sentiment": "利多",
-                    "title": "【即時新聞】元晶近日亮燈漲停，外資狂掃「8316」張，這波反彈還能追嗎？ - CMoney投資網誌"
+                    "title": "目標價喊到149！ 旺宏為何那麼旺 專家直指3關鍵"
                 },
                 {
                     "sentiment": "利多",
-                    "title": "目標價喊到149！ 旺宏為何那麼旺 專家直指3關鍵 - Yahoo股市"
+                    "title": "今日漲停跌停股｜記憶體、軍工、半導體設備三箭齊發！旺宏(2337)、雷虎(8033)、均華(6640)強勢領漲 0108"
                 },
                 {
-                    "sentiment": "利多",
-                    "title": "今日漲停跌停股｜記憶體、軍工、半導體設備三箭齊發！旺宏(2337)、雷虎(8033)、均華(6640)強勢領漲 0108 - sinotrade.com.tw"
+                    "sentiment": "中立",
+                    "title": "【即時新聞】元晶近日亮燈漲停，外資狂掃「8316」張，這波反彈還能追嗎？"
                 }
             ],
             "vol_ratio": 1.2,
@@ -4648,7 +4648,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 99.7,
-                    "volume": 129863436,
+                    "volume": 129888656,
                     "ma5": 98.54,
                     "ma20": 97.54,
                     "ma60": 68.1,
@@ -4661,8 +4661,8 @@
                     "atr": 10.05
                 }
             ],
-            "rs_score": 9.51,
-            "ai_summary": "🎯 旺宏站上月線，抱牢！ (建議防守：12%)",
+            "rs_score": 9.44,
+            "ai_summary": "🎯 旺宏站上20日均線，抱牢！ (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5586,7 +5586,7 @@
                 }
             ],
             "rs_score": 37.15,
-            "ai_summary": "🎯 穩懋站上月線，RSI過熱，注意過度買入！ (建議防守：12%)",
+            "ai_summary": "🎯 穩懋現價已經站上20日均線，抱牢！ (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5597,9 +5597,9 @@
             "symbol": "0050.TW",
             "name": "台灣50",
             "category": "台股龍頭",
-            "price": 78.5,
-            "rsi": 63.04,
-            "bias": 3.25,
+            "price": 78.45,
+            "rsi": 62.97,
+            "bias": 3.19,
             "atr": 2.41,
             "news_sentiment": [
                 {
@@ -5612,7 +5612,7 @@
                 },
                 {
                     "sentiment": "中立",
-                    "title": "歐印0050最安全？達人吐真心話：無腦買這檔ETF 可多賺全球97％獲利機會"
+                    "title": "股票小白手滑！APP按買進 \"一張0050\"超慌　前輩全笑了：沒差"
                 }
             ],
             "vol_ratio": 1.2,
@@ -6508,22 +6508,22 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 78.5,
-                    "volume": 123643779,
-                    "ma5": 76.39,
+                    "price": 78.45,
+                    "volume": 124860480,
+                    "ma5": 76.38,
                     "ma20": 76.03,
                     "ma60": 69.71,
-                    "macd": 1.74,
+                    "macd": 1.73,
                     "macd_signal": 2.18,
                     "macd_hist": -0.45,
-                    "rsi": 63.04,
-                    "bb_upper": 82.47,
+                    "rsi": 62.97,
+                    "bb_upper": 82.46,
                     "bb_lower": 69.59,
                     "atr": 2.41
                 }
             ],
-            "rs_score": 0.07,
-            "ai_summary": "🎯 趴在20日均線上，RSI過熱，建議收斂！ (建議防守：4%)",
+            "rs_score": -0.07,
+            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI在中線，相對大盤弱，趨勢穩定，持續抱牢！ (建議防守：4%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6534,9 +6534,9 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 86.6,
-            "rsi": 31.69,
-            "bias": -6.23,
+            "price": 86.4,
+            "rsi": 30.94,
+            "bias": -6.44,
             "atr": 2.34,
             "news_sentiment": [
                 {
@@ -7445,22 +7445,22 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 86.6,
-                    "volume": 804843,
-                    "ma5": 87.94,
-                    "ma20": 92.35,
+                    "price": 86.4,
+                    "volume": 810857,
+                    "ma5": 87.9,
+                    "ma20": 92.34,
                     "ma60": 99.47,
-                    "macd": -2.84,
+                    "macd": -2.85,
                     "macd_signal": -2.3,
-                    "macd_hist": -0.54,
-                    "rsi": 31.69,
-                    "bb_upper": 98.32,
-                    "bb_lower": 86.39,
+                    "macd_hist": -0.56,
+                    "rsi": 30.94,
+                    "bb_upper": 98.35,
+                    "bb_lower": 86.34,
                     "atr": 2.34
                 }
             ],
-            "rs_score": -15.93,
-            "ai_summary": "🎯 該買！月線支持，RSI偏低，相對弱市，買入機會！ (建議防守：12%)",
+            "rs_score": -16.21,
+            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI偏低，相對大盤弱，時機適合偏多操作！ (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7471,9 +7471,9 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 88.9,
-            "rsi": 42.16,
-            "bias": -3.84,
+            "price": 88.8,
+            "rsi": 41.87,
+            "bias": -3.94,
             "atr": 3.23,
             "news_sentiment": [
                 {
@@ -8382,22 +8382,22 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 88.9,
-                    "volume": 1719676,
-                    "ma5": 90.5,
+                    "price": 88.8,
+                    "volume": 1737676,
+                    "ma5": 90.48,
                     "ma20": 92.45,
                     "ma60": 104.56,
-                    "macd": -3.05,
+                    "macd": -3.06,
                     "macd_signal": -3.2,
-                    "macd_hist": 0.15,
-                    "rsi": 42.16,
-                    "bb_upper": 96.52,
-                    "bb_lower": 88.38,
+                    "macd_hist": 0.14,
+                    "rsi": 41.87,
+                    "bb_upper": 96.54,
+                    "bb_lower": 88.35,
                     "atr": 3.23
                 }
             ],
-            "rs_score": -12.57,
-            "ai_summary": "🎯 站上月線，抱牢！ (建議防守：3%)",
+            "rs_score": -12.75,
+            "ai_summary": "🎯 抱牢！停損設好，豐泰站上20日均線，RSI偏低，相對大盤弱，機會多！ (建議防守：3%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -9320,7 +9320,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 30.1,
-                    "volume": 4661133,
+                    "volume": 4704133,
                     "ma5": 29.78,
                     "ma20": 30.47,
                     "ma60": 30.77,
@@ -9333,8 +9333,8 @@
                     "atr": 0.66
                 }
             ],
-            "rs_score": -9.69,
-            "ai_summary": "🎯 抱牢，月線支撐，RSI未達高溫，反彈機會。 (建議防守：6%)",
+            "rs_score": -9.76,
+            "ai_summary": "🎯 抱牢！停損設定在30.1，若跌破30.1，立即清倉！ (建議防守：6%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
