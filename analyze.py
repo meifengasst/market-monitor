@@ -539,15 +539,21 @@ dashboard_data.append({
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
-        # 💡 阿土伯降溫機制：每算完一檔股票，強迫 Python 休息 3 秒，避免塞爆 Groq API 導致斷線！
-        print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
-        time.sleep(15)
 
     # 迴圈結束後，底下是算 VIX 跟晨間劇本的地方 (維持不變)
     try:
         vix_price = round(yf.Ticker("^VIX").fast_info.get('lastPrice', 0), 2)
     except:
         vix_price = 0
+        except Exception as e:
+            print(f"⚠️ 處理 {symbol} 時發生錯誤: {e}")
+            
+        # 👇 注意這裡！這兩行要跟上面的 except 對齊！（前面剛好是 8 個半形空白）
+        print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
+        time.sleep(15)
+
+    # 👇 這是 for 迴圈結束後，準備回傳資料的地方（前面是 4 個空白）
+    return dashboard_data
 
     us_market_data = get_us_market_summary()
     morning_script = generate_morning_script_via_groq(us_market_data)
@@ -576,6 +582,7 @@ dashboard_data.append({
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
