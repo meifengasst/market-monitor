@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-11 [13:03]",
+    "last_update": "2026-03-11 [13:20]",
     "data": [
         {
             "symbol": "NVDA",
@@ -11,16 +11,16 @@
             "atr": 6.14,
             "news_sentiment": [
                 {
-                    "sentiment": "利多",
-                    "title": "Prediction: Nvidia Stock Will Soar to This Price in 2026 as the AI Boom Expands From Data Centers to Robotaxis"
+                    "sentiment": "中立",
+                    "title": "Nvidia 輝達（NVDA）財報分析 2026 Q4！Q4 營收？Q1 財測？ - StockFeel 股感"
                 },
                 {
                     "sentiment": "利多",
-                    "title": "2026年輝達是否仍值得買入？NVDA 市值能否在 2030 年達到 10 兆美元？"
+                    "title": "Prediction: Nvidia Stock Will Soar to This Price in 2026 as the AI Boom Expands From Data Centers to Robotaxis - cmoney.tw"
                 },
                 {
-                    "sentiment": "利空",
-                    "title": "Nvidia 輝達（NVDA）財報分析 2026 Q4！Q4 營收？Q1 財測？"
+                    "sentiment": "中立",
+                    "title": "2026年輝達是否仍值得買入？NVDA 市值能否在 2030 年達到 10 兆美元？ - TradingKey"
                 }
             ],
             "vol_ratio": 1.2,
@@ -931,7 +931,8 @@
                 }
             ],
             "rs_score": 0.16,
-            "ai_summary": "🎯 抱牢，偏多操作，設好停損。 (建議防守：12%)",
+            "ai_summary": "🎯 抱牢！目前價格已站上20日均線，RSI在中線，相對大盤強弱不大，持續抱牢並設好停損。 (建議防守：12%)",
+            "funda_summary": "本益比高達37倍，股價淨值比高達28倍，顯示明顯泡沫風險，ROE過高可能是財務報表舞弊的跡象。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -1864,7 +1865,8 @@
                 }
             ],
             "rs_score": -3.95,
-            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI在中線，相對大盤強弱不算差。 (建議防守：12%)",
+            "ai_summary": "🎯 現價已站上20日均線，抱牢！ (建議防守：12%)",
+            "funda_summary": "「高本益比369倍，股價淨值比18倍，顯示明顯泡沫風險，ROE僅4.93%，營收衰退且淨利率僅4.0%」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2788,7 +2790,8 @@
                 }
             ],
             "rs_score": 0.0,
-            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI在中線，相對大盤強弱為0，表現穩定。 (建議防守：4%)",
+            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI在中性區間，相對大盤強弱為0，無明顯趨勢。 (建議防守：4%)",
+            "funda_summary": "本益比高達27倍，表明市場對S&P 500的估值過高，泡沫風險存在。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2799,9 +2802,9 @@
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "晶圓代工",
-            "price": 1945.0,
-            "rsi": 60.16,
-            "bias": 3.6,
+            "price": 1940.0,
+            "rsi": 59.84,
+            "bias": 3.34,
             "atr": 63.57,
             "news_sentiment": [
                 {
@@ -2810,7 +2813,7 @@
                 },
                 {
                     "sentiment": "利空",
-                    "title": "台積電收跌70元至1865元！市值失守50兆元 專家喊「是黃金」 - Yahoo股市"
+                    "title": "台積電漲到1835元後翻黑！名師示警：短線已漲多 翻黑是好買點 - Yahoo股市"
                 },
                 {
                     "sentiment": "中立",
@@ -2820,8 +2823,8 @@
             "vol_ratio": 1.2,
             "optimal_sl": 8,
             "actual_sl": 8,
-            "ev": 1.94,
-            "win_rate": 31.82,
+            "ev": 1.97,
+            "win_rate": 32.31,
             "history": [
                 {
                     "date": "2025-12-04",
@@ -3710,22 +3713,23 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 1945.0,
-                    "volume": 28997384,
-                    "ma5": 1879.0,
-                    "ma20": 1877.5,
-                    "ma60": 1697.92,
-                    "macd": 42.22,
-                    "macd_signal": 55.16,
-                    "macd_hist": -12.94,
-                    "rsi": 60.16,
-                    "bb_upper": 2035.83,
-                    "bb_lower": 1719.17,
+                    "price": 1940.0,
+                    "volume": 29856292,
+                    "ma5": 1878.0,
+                    "ma20": 1877.25,
+                    "ma60": 1697.84,
+                    "macd": 41.82,
+                    "macd_signal": 55.08,
+                    "macd_hist": -13.26,
+                    "rsi": 59.84,
+                    "bb_upper": 2035.15,
+                    "bb_lower": 1719.35,
                     "atr": 63.57
                 }
             ],
-            "rs_score": 2.07,
-            "ai_summary": "🎯 台積電現價已站上20日均線，抱牢！ (建議防守：8%)",
+            "rs_score": 1.86,
+            "ai_summary": "🎯 台積電現價高於20日均線，抱牢！ (建議防守：8%)",
+            "funda_summary": "股價淨值比高達9倍，顯示市場對台積電估值過高，泡沫風險存在。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -4648,7 +4652,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 99.7,
-                    "volume": 129888656,
+                    "volume": 130119937,
                     "ma5": 98.54,
                     "ma20": 97.54,
                     "ma60": 68.1,
@@ -4661,8 +4665,9 @@
                     "atr": 10.05
                 }
             ],
-            "rs_score": 9.44,
-            "ai_summary": "🎯 旺宏站上20日均線，抱牢！ (建議防守：12%)",
+            "rs_score": 9.51,
+            "ai_summary": "🎯 旺宏站上20日均線，抱牢！停損設定在97.54，多點操作！ (建議防守：12%)",
+            "funda_summary": "旺宏的財務隱患：負ROE與負淨利率，表明公司經營效率惡化，營收增長率無法支撐公司的財務健康。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5572,7 +5577,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 299.0,
-                    "volume": 6123356,
+                    "volume": 6952946,
                     "ma5": 287.7,
                     "ma20": 276.23,
                     "ma60": 223.62,
@@ -5586,7 +5591,8 @@
                 }
             ],
             "rs_score": 37.15,
-            "ai_summary": "🎯 穩懋現價已經站上20日均線，抱牢！ (建議防守：12%)",
+            "ai_summary": "🎯 穩懋現價已站上20日均線，抱牢！停損設定在276.23。 (建議防守：12%)",
+            "funda_summary": "本益比高達40倍，顯示股價過高，泡沫風險高。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6509,7 +6515,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 78.45,
-                    "volume": 124860480,
+                    "volume": 132484425,
                     "ma5": 76.38,
                     "ma20": 76.03,
                     "ma60": 69.71,
@@ -6522,8 +6528,9 @@
                     "atr": 2.41
                 }
             ],
-            "rs_score": -0.07,
-            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI在中線，相對大盤弱，趨勢穩定，持續抱牢！ (建議防守：4%)",
+            "rs_score": 0.0,
+            "ai_summary": "🎯 「台灣50現價已站上20日均線，抱牢！」 (建議防守：4%)",
+            "funda_summary": "本益比高達26倍，顯示市場對台灣50有過度樂觀評估，風險高。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6534,22 +6541,22 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 86.4,
-            "rsi": 30.94,
-            "bias": -6.44,
+            "price": 86.3,
+            "rsi": 30.56,
+            "bias": -6.54,
             "atr": 2.34,
             "news_sentiment": [
+                {
+                    "sentiment": "利多",
+                    "title": "美股法說ONON｜瑞士運動品牌ON昂跑3Q25財報亮眼，台廠鈺齊搭上成長列車(ONON US)｜豐雲學堂2026 年 03 月 - sinotrade.com.tw"
+                },
                 {
                     "sentiment": "利多",
                     "title": "你買鞋了嗎？昂跑(ONON)再上修全年財測！ 鈺齊-KY漲停。 低位階要留意 - 理財周刊"
                 },
                 {
-                    "sentiment": "利多",
+                    "sentiment": "中立",
                     "title": "關稅底定 鈺齊、喬山營運回神 - Yahoo股市"
-                },
-                {
-                    "sentiment": "利多",
-                    "title": "傳產股春天來了？製鞋股基期明顯偏低，分析師「點名3檔」值得關注！ - Smart自學網"
                 }
             ],
             "vol_ratio": 1.2,
@@ -7445,22 +7452,23 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 86.4,
-                    "volume": 810857,
-                    "ma5": 87.9,
+                    "price": 86.3,
+                    "volume": 852902,
+                    "ma5": 87.88,
                     "ma20": 92.34,
                     "ma60": 99.47,
-                    "macd": -2.85,
+                    "macd": -2.86,
                     "macd_signal": -2.3,
                     "macd_hist": -0.56,
-                    "rsi": 30.94,
-                    "bb_upper": 98.35,
-                    "bb_lower": 86.34,
+                    "rsi": 30.56,
+                    "bb_upper": 98.37,
+                    "bb_lower": 86.31,
                     "atr": 2.34
                 }
             ],
-            "rs_score": -16.21,
-            "ai_summary": "🎯 抱牢！現價已站上20日均線，RSI偏低，相對大盤弱，時機適合偏多操作！ (建議防守：12%)",
+            "rs_score": -16.25,
+            "ai_summary": "🎯 抱牢！鈺齊-KY已站上20日均線(月線)，可進行偏多操作，設好停損。 (建議防守：12%)",
+            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7471,22 +7479,25 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 88.8,
-            "rsi": 41.87,
-            "bias": -3.94,
+            "price": 88.5,
+            "rsi": 41.26,
+            "bias": -4.25,
             "atr": 3.23,
             "news_sentiment": [
                 {
-                    "sentiment": "中立",
-                    "title": "台股高點徘徊，還有便宜股票可撿？當然有！艾蜜莉無私分享8檔口袋名單 - Smart自學網"
+                    "title": "台股高點徘徊，還有便宜股票可撿？當然有！艾蜜莉無私分享8檔口袋名單 - Smart自學網",
+                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBxNmFFYnV6ZS0tbWJKZWJGcHIzR1VlRXZnU2M0NmtMRWxlSnptcE9NS0Jna3Z3VVZwMUtPZE10d1BGY3lQbXlYT0o3OWhkaFNiaTFJbGZCTjdxUVdqMGdNZklYRFRCV3lPVF85aXRVUmlWR2FTMDFCdGZYeXc?oc=5",
+                    "sentiment": "解析失敗 ⚠️"
                 },
                 {
-                    "sentiment": "利多",
-                    "title": "9910 豐泰- 執行長以身做則加碼，用自己的錢跟他拼了👍團隊贏了，我就贏了｜CMoney 股市爆料同學會 - cmoney.tw"
+                    "title": "9910 豐泰- 執行長以身做則加碼，用自己的錢跟他拼了👍團隊贏了，我就贏了｜CMoney 股市爆料同學會 - cmoney.tw",
+                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1ld1Q1RGJfTG1PWUFVd010ZENUNUZzeHdLSDFZTU5wTnlENFR2VEI2Qkh2N1BnUjZSWGsxckZGM1RTWDJ5dFFoUkJ2MkxhZ0xKOEZ6djJiYmk?oc=5",
+                    "sentiment": "解析失敗 ⚠️"
                 },
                 {
-                    "sentiment": "中立",
-                    "title": "【13:03 即時新聞】南俊國際(6584)盤中強彈3%，法人回補助攻，AI伺服器滑軌題材續熱-CMoney 研究員 - CMoney投資網誌"
+                    "title": "【13:03 即時新聞】南俊國際(6584)盤中強彈3%，法人回補助攻，AI伺服器滑軌題材續熱-CMoney 研究員 - CMoney投資網誌",
+                    "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxORlJiTHYyeWFBR3lEY040dzVQa1B5aW1xd3pSYXZnN3JxR1VXUEw3UjZFOEJNTVIxdWdZMENKZlBkcG5rZ0xPTDJmWGNZZlJIM2FYdTRzcnBZTnoyWjJCRXRzb2cyWmJoazBlS0F3aF9kNmhNZmVZemprVkQwcWVGQlZJOWpKdDlqV01MeXhR?oc=5",
+                    "sentiment": "解析失敗 ⚠️"
                 }
             ],
             "vol_ratio": 1.2,
@@ -8382,22 +8393,23 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 88.8,
-                    "volume": 1737676,
-                    "ma5": 90.48,
-                    "ma20": 92.45,
+                    "price": 88.5,
+                    "volume": 1896585,
+                    "ma5": 90.42,
+                    "ma20": 92.43,
                     "ma60": 104.56,
-                    "macd": -3.06,
+                    "macd": -3.08,
                     "macd_signal": -3.2,
-                    "macd_hist": 0.14,
-                    "rsi": 41.87,
-                    "bb_upper": 96.54,
-                    "bb_lower": 88.35,
+                    "macd_hist": 0.12,
+                    "rsi": 41.26,
+                    "bb_upper": 96.58,
+                    "bb_lower": 88.28,
                     "atr": 3.23
                 }
             ],
-            "rs_score": -12.75,
-            "ai_summary": "🎯 抱牢！停損設好，豐泰站上20日均線，RSI偏低，相對大盤弱，機會多！ (建議防守：3%)",
+            "rs_score": -13.0,
+            "ai_summary": "🎯 🤖 盤勢震盪，AI 連線異常，請手動依紀律操作。 (建議防守：3%)",
+            "funda_summary": "「本益比高於16倍，股價淨值比超過3倍，ROE達22%，但近期營收衰退，淨利率僅6.13%」",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -8408,22 +8420,25 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 30.1,
-            "rsi": 41.96,
-            "bias": -1.21,
-            "atr": 0.66,
+            "price": 30.2,
+            "rsi": 42.98,
+            "bias": -0.89,
+            "atr": 0.67,
             "news_sentiment": [
                 {
-                    "sentiment": "利多",
-                    "title": "愛迪達上修財測 寶成漲逾3%領運動休閒股群攻 - Yahoo股市"
+                    "title": "愛迪達上修財測 寶成漲逾3%領運動休閒股群攻 - Yahoo股市",
+                    "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxONlkzSENFWW5zUW5NSEVIbnQ1Vm1zaEtxaC0yX3p6QVdESXNndEtSZHpCeTRGOVJ3OXhnVG5hZWJWNjQ0ZFFyS09MV3RrbDJLRHoxY1BLUFYyVDJOOTFfTFFVSW1aVGF4YXJ6cDZIYkJ3TnljbVZwN1R5RWw5dkNscF9pUWlMYzg1UGtoVm5WUEtTaHllWW9XZldXVFlEdHAyTWowaU5tSG9ibW1HbnM0Y3BtNTh5TUNPenBSMExBV2EzQ3hHYTFIU3NrbXBIS2R4QXR2cGI4VW9DUzdrM2NqWEpsOUNGZUMwdVdFVy1pWUZoRnhKSF8xNExxMFFhOWZTaHU0UnVDcnN1eVFkUWFfQ2V3Xzhuc0JrbHdJYnBKNlh1OTVYWDc5S1VFOTRBWUg4aHlyLWEyZmx2TVE4eXVrRDJ3?oc=5",
+                    "sentiment": "解析失敗 ⚠️"
                 },
                 {
-                    "sentiment": "利多",
-                    "title": "製鞋龍頭寶成(9904)，全球市占超過20%！ 這種壟斷的規模，可以用「這 5點」評估護城河優勢！-小資女艾蜜莉 - CMoney投資網誌"
+                    "title": "製鞋龍頭寶成(9904)，全球市占超過20%！ 這種壟斷的規模，可以用「這 5點」評估護城河優勢！-小資女艾蜜莉 - CMoney投資網誌",
+                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9HTWw4NDhJbUstU2thZkZnTy0wTEtKNVZINjdhamdaV1RIU1lDWXB0QmRDaWs1YkJqUGE1dmh6bEVfMG5uMUY5aHFFRTdnQzZ1U29GTklZR010VzhUTjF2RmRJdVFreG9aMWZySF9KQ0NiVldOMDl6dFpoY1k?oc=5",
+                    "sentiment": "解析失敗 ⚠️"
                 },
                 {
-                    "sentiment": "利空",
-                    "title": "南山人壽拖累，寶成營收年減3.5%，還能買？艾蜜莉點出1關鍵，靜待便宜價 - Smart自學網"
+                    "title": "南山人壽拖累，寶成營收年減3.5%，還能買？艾蜜莉點出1關鍵，靜待便宜價 - Smart自學網",
+                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBaMzU3U3VqanQ3MEJ3QThjOG5wM3UwVl9NcF9pVW9RQmFqU3IwUzBMMk9iYlRZb1QzR2p5ZzUtejBDVGdOYVp3VmpYbUJ2UVgzUTlkZ0JOWl91b2hxV2dHNnAyVHp5cTJDckx3aTl4ZkFPTjVLZldtaVRHVWo?oc=5",
+                    "sentiment": "解析失敗 ⚠️"
                 }
             ],
             "vol_ratio": 1.2,
@@ -9319,22 +9334,23 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 30.1,
-                    "volume": 4704133,
-                    "ma5": 29.78,
+                    "price": 30.2,
+                    "volume": 5116008,
+                    "ma5": 29.8,
                     "ma20": 30.47,
                     "ma60": 30.77,
-                    "macd": -0.31,
+                    "macd": -0.3,
                     "macd_signal": -0.21,
                     "macd_hist": -0.1,
-                    "rsi": 41.96,
+                    "rsi": 42.98,
                     "bb_upper": 31.71,
-                    "bb_lower": 29.23,
-                    "atr": 0.66
+                    "bb_lower": 29.24,
+                    "atr": 0.67
                 }
             ],
-            "rs_score": -9.76,
-            "ai_summary": "🎯 抱牢！停損設定在30.1，若跌破30.1，立即清倉！ (建議防守：6%)",
+            "rs_score": -9.37,
+            "ai_summary": "🎯 🤖 盤勢震盪，AI 連線異常，請手動依紀律操作。 (建議防守：6%)",
+            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
