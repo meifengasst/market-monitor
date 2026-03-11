@@ -235,7 +235,7 @@ def get_ai_debate_insight(stock_name, price, ma20, rsi, rs_score):
             "temperature": 0.2, 
             "max_tokens": 150
         }
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions"(https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=20)
+        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
         res.raise_for_status()
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
@@ -496,6 +496,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
