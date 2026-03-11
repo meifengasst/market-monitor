@@ -525,15 +525,6 @@
             link.click();
             document.body.removeChild(link);
         }
-
-        // 💡 貼心小功能：記住你輸入的初始本金
-        let savedCapital = localStorage.getItem('atu_base_capital');
-        if (savedCapital) document.getElementById('capitalInput').value = savedCapital;
-        document.getElementById('capitalInput').addEventListener('input', (e) => { 
-            localStorage.setItem('atu_base_capital', e.target.value);
-            renderData(document.getElementById('searchInput').value); 
-            renderPortfolioSummary(); 
-        });
         
         // 💡 貼心小功能：記住你輸入的初始本金
         let savedCapital = localStorage.getItem('atu_base_capital');
