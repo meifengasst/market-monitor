@@ -471,9 +471,15 @@
                 const ma20 = stock.history && stock.history.length>0 ? stock.history[stock.history.length-1].ma20 : '-';
                 const ma60 = stock.history && stock.history.length>0 ? stock.history[stock.history.length-1].ma60 : '-';
 
-                let rsiBadge = stock.rsi>=70?`<span class="text-[11px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>`:(stock.rsi<=30?`<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>`:`<span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">⚖️正常</span>`);
-                let headerTheme = stock.price>ma20?"bg-gradient-to-r from-red-900/40 to-transparent text-red-400 border-red-500/50 shadow-[0_0_25px_rgba(239,68,68,0.3)] ring-1 ring-red-500/30":"bg-green-900/40 text-green-400 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.5)] ring-1 ring-green-400 animate-pulse";
-                let statusLabel = stock.price>ma20?"<span class='text-base animate-bounce inline-block'>🚀</span> 站上月線":"<span class='text-base inline-block'>🚨</span> 跌破月線";
+                let rsiBadge = stock.rsi >= 70 ? `<span class="text-[11px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>` : (stock.rsi <= 30 ? `<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>` : `<span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">⚖️正常</span>`);
+                
+                // 💡 阿土伯進化四：讀取專屬均線，沒有的話才退回 20MA
+                let bestMaName = stock.best_ma_name || '20MA';
+                let bestMaPrice = stock.best_ma_price || ma20;
+                let isBullish = stock.price > bestMaPrice;
+
+                let headerTheme = isBullish ? "bg-gradient-to-r from-red-900/40 to-transparent text-red-400 border-red-500/50 shadow-[0_0_25px_rgba(239,68,68,0.3)] ring-1 ring-red-500/30" : "bg-green-900/40 text-green-400 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.5)] ring-1 ring-green-400 animate-pulse";
+                let statusLabel = isBullish ? `<span class='text-base animate-bounce inline-block'>🚀</span> 站上${bestMaName}` : `<span class='text-base inline-block'>🚨</span> 跌破${bestMaName}`;
                 let rsBadge = stock.rs_score>5?`<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-[10px] font-black">👑 主力強勢 (+${stock.rs_score}%)</span>`:(stock.rs_score>0?`<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-[10px] font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>`:`<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-[10px] font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
 
                 let positionHtml = "";
@@ -489,7 +495,7 @@
                 } else {
                     // 💡 阿土伯複利引擎：用全局的「動態總資產」來算 2%！
                     const totalCapital = globalDynamicCapital;
-                    if (totalCapital > 0 && stock.price > ma20) {
+                    if (totalCapital > 0 && isBullish) {
                         let slDecimal = stock.actual_sl / 100; let sharesToBuy = Math.floor((totalCapital * 0.02) / (stock.price * slDecimal));
                         positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 group"><div class="flex justify-between items-center mb-1"><p class="text-[11px] text-red-400 font-bold">🛡️ 2% 動態複利風控</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded transition-colors">➕ 買進</button></div><div class="flex justify-between items-end"><p class="text-2xl font-mono font-black text-red-300">${sharesToBuy}股</p><div class="text-right"><p class="text-[10px] text-red-400/70">預計投入金額</p><p class="text-base font-mono font-black text-red-200">$${Math.round(sharesToBuy * stock.price).toLocaleString()}</p></div></div></div>`;
                     }
