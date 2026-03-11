@@ -454,12 +454,92 @@
             } catch (error) { alert("連線錯誤"); btn.disabled = false; btn.innerHTML = ot; }
         }
 
-        function openModal(stock) { /* ... 繪圖省略 (維持原功能) ... */ }
+function openModal(stock) {
+            document.getElementById('dataModal').classList.remove('hidden'); 
+            setTimeout(() => { 
+                document.getElementById('dataModal').classList.remove('opacity-0'); 
+                document.getElementById('modalContent').classList.remove('scale-95'); 
+            }, 10);
+            
+            document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
+            let historyData = stock.history || [];
+            const labels = historyData.map(h => h.date); 
+            const prices = historyData.map(h => h.price); 
+            const volumes = historyData.map(h => h.volume); 
+            const ma5 = historyData.map(h => h.ma5); 
+            const ma20 = historyData.map(h => h.ma20); 
+            const ma60 = historyData.map(h => h.ma60); 
+            const rsis = historyData.map(h => h.rsi); 
+            const bbUpper = historyData.map(h => h.bb_upper); 
+            const bbLower = historyData.map(h => h.bb_lower); 
+            const macd = historyData.map(h => h.macd); 
+            const macdSignal = historyData.map(h => h.macd_signal); 
+            const macdHist = historyData.map(h => h.macd_hist);
+
+            let datasets = [
+                { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, z: 10, yAxisID: 'y' },
+                { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' },
+                { label: '20MA', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
+                { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
+                { label: '布林上軌', data: bbUpper, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: false, yAxisID: 'y' },
+                { label: '布林下軌', data: bbLower, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(56, 189, 248, 0.12)', yAxisID: 'y' },
+                { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.2)', yAxisID: 'y1' }
+            ];
+
+            if (myPortfolio[stock.symbol]) {
+                const entryPrice = myPortfolio[stock.symbol].entryPrice;
+                const entryPriceLine = new Array(labels.length).fill(entryPrice);
+                datasets.push({
+                    label: `我的成本 ($${entryPrice})`, data: entryPriceLine, borderColor: '#facc15',  borderWidth: 3, borderDash: [10, 5], pointRadius: 0, fill: false, z: 50, yAxisID: 'y'
+                });
+            }
+
+            const ctxPrice = document.getElementById('historyChart').getContext('2d');
+            if(priceChart) priceChart.destroy();
+            priceChart = new Chart(ctxPrice, { type: 'line', data: { labels: labels, datasets: datasets }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' } }, y1: { position: 'right', grid: { drawOnChartArea: false } }, x: { display: false } }, plugins: { legend: { labels: { color: '#cbd5e1', font: {size: 11} } } } } });
+
+            const ctxMacd = document.getElementById('macdChart').getContext('2d');
+            if(macdChart) macdChart.destroy();
+            macdChart = new Chart(ctxMacd, { type: 'bar', data: { labels: labels, datasets: [ { type: 'line', label: 'MACD 快線', data: macd, borderColor: '#0ea5e9', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'line', label: 'Signal 慢線', data: macdSignal, borderColor: '#eab308', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'bar', label: 'MACD 柱狀圖', data: macdHist, backgroundColor: macdHist.map(v => v >= 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)') } ] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: false } }, plugins: { legend: { display: false } } } });
+            
+            const ctxRsi = document.getElementById('rsiChart').getContext('2d');
+            if(rsiChart) rsiChart.destroy();
+            rsiChart = new Chart(ctxRsi, { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: true, ticks: {color: '#64748b'} } }, plugins: { legend: { display: false } } } });
+        }
+
         function closeModal(modalId) { const m = document.getElementById(modalId); m.classList.add('opacity-0'); setTimeout(() => m.classList.add('hidden'), 300); }
         function openRulesModal() { const m = document.getElementById('rulesModal'); m.classList.remove('hidden'); setTimeout(() => m.classList.remove('opacity-0'), 10); }
-        function openNewsModal(symbol) { /* ... 新聞省略 (維持原功能) ... */ }
 
-        // 💡 股票卡片渲染引擎
+        function openNewsModal(symbol) {
+            const stock = stockMap[symbol];
+            if(!stock) return;
+            document.getElementById('newsModalSub').innerText = `${stock.name} (${stock.symbol}) - 近期焦點`;
+            const container = document.getElementById('newsListContainer');
+            container.innerHTML = '';
+            
+            if (!stock.news_sentiment || stock.news_sentiment.length === 0) { 
+                container.innerHTML = `<div class="text-center text-slate-400 py-10">目前無重大新聞，或 AI 掃雷器還沒跑到這檔股票。</div>`; 
+            } else {
+                stock.news_sentiment.forEach(news => {
+                    let badgeColor = "bg-slate-500/20 text-slate-300 border-slate-500";
+                    if(news.sentiment && news.sentiment.includes('多')) badgeColor = "bg-red-500/20 text-red-400 border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]";
+                    else if(news.sentiment && news.sentiment.includes('空')) badgeColor = "bg-green-500/20 text-green-400 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.2)]";
+                    
+                    container.innerHTML += `
+                    <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700 mb-4 hover:border-blue-500/50 transition-colors">
+                        <div class="flex items-start justify-between gap-4">
+                            <h4 class="text-white text-lg font-bold leading-relaxed flex-1">${news.title}</h4>
+                            <span class="text-xs px-3 py-1 rounded-full border font-black shrink-0 ${badgeColor}">${news.sentiment || '未判定'}</span>
+                        </div>
+                        <a href="${news.link}" target="_blank" class="text-blue-400 text-sm hover:text-blue-300 mt-3 inline-flex items-center gap-1 font-bold">查看原文 🔗</a>
+                    </div>`;
+                });
+            }
+            document.getElementById('newsModal').classList.remove('hidden'); 
+            setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
+        }
+
+// 💡 股票卡片渲染引擎 (究極完整版：含進化四、新聞按鈕、圖表)
         function renderData(filterText = '') {
             const list = document.getElementById('stock-list'); list.innerHTML = ''; 
             const search = filterText.toLowerCase().trim();
@@ -467,56 +547,112 @@
 
             filtered.forEach(stock => {
                 const card = document.createElement('div'); 
-                const ma5 = stock.history && stock.history.length>0 ? stock.history[stock.history.length-1].ma5 : '-';
-                const ma20 = stock.history && stock.history.length>0 ? stock.history[stock.history.length-1].ma20 : '-';
-                const ma60 = stock.history && stock.history.length>0 ? stock.history[stock.history.length-1].ma60 : '-';
+                card.onclick = () => openModal(stock); // 點擊卡片開啟圖表
+                
+                const latestHist = stock.history && stock.history.length > 0 ? stock.history[stock.history.length - 1] : {};
+                const ma5 = latestHist.ma5 || '-'; 
+                const ma20 = latestHist.ma20 || '-'; 
+                const ma60 = latestHist.ma60 || '-';
 
                 let rsiBadge = stock.rsi >= 70 ? `<span class="text-[11px] px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>` : (stock.rsi <= 30 ? `<span class="text-[11px] px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>` : `<span class="text-[11px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">⚖️正常</span>`);
                 
-                // 💡 阿土伯進化四：讀取專屬均線，沒有的話才退回 20MA
+                // 💡 進化四：讀取專屬均線，沒有的話才退回 20MA
                 let bestMaName = stock.best_ma_name || '20MA';
                 let bestMaPrice = stock.best_ma_price || ma20;
                 let isBullish = stock.price > bestMaPrice;
 
                 let headerTheme = isBullish ? "bg-gradient-to-r from-red-900/40 to-transparent text-red-400 border-red-500/50 shadow-[0_0_25px_rgba(239,68,68,0.3)] ring-1 ring-red-500/30" : "bg-green-900/40 text-green-400 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.5)] ring-1 ring-green-400 animate-pulse";
                 let statusLabel = isBullish ? `<span class='text-base animate-bounce inline-block'>🚀</span> 站上${bestMaName}` : `<span class='text-base inline-block'>🚨</span> 跌破${bestMaName}`;
-                let rsBadge = stock.rs_score>5?`<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-[10px] font-black">👑 主力強勢 (+${stock.rs_score}%)</span>`:(stock.rs_score>0?`<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-[10px] font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>`:`<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-[10px] font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
+                
+                let rsBadge = stock.rs_score > 5 ? `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-xs font-black animate-bounce">👑 主力強勢 (+${stock.rs_score}%)</span>` : (stock.rs_score > 0 ? `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-[10px] font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>` : `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-[10px] font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
+
+                let evBadge = "";
+                if (stock.ev !== undefined) {
+                    let colorClass = stock.ev > 0 ? "red" : "green";
+                    evBadge = `<div class="flex justify-between items-center bg-${colorClass}-900/30 p-2.5 rounded-xl border border-${colorClass}-500/40 mb-3 shadow-inner"><span class="text-xs text-${colorClass}-200 font-bold">${stock.ev > 0 ? '🏆' : '⚠️'} 期望值(含停損)</span><span class="text-base font-mono font-black text-${colorClass}-400">${stock.ev > 0 ? '+' : ''}${stock.ev}%</span></div>`;
+                }
 
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
-                    let trade = myPortfolio[stock.symbol]; let slDecimal = stock.actual_sl / 100;
+                    let trade = myPortfolio[stock.symbol]; 
+                    if (stock.price > trade.peakPrice) { trade.peakPrice = stock.price; localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio)); }
+                    let slDecimal = stock.actual_sl / 100;
                     let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), trade.peakPrice * (1 - slDecimal)).toFixed(2);
-                    let pnl = (stock.price - trade.entryPrice) * trade.shares; let isTriggered = stock.price <= actualExitPrice;
-                    positionHtml = `<div class="mt-4 ${isTriggered?'bg-green-900 border-green-400 animate-pulse':'bg-black/30 hover:border-blue-500'} p-5 rounded-xl border border-white/10 relative group" onclick="event.stopPropagation()">
-                        <button onclick="removeTrade(event, '${stock.symbol}')" class="absolute top-2 right-2 text-slate-500 hover:text-white bg-slate-800 rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100">✖</button>
-                        <div class="flex justify-between items-end mb-4"><div><p class="text-sm text-slate-400 font-bold mb-1">未實現損益</p><p class="text-4xl font-mono font-black ${pnl>=0?'text-red-400':'text-green-400'}">${pnl>0?'+':''}$${Math.round(pnl)}</p></div></div>
-                        <div class="bg-black/40 rounded-lg p-3 flex justify-between items-center border border-white/5"><div><p class="text-xs text-slate-500 font-bold mb-1">成本價</p><p class="text-xl font-mono font-bold">${trade.entryPrice}</p></div><div class="text-right">${isTriggered?'<span class="text-xs text-white bg-green-600 px-2 py-1 rounded">🚨 跌破停損！</span>':'<span class="text-xs text-purple-400 animate-pulse">🎯 嚴格停損出場價</span>'}<p class="text-2xl font-mono font-black mt-1">${actualExitPrice}</p></div></div>
+                    let unrealizedPnL = (stock.price - trade.entryPrice) * trade.shares;
+                    let pnlPct = (((stock.price - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
+                    
+                    let isStopLossTriggered = stock.price <= parseFloat(actualExitPrice);
+                    let pnlColor = unrealizedPnL >= 0 ? 'text-red-400' : 'text-green-400';
+                    let pnlBg = isStopLossTriggered ? 'bg-green-900 border-green-400 animate-pulse shadow-[0_0_20px_rgba(34,197,94,0.6)]' : (unrealizedPnL >= 0 ? 'bg-red-900/20 border-red-500/40' : 'bg-green-900/20 border-green-500/40');
+                    let stopLossLabel = isStopLossTriggered ? `<span class="text-xs text-white bg-green-600 px-2 py-1 rounded font-black shadow-md">🚨 跌破停損！立即清倉</span>` : `<span class="text-xs text-purple-400 font-bold animate-pulse">🎯 嚴格停損出場價</span>`;
+
+                    positionHtml = `<div class="mt-4 ${pnlBg} p-5 rounded-xl border transition-colors shadow-inner relative group cursor-default" onclick="event.stopPropagation()">
+                        <button onclick="removeTrade(event, '${stock.symbol}')" class="absolute top-2 right-2 text-slate-500 hover:text-white bg-slate-800 rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
+                        <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2"><span class="text-xs font-black text-blue-300 tracking-widest">💼 我的實戰部位</span><span class="text-base font-mono font-black text-white">${trade.shares.toLocaleString()} 股</span></div>
+                        <div class="flex justify-between items-end mb-4">
+                            <div><p class="text-sm text-slate-400 font-bold mb-1">未實現損益</p><p class="text-4xl font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}$${Math.round(unrealizedPnL).toLocaleString()}</p></div>
+                            <div class="text-right"><p class="text-sm text-slate-400 font-bold mb-1">報酬率</p><p class="text-2xl font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}${pnlPct}%</p></div>
+                        </div>
+                        <div class="bg-black/40 rounded-lg p-3 flex justify-between items-center border border-white/5">
+                            <div><p class="text-xs text-slate-500 font-bold mb-1">成本價</p><p class="text-xl font-mono font-bold text-slate-300">${trade.entryPrice}</p></div>
+                            <div class="text-right">${stopLossLabel}<p class="text-2xl font-mono font-black text-white mt-1">${actualExitPrice}</p></div>
+                        </div>
                     </div>`;
-                
                 } else {
-                    // 💡 阿土伯複利引擎：用全局的「動態總資產」來算 2%！
                     const totalCapital = globalDynamicCapital;
                     if (totalCapital > 0 && isBullish) {
                         let slDecimal = stock.actual_sl / 100; let sharesToBuy = Math.floor((totalCapital * 0.02) / (stock.price * slDecimal));
-                        positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 group"><div class="flex justify-between items-center mb-1"><p class="text-[11px] text-red-400 font-bold">🛡️ 2% 動態複利風控</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded transition-colors">➕ 買進</button></div><div class="flex justify-between items-end"><p class="text-2xl font-mono font-black text-red-300">${sharesToBuy}股</p><div class="text-right"><p class="text-[10px] text-red-400/70">預計投入金額</p><p class="text-base font-mono font-black text-red-200">$${Math.round(sharesToBuy * stock.price).toLocaleString()}</p></div></div></div>`;
+                        positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 group"><div class="flex justify-between items-center mb-1"><p class="text-[11px] text-red-400 font-bold tracking-wide">🛡️ 2% 動態複利風控</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold transition-colors">➕ 買進</button></div><div class="flex justify-between items-end"><p class="text-2xl font-mono font-black text-red-300">${sharesToBuy}股</p><div class="text-right"><p class="text-[10px] text-red-400/70 font-bold tracking-wide">預計投入金額</p><p class="text-base font-mono font-black text-red-200">$${Math.round(sharesToBuy * stock.price).toLocaleString()}</p></div></div></div>`;
                     } else if (!isBullish) {
-                        // 💡 跌破專屬均線時，顯示風控鎖定！
                         positionHtml = `<div class="mt-4 bg-green-900/20 p-4 rounded-xl border border-green-500/30 shadow-inner text-center"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破${bestMaName}，風控系統鎖定</p></div>`;
                     }
                 }
 
-                card.className = `border-slate-700 bg-slate-800/50 p-6 rounded-[2rem] border-2 flex flex-col`;
-                card.innerHTML = `<div class="flex justify-between items-center mb-4"><span class="bg-black/50 text-white text-xs px-3.5 py-1.5 rounded-full font-bold">${stock.category}</span><span class="text-sm font-mono font-bold text-white/40">${stock.symbol}</span></div>
-                    <div class="flex items-center justify-between mb-4 p-4 rounded-[1.5rem] border ${headerTheme}"><div><h2 class="text-3xl font-black">${stock.name}</h2></div><div class="flex flex-col items-end gap-1.5"><span class="text-[10px] px-2.5 py-1 rounded-lg bg-black/30 border border-white/5 font-black">${statusLabel}</span>${rsBadge}</div></div>
-                    <div class="bg-black/40 p-5 rounded-2xl mb-4 border border-white/5"><div class="flex justify-between items-start mb-4"><p class="text-6xl font-mono font-black">${stock.price}</p><div class="text-right"><p class="text-[11px] text-white/50 mb-1">熱度</p><p class="text-4xl font-mono font-black ${stock.rsi>70?'text-red-500':(stock.rsi<30?'text-green-400':'text-slate-200')}">${stock.rsi}</p></div></div>
-                    <div class="flex justify-between bg-slate-800/80 p-3 rounded-xl shadow-inner mt-2"><div class="text-center w-1/3 border-r border-slate-600/50"><p class="text-[11px] text-slate-400 mb-1">勝率</p><p class="text-xl font-mono font-black text-blue-300">${stock.win_rate}%</p></div><div class="text-center w-1/3 border-r border-slate-600/50"><p class="text-[11px] text-purple-300 mb-1">最佳停損</p><p class="text-xl font-mono font-black text-purple-400">${stock.optimal_sl}%</p></div><div class="text-center w-1/3"><p class="text-[11px] text-slate-400 mb-1">現行停損</p><p class="text-xl font-mono font-black ${stock.actual_sl<stock.optimal_sl?'text-red-400':'text-green-400'}">${stock.actual_sl}%</p></div></div>
-                    ${positionHtml}</div>
-                    <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-3 relative mt-auto">
-                        <div class="absolute -top-3 -right-2 z-10"><span class="bg-yellow-500 text-slate-900 text-sm px-3.5 py-1 rounded-full font-black border border-yellow-300 flex items-center gap-1 shadow-lg"><span>🔎</span> ${stock.ai_debate&&stock.ai_debate.pattern?stock.ai_debate.pattern:'分析中'}</span></div>
-                        <div class="flex items-start gap-3 pt-1"><span class="text-red-400 text-sm md:text-base font-black mt-0.5">🟢 多方:</span><p class="text-sm md:text-base font-bold text-slate-200 leading-relaxed">${stock.ai_debate?stock.ai_debate.bull:'讀取中...'}</p></div>
-                        <div class="flex items-start gap-3"><span class="text-green-400 text-sm md:text-base font-black mt-0.5">🔴 空方:</span><p class="text-sm md:text-base font-bold text-slate-200 leading-relaxed">${stock.ai_debate?stock.ai_debate.bear:'讀取中...'}</p></div>
-                        <div class="border-t border-slate-700 mt-1 pt-3 flex items-start gap-3"><span class="text-blue-400 text-base md:text-lg font-black mt-0.5">👨‍⚖️ 裁決:</span><p class="text-base md:text-lg font-black text-white leading-relaxed">${stock.ai_debate?stock.ai_debate.judge:'讀取中...'}</p></div>
-                    </div>`;
+                card.className = `border-slate-700 bg-slate-800/50 p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group`;
+                card.innerHTML = `
+                    <div class="flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-5">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-black/50 text-white text-xs px-3.5 py-1.5 rounded-full font-bold uppercase border border-white/10">${stock.category}</span>
+                                <button onclick="event.stopPropagation(); openNewsModal('${stock.symbol}')" class="bg-blue-900/40 text-blue-300 border border-blue-500/50 px-3 py-1 rounded-full text-xs font-black hover:bg-blue-600 hover:text-white transition-colors shadow-lg flex items-center gap-1.5 group">
+                                    <span class="group-hover:animate-bounce">📰</span> AI 掃雷
+                                </button>
+                            </div>
+                            <span class="text-sm font-mono font-bold text-white/40">${stock.symbol}</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between gap-2 mb-5 p-4 rounded-[1.5rem] border ${headerTheme} transition-all duration-300"><div><h2 class="text-3xl font-black tracking-tight leading-none">${stock.name}</h2></div><div class="flex flex-col items-end gap-1.5 shrink-0"><span class="text-[10px] whitespace-nowrap font-black px-2.5 py-1 rounded-lg bg-black/30 border border-white/5">${statusLabel}</span>${rsBadge}</div></div>
+                        <div class="bg-black/40 p-5 rounded-2xl mb-4 border border-white/5">
+                            <div class="flex justify-between items-start mb-5"><div><p class="text-7xl font-mono font-black text-white tracking-tighter">${stock.price}</p></div><div class="text-right flex flex-col items-end gap-2.5"><div class="flex items-center gap-1.5 justify-end mb-1"><p class="text-[11px] text-white/50 font-bold">熱度 (RSI)</p>${rsiBadge}</div><p class="text-4xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : (stock.rsi < 30 ? 'text-green-400' : 'text-slate-200')}">${stock.rsi}</p></div></div>
+                            ${evBadge}
+                            <div class="flex justify-between items-center bg-slate-800/80 p-3.5 rounded-xl border border-slate-600/50 mt-2 shadow-inner overflow-hidden">
+                                <div class="text-center w-1/3 border-r border-slate-600/50"><p class="text-[11px] whitespace-nowrap text-slate-400 font-bold mb-1">歷史勝率</p><p class="text-2xl font-mono font-black text-blue-300">${stock.win_rate}%</p></div>
+                                <div class="text-center w-1/3 border-r border-slate-600/50 relative"><div class="absolute -top-3 -right-2 text-base animate-pulse">🎯</div><p class="text-[11px] whitespace-nowrap tracking-tighter text-purple-300 font-bold mb-1">最佳停損</p><p class="text-2xl font-mono font-black text-purple-400">${stock.optimal_sl}%</p></div>
+                                <div class="text-center w-1/3"><p class="text-[11px] whitespace-nowrap tracking-tighter text-slate-400 font-bold mb-1">現行套用</p><p class="text-2xl font-mono font-black ${stock.actual_sl < stock.optimal_sl ? 'text-red-400' : 'text-green-400'}">${stock.actual_sl}%</p></div>
+                            </div>
+                            ${positionHtml}
+                            
+                            <div class="flex justify-between items-center bg-black/30 p-4 rounded-xl border border-white/5 mb-4 mt-3 shadow-inner">
+                                <div class="text-center w-1/3 border-r border-white/10"><p class="text-sm text-slate-500 font-bold mb-1">5MA</p><p class="text-xl font-mono font-black ${stock.price > ma5 ? 'text-red-400' : 'text-green-400'}">${ma5}</p></div>
+                                <div class="text-center w-1/3 border-r border-white/10"><p class="text-sm text-slate-500 font-bold mb-1">20MA</p><p class="text-xl font-mono font-black ${stock.price > ma20 ? 'text-red-400' : 'text-green-400'}">${ma20}</p></div>
+                                <div class="text-center w-1/3"><p class="text-sm text-slate-500 font-bold mb-1">60MA</p><p class="text-xl font-mono font-black ${stock.price > ma60 ? 'text-red-400' : 'text-green-400'}">${ma60}</p></div>
+                            </div>
+                            
+                            <div class="pt-3 border-t border-slate-700/50 space-y-2">
+                                <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-3 relative mt-3">
+                                    <div class="absolute -top-3 -right-2 z-10"><span class="bg-yellow-500 text-slate-900 text-sm px-3.5 py-1 rounded-full font-black shadow-[0_0_10px_rgba(234,179,8,0.5)] border border-yellow-300 flex items-center gap-1 group-hover:animate-pulse"><span>🔎</span> ${stock.ai_debate && stock.ai_debate.pattern ? stock.ai_debate.pattern : '分析中'}</span></div>
+                                    <div class="flex items-start gap-3 pt-1"><span class="text-red-400 text-sm md:text-base font-black mt-0.5 whitespace-nowrap">🟢 多方:</span><p class="text-sm md:text-base font-bold text-slate-200 leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.bull : '讀取中...'}</p></div>
+                                    <div class="flex items-start gap-3"><span class="text-green-400 text-sm md:text-base font-black mt-0.5 whitespace-nowrap">🔴 空方:</span><p class="text-sm md:text-base font-bold text-slate-200 leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.bear : '讀取中...'}</p></div>
+                                    <div class="border-t border-slate-700 mt-1 pt-3 flex items-start gap-3"><span class="text-blue-400 text-base md:text-lg font-black mt-0.5 whitespace-nowrap">👨‍⚖️ 裁決:</span><p class="text-base md:text-lg font-black text-white leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.judge : '讀取中...'}</p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-blue-900/30 p-4 rounded-xl border border-blue-500/30 mt-auto">
+                            <div class="flex justify-between items-end mb-2"><p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.vol_ratio > 1.5 ? '🔥 大戶進場表態' : '💤 散戶量縮盤整'}</p><p class="text-[11px] font-mono font-black text-blue-200">量能 ${stock.vol_ratio}x</p></div>
+                            <div class="w-full bg-black/50 h-2 rounded-full overflow-hidden"><div class="${stock.vol_ratio > 1.5 ? 'bg-red-500' : 'bg-blue-500'} h-full" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div></div>
+                        </div>
+                    </div>
+                `;
                 list.appendChild(card);
             });
         }
