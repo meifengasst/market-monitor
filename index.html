@@ -728,8 +728,14 @@
                             
                             <!-- 💡 機器人點評區塊 -->
                             <div class="pt-3 border-t border-slate-700/50 space-y-2">
-                            <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-2">
-                                    <div class="flex items-start gap-2">
+                            <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-2 relative mt-3">
+                                    <div class="absolute -top-3 -right-2 z-10">
+                                        <span class="bg-yellow-500 text-slate-900 text-[11px] px-2.5 py-1 rounded-full font-black shadow-[0_0_10px_rgba(234,179,8,0.5)] border border-yellow-300 flex items-center gap-1 group-hover:animate-pulse">
+                                            <span>🔎</span> ${stock.ai_debate && stock.ai_debate.pattern ? stock.ai_debate.pattern : '分析中'}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="flex items-start gap-2 pt-1">
                                         <span class="text-red-400 text-xs mt-0.5">🟢多方:</span>
                                         <p class="text-[11px] font-bold text-slate-300 leading-tight flex-1">${stock.ai_debate ? stock.ai_debate.bull : '讀取中...'}</p>
                                     </div>
