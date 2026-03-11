@@ -192,7 +192,7 @@ def generate_morning_script_via_groq(market_data):
             "max_tokens": 150
         }
         
-        response = requests.post("https://api.groq.com/openai/v1/chat/completions"(https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=20)
+        response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
         if response.status_code != 200:
             print(f"❌ Groq 退件詳細原因: {response.text}")
             
@@ -496,6 +496,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
