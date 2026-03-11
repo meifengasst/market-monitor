@@ -50,6 +50,10 @@
                 <button onclick="exportToCSV()" class="w-full mt-5 bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3 rounded-xl transition-colors text-sm flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
                     <span class="text-lg">📊</span> 下載歷史對帳單 (Excel)
                 </button>
+                
+                <button onclick="resetSystem()" class="w-full mt-3 bg-red-900/40 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 hover:border-red-500 font-black py-2.5 rounded-xl transition-colors text-xs flex items-center justify-center gap-2">
+                    <span class="text-sm">⚠️</span> 一鍵重置模擬帳戶
+                </button>
             </div>
 
             <button onclick="openRulesModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 hover:border-blue-500 rounded-2xl py-4 px-5 flex items-center justify-between transition-all shadow-lg group mt-4">
@@ -530,7 +534,44 @@
             renderData(document.getElementById('searchInput').value); 
             renderPortfolioSummary(); 
         });
+        
+        // 💡 貼心小功能：記住你輸入的初始本金
+        let savedCapital = localStorage.getItem('atu_base_capital');
+        if (savedCapital) document.getElementById('capitalInput').value = savedCapital;
+        document.getElementById('capitalInput').addEventListener('input', (e) => { 
+            localStorage.setItem('atu_base_capital', e.target.value);
+            renderData(document.getElementById('searchInput').value); 
+            renderPortfolioSummary(); 
+        });
 
+        // 🌟 阿土伯新增：一鍵重置系統大腦
+        function resetSystem() {
+            let confirmMsg = "⚠️ 警告：確定要重置阿土伯戰情室嗎？\n\n這將會：\n1. 清空所有目前持股\n2. 刪除所有歷史平倉紀錄與對帳單\n3. 本金恢復為預設 100,000 元\n\n(此動作無法復原！確定要重新開始嗎？)";
+            
+            if(confirm(confirmMsg)) {
+                // 1. 清空記憶體裡的變數
+                myPortfolio = {};
+                tradeHistory = [];
+                
+                // 2. 清空瀏覽器的本機儲存 (LocalStorage)
+                localStorage.removeItem('atu_portfolio');
+                localStorage.removeItem('atu_trade_history');
+                localStorage.setItem('atu_base_capital', '100000'); // 本金強制設回 10 萬
+                
+                // 3. 把網頁上方的本金輸入框文字改回 100000
+                let capitalEl = document.getElementById('capitalInput');
+                if(capitalEl) capitalEl.value = '100000';
+                
+                // 4. 強制更新畫面
+                renderData(document.getElementById('searchInput').value || '');
+                renderPortfolioSummary();
+                
+                // 5. 同步一份「空庫存」到 GitHub 雲端
+                syncPortfolioToGithub();
+                
+                alert("✅ 系統已重置！阿土伯祝你新的回合操作順利！");
+            }
+        }
         // 讀取資料大腦
         let currentUpdateTime = "";
         function loadData(isAutoRefresh = false) {
