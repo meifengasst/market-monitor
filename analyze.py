@@ -523,26 +523,28 @@ def generate_dashboard_data():
         
 # ... 前面是財報照妖鏡跟 AI 辯論 ...
         
-dashboard_data.append({
-            "symbol": symbol, "name": info["name"], "category": info["category"],
-            "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), 
-            "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
-            "atr": round(df['atr'].iloc[-1], 2),
-            "news_sentiment": news_sentiment_data,
-            "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
-            "ev": actual_ev, "win_rate": actual_win, "history": hist, 
-            "rs_score": rs_score, 
-            "ai_debate": debate_result, 
-            "funda_summary": funda_insight, 
-            "best_ma_name": best_ma_name,       
-            "best_ma_price": best_ma_price,     
-            "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
-        })
+# 👇 這裡前面精準對齊 12 個空白 (因為在 try 裡面)
+            dashboard_data.append({
+                "symbol": symbol, "name": info["name"], "category": info["category"],
+                "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), 
+                "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
+                "atr": round(df['atr'].iloc[-1], 2),
+                "news_sentiment": news_sentiment_data,
+                "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
+                "ev": actual_ev, "win_rate": actual_win, "history": hist, 
+                "rs_score": rs_score, 
+                "ai_debate": debate_result, 
+                "funda_summary": funda_insight, 
+                "best_ma_name": best_ma_name,       
+                "best_ma_price": best_ma_price,     
+                "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
+            })
 
+        # 👇 這裡前面精準對齊 8 個空白 (跟上面的 try 對齊)
         except Exception as e:
             print(f"⚠️ 處理 {symbol} 時發生錯誤: {e}")
             
-        # 👇 喝茶時間！這裡跟上面的 except 對齊 (8個半形空白)
+        # 👇 這裡前面精準對齊 8 個空白 (還在 for 迴圈裡面)
         print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
         time.sleep(15)
 
@@ -564,7 +566,7 @@ dashboard_data.append({
         "ai_script": morning_script       
     }
 
-    # 💾 把結果存檔成 data.json 給網頁讀取
+    # 💾 把結果存檔成 data.json 給網頁讀取 (前面維持 4 個空白)
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump({
             "last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"), 
@@ -578,6 +580,6 @@ dashboard_data.append({
         with open(portfolio_file, "w", encoding="utf-8") as f:
             json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
 
-# 🚀 執行主程式
+# 🚀 執行主程式 (這兩行退到最左邊，0 個空白)
 if __name__ == "__main__": 
     generate_dashboard_data()
