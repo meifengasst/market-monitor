@@ -77,20 +77,34 @@ STOCKS = {
 }
 
 def get_ai_news_sentiment(symbol, stock_name):
-    print(f"📰 正在掃描 {stock_name} 的新聞籌碼...")
+    """使用 feedparser 抓取 Google News RSS，並交給 Groq AI 判定多空情緒"""
+    print(f"📰 正在啟動 RSS 訊號源掃描 {stock_name} 的新聞籌碼...")
     try:
-        news_data = yf.Ticker(symbol).news[:3]
-        if not news_data: 
+        # 💡 阿土伯秘方：使用 Google News RSS，並把「股票代號+名稱」丟進去搜尋，精準度極高！
+        # 針對台股把 .TW 拿掉以免干擾搜尋，例如 2330.TW 變成 2330
+        clean_symbol = symbol.replace(".TW", "").replace(".TWO", "")
+        rss_url = f"https://news.google.com/rss/search?q={clean_symbol}+{stock_name}+stock&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+        
+        feed = feedparser.parse(rss_url)
+        
+        # 如果連 Google 都找不到新聞，就提早撤退
+        if not feed.entries: 
+            print(f"🤷‍♂️ {stock_name} 近期無重大新聞。")
             return []
-        news_list = [{"title": n.get("title", ""), "link": n.get("link", "")} for n in news_data]
+            
+        # 嚴格控管：只抓最新的前 3 條新聞，避免把 API 額度塞爆
+        news_list = [{"title": entry.title, "link": entry.link} for entry in feed.entries[:3]]
+        
     except Exception as e:
-        print(f"⚠️ 抓取 {symbol} 新聞失敗: {e}")
+        print(f"⚠️ 抓取 {symbol} RSS 新聞失敗: {e}")
         return []
 
+    # 檢查有沒有帶 API Key，沒有的話就給個中立燈號
     groq_api_key = os.environ.get("GROQ_API_KEY")
     if not groq_api_key:
         return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
 
+    # 組合給 AI 看的 Prompt
     titles_text = "\n".join([f"新聞 {i+1}：{n['title']}" for i, n in enumerate(news_list)])
     system_prompt = """
     你是一位台灣股市資深操盤手。請判斷以下新聞標題對該公司股價是「利多」、「利空」還是「中立」。
@@ -103,6 +117,7 @@ def get_ai_news_sentiment(symbol, stock_name):
     """
     user_prompt = f"股票：{stock_name}\n新聞列表：\n{titles_text}"
 
+    # 呼叫 Groq AI 進行情緒判讀
     try:
         headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
         payload = {
@@ -113,6 +128,7 @@ def get_ai_news_sentiment(symbol, stock_name):
         res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=15)
         res.raise_for_status()
         
+        # 處理 AI 回傳的字串，剝除多餘的 Markdown 外衣
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         if ai_text.startswith("```json"):
             ai_text = ai_text[7:]
@@ -356,4 +372,5 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
