@@ -28,32 +28,35 @@ def send_line_alert(message):
 
 
 def calculate_ev_from_df(df, stop_loss_pct):
-    trades, entry_price, in_position = [], 0, False
-    peak_price = 0 
-    
-    for index, row in df.iterrows():
-        if in_position:
-            peak_price = max(peak_price, row['High'])
-            fixed_stop = entry_price * (1 - stop_loss_pct)
-            trailing_stop = peak_price * (1 - stop_loss_pct)
-            actual_exit_price = max(fixed_stop, trailing_stop)
+    trades, entry_price, in_position = [], 0, False
+    peak_price = 0 
+    
+    for index, row in df.iterrows():
+        if in_position:
+            peak_price = max(peak_price, row['High'])
+            fixed_stop = entry_price * (1 - stop_loss_pct)
+            trailing_stop = peak_price * (1 - stop_loss_pct)
+            actual_exit_price = max(fixed_stop, trailing_stop)
 
-            if row['Low'] <= actual_exit_price:
-                trades.append((actual_exit_price - entry_price) / entry_price)
-                in_position = False
-            elif row['Signal'] == -1:
-                trades.append((row['Close'] - entry_price) / entry_price)
-                in_position = False
-        elif not in_position and row['Signal'] == 1:
-            entry_price, in_position = row['Close'], True
-            peak_price = row['Close']
+            if row['Low'] <= actual_exit_price:
+                trades.append((actual_exit_price - entry_price) / entry_price)
+                in_position = False
+            elif row['Signal'] == -1:
+                trades.append((row['Close'] - entry_price) / entry_price)
+                in_position = False
+        elif not in_position and row['Signal'] == 1:
+            entry_price, in_position = row['Close'], True
+            peak_price = row['Close']
 
-    if not trades: return None
-    ts = pd.Series(trades)
-    win_ts, loss_ts = ts[ts > 0], ts[ts <= 0]
-    p_win = len(win_ts) / len(ts) if len(ts) > 0 else 0
-    ev = (p_win * (win_ts.mean() if not win_ts.empty else 0)) - ((len(loss_ts) / len(ts) if len(ts) > 0 else 0) * (abs(loss_ts.mean()) if not loss_ts.empty else 0))
-    return {"ev": round(ev * 100, 2), "win_rate": round(p_win * 100, 2)}
+    if not trades:
+        return None
+        
+    ts = pd.Series(trades)
+    win_ts, loss_ts = ts[ts > 0], ts[ts <= 0]
+    p_win = len(win_ts) / len(ts) if len(ts) > 0 else 0
+    ev = (p_win * (win_ts.mean() if not win_ts.empty else 0)) - ((len(loss_ts) / len(ts) if len(ts) > 0 else 0) * (abs(loss_ts.mean()) if not loss_ts.empty else 0))
+    
+    return {"ev": round(ev * 100, 2), "win_rate": round(p_win * 100, 2)}
 
 def check_market_regime():
     regime = {"TW": False, "US": False} 
@@ -416,6 +419,7 @@ def generate_dashboard_data():
 # 確保這行是在最外層（沒有縮排）
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
