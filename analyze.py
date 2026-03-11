@@ -524,7 +524,7 @@ def generate_dashboard_data():
 # ... 前面是財報照妖鏡跟 AI 辯論 ...
         
 # 👇 這裡前面精準對齊 12 個空白 (因為在 try 裡面)
-            dashboard_data.append({
+        dashboard_data.append({
                 "symbol": symbol, "name": info["name"], "category": info["category"],
                 "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), 
                 "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
@@ -583,3 +583,4 @@ def generate_dashboard_data():
 # 🚀 執行主程式 (這兩行退到最左邊，0 個空白)
 if __name__ == "__main__": 
     generate_dashboard_data()
+
