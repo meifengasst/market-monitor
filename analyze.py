@@ -202,7 +202,7 @@ def generate_morning_script_via_groq(market_data):
         print(f"⚠️ Groq API 呼叫失敗: {e}")
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
         
-        def get_ai_debate_insight(stock_name, price, ma20, rsi, rs_score):
+def get_ai_debate_insight(stock_name, price, ma20, rsi, rs_score):
     """【進化二】多空雙 AI 辯論室：強迫 AI 產出多方、空方與最終裁決"""
     print(f"⚖️ 啟動多空辯論庭：{stock_name}...")
     groq_api_key = os.environ.get("GROQ_API_KEY")
@@ -231,7 +231,7 @@ def generate_morning_script_via_groq(market_data):
         payload = {
             "model": "llama-3.1-8b-instant",
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "temperature": 0.2, # 維持低溫，確保紀律
+            "temperature": 0.2, 
             "max_tokens": 150
         }
         res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=15)
@@ -239,7 +239,6 @@ def generate_morning_script_via_groq(market_data):
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         
-        # 🛡️ 阿土伯防護罩：用正規表達式硬拔 JSON
         match = re.search(r'\{.*\}', ai_text, re.DOTALL)
         if match:
             return json.loads(match.group(0))
@@ -480,6 +479,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
