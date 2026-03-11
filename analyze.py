@@ -424,14 +424,11 @@ def generate_dashboard_data():
         
 # ... 上面維持原本的邏輯 (包含算 RSI, ATR, 新聞掃雷等) ...
 
-# 💡 阿土伯特調：技術面點評
-        print(f"🧠 正在請求 AI 分析師點評 {info['name']} 的技術面...")
-        ai_insight = get_ai_stock_insight(info["name"], current_price, round(df['ma20'].iloc[-1], 2), round(df['rsi'].iloc[-1], 2), rs_score)
-        
 # 💡 阿土伯特調：啟動多空雙 AI 辯論室！
+        print(f"⚖️ 正在請求多空 AI 辯論 {info['name']} 的技術面...")
         debate_result = get_ai_debate_insight(info["name"], current_price, round(df['ma20'].iloc[-1], 2), round(df['rsi'].iloc[-1], 2), rs_score)
         
-        # 基本面照妖鏡維持不變
+        # 💡 阿土伯升級：調用財報照妖鏡 (基本面掃雷)
         funda_insight = get_fundamental_risk(symbol, info["name"])
         
         dashboard_data.append({
@@ -442,7 +439,7 @@ def generate_dashboard_data():
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
             "rs_score": rs_score, 
-            "ai_debate": debate_result, # 👈 這裡換成新的辯論結果物件 (包含 bull, bear, judge)
+            "ai_debate": debate_result, # 👈 這裡正式對接新來的多空辯論結果！
             "funda_summary": funda_insight, 
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
@@ -479,6 +476,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
