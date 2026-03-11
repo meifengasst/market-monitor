@@ -8,6 +8,7 @@ import os
 import requests
 import xml.etree.ElementTree as ET
 import re
+import time
 
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36"}
@@ -239,6 +240,9 @@ def get_ai_debate_insight(stock_name, price, ma20, rsi, rs_score):
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         
+        # 💡 強制脫掉 AI 喜歡亂加的 Markdown 外衣
+        ai_text = re.sub(r'```json|```', '', ai_text).strip()
+        
         match = re.search(r'\{.*\}', ai_text, re.DOTALL)
         if match:
             return json.loads(match.group(0))
@@ -431,6 +435,8 @@ def generate_dashboard_data():
         # 💡 阿土伯升級：調用財報照妖鏡 (基本面掃雷)
         funda_insight = get_fundamental_risk(symbol, info["name"])
         
+# ... 前面是財報照妖鏡跟 AI 辯論 ...
+        
         dashboard_data.append({
             "symbol": symbol, "name": info["name"], "category": info["category"],
             "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
@@ -439,11 +445,16 @@ def generate_dashboard_data():
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
             "rs_score": rs_score, 
-            "ai_debate": debate_result, # 👈 這裡正式對接新來的多空辯論結果！
+            "ai_debate": debate_result, 
             "funda_summary": funda_insight, 
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
+        # 💡 阿土伯降溫機制：每算完一檔股票，強迫 Python 休息 3 秒，避免塞爆 Groq API 導致斷線！
+        print(f"⏳ {info['name']} 運算完畢，冷卻 3 秒鐘...")
+        time.sleep(3)
+
+    # 迴圈結束後，底下是算 VIX 跟晨間劇本的地方 (維持不變)
     try:
         vix_price = round(yf.Ticker("^VIX").fast_info.get('lastPrice', 0), 2)
     except:
@@ -476,6 +487,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
