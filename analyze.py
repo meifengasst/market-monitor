@@ -311,6 +311,51 @@ def get_fundamental_risk(symbol, stock_name):
     except Exception as e:
         return "🤖 AI 財報解讀中斷，請手動確認風險。"
 
+def get_best_ma_strategy(df):
+    """【進化四】股性動態最佳化：回測找出這檔股票最適合的防守均線"""
+    ma_list = ['ma5', 'ma10', 'ma20', 'ma60']
+    best_ma = 'ma20'
+    best_profit = -9999
+
+    try:
+        for ma in ma_list:
+            if ma not in df.columns:
+                continue
+            
+            # 💡 簡易回測邏輯：過去半年(約120天)，站上MA買進，跌破MA賣出的總報酬
+            test_df = df.tail(120).copy()
+            in_position = False
+            entry_price = 0
+            profit = 0
+            
+            for i in range(1, len(test_df)):
+                prev_close = test_df['Close'].iloc[i-1]
+                prev_ma = test_df[ma].iloc[i-1]
+                curr_close = test_df['Close'].iloc[i]
+                curr_ma = test_df[ma].iloc[i]
+                
+                # 突破均線 -> 買進
+                if not in_position and prev_close < prev_ma and curr_close > curr_ma:
+                    in_position = True
+                    entry_price = curr_close
+                # 跌破均線 -> 賣出
+                elif in_position and prev_close > prev_ma and curr_close < curr_ma:
+                    in_position = False
+                    profit += (curr_close - entry_price) / entry_price
+                    
+            # 如果最後一天還在場內，把未實現也算進去
+            if in_position and entry_price > 0:
+                profit += (test_df['Close'].iloc[-1] - entry_price) / entry_price
+                
+            if profit > best_profit:
+                best_profit = profit
+                best_ma = ma
+                
+        # 把 ma10 轉換成 10MA 這種易讀格式
+        return best_ma.replace('ma', '') + 'MA' 
+    except Exception as e:
+        print(f"⚠️ 回測均線失敗: {e}")
+        return "20MA" # 如果算不出來，就退回傳統月線
         
 def generate_dashboard_data():
     bear_markets = check_market_regime() 
@@ -352,9 +397,17 @@ def generate_dashboard_data():
             try: df.iloc[-1, df.columns.get_loc('Close')] = round(yf.Ticker(symbol).fast_info.get('lastPrice', df['Close'].iloc[-1]), 2)
             except: pass
         
-        df['ma5'] = df['Close'].rolling(5).mean()
-        df['ma20'] = df['Close'].rolling(20).mean()
-        df['ma60'] = df['Close'].rolling(60).mean()
+# 計算各種均線
+        df['ma5'] = df['Close'].rolling(window=5).mean()
+        df['ma10'] = df['Close'].rolling(window=10).mean() # 👈 新增十日線給飆股用
+        df['ma20'] = df['Close'].rolling(window=20).mean()
+        df['ma60'] = df['Close'].rolling(window=60).mean()
+        
+        # 💡 阿土伯進化四：呼叫回測大腦，找出專屬均線！
+        best_ma_name = get_best_ma_strategy(df)
+        best_ma_col = 'ma' + best_ma_name.replace('MA', '') # 轉回 ma10 的格式去抓價格
+        best_ma_price = round(df[best_ma_col].iloc[-1], 2) if not pd.isna(df[best_ma_col].iloc[-1]) else round(df['ma20'].iloc[-1], 2)
+        
         df['std'] = df['Close'].rolling(20).std()
         df['bb_upper'], df['bb_lower'] = df['ma20'] + 2 * df['std'], df['ma20'] - 2 * df['std']
         df['macd'] = df['Close'].ewm(span=12).mean() - df['Close'].ewm(span=26).mean()
@@ -443,9 +496,10 @@ def generate_dashboard_data():
         
 # ... 前面是財報照妖鏡跟 AI 辯論 ...
         
-        dashboard_data.append({
+dashboard_data.append({
             "symbol": symbol, "name": info["name"], "category": info["category"],
-            "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
+            "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), 
+            "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
             "atr": round(df['atr'].iloc[-1], 2),
             "news_sentiment": news_sentiment_data,
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
@@ -453,6 +507,8 @@ def generate_dashboard_data():
             "rs_score": rs_score, 
             "ai_debate": debate_result, 
             "funda_summary": funda_insight, 
+            "best_ma_name": best_ma_name,       # 👈 塞入最強防守線名稱 (例如 "10MA")
+            "best_ma_price": best_ma_price,     # 👈 塞入最強防守線的價格
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
@@ -493,6 +549,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
