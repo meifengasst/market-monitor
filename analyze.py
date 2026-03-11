@@ -87,13 +87,17 @@ def get_ai_news_sentiment(stock_name, symbol):
         now = datetime.now()
         fifteen_days_ago = now - timedelta(days=15) 
         
+        # 1. 過濾時間
         for item in raw_news:
-            pub_time = datetime.fromtimestamp(item['providerPublishTime'])
+            pub_timestamp = item.get('providerPublishTime')
+            if not pub_timestamp: # 略過沒有時間戳記的廣告
+                continue
+            pub_time = datetime.fromtimestamp(pub_timestamp)
             if pub_time >= fifteen_days_ago:
                 recent_news.append({
                     "title": item['title'],
                     "link": item['link'],
-                    "date": pub_time.strftime("%Y-%m-%d")
+                    "date": pub_time.strftime("%Y-%m-%d") 
                 })
                 
         top_news = recent_news[:5]
@@ -132,7 +136,13 @@ def get_ai_news_sentiment(stock_name, symbol):
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         ai_text = re.sub(r'```json|```', '', ai_text).strip()
-        parsed_data = json.loads(ai_text)
+        
+        # 💡 阿土伯防呆：強制只抓取中括號 [...] 裡面的內容，無視 AI 廢話！
+        match = re.search(r'\[.*\]', ai_text, re.DOTALL)
+        if match:
+            parsed_data = json.loads(match.group(0))
+        else:
+            raise ValueError("AI 回傳的格式不是 JSON 陣列")
         
         final_result = []
         for i, item in enumerate(parsed_data):
@@ -446,13 +456,19 @@ def generate_dashboard_data():
                         trade['alerted'] = False
                         portfolio_updated = True
 
+
             news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
+            
+            time.sleep(2) # 💡 喘口氣 1：避免被 Groq 踢下線
 
             hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2)} for i, r in df.tail(60).iterrows()]
             
             print(f"⚖️ 正在請求多空 AI 辯論 {info['name']} 的技術面...")
             recent_5d = df.tail(5)
             debate_result = get_ai_technical_brain(info["name"], recent_5d, rs_score)
+            
+            time.sleep(2) # 💡 喘口氣 2：避免被 Groq 踢下線
+            
             funda_insight = get_fundamental_risk(symbol, info["name"])
             
             dashboard_data.append({
@@ -506,3 +522,4 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
