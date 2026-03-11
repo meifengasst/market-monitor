@@ -728,15 +728,20 @@
                             
                             <!-- 💡 機器人點評區塊 -->
                             <div class="pt-3 border-t border-slate-700/50 space-y-2">
-                                <div class="bg-blue-900/20 p-3 rounded-xl border border-blue-500/30 shadow-inner">
-                                    <p class="text-[11px] font-black text-blue-300 mb-0.5">🤖 技術面系統點評：</p>
-                                    <p class="text-xs font-bold text-slate-200 leading-relaxed">${stock.ai_summary || '讀取中'}</p>
+                            <div class="bg-slate-900/50 p-3 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-2">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-red-400 text-xs mt-0.5">🟢多方:</span>
+                                        <p class="text-[11px] font-bold text-slate-300 leading-tight flex-1">${stock.ai_debate ? stock.ai_debate.bull : '讀取中...'}</p>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-400 text-xs mt-0.5">🔴空方:</span>
+                                        <p class="text-[11px] font-bold text-slate-300 leading-tight flex-1">${stock.ai_debate ? stock.ai_debate.bear : '讀取中...'}</p>
+                                    </div>
+                                    <div class="border-t border-slate-700 mt-1 pt-2 flex items-start gap-2">
+                                        <span class="text-blue-400 text-xs font-black mt-0.5">👨‍⚖️裁決:</span>
+                                        <p class="text-xs font-black text-white leading-tight flex-1">${stock.ai_debate ? stock.ai_debate.judge : '讀取中...'}</p>
+                                    </div>
                                 </div>
-                                <div class="bg-purple-900/20 p-3 rounded-xl border border-purple-500/30 shadow-inner">
-                                    <p class="text-[11px] font-black text-purple-300 mb-0.5">🕵️‍♂️ 財報照妖鏡 (基本面)：</p>
-                                    <p class="text-xs font-bold text-slate-200 leading-relaxed">${stock.funda_summary || '讀取中'}</p>
-                                </div>
-                            </div>
 
                         </div>
                         <div class="bg-blue-900/30 p-4 rounded-xl border border-blue-500/30 mt-auto">
