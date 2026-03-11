@@ -7,6 +7,8 @@ import numpy as np
 import os
 import requests
 import xml.etree.ElementTree as ET
+import re
+
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36"}
 
@@ -77,38 +79,26 @@ STOCKS = {
 }
 
 def get_ai_news_sentiment(symbol, stock_name):
-    """使用 feedparser 抓取 Google News RSS，並交給 Groq AI 判定多空情緒"""
     print(f"📰 正在啟動 RSS 訊號源掃描 {stock_name} 的新聞籌碼...")
     try:
-        # 💡 阿土伯秘方：使用 Google News RSS，並把「股票代號+名稱」丟進去搜尋，精準度極高！
-        # 針對台股把 .TW 拿掉以免干擾搜尋，例如 2330.TW 變成 2330
         clean_symbol = symbol.replace(".TW", "").replace(".TWO", "")
         rss_url = f"https://news.google.com/rss/search?q={clean_symbol}+{stock_name}+stock&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
-        
         feed = feedparser.parse(rss_url)
-        
-        # 如果連 Google 都找不到新聞，就提早撤退
         if not feed.entries: 
-            print(f"🤷‍♂️ {stock_name} 近期無重大新聞。")
             return []
-            
-        # 嚴格控管：只抓最新的前 3 條新聞，避免把 API 額度塞爆
         news_list = [{"title": entry.title, "link": entry.link} for entry in feed.entries[:3]]
-        
     except Exception as e:
         print(f"⚠️ 抓取 {symbol} RSS 新聞失敗: {e}")
         return []
 
-    # 檢查有沒有帶 API Key，沒有的話就給個中立燈號
     groq_api_key = os.environ.get("GROQ_API_KEY")
     if not groq_api_key:
         return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
 
-    # 組合給 AI 看的 Prompt
     titles_text = "\n".join([f"新聞 {i+1}：{n['title']}" for i, n in enumerate(news_list)])
     system_prompt = """
     你是一位台灣股市資深操盤手。請判斷以下新聞標題對該公司股價是「利多」、「利空」還是「中立」。
-    請務必嚴格以純 JSON 陣列格式回傳，不要加上任何 markdown 標記 (如 ```json) 或廢話！
+    請務必嚴格以純 JSON 陣列格式回傳，絕對不要加上任何 markdown 標記、也不要說「好的」、「以下是」等任何廢話！
     格式範例：
     [
         {"sentiment": "利多 🔴", "title": "新聞標題1"},
@@ -117,7 +107,6 @@ def get_ai_news_sentiment(symbol, stock_name):
     """
     user_prompt = f"股票：{stock_name}\n新聞列表：\n{titles_text}"
 
-    # 呼叫 Groq AI 進行情緒判讀
     try:
         headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
         payload = {
@@ -125,19 +114,22 @@ def get_ai_news_sentiment(symbol, stock_name):
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
             "temperature": 0.1
         }
-        res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=15)
+        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=15)
         res.raise_for_status()
         
-        # 處理 AI 回傳的字串，剝除多餘的 Markdown 外衣
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
-        if ai_text.startswith("```json"):
-            ai_text = ai_text[7:]
-        if ai_text.endswith("```"):
-            ai_text = ai_text[:-3]
-            
-        return json.loads(ai_text.strip())
+        
+        # 💡 阿土伯終極殺招：用正規表達式 (Regex) 強制抓取中括號 [...] 裡面的 JSON 陣列！
+        match = re.search(r'\[\s*\{.*?\}\s*\]', ai_text, re.DOTALL)
+        if match:
+            clean_json = match.group(0)
+        else:
+            clean_json = ai_text # 找不到的話才退回原始文字
+
+        return json.loads(clean_json)
     except Exception as e:
         print(f"⚠️ AI 新聞解析失敗 ({stock_name}): {e}")
+        # 如果還是失敗，至少保留新聞標題讓你看！
         return [{"title": n["title"], "link": n["link"], "sentiment": "解析失敗 ⚠️"} for n in news_list]
 
 def get_us_market_summary():
@@ -209,7 +201,33 @@ def generate_morning_script_via_groq(market_data):
     except Exception as e:
         print(f"⚠️ Groq API 呼叫失敗: {e}")
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
+def get_ai_stock_insight(stock_name, price, ma20, rsi, rs_score):
+    """把技術指標丟給 Groq AI，產生阿土伯風格的專屬個股點評"""
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    if not groq_api_key:
+        return "⚠️ 未設定 API KEY，請回歸 20MA 紀律操作。"
 
+    system_prompt = """
+    你現在是台灣股市資深操盤手「阿土伯」。請根據以下技術面數據，用「一句話（嚴格限制 30 字以內）」給出操作建議。
+    語氣要果斷、嚴厲、接地氣（例如：破月線就罵人接刀，站上月線就叫人抱牢，RSI太高就提醒過熱）。
+    不要打招呼，不要講廢話，直接給出點評！
+    """
+    user_prompt = f"股票：{stock_name}\n現價：{price}\n20日均線(月線)：{ma20}\nRSI(熱度)：{rsi}\n相對大盤強弱：{rs_score}%"
+
+    try:
+        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
+        payload = {
+            "model": "llama-3.1-8b-instant",
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+            "temperature": 0.4,
+            "max_tokens": 100
+        }
+        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=10)
+        res.raise_for_status()
+        return res.json()["choices"][0]["message"]["content"].strip()
+    except Exception as e:
+        return "🤖 盤勢震盪，AI 連線異常，請手動依紀律操作。"
+        
 def generate_dashboard_data():
     bear_markets = check_market_regime() 
     
@@ -328,6 +346,15 @@ def generate_dashboard_data():
         
         rs_comment = f"【主力資金偏好】近期表現強於大盤 {rs_score}%！" if rs_score > 5 else (f"【溫吞股】近期表現落後大盤 {rs_score}%。" if rs_score < 0 else "與大盤同步。")
         
+# ... 上面維持原本的邏輯 (包含算 RSI, ATR, 新聞掃雷等) ...
+
+        # 💡 阿土伯特調：讓 AI 針對這檔股票的技術指標開金口！
+        print(f"🧠 正在請求 AI 分析師點評 {info['name']}...")
+        ai_insight = get_ai_stock_insight(info["name"], current_price, round(df['ma20'].iloc[-1], 2), round(df['rsi'].iloc[-1], 2), rs_score)
+        
+        # 組合最終的卡片點評
+        lively_summary = f"🎯 {ai_insight} (建議防守：{int(best_sl*100)}%)"
+        
         dashboard_data.append({
             "symbol": symbol, "name": info["name"], "category": info["category"],
             "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
@@ -336,7 +363,7 @@ def generate_dashboard_data():
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
             "rs_score": rs_score, 
-            "ai_summary": f"🎯 最佳移動停利/停損為 {int(best_sl*100)}%。{'目前大盤破線，已強制縮緊至 3% 防守！' if is_bear else '目前大盤穩定。'} {rs_comment}",
+            "ai_summary": lively_summary, # 👈 這裡正式接上 AI 的靈魂點評！
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
@@ -372,5 +399,6 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
