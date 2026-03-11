@@ -31,6 +31,17 @@
                     <p class="text-sm text-slate-400 font-bold mb-1">未實現總損益</p>
                     <p id="totalPnL" class="text-3xl font-mono font-black text-white">$0</p>
                 </div>
+                <div class="mt-3 pt-3 border-t border-slate-700 border-dashed flex justify-between items-end">
+                    <p class="text-sm text-slate-400 font-bold mb-1">歷史已實現損益</p>
+                    <p id="realizedPnL" class="text-2xl font-mono font-black text-white">$0</p>
+                </div>
+                <div class="mt-3 pt-3 border-t border-slate-700 border-dashed flex justify-between items-end">
+                    <p class="text-sm text-blue-400 font-bold mb-1">動態總資產 (含本金)</p>
+                    <p id="dynamicCapital" class="text-2xl font-mono font-black text-blue-400">$0</p>
+                </div>
+                <button onclick="exportToCSV()" class="w-full mt-5 bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3 rounded-xl transition-colors text-sm flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                    <span class="text-lg">📊</span> 下載歷史對帳單 (Excel)
+                </button>
             </div>
 
             <button onclick="openRulesModal()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-600 hover:border-blue-500 rounded-2xl py-4 px-5 flex items-center justify-between transition-all shadow-lg group mt-4">
@@ -313,17 +324,49 @@
             }
         }
 
+        // 💡 讀取本機的「歷史交易紀錄」
+        let tradeHistory = JSON.parse(localStorage.getItem('atu_trade_history')) || [];
+
+        // 🌟 升級版：平倉結算功能
         function removeTrade(event, symbol) {
             event.stopPropagation(); 
-            if(confirm(`確定要將 ${symbol} 從實戰部位中移除嗎？`)) {
+            let stock = stockMap[symbol];
+            let trade = myPortfolio[symbol];
+            if (!trade) return;
+
+            // 計算結算當下的損益
+            let currentPrice = stock ? stock.price : trade.entryPrice;
+            let pnl = (currentPrice - trade.entryPrice) * trade.shares;
+            let pnlPct = (((currentPrice - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
+            let stockName = stock ? stock.name : symbol;
+
+            // 彈出確認視窗，告訴你這單賺/賠多少
+            let confirmMsg = `🏦 阿土伯平倉確認\n\n股票：${stockName} (${symbol})\n買進均價：$${trade.entryPrice}\n平倉價格：$${currentPrice}\n\n👉 本次實現損益：$${Math.round(pnl).toLocaleString()} (${pnlPct}%) \n\n確定要獲利了結 / 停損平倉嗎？`;
+
+            if(confirm(confirmMsg)) {
+                // 1. 記錄到歷史帳本
+                tradeHistory.push({
+                    date: new Date().toLocaleString('zh-TW', {hour12: false}),
+                    symbol: symbol,
+                    name: stockName,
+                    shares: trade.shares,
+                    entryPrice: trade.entryPrice,
+                    exitPrice: currentPrice,
+                    pnl: Math.round(pnl),
+                    pnlPct: pnlPct
+                });
+                localStorage.setItem('atu_trade_history', JSON.stringify(tradeHistory));
+
+                // 2. 從庫存刪除
                 delete myPortfolio[symbol];
                 localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
+                
+                // 3. 更新畫面
                 renderData(document.getElementById('searchInput').value);
                 renderPortfolioSummary();
                 syncPortfolioToGithub();
             }
         }
-
         // 庫存結算司令台
         function renderPortfolioSummary() {
             const summarySection = document.getElementById('portfolioSummarySection');
@@ -404,6 +447,65 @@
             document.getElementById('totalRiskText').className = `text-sm font-mono font-black ${riskPct >= 10 ? 'text-green-400 animate-pulse' : 'text-white'}`;
             document.getElementById('totalRiskBar').className = `h-full transition-all duration-1000 ease-out ${riskBarColor}`;
             document.getElementById('totalRiskBar').style.width = `${Math.min(riskPct, 100)}%`;
+            // --- 💡 阿土伯新增：動態資產計算與更新 UI ---
+            let totalRealizedPnL = tradeHistory.reduce((sum, record) => sum + record.pnl, 0);
+            let baseCapital = parseFloat(document.getElementById('capitalInput').value) || 100000;
+            
+            // 動態總資產 = 初始輸入本金 + 已經放進口袋的錢 + 帳面上浮動的錢
+            let currentDynamicCapital = baseCapital + totalRealizedPnL + totalPnL; 
+
+            // 更新已實現損益的顏色與數字
+            let realizedColor = totalRealizedPnL >= 0 ? 'text-red-400' : 'text-green-400';
+            let realizedSign = totalRealizedPnL > 0 ? '+' : '';
+            let rlzdEl = document.getElementById('realizedPnL');
+            if(rlzdEl) {
+                rlzdEl.className = `text-2xl font-mono font-black ${realizedColor}`;
+                rlzdEl.innerText = `${realizedSign}$${Math.abs(Math.round(totalRealizedPnL)).toLocaleString()} 元`;
+            }
+
+            // 更新動態總資產
+            let dynCapEl = document.getElementById('dynamicCapital');
+            if(dynCapEl) {
+                dynCapEl.innerText = `$${Math.round(currentDynamicCapital).toLocaleString()} 元`;
+            }
+            // ----------------------------------------------------
+        } // 👈 這是 renderPortfolioSummary 函數原本的結尾大括號
+
+        // 🌟 匯出對帳單到 Excel 的神器
+        function exportToCSV() {
+            if (tradeHistory.length === 0) {
+                alert("🤷‍♂️ 目前還沒有任何平倉紀錄可以匯出喔！趕快去實戰吧！");
+                return;
+            }
+
+            // 加上 BOM，這樣 Excel 打開中文才不會變亂碼
+            let csvContent = "\uFEFF"; 
+            csvContent += "平倉時間,股票代號,股票名稱,股數,買進均價,平倉價格,實現損益(元),報酬率(%)\n";
+
+            // 把歷史紀錄一筆一筆寫進去
+            tradeHistory.forEach(record => {
+                csvContent += `${record.date},${record.symbol},${record.name},${record.shares},${record.entryPrice},${record.exitPrice},${record.pnl},${record.pnlPct}%\n`;
+            });
+
+            // 觸發瀏覽器下載
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `阿土伯對帳單_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 💡 貼心小功能：記住你輸入的初始本金
+        let savedCapital = localStorage.getItem('atu_base_capital');
+        if (savedCapital) document.getElementById('capitalInput').value = savedCapital;
+        document.getElementById('capitalInput').addEventListener('input', (e) => { 
+            localStorage.setItem('atu_base_capital', e.target.value);
+            renderData(document.getElementById('searchInput').value); 
+            renderPortfolioSummary(); 
+        });
         }
 
         // 讀取資料大腦
