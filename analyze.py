@@ -207,11 +207,18 @@ def get_ai_stock_insight(stock_name, price, ma20, rsi, rs_score):
     if not groq_api_key:
         return "⚠️ 未設定 API KEY，請回歸 20MA 紀律操作。"
 
+    # 💡 阿土伯緊箍咒：把風控鐵律寫進 Prompt，防堵 AI 亂叫人接刀！
     system_prompt = """
-    你現在是台灣股市資深操盤手「阿土伯」。請根據以下技術面數據，用「一句話（嚴格限制 30 字以內）」給出操作建議。
-    語氣要果斷、嚴厲、接地氣（例如：破月線就罵人接刀，站上月線就叫人抱牢，RSI太高就提醒過熱）。
-    不要打招呼，不要講廢話，直接給出點評！
+    你現在是台灣股市極度保守、紀律嚴明的資深操盤手「阿土伯」。
+    請根據以下技術面數據，用「一句話（嚴格限制 30 字以內）」給出操作建議。
+    
+    【阿土伯鐵律 - 絕對不可違背】：
+    1. 如果「現價 < 20日均線(月線)」，絕對只能叫人「觀望、停損、空手、嚴禁接刀」，【絕對不可以】建議買進或抄底！
+    2. 如果「現價 >= 20日均線(月線)」，才可以建議「抱牢、偏多操作、設好停損」。
+    3. 語氣要果斷、嚴厲、接地氣（例如：破線就罵人接刀，站上就叫人抱牢）。
+    不要打招呼，直接給出點評！
     """
+    
     user_prompt = f"股票：{stock_name}\n現價：{price}\n20日均線(月線)：{ma20}\nRSI(熱度)：{rsi}\n相對大盤強弱：{rs_score}%"
 
     try:
@@ -219,7 +226,7 @@ def get_ai_stock_insight(stock_name, price, ma20, rsi, rs_score):
         payload = {
             "model": "llama-3.1-8b-instant",
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "temperature": 0.4,
+            "temperature": 0.2, # 💡 把溫度調低 (從 0.4 降到 0.2)，讓 AI 不要太有創意，乖乖聽話
             "max_tokens": 100
         }
         res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=10)
@@ -399,6 +406,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
