@@ -234,6 +234,61 @@ def get_ai_stock_insight(stock_name, price, ma20, rsi, rs_score):
         return res.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return "🤖 盤勢震盪，AI 連線異常，請手動依紀律操作。"
+
+def get_fundamental_risk(symbol, stock_name):
+    """阿土伯的財報照妖鏡：抓取基本面數據，交給 Groq AI 抓出隱藏風險"""
+    print(f"🔎 正在調閱 {stock_name} 的財務報表...")
+    try:
+        # 抓取基本面數據 (P/E, ROE, 營收成長, 毛利率)
+        info = yf.Ticker(symbol).info
+        pe = info.get('trailingPE', '未知')
+        pb = info.get('priceToBook', '未知')
+        roe = info.get('returnOnEquity', '未知')
+        rev_growth = info.get('revenueGrowth', '未知')
+        margins = info.get('profitMargins', '未知')
+
+        # 如果連最基本的 PE 都沒有，代表可能沒抓到資料
+        if pe == '未知' and roe == '未知':
+            return "⚠️ 財報數據連線異常，請手動查閱公開資訊觀測站。"
+
+        # 把小數點轉換成百分比，方便 AI 大腦閱讀
+        if roe != '未知': roe = f"{round(roe * 100, 2)}%"
+        if rev_growth != '未知': rev_growth = f"{round(rev_growth * 100, 2)}%"
+        if margins != '未知': margins = f"{round(margins * 100, 2)}%"
+
+    except Exception as e:
+        print(f"⚠️ 抓取 {symbol} 財報失敗: {e}")
+        return "⚠️ 財報數據連線異常，無法進行基本面掃雷。"
+
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    if not groq_api_key:
+        return "⚠️ 未設定 API KEY，無法啟動財報掃雷。"
+
+    system_prompt = """
+    你是一位極度嚴格、挑剔的華爾街財報分析師，現在為台灣老手「阿土伯」效力。
+    你的任務是看著這家公司的「基本面數據」，用【一句話（嚴格限制 40 字以內）】挑出它最大的財務隱患或亮點。
+    
+    規則：
+    1. 語氣要尖銳、一針見血（例如：「本益比高達30倍有泡沫風險」、「營收衰退但利潤率尚可」）。
+    2. 如果數據看起來很健康，就直說「基本面健康，有業績支撐」。
+    3. 絕對不要廢話，直接給出你的財務診斷結論！
+    """
+    user_prompt = f"股票：{stock_name}\n本益比(P/E): {pe}\n股價淨值比(P/B): {pb}\n股東權益報酬率(ROE): {roe}\n近期營收成長率: {rev_growth}\n淨利率: {margins}"
+
+    try:
+        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
+        payload = {
+            "model": "llama-3.1-8b-instant",
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+            "temperature": 0.3,
+            "max_tokens": 100
+        }
+        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=10)
+        res.raise_for_status()
+        return res.json()["choices"][0]["message"]["content"].strip()
+    except Exception as e:
+        return "🤖 AI 財報解讀中斷，請手動確認風險。"
+
         
 def generate_dashboard_data():
     bear_markets = check_market_regime() 
@@ -355,9 +410,12 @@ def generate_dashboard_data():
         
 # ... 上面維持原本的邏輯 (包含算 RSI, ATR, 新聞掃雷等) ...
 
-        # 💡 阿土伯特調：讓 AI 針對這檔股票的技術指標開金口！
-        print(f"🧠 正在請求 AI 分析師點評 {info['name']}...")
+# 💡 阿土伯特調：技術面點評
+        print(f"🧠 正在請求 AI 分析師點評 {info['name']} 的技術面...")
         ai_insight = get_ai_stock_insight(info["name"], current_price, round(df['ma20'].iloc[-1], 2), round(df['rsi'].iloc[-1], 2), rs_score)
+        
+        # 💡 阿土伯升級：調用財報照妖鏡 (基本面掃雷)
+        funda_insight = get_fundamental_risk(symbol, info["name"])
         
         # 組合最終的卡片點評
         lively_summary = f"🎯 {ai_insight} (建議防守：{int(best_sl*100)}%)"
@@ -370,7 +428,8 @@ def generate_dashboard_data():
             "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
             "ev": actual_ev, "win_rate": actual_win, "history": hist, 
             "rs_score": rs_score, 
-            "ai_summary": lively_summary, # 👈 這裡正式接上 AI 的靈魂點評！
+            "ai_summary": lively_summary, 
+            "funda_summary": funda_insight, # 👈 把財報掃雷結果打包進去！
             "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
         })
 
@@ -406,6 +465,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
