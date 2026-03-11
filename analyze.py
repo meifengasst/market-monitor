@@ -1,6 +1,7 @@
 import yfinance as yf
 import feedparser
 import pandas as pd
+from datetime import datetime, timedelta
 import json
 from datetime import datetime
 import numpy as np
@@ -79,59 +80,85 @@ STOCKS = {
     "9904.TW": {"name": "寶成", "category": "運動鞋"}
 }
 
-def get_ai_news_sentiment(symbol, stock_name):
-    print(f"📰 正在啟動 RSS 訊號源掃描 {stock_name} 的新聞籌碼...")
+def get_ai_news_sentiment(stock_name, symbol):
+    """抓取近15天內最多5則重大新聞，並交由 AI 判斷多空"""
+    print(f"📰 啟動精準雷達，抓取 {stock_name} 近15日新聞...")
     try:
-        clean_symbol = symbol.replace(".TW", "").replace(".TWO", "")
-        rss_url = f"https://news.google.com/rss/search?q={clean_symbol}+{stock_name}+stock&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
-        feed = feedparser.parse(rss_url)
-        if not feed.entries: 
-            return []
-        news_list = [{"title": entry.title, "link": entry.link} for entry in feed.entries[:3]]
-    except Exception as e:
-        print(f"⚠️ 抓取 {symbol} RSS 新聞失敗: {e}")
-        return []
+        ticker = yf.Ticker(symbol)
+        raw_news = ticker.news
+        
+        recent_news = []
+        now = datetime.now()
+        fifteen_days_ago = now - timedelta(days=15) # 💡 設定時間軸：15天前
+        
+        # 1. 過濾時間
+        for item in raw_news:
+            # Yahoo 的時間戳是秒數，轉換成日期格式
+            pub_time = datetime.fromtimestamp(item['providerPublishTime'])
+            if pub_time >= fifteen_days_ago:
+                recent_news.append({
+                    "title": item['title'],
+                    "link": item['link'],
+                    "date": pub_time.strftime("%Y-%m-%d") # 順便把日期記下來
+                })
+                
+        # 2. 擷取前 5 則最新新聞
+        top_news = recent_news[:5]
+        
+        if not top_news:
+            return [{"title": "近半個月內無重大新聞，主力可能在休假😴", "sentiment": "中立", "link": "#", "date": now.strftime("%Y-%m-%d")}]
 
-    groq_api_key = os.environ.get("GROQ_API_KEY")
-    if not groq_api_key:
-        return [{"title": n["title"], "link": n["link"], "sentiment": "中立 ⚪"} for n in news_list]
+        # 3. 組裝給 AI 看的新聞報紙
+        news_text = ""
+        for i, n in enumerate(top_news):
+            news_text += f"新聞 {i+1} ({n['date']}): {n['title']}\n"
 
-    titles_text = "\n".join([f"新聞 {i+1}：{n['title']}" for i, n in enumerate(news_list)])
-    system_prompt = """
-    你是一位台灣股市資深操盤手。請判斷以下新聞標題對該公司股價是「利多」、「利空」還是「中立」。
-    請務必嚴格以純 JSON 陣列格式回傳，絕對不要加上任何 markdown 標記、也不要說「好的」、「以下是」等任何廢話！
-    格式範例：
-    [
-        {"sentiment": "利多 🔴", "title": "新聞標題1"},
-        {"sentiment": "利空 🟢", "title": "新聞標題2"}
-    ]
-    """
-    user_prompt = f"股票：{stock_name}\n新聞列表：\n{titles_text}"
+        groq_api_key = os.environ.get("GROQ_API_KEY")
+        if not groq_api_key:
+            return [{"title": n['title'], "sentiment": "未連線", "link": n['link'], "date": n['date']} for n in top_news]
 
-    try:
+        system_prompt = """
+        你是一位華爾街資深分析師。請閱讀以下近15日內的重大新聞標題，判斷其對該公司的影響。
+        請【嚴格以純 JSON 陣列格式】回傳。
+        每個新聞項目包含：title (請將新聞標題翻譯成繁體中文), sentiment (僅限回傳：利多、利空、中立)。
+        
+        【回傳格式範例】：
+        [
+            {"title": "輝達發布新一代AI晶片...", "sentiment": "利多"},
+            {"title": "特斯拉降價促銷...", "sentiment": "利空"}
+        ]
+        """
+        user_prompt = f"股票：{stock_name}\n近期新聞：\n{news_text}"
+
         headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
         payload = {
             "model": "llama-3.1-8b-instant",
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "temperature": 0.1
+            "temperature": 0.3,
+            "max_tokens": 800
         }
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=15)
+        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
         res.raise_for_status()
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
+        ai_text = re.sub(r'```json|```', '', ai_text).strip()
+        parsed_data = json.loads(ai_text)
         
-        # 💡 阿土伯終極殺招：用正規表達式 (Regex) 強制抓取中括號 [...] 裡面的 JSON 陣列！
-        match = re.search(r'\[\s*\{.*?\}\s*\]', ai_text, re.DOTALL)
-        if match:
-            clean_json = match.group(0)
-        else:
-            clean_json = ai_text # 找不到的話才退回原始文字
+        # 4. 把 AI 翻譯好的標題跟原本的連結、日期合併起來
+        final_result = []
+        for i, item in enumerate(parsed_data):
+            if i < len(top_news): # 防呆，避免 AI 回傳太多或太少
+                final_result.append({
+                    "title": item.get("title", top_news[i]["title"]),
+                    "sentiment": item.get("sentiment", "中立"),
+                    "link": top_news[i]["link"],
+                    "date": top_news[i]["date"] # 💡 把日期傳給網頁
+                })
+        return final_result
 
-        return json.loads(clean_json)
     except Exception as e:
-        print(f"⚠️ AI 新聞解析失敗 ({stock_name}): {e}")
-        # 如果還是失敗，至少保留新聞標題讓你看！
-        return [{"title": n["title"], "link": n["link"], "sentiment": "解析失敗 ⚠️"} for n in news_list]
+        print(f"⚠️ 新聞掃雷失敗 ({stock_name}): {e}")
+        return [{"title": "新聞掃雷器故障或限速中", "sentiment": "未判定", "link": "#", "date": "未知"}]
 
 def get_us_market_summary():
     symbols = {"SPY": "標普500", "SOXX": "費城半導體", "TSM": "台積電ADR", "^VIX": "恐慌指數"}
@@ -549,6 +576,7 @@ dashboard_data.append({
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
