@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-11 [12:13]",
+    "last_update": "2026-03-11 [12:57]",
     "data": [
         {
             "symbol": "NVDA",
@@ -11,19 +11,16 @@
             "atr": 6.14,
             "news_sentiment": [
                 {
-                    "title": "Nvidia 輝達（NVDA）財報分析 2026 Q4！Q4 營收？Q1 財測？ - StockFeel 股感",
-                    "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5RR040dlpfSFJqSEpyZy01ZTJiTUNUbUlyb080RncyY2FVcUo3NEhuNTM0WjhHLXFjZm56YlpMeVJITC1DSENpS3Rrc3owMnltOW9laV9CRkE5OFR6MFhJRkZPMmRkemszMkd0UHBZaWdTMWU4WFBNR01OOGR5QkU?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "Prediction: Nvidia Stock Will Soar to This Price in 2026 as the AI Boom Expands From Data Centers to Robotaxis"
                 },
                 {
-                    "title": "Prediction: Nvidia Stock Will Soar to This Price in 2026 as the AI Boom Expands From Data Centers to Robotaxis - cmoney.tw",
-                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5Ody1ubnZfSG56QjZzLUc3Q1djdjV6enR6eTRlLWZ0TnYtV0d3YndWZUNKcTlkTTJtS0tIUVprblExYTM4TldxVlYzWlpKOXRscG5Tdlp5eFo?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "Nvidia 輝達（NVDA）財報分析 2026 Q4！Q4 營收？Q1 財測？"
                 },
                 {
-                    "title": "Nvidia(NVDA.US)黃仁勳反駁AI泡沫說法美股US Stocks Quote - 外圍新聞內容Golbal News Content - AASTOCKS.com",
-                    "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPWHpNajdrQVowc0lPalN2ajJ2WHRod2ltOEdobXpHbjFITTR5RTBkd1lZWlhDdi14bnktS3diVnNjRGgySWJ6UlV2NHZpYjVRS3BsaEhaNG9Oc0MwQWN0NnB0MmJvZ1luVi0xVno1RG44REZQMzVlY2dxdWhSblJacXFPWnBPNXFPb2c?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "2026年輝達是否仍值得買入？NVDA 市值能否在 2030 年達到 10 兆美元？"
                 }
             ],
             "vol_ratio": 1.2,
@@ -934,7 +931,7 @@
                 }
             ],
             "rs_score": 0.16,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
+            "ai_summary": "🎯 「抱牢，月線支持，RSI穩中，繼續看好！」 (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -951,19 +948,12 @@
             "atr": 13.27,
             "news_sentiment": [
                 {
-                    "title": "TSLA股價 — 特斯拉圖表 - TradingView",
-                    "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE0wVUlIY3EtVVF0Y0NUNGFzaG42V21kRGlENnNlaUdRMEtqN2tGSzQ1SGF5Yi0xWDVnYUR0T1JWVms2NmFqVy1XeUl0cFkxMXBOTVlFNDVjMnFMWDA?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "Tesla 股價有望創歷史新高，AI 熱潮撐起1.5 兆美元市值| 鏈新聞ABMedia"
                 },
                 {
-                    "title": "Tesla 股價有望創歷史新高，AI 熱潮撐起1.5 兆美元市值| 鏈新聞ABMedia - 鏈新聞 ABMedia",
-                    "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE93UC0xUkJrQVhraEE4eGRUc2NGb1F6N0MwczZhMEFTQW1uQUg2VU1pR2ZqcDR4X2U1LVk4bnZSbkswNXoxbVJHV1pUVXZrdXFCTnVRUm1acFZrNG5i?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
-                },
-                {
-                    "title": "Tesla(TSLA.US) Director Sells US$10.69 Million in Common Stock - 富途牛牛",
-                    "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOOEkwLVlnUVdKTXVyRWc2aF8yRmI1VVpYVHE1eEpLdXhZWXE5RVBTaGlpUlRMSnk5dnNGTkVVaTdhZGUxTTluQ2t6dXNCc0hUNDc3TEJ1c3IwY2M4NHNsMmlsUC1vcHQ5LThQYnBPeFB3c3B5MkgtNU5RT2NaZmw4ZjkzN3BlaHZJbHJuRzZLRjRUaDhXTWNwSXpCQQ?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利空",
+                    "title": "Tesla(TSLA.US) Director Sells US$10.69 Million in Common Stock"
                 }
             ],
             "vol_ratio": 1.2,
@@ -1874,7 +1864,7 @@
                 }
             ],
             "rs_score": -3.95,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 【溫吞股】近期表現落後大盤 -3.95%。",
+            "ai_summary": "🎯 價格跌破月線，RSI偏低，買入機會來臨！ (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2798,7 +2788,7 @@
                 }
             ],
             "rs_score": 0.0,
-            "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤破線，已強制縮緊至 3% 防守！ 與大盤同步。",
+            "ai_summary": "🎯 買入！月線上，RSI正常，買點來了！ (建議防守：4%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -2815,19 +2805,16 @@
             "atr": 63.57,
             "news_sentiment": [
                 {
-                    "title": "台積電副總增買自家股票 4位新任副總持股曝光 - 自由財經",
-                    "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9naThYVHZPanY3WFl1dkpQQ1Rqa29hUDlabnhkdXdJRUd3UWpWQ19OWndKeGtwY09CcFhrc1B4LVdyR1ZHTjVRaUdVMXdMcUZIbC1rckQzdjdHMjdwckEw0gFkQVVfeXFMT1U0YW5yTnVOa1hpMm1oU1B4eFlhVGxvVjlQMVZKZDNFYU5JRC1JWWZ5TGl0ejdaQjBpc3N0WHZPNHZqMTlyVHE5aXhxa3RMT0tVT01fZFg5RVMyQzhKV1pJWVVFZA?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "台積電副總增買自家股票 4位新任副總持股曝光 - 自由財經"
                 },
                 {
-                    "title": "台積電漲到1835元後翻黑！名師示警：短線已漲多 翻黑是好買點 - Yahoo股市",
-                    "link": "https://news.google.com/rss/articles/CBMimgNBVV95cUxQWTdScU1tWGtrMzk1cW9LTlc4QXctc3RVNXNyUWRrWDFFNEhZa3hXdGxsOFRMWXg3bTNNRjl0SlpKSXZ2czItX2o4MzhWTkhzWjJUc3R4MnRLREdKNXhKNFlydDZKaHpSVXQ2ZUJRbTdmWmh0RnViSzVva1FJRGgxNHZnb1BOc0pDY19UZ0hvSFNUOWt2cmNmYWJWSlU2Sk9veDBqLUMzLTFKVHM2ZGFjM044VTYxT2ZkMmk2T3ZvVDhHN21UZVAyT0pIOExpcklzc0lHejdPWUh5VUVKOHloZy04Y1pRdjVPWnV1QjVoMkFndlVkVTVVVUlYV1Bva1NHd1VYRHNjN3F4eUtYanNMLWlKcXRFTmxFU04tckQycXZBS3pLdkV6M3JEUTBiM0ZXVVBZb1BNMjAxOUZjaTN6YTYzcUgwaldENmhpM1NpQzNyNHZITjJtM0ZMd2k3ZDJGUVFsMTFHOUQxVW9vME9HZW1mSDZDcUZIUFV3NTZNR0xlOWQ5QTJ5WlA0R1czdk9iam82TFo5b3haUQ?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利空",
+                    "title": "台積電收跌70元至1865元！市值失守50兆元 專家喊「是黃金」 - Yahoo股市"
                 },
                 {
-                    "title": "1股台積電（2330）都沒有別太難過？阿格力：因為9成以上的台灣人都無 - 聯合新聞網",
-                    "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1oQ0dwdUtyVURrcDdxdEM0TGFfSTE0cTR5RXhfbU93T1c4dERBVVVkX1BTN2RlZzBIZWZydy1KMW5mNFlDZlhxWGRjNF9pdXBDRlHSAVdBVV95cUxQdDNKeTNmQ0wwV2FRYkh5MExDUGMwSENNS2g3d1NKd0F6VVI0c0hqYm1JRmRZUzE0OHhKbUNCaDBfOW00M290cHVmelJWTjh6ZmVDczhZT2M?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "1股台積電（2330）都沒有別太難過？阿格力：因為9成以上的台灣人都無 - 聯合新聞網"
                 }
             ],
             "vol_ratio": 1.2,
@@ -3724,7 +3711,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 1945.0,
-                    "volume": 26097670,
+                    "volume": 28702456,
                     "ma5": 1879.0,
                     "ma20": 1877.5,
                     "ma60": 1697.92,
@@ -3737,8 +3724,8 @@
                     "atr": 63.57
                 }
             ],
-            "rs_score": 2.21,
-            "ai_summary": "🎯 最佳移動停利/停損為 8%。目前大盤穩定。 與大盤同步。",
+            "rs_score": 2.07,
+            "ai_summary": "🎯 台積電價格已經接近20日均線，RSI過熱，建議賣出！ (建議防守：8%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3755,19 +3742,16 @@
             "atr": 10.05,
             "news_sentiment": [
                 {
-                    "title": "【即時新聞】元晶近日亮燈漲停，外資狂掃「8316」張，這波反彈還能追嗎？ - CMoney投資網誌",
-                    "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNZkhhYlcyNXo0UF9jWGFld044bGJpUEdDVmZiQU9ZaXlwMnZtd0lBaVRNYkcwNW5JQ1l1dGxhUGp5T3BNVXZhakcwZVBYVzJlYnBKby1OekY3YWI4cUQ5ekJ4eVl3M3R3YkhNWUMtTmVBbldNck5KSU5lc0Ftc0RJMjNxT0tDMjFtSzA4RWFBY0Q?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "【即時新聞】元晶近日亮燈漲停，外資狂掃「8316」張，這波反彈還能追嗎？"
                 },
                 {
-                    "title": "目標價喊到149！ 旺宏為何那麼旺 專家直指3關鍵 - Yahoo股市",
-                    "link": "https://news.google.com/rss/articles/CBMiuwJBVV95cUxNc0ZlSUpMU2ltakhkMmVLVUFtMTRLclJubVM4X1p2RW1maWN4bkRXc05McHV6cm5rM0hhVFBkN2NCVGpRZHlsM3lHMkx0WF93Y3V3Sm1ac09CS2RKV3UzR1BhVmxnNEx0aEZzTk5acTNud0NQaFZWX0ZudVNmVkhUbnhiV1JXdU5VU255N1VxbnFZTWgycVFCWU90Y2V3VUF3T1FGSnZyczlzVlQyT09aNUdCR2w5YUc4VFEtM3BEVzlqS3FZb0dZRC1PZ0dOd3hpaUlEeE5JVGlHVldqaU9PTTQ0MC1mTUFRbTE4V3hZS1E4UGI3bWFtN1ZTbFUyNmFsTUF3d3liWGw2TTA4WHJ3cXV1Rk9WQXhYMHhUbUxLN2hFTWlqblZ0Q0tDUVV1bVJwcHhFRDB4NkprU0U?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "目標價喊到149！ 旺宏為何那麼旺 專家直指3關鍵"
                 },
                 {
-                    "title": "今日漲停跌停股｜記憶體、軍工、半導體設備三箭齊發！旺宏(2337)、雷虎(8033)、均華(6640)強勢領漲 0108 - sinotrade.com.tw",
-                    "link": "https://news.google.com/rss/articles/CBMilwRBVV95cUxQemVoOTI4WTFuWXhCRGF5U3ZEQ1cyTkw0N2pZZkZHbmF0MEZ2akNmYS02T3RZWFJvallYTWl5N1dPNGJLV01VV0o3SDVYeVkzV1U5dFE2Y3gyU2c5ek9Ga1hPX1Vxd0NpS0paYlQwdTVDZWhWVmswQjRadV93VFNmXzd4d2oyTXRtTU5vZ3E0UkwtQjNHNWNGbi05T1NtNnpfSS1JYm5oX0xCbW53WHRGN0Zubnc5dThRa25lZDBndU5IcE5nQzBCNlhjM2tZaHJFMjRjYmpEd2dNTUg3anNOeWVQbktDTzBkMVVYTWJZZGQ2T3ZfSmFNbkxsVlJtX2o0clJIRVJ3eGRIQ1E4Rk8yNFhOYV9IM2N6U0VSU2NwRnZsR0tjeUFZX2dfdzdsTmR0OGF2MTEyTlBScXNuVVU3ak9laGI1enE4bzZrdHdteEtWQ21iVUZYX1pkM3hxZ0ZrOEdkQk9LTkxJb3hTWGRhS2V2Vlhwdy1zNmxYelhCZlI2YkpseXRQalF3YkEzUXRDZGI4R3pTLUpmQ2V5cWl0VldOTXNBNXc1cXdaSDRFaExreWxWeWpiaFVrVkotNmlGX1EwS1JVSEpTaVpSWk54TWtqbFVmQjRiMzFxal84ZDJrclFzZVhRQ3U1dlkzRjhHR3QtazFuRjFvRUNYbkNwU3FiaC1xTGtXbVdkNDJRLXhMTy1tR2dR?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "今日漲停跌停股｜記憶體、軍工、半導體設備三箭齊發！旺宏(2337)、雷虎(8033)、均華(6640)強勢領漲"
                 }
             ],
             "vol_ratio": 1.2,
@@ -4664,7 +4648,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 99.7,
-                    "volume": 128379194,
+                    "volume": 129759805,
                     "ma5": 98.54,
                     "ma20": 97.54,
                     "ma60": 68.1,
@@ -4677,8 +4661,8 @@
                     "atr": 10.05
                 }
             ],
-            "rs_score": 9.58,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【主力資金偏好】近期表現強於大盤 9.58%！",
+            "rs_score": 9.44,
+            "ai_summary": "🎯 旺宏站上月線，抱牢！ (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5588,7 +5572,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 299.0,
-                    "volume": 5745799,
+                    "volume": 6099361,
                     "ma5": 287.7,
                     "ma20": 276.23,
                     "ma60": 223.62,
@@ -5602,7 +5586,7 @@
                 }
             ],
             "rs_score": 37.15,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤破線，已強制縮緊至 3% 防守！ 【主力資金偏好】近期表現強於大盤 37.15%！",
+            "ai_summary": "🎯 穩懋要趁勢抱牢！月線突破，RSI已接近過熱，趁勢趁勢！ (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -5613,25 +5597,22 @@
             "symbol": "0050.TW",
             "name": "台灣50",
             "category": "台股龍頭",
-            "price": 78.4,
-            "rsi": 62.9,
-            "bias": 3.12,
+            "price": 78.5,
+            "rsi": 63.04,
+            "bias": 3.25,
             "atr": 2.41,
             "news_sentiment": [
                 {
-                    "title": "0050、0056 及台灣中型100指數最新換股名單，金像電、華邦電、欣興入選0050成分股，將於3月20日收盤後生效｜股市話題 - sinotrade.com.tw",
-                    "link": "https://news.google.com/rss/articles/CBMi8gRBVV95cUxPamZMUUNpTTkzRFdxTDRqaUcwNUtDdzd1UTQ5Y1VtRi1kSGRqMTlZbGtnT0V0aVczTVpWQzBFM3IxUkMtc2FlU1FzQUVmd2dqeklzMXVIQXdYQUpaRGVUNzVWMEVXaWczZlhBdk50UER2dVBXaEQ2MEN2Sk1PTmJCOHdVcXFLNEZuR21rSm1MQTZCRktEOVgwVjhtNnFRZ08wVURxVjU2bkd4elRwVWNuM1ZEc1o2UkFWQ2t1U0xfUjB2MEJueFlRMU9QNTJQajdIWEJaQ05qeGFWclh6aEtzZjdrdEl4SkoyTzhvUzJsRlk3YkpHMzllbVoyelZtb0NnZXlYWVZadmlMU3VrLUlsZjNUSmVkT3NPOC11U2g3VGl0YS1sWU1Za2h6Y0JjT1otdXpiVW5qcURXY1l1TjF1Q1AwODNBTjRtMHlsb3ExTWY3ZldVdFotaWFmYy1jaE50SGlrMXI3UGM1UHZSS0R1UkwzX0k0a1ZYcmgxcmdmemxSVzNTVngwdFNvWDBTOU1sRHc5Q0w1dHZSRHlIT3M4Mmd4X0tXaGU5MlFiR3NCYmJQeUNrNHhHNEp2aG1RdFBsZUstS01IaHJQSmlad2p0TEFscTNjcWNRUkN4a0FJYzUwcXlqblhxc1VlczZvRlUwQlM1Yjg5bDlyWTI0dkFYal9wX0N0RUViUjZQNHJMUkljMjdzSkJFZzVyc2VpUW1vZFVYNmVMMmdmejQySEJKdlNZX3RtajJTRG1DNlBCODZjR201R1lTYVhZS2Vnc3FpVnZJOENjR0RXRVlRQ0d2SGstQmF3YlRjVjdBUy1QMmRoUQ?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "0050、0056 及台灣中型100指數最新換股名單，金像電、華邦電、欣興入選0050成分股，將於3月20日收盤後生效"
                 },
                 {
-                    "title": "「不配息0050」009816上市19天規模逼近800億元 - Yahoo股市",
-                    "link": "https://news.google.com/rss/articles/CBMilwJBVV95cUxOSENpQUp5dEFSZHR2QmphdjkzaXo2RlVvVXVuYnZyNnlxWUJqWWRuN2FSQzQ4bVNnNEdXWEEzbHZpZlppcU5jeVctd1BYcWxiSXE2NFVXdGJxRGZfVHRlX1NfUHNDUTRjR1VocFhScWxTVUU0Rlp0eUYxREUwejM0MU8teHpqcm9lM1NnQ0RpS0hIdVVVTWtyMDFjSU1JZHNrUld2ZGFoWUhMT2stOWRrOGkyaXpITDhHWEdJSVdjTFpldjA3bFN4aG44aWRMTGx2TEJrR21RcjlUVDByUWM5dWZnMERQWVVHRUJjSUp3MlQ3dEI2dHVmZXJWNEUzSDVZUmZ6dWNYSVZPVi1SQWlteGlJS3h5dW8?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利空",
+                    "title": "不配息0050\"009816上市19天規模逼近800億元"
                 },
                 {
-                    "title": "歐印0050最安全？達人吐真心話：無腦買這檔ETF 可多賺全球97％獲利機會- 基金 - 旺得富理財網",
-                    "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBta1pLbkZkam9oM3hNQnBXQVBhX1F0M3pVLVpmRVRnaG9OdkVGUjNCWlFCODZVejE5ODlaOURfMkxFdDF3ZVFkS2RobUYwbGR1YlFMVHdYOEswMnB6QUprb201SGVvbGY3N1E?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "歐印0050最安全？達人吐真心話：無腦買這檔ETF 可多賺全球97％獲利機會"
                 }
             ],
             "vol_ratio": 1.2,
@@ -6527,22 +6508,22 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 78.4,
-                    "volume": 103437478,
-                    "ma5": 76.37,
-                    "ma20": 76.02,
+                    "price": 78.5,
+                    "volume": 121755584,
+                    "ma5": 76.39,
+                    "ma20": 76.03,
                     "ma60": 69.71,
-                    "macd": 1.73,
+                    "macd": 1.74,
                     "macd_signal": 2.18,
                     "macd_hist": -0.45,
-                    "rsi": 62.9,
-                    "bb_upper": 82.45,
-                    "bb_lower": 69.6,
+                    "rsi": 63.04,
+                    "bb_upper": 82.47,
+                    "bb_lower": 69.59,
                     "atr": 2.41
                 }
             ],
-            "rs_score": -0.0,
-            "ai_summary": "🎯 最佳移動停利/停損為 4%。目前大盤穩定。 與大盤同步。",
+            "rs_score": 0.0,
+            "ai_summary": "🎯 月線底部站穩，RSI過熱，趁勢下跌趁機買進！ (建議防守：4%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6553,25 +6534,22 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 86.3,
-            "rsi": 30.56,
-            "bias": -6.54,
+            "price": 86.5,
+            "rsi": 31.32,
+            "bias": -6.33,
             "atr": 2.34,
             "news_sentiment": [
                 {
-                    "title": "你買鞋了嗎？昂跑(ONON)再上修全年財測！ 鈺齊-KY漲停。 低位階要留意 - 理財周刊",
-                    "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE82SXZNUDN3ZldtNmdoWEY4MlZ6b3lweTE5TnB5eUliU3NRZ3dpUTBvS3pjZWd2Mmh1ekM2ZEVIdllXR1kxMmU2VUVqYlJxNlNyU0wzeUNaQlpTb3Z3QjJZNWoybGJMT1hDeVVYR0ZOOA?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "你買鞋了嗎？昂跑(ONON)再上修全年財測！ 鈺齊-KY漲停。 低位階要留意 - 理財周刊"
                 },
                 {
-                    "title": "關稅底定 鈺齊、喬山營運回神 - Yahoo股市",
-                    "link": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOMV83MXg5TGc3OER0cXlJNWVIMnVQWmpKSFFXYnhrZWdEN0tFWUtOb090NzdCZUttaEhIWjRzelo0b3RJekE2YUczeWgxcFBBVnJ1WEtCb0ZwSmpJdmZqTDBUUjBmdGVDSG9kNjJnVmlrdGZ4X01JdXRfXzhXN2kwZDN4SDl3SlJ6RXpNY3J0OFJmSFdGS1k0di1sOG80OEtWRXVFRUtuZjRxandibEZ0Y0dONFk2YWtkdjNNd0xFX0lXalFxLVFja2tXRG1pN2JTbEcxbkRWNF93TTVuM3dtQ09JeF9wcGpaaS1aMXF3?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "關稅底定 鈺齊、喬山營運回神 - Yahoo股市"
                 },
                 {
-                    "title": "傳產股春天來了？製鞋股基期明顯偏低，分析師「點名3檔」值得關注！ - Smart自學網",
-                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE4xTV9LcE5jb2VfSHV4VndKVHdSckFSbXNYamV4SHZjYVRHSHdXSHozendNVGE5RVAzX3pKeVplazVTNGxLOGtiSExyTnR4LVZkU3RpMXVIVWd2OG8weWNOTWJVLVI1Y2hkd01JYV96VV9iTjdrS09uNzNhWXQ?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "傳產股春天來了？製鞋股基期明顯偏低，分析師「點名3檔」值得關注！ - Smart自學網"
                 }
             ],
             "vol_ratio": 1.2,
@@ -7467,22 +7445,22 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 86.3,
-                    "volume": 615543,
-                    "ma5": 87.88,
-                    "ma20": 92.34,
+                    "price": 86.5,
+                    "volume": 785843,
+                    "ma5": 87.92,
+                    "ma20": 92.35,
                     "ma60": 99.47,
-                    "macd": -2.86,
+                    "macd": -2.85,
                     "macd_signal": -2.3,
-                    "macd_hist": -0.56,
-                    "rsi": 30.56,
-                    "bb_upper": 98.37,
-                    "bb_lower": 86.31,
+                    "macd_hist": -0.55,
+                    "rsi": 31.32,
+                    "bb_upper": 98.33,
+                    "bb_lower": 86.37,
                     "atr": 2.34
                 }
             ],
-            "rs_score": -16.18,
-            "ai_summary": "🎯 最佳移動停利/停損為 12%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -16.18%。",
+            "rs_score": -16.11,
+            "ai_summary": "🎯 破月線，趕快買入！ (建議防守：12%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7493,25 +7471,22 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 88.5,
-            "rsi": 41.26,
-            "bias": -4.25,
+            "price": 89.0,
+            "rsi": 42.44,
+            "bias": -3.74,
             "atr": 3.23,
             "news_sentiment": [
                 {
-                    "title": "台股高點徘徊，還有便宜股票可撿？當然有！艾蜜莉無私分享8檔口袋名單 - Smart自學網",
-                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBxNmFFYnV6ZS0tbWJKZWJGcHIzR1VlRXZnU2M0NmtMRWxlSnptcE9NS0Jna3Z3VVZwMUtPZE10d1BGY3lQbXlYT0o3OWhkaFNiaTFJbGZCTjdxUVdqMGdNZklYRFRCV3lPVF85aXRVUmlWR2FTMDFCdGZYeXc?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "台股高點徘徊，還有便宜股票可撿？當然有！艾蜜莉無私分享8檔口袋名單 - Smart自學網"
                 },
                 {
-                    "title": "9910 豐泰- 執行長以身做則加碼，用自己的錢跟他拼了👍團隊贏了，我就贏了｜CMoney 股市爆料同學會 - cmoney.tw",
-                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1ld1Q1RGJfTG1PWUFVd010ZENUNUZzeHdLSDFZTU5wTnlENFR2VEI2Qkh2N1BnUjZSWGsxckZGM1RTWDJ5dFFoUkJ2MkxhZ0xKOEZ6djJiYmk?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "9910 豐泰- 執行長以身做則加碼，用自己的錢跟他拼了👍團隊贏了，我就贏了｜CMoney 股市爆料同學會 - cmoney.tw"
                 },
                 {
-                    "title": "【13:03 即時新聞】南俊國際(6584)盤中強彈3%，法人回補助攻，AI伺服器滑軌題材續熱-CMoney 研究員 - CMoney投資網誌",
-                    "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxORlJiTHYyeWFBR3lEY040dzVQa1B5aW1xd3pSYXZnN3JxR1VXUEw3UjZFOEJNTVIxdWdZMENKZlBkcG5rZ0xPTDJmWGNZZlJIM2FYdTRzcnBZTnoyWjJCRXRzb2cyWmJoazBlS0F3aF9kNmhNZmVZemprVkQwcWVGQlZJOWpKdDlqV01MeXhR?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "中立",
+                    "title": "【13:03 即時新聞】南俊國際(6584)盤中強彈3%，法人回補助攻，AI伺服器滑軌題材續熱-CMoney 研究員 - CMoney投資網誌"
                 }
             ],
             "vol_ratio": 1.2,
@@ -8407,22 +8382,22 @@
                 },
                 {
                     "date": "2026-03-11",
-                    "price": 88.5,
-                    "volume": 1393713,
-                    "ma5": 90.42,
-                    "ma20": 92.43,
-                    "ma60": 104.56,
-                    "macd": -3.08,
+                    "price": 89.0,
+                    "volume": 1705851,
+                    "ma5": 90.52,
+                    "ma20": 92.46,
+                    "ma60": 104.57,
+                    "macd": -3.04,
                     "macd_signal": -3.2,
-                    "macd_hist": 0.12,
-                    "rsi": 41.26,
-                    "bb_upper": 96.58,
-                    "bb_lower": 88.28,
+                    "macd_hist": 0.15,
+                    "rsi": 42.44,
+                    "bb_upper": 96.51,
+                    "bb_lower": 88.4,
                     "atr": 3.23
                 }
             ],
-            "rs_score": -12.93,
-            "ai_summary": "🎯 最佳移動停利/停損為 3%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -12.93%。",
+            "rs_score": -12.53,
+            "ai_summary": "🎯 豐泰價格已接近20日均線，RSI穩定，相對大盤弱勢，建議買入！ (建議防守：3%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -8439,19 +8414,16 @@
             "atr": 0.66,
             "news_sentiment": [
                 {
-                    "title": "愛迪達上修財測 寶成漲逾3%領運動休閒股群攻 - Yahoo股市",
-                    "link": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxONlkzSENFWW5zUW5NSEVIbnQ1Vm1zaEtxaC0yX3p6QVdESXNndEtSZHpCeTRGOVJ3OXhnVG5hZWJWNjQ0ZFFyS09MV3RrbDJLRHoxY1BLUFYyVDJOOTFfTFFVSW1aVGF4YXJ6cDZIYkJ3TnljbVZwN1R5RWw5dkNscF9pUWlMYzg1UGtoVm5WUEtTaHllWW9XZldXVFlEdHAyTWowaU5tSG9ibW1HbnM0Y3BtNTh5TUNPenBSMExBV2EzQ3hHYTFIU3NrbXBIS2R4QXR2cGI4VW9DUzdrM2NqWEpsOUNGZUMwdVdFVy1pWUZoRnhKSF8xNExxMFFhOWZTaHU0UnVDcnN1eVFkUWFfQ2V3Xzhuc0JrbHdJYnBKNlh1OTVYWDc5S1VFOTRBWUg4aHlyLWEyZmx2TVE4eXVrRDJ3?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "愛迪達上修財測 寶成漲逾3%領運動休閒股群攻 - Yahoo股市"
                 },
                 {
-                    "title": "製鞋龍頭寶成(9904)，全球市占超過20%！ 這種壟斷的規模，可以用「這 5點」評估護城河優勢！-小資女艾蜜莉 - CMoney投資網誌",
-                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9HTWw4NDhJbUstU2thZkZnTy0wTEtKNVZINjdhamdaV1RIU1lDWXB0QmRDaWs1YkJqUGE1dmh6bEVfMG5uMUY5aHFFRTdnQzZ1U29GTklZR010VzhUTjF2RmRJdVFreG9aMWZySF9KQ0NiVldOMDl6dFpoY1k?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利多",
+                    "title": "製鞋龍頭寶成(9904)，全球市占超過20%！ 這種壟斷的規模，可以用「這 5點」評估護城河優勢！-小資女艾蜜莉 - CMoney投資網誌"
                 },
                 {
-                    "title": "南山人壽拖累，寶成營收年減3.5%，還能買？艾蜜莉點出1關鍵，靜待便宜價 - Smart自學網",
-                    "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBaMzU3U3VqanQ3MEJ3QThjOG5wM3UwVl9NcF9pVW9RQmFqU3IwUzBMMk9iYlRZb1QzR2p5ZzUtejBDVGdOYVp3VmpYbUJ2UVgzUTlkZ0JOWl91b2hxV2dHNnAyVHp5cTJDckx3aTl4ZkFPTjVLZldtaVRHVWo?oc=5",
-                    "sentiment": "解析失敗 ⚠️"
+                    "sentiment": "利空",
+                    "title": "南山人壽拖累，寶成營收年減3.5%，還能買？艾蜜莉點出1關鍵，靜待便宜價 - Smart自學網"
                 }
             ],
             "vol_ratio": 1.2,
@@ -9348,7 +9320,7 @@
                 {
                     "date": "2026-03-11",
                     "price": 30.1,
-                    "volume": 4112314,
+                    "volume": 4595918,
                     "ma5": 29.78,
                     "ma20": 30.47,
                     "ma60": 30.77,
@@ -9361,8 +9333,8 @@
                     "atr": 0.66
                 }
             ],
-            "rs_score": -9.62,
-            "ai_summary": "🎯 最佳移動停利/停損為 6%。目前大盤穩定。 【溫吞股】近期表現落後大盤 -9.62%。",
+            "rs_score": -9.76,
+            "ai_summary": "🎯 「抱牢月線，注意RSI過熱，趁勢上攻！」 (建議防守：6%)",
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
