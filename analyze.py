@@ -204,7 +204,7 @@ def generate_morning_script_via_groq(market_data):
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
         
 def get_ai_debate_insight(stock_name, price, ma20, rsi, rs_score):
-    """【進化二】多空雙 AI 辯論室：強迫 AI 產出多方、空方與最終裁決"""
+    """【進化二】多空雙 AI 辯論室：強迫 AI 產出多方、空方與最終裁決 (終極除錯版)"""
     print(f"⚖️ 啟動多空辯論庭：{stock_name}...")
     groq_api_key = os.environ.get("GROQ_API_KEY")
     if not groq_api_key:
@@ -235,23 +235,32 @@ def get_ai_debate_insight(stock_name, price, ma20, rsi, rs_score):
             "temperature": 0.2, 
             "max_tokens": 150
         }
-        res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=15)
+        res = requests.post("[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)", headers=headers, json=payload, timeout=20)
         res.raise_for_status()
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         
-        # 💡 強制脫掉 AI 喜歡亂加的 Markdown 外衣
+        # 💡 行車紀錄器：把 AI 真正回傳的字印在後台，看看它是不是在搞鬼
+        print(f"📝 {stock_name} AI 回傳內容: {ai_text}")
+        
+        # 強制脫掉 AI 喜歡亂加的 Markdown 外衣
         ai_text = re.sub(r'```json|```', '', ai_text).strip()
         
         match = re.search(r'\{.*\}', ai_text, re.DOTALL)
         if match:
             return json.loads(match.group(0))
         else:
-            return {"bull": "解析失敗", "bear": "解析失敗", "judge": "🤖 AI 格式錯誤，請遵守 20MA 紀律。"}
+            return {"bull": "AI 沒照格式回傳", "bear": "AI 沒照格式回傳", "judge": "🤖 格式跑掉啦！"}
             
+    except requests.exceptions.HTTPError as e:
+        print(f"⚠️ API 塞車限速 ({stock_name}): {e}")
+        return {"bull": "免費額度卡彈", "bear": "免費額度卡彈", "judge": "🤖 API 被降速了。"}
+    except json.JSONDecodeError as e:
+        print(f"⚠️ JSON 解析失敗 ({stock_name}): {e}")
+        return {"bull": "解讀失敗", "bear": "解讀失敗", "judge": "🤖 AI 講火星文。"}
     except Exception as e:
-        print(f"⚠️ 多空辯論失敗 ({stock_name}): {e}")
-        return {"bull": "連線中斷", "bear": "連線中斷", "judge": "🤖 盤勢震盪，連線異常。"}
+        print(f"⚠️ 其他錯誤 ({stock_name}): {e}")
+        return {"bull": "系統異常", "bear": "系統異常", "judge": "🤖 連線中斷。"}
 
 def get_fundamental_risk(symbol, stock_name):
     """阿土伯的財報照妖鏡：抓取基本面數據，交給 Groq AI 抓出隱藏風險"""
@@ -451,8 +460,8 @@ def generate_dashboard_data():
         })
 
         # 💡 阿土伯降溫機制：每算完一檔股票，強迫 Python 休息 3 秒，避免塞爆 Groq API 導致斷線！
-        print(f"⏳ {info['name']} 運算完畢，冷卻 3 秒鐘...")
-        time.sleep(3)
+        print(f"⏳ {info['name']} 運算完畢，冷卻 8 秒鐘...")
+        time.sleep(8)
 
     # 迴圈結束後，底下是算 VIX 跟晨間劇本的地方 (維持不變)
     try:
@@ -487,6 +496,7 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
 
