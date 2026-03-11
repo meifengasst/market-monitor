@@ -373,13 +373,19 @@
             const summarySection = document.getElementById('portfolioSummarySection');
             const listContainer = document.getElementById('portfolioList');
             const totalPnLDisplay = document.getElementById('totalPnL');
-            if (Object.keys(myPortfolio).length === 0) { summarySection.classList.add('hidden'); return; }
+            
+            // 💡 修正：永遠顯示結算看板，把原本隱藏的邏輯拿掉！
             summarySection.classList.remove('hidden');
             listContainer.innerHTML = '';
             
             let totalPnL = 0;
             let totalRiskAmount = 0; 
             let totalCapital = parseFloat(document.getElementById('capitalInput').value) || 100000;
+
+            // 💡 阿土伯加碼：如果目前沒有持股，顯示空手觀望提示
+            if (Object.keys(myPortfolio).length === 0) {
+                listContainer.innerHTML = `<div class="p-5 rounded-2xl border border-dashed border-slate-600 bg-slate-800/30 text-center shadow-inner"><p class="text-slate-400 text-sm font-bold tracking-widest">目前空手觀望中 ☕</p></div>`;
+            }
 
             for (let symbol in myPortfolio) {
                 let trade = myPortfolio[symbol];
@@ -431,7 +437,8 @@
 
             let totalPnLColor = totalPnL >= 0 ? 'text-red-400' : 'text-green-400';
             let totalPnLSign = totalPnL > 0 ? '+' : (totalPnL < 0 ? '-' : '');
-            totalPnLDisplay.className = `text-3xl font-mono font-black ${totalPnLColor}`;
+            // 💡 確保未實現損益也不會換行
+            totalPnLDisplay.className = `text-2xl md:text-3xl font-mono font-black whitespace-nowrap ${totalPnLColor}`;
             totalPnLDisplay.innerText = `${totalPnLSign}$${Math.abs(Math.round(totalPnL)).toLocaleString()} 元`;
 
             let riskSection = document.getElementById('riskExposureSection');
@@ -448,7 +455,8 @@
             document.getElementById('totalRiskText').className = `text-sm font-mono font-black ${riskPct >= 10 ? 'text-green-400 animate-pulse' : 'text-white'}`;
             document.getElementById('totalRiskBar').className = `h-full transition-all duration-1000 ease-out ${riskBarColor}`;
             document.getElementById('totalRiskBar').style.width = `${Math.min(riskPct, 100)}%`;
-            // --- 💡 阿土伯新增：動態資產計算與更新 UI ---
+
+            // --- 💡 動態資產計算與更新 UI ---
             let totalRealizedPnL = tradeHistory.reduce((sum, record) => sum + record.pnl, 0);
             let baseCapital = parseFloat(document.getElementById('capitalInput').value) || 100000;
             
@@ -460,7 +468,7 @@
             let realizedSign = totalRealizedPnL > 0 ? '+' : '';
             let rlzdEl = document.getElementById('realizedPnL');
             if(rlzdEl) {
-                rlzdEl.className = `text-2xl font-mono font-black ${realizedColor}`;
+                rlzdEl.className = `text-xl md:text-2xl font-mono font-black whitespace-nowrap ${realizedColor}`;
                 rlzdEl.innerText = `${realizedSign}$${Math.abs(Math.round(totalRealizedPnL)).toLocaleString()} 元`;
             }
 
@@ -469,8 +477,7 @@
             if(dynCapEl) {
                 dynCapEl.innerText = `$${Math.round(currentDynamicCapital).toLocaleString()} 元`;
             }
-            // ----------------------------------------------------
-        } // 👈 這是 renderPortfolioSummary 函數原本的結尾大括號
+        }
 
         // 🌟 匯出對帳單到 Excel 的神器
         function exportToCSV() {
