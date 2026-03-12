@@ -10,11 +10,5 @@
         "shares": 167,
         "peakPrice": 106.5,
         "alerted": false
-    },
-    "3105.TWO": {
-        "entryPrice": 299,
-        "shares": 222,
-        "peakPrice": 299,
-        "alerted": false
     }
 }
