@@ -8,13 +8,7 @@
     "2337.TW": {
         "entryPrice": 99.7,
         "shares": 167,
-        "peakPrice": 107.0,
-        "alerted": false
-    },
-    "3105.TWO": {
-        "entryPrice": 299,
-        "shares": 200,
-        "peakPrice": 299,
+        "peakPrice": 107,
         "alerted": false
     }
 }
