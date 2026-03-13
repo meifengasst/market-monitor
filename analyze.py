@@ -85,36 +85,35 @@ def get_ai_news_sentiment(stock_name, symbol):
     try:
         search_keyword = f"{stock_name} 股票" if not symbol.endswith(".TW") else stock_name
         
-        # 💡 修正 1：把 when:15d (近15天) 跟關鍵字綁在一起進行 URL 編碼，確保 Google 看得懂
+        # 💡 URL 編碼，確保 Google 看得懂
         query = urllib.parse.quote(f"{search_keyword} when:15d")
         rss_url = f"https://news.google.com/rss/search?q={query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
         
-        # 💡 修正 2：披上隱形斗篷！用 requests 帶上 HEADERS (偽裝成 Chrome 瀏覽器) 去抓，突破 Google 封鎖！
+        # 💡 披上隱形斗篷！用 requests 帶上 HEADERS 去抓
         res = requests.get(rss_url, headers=HEADERS, timeout=10)
         feed = feedparser.parse(res.text)
         
         top_news = []
         
-        # 2. 直接抓取前 5 則最新重點新聞
+        # 💡 乾淨俐落的 Google News 迴圈
         for entry in feed.entries[:5]:
-        
-        # 1. 過濾時間
-        for item in raw_news:
-            pub_timestamp = item.get('providerPublishTime')
-            if not pub_timestamp: # 略過沒有時間戳記的廣告
-                continue
-            pub_time = datetime.fromtimestamp(pub_timestamp)
-            if pub_time >= fifteen_days_ago:
-                recent_news.append({
-                    "title": item['title'],
-                    "link": item['link'],
-                    "date": pub_time.strftime("%Y-%m-%d") 
-                })
+            if hasattr(entry, 'published_parsed'):
+                pub_time_str = time.strftime("%Y-%m-%d", entry.published_parsed)
+            else:
+                pub_time_str = datetime.now().strftime("%Y-%m-%d")
                 
-        top_news = recent_news[:5]
+            clean_title = entry.title.rsplit(" - ", 1)[0]
+                
+            top_news.append({
+                "title": clean_title,
+                "link": entry.link,
+                "date": pub_time_str
+            })
+            
         if not top_news:
-            return [{"title": "近半個月內無重大新聞，主力可能在休假😴", "sentiment": "中立", "link": "#", "date": now.strftime("%Y-%m-%d")}]
+            return [{"title": "近半個月內無重大新聞，主力可能在休假😴", "sentiment": "中立", "link": "#", "date": datetime.now().strftime("%Y-%m-%d")}]
 
+        # 組裝給 AI 看的新聞報紙
         news_text = ""
         for i, n in enumerate(top_news):
             news_text += f"新聞 {i+1} ({n['date']}): {n['title']}\n"
@@ -127,11 +126,6 @@ def get_ai_news_sentiment(stock_name, symbol):
         你是一位華爾街資深分析師。請閱讀以下近15日內的重大新聞標題，判斷其對該公司的影響。
         請【嚴格以純 JSON 陣列格式】回傳。
         每個新聞項目包含：title (請將新聞標題翻譯成繁體中文), sentiment (僅限回傳：利多、利空、中立)。
-        
-        【回傳格式範例】：
-        [
-            {"title": "輝達發布新一代AI晶片...", "sentiment": "利多"}
-        ]
         """
         user_prompt = f"股票：{stock_name}\n近期新聞：\n{news_text}"
 
@@ -142,19 +136,20 @@ def get_ai_news_sentiment(stock_name, symbol):
             "temperature": 0.3,
             "max_tokens": 800
         }
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
-        res.raise_for_status()
+        res_ai = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
+        res_ai.raise_for_status()
         
-        ai_text = res.json()["choices"][0]["message"]["content"].strip()
+        ai_text = res_ai.json()["choices"][0]["message"]["content"].strip()
         ai_text = re.sub(r'```json|```', '', ai_text).strip()
         
-        # 💡 阿土伯防呆：強制只抓取中括號 [...] 裡面的內容，無視 AI 廢話！
+        # 💡 強制過濾器：只抓 JSON
         match = re.search(r'\[.*\]', ai_text, re.DOTALL)
         if match:
             parsed_data = json.loads(match.group(0))
         else:
-            raise ValueError("AI 回傳的格式不是 JSON 陣列")
+            raise ValueError("AI 回傳格式錯誤")
         
+        # 把 AI 翻譯好的標題跟原本的連結、日期合併起來
         final_result = []
         for i, item in enumerate(parsed_data):
             if i < len(top_news): 
@@ -165,6 +160,7 @@ def get_ai_news_sentiment(stock_name, symbol):
                     "date": top_news[i]["date"] 
                 })
         return final_result
+
     except Exception as e:
         print(f"⚠️ 新聞掃雷失敗 ({stock_name}): {e}")
         return [{"title": "新聞掃雷器故障或限速中", "sentiment": "未判定", "link": "#", "date": "未知"}]
@@ -533,5 +529,6 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
 
