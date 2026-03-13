@@ -311,7 +311,8 @@
         }
         
         function saveTrade() {
-            const symbol = document.getElementById('tradeSymbol').value;
+            // 💡 阿土伯抓蟲：span 標籤要用 innerText 抓取字串才對！
+            const symbol = document.getElementById('tradeSymbol').innerText; 
             const price = parseFloat(document.getElementById('tradePrice').value);
             const shares = parseInt(document.getElementById('tradeShares').value);
 
@@ -323,15 +324,11 @@
                 const oldPrice = myPortfolio[symbol].entryPrice;
                 
                 const newShares = oldShares + shares;
-                // 新均價 = (舊總市值 + 新投入金額) / 總股數
                 const newEntryPrice = ((oldShares * oldPrice) + (shares * price)) / newShares;
 
                 myPortfolio[symbol].shares = newShares;
                 myPortfolio[symbol].entryPrice = parseFloat(newEntryPrice.toFixed(2));
-                // 如果加碼時的價格比之前紀錄的最高點還高，順便更新最高點防守線
                 myPortfolio[symbol].peakPrice = Math.max(myPortfolio[symbol].peakPrice, price); 
-                
-                // 加碼後重新啟動安全警報
                 myPortfolio[symbol].alerted = false; 
             } else {
                 // 💡 觸發新買進邏輯
@@ -346,8 +343,8 @@
             localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
             closeModal('tradeModal');
             syncPortfolioToCloud();
-            renderData(document.getElementById('searchBar').value);
-            renderGlobalDashboard(); // 同步更新左側帳戶儀表板
+            renderData(document.getElementById('searchBar') ? document.getElementById('searchBar').value : '');
+            renderPortfolioSummary(); // 💡 確保左側帳戶總覽會立刻更新
         }
 
         // 平倉結算
