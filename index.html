@@ -174,6 +174,32 @@
         </div>
     </div>
 
+    <div id="sellModal" onclick="if(event.target === this) closeSellModal()" class="fixed inset-0 bg-black/90 hidden z-[70] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-sm border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col cursor-auto p-6" id="sellModalContent">
+            <h3 class="text-2xl font-black text-red-400 mb-4 flex items-center gap-2"><span>📉</span> 部位平倉結算</h3>
+            <p class="text-slate-400 text-sm mb-4 font-bold">目前持有 <span id="sellSymbol" class="text-white font-mono text-base"></span> 共 <span id="sellCurrentShares" class="text-blue-400 font-mono text-base"></span> 股。</p>
+
+            <div class="mb-4">
+                <label class="block text-sm font-bold text-slate-400 mb-2">賣出成交價</label>
+                <input type="number" id="sellPrice" oninput="calculateSellTotal()" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-red-500">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-bold text-slate-400 mb-2">賣出股數</label>
+                <input type="number" id="sellShares" oninput="calculateSellTotal()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-red-500" placeholder="例如: 500">
+            </div>
+
+            <div class="text-right h-6 mb-4">
+                <span id="sellTotalCalc" class="text-sm font-black text-red-400 hidden">本次實現損益: $0</span>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="saveSellTrade()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">📉 確認賣出</button>
+                <button onclick="closeSellModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button>
+            </div>
+        </div>
+    </div>
+    
     <div id="rulesModal" onclick="if(event.target === this) closeModal('rulesModal')" class="fixed inset-0 bg-black/90 hidden z-[80] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
         <div class="bg-slate-800 rounded-3xl w-full max-w-3xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh] cursor-auto">
             <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
