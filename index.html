@@ -257,12 +257,19 @@
         }
 
         // 交易與部位管理
+
         function openTradeModal(symbol, currentPrice) {
             document.getElementById('tradeModal').classList.remove('hidden');
             setTimeout(() => { document.getElementById('tradeModal').classList.remove('opacity-0'); document.getElementById('tradeModalContent').classList.remove('scale-95'); }, 10);
+            
+            // 填入股票代號與價格
             document.getElementById('tradeSymbol').innerText = symbol;
             document.getElementById('tradePrice').value = currentPrice;
             document.getElementById('tradeShares').value = "";
+            
+            // 💡 關鍵修復：每次打開時，把計算機藏起來並歸零！
+            document.getElementById('tradeTotalCalc').classList.add('hidden');
+            document.getElementById('tradeTotalCalc').innerText = '本次投入金額: $0';
         }
         // 💡 新增：自動計算本次投入金額
         function calculateTradeTotal() {
