@@ -1,18 +1,15 @@
-name: 🚀 阿土伯盤中戰情室 (15分鐘自動更新)
+name: 阿土伯戰情室自動更新
 
 on:
   schedule:
-    # 💡 1-5 負責台股, 13-21 負責美股 (錯開整點防塞車)
-    - cron: '7,22,37,52 1-5,13-21 * * 1-5' 
-  workflow_dispatch: # 手動執行按鈕
+    - cron: '*/30 * * * *' # 每 30 分鐘自動跑一次
+  workflow_dispatch:       # 允許你在網頁上手動點擊強制更新
 
 jobs:
-  update-data:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-steps:
+    
+    steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -39,6 +36,6 @@ steps:
           git config --global user.name "股市阿土伯機器人"
           git config --global user.email "action@github.com"
           git add .
-          git commit -m "🤖 自動更新" || echo "No changes to commit"
+          git commit -m "🤖 自動更新盤中報價與帳務" || echo "No changes to commit"
           git pull origin main --rebase
           git push
