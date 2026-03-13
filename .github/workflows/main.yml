@@ -37,12 +37,13 @@ jobs:
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }} # 美股報價鑰匙
           TZ: Asia/Taipei # 強制台灣時區
         run: python analyze.py
-
-      - name: 💾 5. 將最新戰報存檔推送到網頁
-        # 🚨 注意看這裡，整個步驟只有一個 run: 和一條直線 |
+        
+        - name: Commit and push changes
         run: |
           git config --global user.name "股市阿土伯機器人"
-          git config --global user.email "actions@github.com"
-          git add *.json
+          git config --global user.email "action@github.com"
+          # 💡 關鍵修復：把 git add data.json 改成 git add . (代表全部打包)
+          git add .
+          git commit -m "🤖 自動更新盤中報價與停損警報" || echo "No changes to commit"
           git pull origin main --rebase
-          git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新盤中報價與停損警報" && git push)
+          git push
