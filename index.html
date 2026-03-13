@@ -552,12 +552,50 @@
             }
         }
 
+        // 💡 全方位對帳單下載引擎
         function exportToCSV() {
-            if (tradeHistory.length === 0) { alert("🤷‍♂️ 目前沒有平倉紀錄！"); return; }
-            let csvContent = "\uFEFF平倉時間,股票代號,股票名稱,股數,買進均價,平倉價格,實現損益(元),報酬率(%)\n";
-            tradeHistory.forEach(r => csvContent += `${r.date},${r.symbol},${r.name},${r.shares},${r.entryPrice},${r.exitPrice},${r.pnl},${r.pnlPct}%\n`);
-            const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }));
-            link.download = `阿土伯對帳單_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(link); link.click(); document.body.removeChild(link);
+            // 加入 BOM 讓 Excel 打開不會中文亂碼
+            let csvContent = "\uFEFF"; 
+
+            // --- 第一部分：目前實戰庫存 ---
+            csvContent += "【目前實戰庫存 (未實現損益)】\n";
+            csvContent += "股票代號,股票名稱,持有股數,買進均價,目前現價,未實現損益(元),報酬率(%)\n";
+            
+            let hasPortfolio = false;
+            for (let symbol in myPortfolio) {
+                hasPortfolio = true;
+                let trade = myPortfolio[symbol];
+                let stock = stockMap[symbol];
+                let currentPrice = stock ? stock.price : trade.entryPrice;
+                let pnl = (currentPrice - trade.entryPrice) * trade.shares;
+                let pnlPct = (((currentPrice - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
+                let name = stock ? stock.name : symbol;
+                
+                csvContent += `${symbol},${name},${trade.shares},${trade.entryPrice},${currentPrice},${Math.round(pnl)},${pnlPct}%\n`;
+            }
+            if (!hasPortfolio) csvContent += "目前空手觀望中\n";
+
+            csvContent += "\n"; // 空一行分隔
+
+            // --- 第二部分：歷史平倉紀錄 ---
+            csvContent += "【歷史平倉紀錄 (已實現損益)】\n";
+            csvContent += "平倉時間,股票代號,股票名稱,賣出股數,買進均價,平倉價格,實現損益(元),報酬率(%)\n";
+            
+            if (tradeHistory.length === 0) {
+                csvContent += "目前無平倉紀錄\n";
+            } else {
+                tradeHistory.forEach(r => {
+                    csvContent += `${r.date},${r.symbol},${r.name},${r.shares},${r.entryPrice},${r.exitPrice},${r.pnl},${r.pnlPct}%\n`;
+                });
+            }
+
+            // --- 觸發下載 ---
+            const link = document.createElement("a"); 
+            link.href = URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }));
+            link.download = `阿土伯戰情報表_${new Date().toISOString().slice(0,10)}.csv`; 
+            document.body.appendChild(link); 
+            link.click(); 
+            document.body.removeChild(link);
         }
 
         // 🌟 一鍵重置系統
