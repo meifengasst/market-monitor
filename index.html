@@ -265,6 +265,19 @@
             document.getElementById('tradePrice').value = currentPrice;
             document.getElementById('tradeShares').value = "";
         }
+        // 💡 新增：自動計算本次投入金額
+        function calculateTradeTotal() {
+            const p = parseFloat(document.getElementById('tradePrice').value) || 0;
+            const s = parseInt(document.getElementById('tradeShares').value) || 0;
+            const totalNode = document.getElementById('tradeTotalCalc');
+            if (s > 0 && p > 0) {
+                totalNode.innerText = `本次投入金額: $${Math.round(p * s).toLocaleString()}`;
+                totalNode.classList.remove('hidden');
+            } else {
+                totalNode.classList.add('hidden');
+            }
+        }
+        
         function closeTradeModal() {
             document.getElementById('tradeModal').classList.add('opacity-0');
             document.getElementById('tradeModalContent').classList.add('scale-95');
