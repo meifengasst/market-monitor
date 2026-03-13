@@ -44,4 +44,5 @@ jobs:
           git config --global user.name "股市阿土伯機器人"
           git config --global user.email "actions@github.com"
           git add *.json
+          git pull origin main --rebase
           git diff --quiet && git diff --staged --quiet || (git commit -m "🤖 自動更新盤中報價與停損警報" && git push)
