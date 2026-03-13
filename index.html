@@ -629,10 +629,16 @@ function openModal(stock) {
                         <div class="bg-black/40 p-5 rounded-2xl mb-4 border border-white/5">
                             <div class="flex justify-between items-start mb-5"><div><p class="text-7xl font-mono font-black text-white tracking-tighter">${stock.price}</p></div><div class="text-right flex flex-col items-end gap-2.5"><div class="flex items-center gap-1.5 justify-end mb-1"><p class="text-[11px] text-white/50 font-bold">熱度 (RSI)</p>${rsiBadge}</div><p class="text-4xl font-mono font-black ${stock.rsi > 70 ? 'text-red-500' : (stock.rsi < 30 ? 'text-green-400' : 'text-slate-200')}">${stock.rsi}</p></div></div>
                             ${evBadge}
-                            <div class="flex justify-between items-center bg-slate-800/80 p-3.5 rounded-xl border border-slate-600/50 mt-2 shadow-inner overflow-hidden">
-                                <div class="text-center w-1/3 border-r border-slate-600/50"><p class="text-[11px] whitespace-nowrap text-slate-400 font-bold mb-1">歷史勝率</p><p class="text-2xl font-mono font-black text-blue-300">${stock.win_rate}%</p></div>
-                                <div class="text-center w-1/3 border-r border-slate-600/50 relative"><div class="absolute -top-3 -right-2 text-base animate-pulse">🎯</div><p class="text-[11px] whitespace-nowrap tracking-tighter text-purple-300 font-bold mb-1">最佳停損</p><p class="text-2xl font-mono font-black text-purple-400">${stock.optimal_sl}%</p></div>
-                                <div class="text-center w-1/3"><p class="text-[11px] whitespace-nowrap tracking-tighter text-slate-400 font-bold mb-1">現行套用</p><p class="text-2xl font-mono font-black ${stock.actual_sl < stock.optimal_sl ? 'text-red-400' : 'text-green-400'}">${stock.actual_sl}%</p></div>
+                            <div class="flex justify-between items-center bg-black/30 p-4 rounded-xl border border-white/5 mb-4 mt-3 shadow-inner relative">
+                                <div class="text-center w-1/3 border-r border-white/10"><p class="text-sm text-slate-500 font-bold mb-1">5MA</p><p class="text-xl font-mono font-black ${stock.price > ma5 ? 'text-red-400' : 'text-green-400'}">${ma5}</p></div>
+                                
+                                <div class="text-center w-1/3 border-r border-white/10 relative bg-yellow-900/20 rounded-lg -my-2 py-2 border border-yellow-500/30 shadow-[0_0_15px_rgba(234,179,8,0.15)]">
+                                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 text-sm animate-bounce">👑</div>
+                                    <p class="text-sm text-yellow-500 font-bold mb-1 tracking-wider">${bestMaName}</p>
+                                    <p class="text-xl font-mono font-black ${stock.price > bestMaPrice ? 'text-red-400' : 'text-green-400'}">${bestMaPrice}</p>
+                                </div>
+                                
+                                <div class="text-center w-1/3"><p class="text-sm text-slate-500 font-bold mb-1">60MA</p><p class="text-xl font-mono font-black ${stock.price > ma60 ? 'text-red-400' : 'text-green-400'}">${ma60}</p></div>
                             </div>
                             ${positionHtml}
                             
