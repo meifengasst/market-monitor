@@ -374,18 +374,80 @@
         }
 
         // 平倉結算
-        function removeTrade(event, symbol) {
-            event.stopPropagation(); 
-            let stock = stockMap[symbol]; let trade = myPortfolio[symbol]; if (!trade) return;
-            let currentPrice = stock ? stock.price : trade.entryPrice;
-            let pnl = (currentPrice - trade.entryPrice) * trade.shares;
-            let pnlPct = (((currentPrice - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
-            if(confirm(`🏦 阿土伯平倉確認\n\n股票：${stock ? stock.name : symbol}\n本次實現損益：$${Math.round(pnl).toLocaleString()} (${pnlPct}%) \n\n確定要了結平倉嗎？`)) {
-                tradeHistory.push({ date: new Date().toLocaleString('zh-TW', {hour12: false}), symbol: symbol, name: stock ? stock.name : symbol, shares: trade.shares, entryPrice: trade.entryPrice, exitPrice: currentPrice, pnl: Math.round(pnl), pnlPct: pnlPct });
-                localStorage.setItem('atu_trade_history', JSON.stringify(tradeHistory));
-                delete myPortfolio[symbol]; localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-                renderData(document.getElementById('searchInput').value); renderPortfolioSummary(); syncPortfolioToGithub();
+// 💡 賣出視窗控制
+        function openSellModal(symbol, currentPrice) {
+            let trade = myPortfolio[symbol];
+            if (!trade) return;
+
+            document.getElementById('sellModal').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('sellModal').classList.remove('opacity-0'); document.getElementById('sellModalContent').classList.remove('scale-95'); }, 10);
+
+            document.getElementById('sellSymbol').innerText = symbol;
+            document.getElementById('sellCurrentShares').innerText = trade.shares;
+            document.getElementById('sellPrice').value = currentPrice;
+            document.getElementById('sellShares').value = trade.shares; // 預設帶入全部股數
+
+            document.getElementById('sellTotalCalc').classList.add('hidden');
+            calculateSellTotal(); // 打開時先算一次給你看
+        }
+
+        function closeSellModal() {
+            document.getElementById('sellModal').classList.add('opacity-0');
+            document.getElementById('sellModalContent').classList.add('scale-95');
+            setTimeout(() => document.getElementById('sellModal').classList.add('hidden'), 300);
+        }
+
+        function calculateSellTotal() {
+            const symbol = document.getElementById('sellSymbol').innerText;
+            const trade = myPortfolio[symbol];
+            if (!trade) return;
+
+            const p = parseFloat(document.getElementById('sellPrice').value) || 0;
+            const s = parseInt(document.getElementById('sellShares').value) || 0;
+            const totalNode = document.getElementById('sellTotalCalc');
+
+            if (s > 0 && p > 0) {
+                let pnl = (p - trade.entryPrice) * s;
+                let pnlPct = (((p - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
+                let colorClass = pnl >= 0 ? 'text-red-400' : 'text-green-400';
+                totalNode.innerHTML = `本次預估損益: <span class="${colorClass}">$${Math.round(pnl).toLocaleString()} (${pnlPct}%)</span>`;
+                totalNode.classList.remove('hidden');
+            } else {
+                totalNode.classList.add('hidden');
             }
+        }
+
+        // 💡 存檔邏輯：支援分批平倉與全部平倉
+        function saveSellTrade() {
+            const symbol = document.getElementById('sellSymbol').innerText;
+            const price = parseFloat(document.getElementById('sellPrice').value);
+            const sellShares = parseInt(document.getElementById('sellShares').value);
+            let trade = myPortfolio[symbol];
+            let stock = stockMap[symbol];
+
+            if(!trade) return;
+            if(!price || !sellShares || sellShares <= 0) return alert('請輸入正確的價格與股數');
+            if(sellShares > trade.shares) return alert(`庫存不足！你目前只有 ${trade.shares} 股。`);
+
+            let pnl = (price - trade.entryPrice) * sellShares;
+            let pnlPct = (((price - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
+
+            // 1. 寫入歷史對帳單
+            tradeHistory.push({ date: new Date().toLocaleString('zh-TW', {hour12: false}), symbol: symbol, name: stock ? stock.name : symbol, shares: sellShares, entryPrice: trade.entryPrice, exitPrice: price, pnl: Math.round(pnl), pnlPct: pnlPct });
+            localStorage.setItem('atu_trade_history', JSON.stringify(tradeHistory));
+
+            // 2. 扣除庫存處理
+            if (sellShares === trade.shares) {
+                delete myPortfolio[symbol]; // 賣光光，清空卡位
+            } else {
+                myPortfolio[symbol].shares -= sellShares; // 分批減碼，保留剩下的
+            }
+
+            localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
+            closeSellModal();
+            if (typeof syncPortfolioToGithub === 'function') syncPortfolioToGithub();
+            renderData(document.getElementById('searchInput').value);
+            renderPortfolioSummary();
         }
 
         // 券商級帳務大腦
@@ -669,8 +731,8 @@ function openModal(stock) {
                     let stopLossLabel = isStopLossTriggered ? `<span class="text-xs text-white bg-green-600 px-2 py-1 rounded font-black shadow-md">🚨 跌破停損！立即清倉</span>` : `<span class="text-xs text-purple-400 font-bold animate-pulse">🎯 嚴格停損出場價</span>`;
 
                     positionHtml = `<div class="mt-4 ${pnlBg} p-5 rounded-xl border transition-colors shadow-inner relative group cursor-default" onclick="event.stopPropagation()">
-                        <button onclick="removeTrade(event, '${stock.symbol}')" class="absolute top-2 right-2 text-slate-500 hover:text-white bg-slate-800 rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
-<div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2"><div class="flex items-center gap-2"><span class="text-xs font-black text-blue-300 tracking-widest">💼 我的實戰部位</span><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="bg-blue-600 hover:bg-blue-500 text-white text-[10px] px-2 py-1 rounded font-bold transition-colors shadow-sm cursor-pointer z-10 relative">➕ 加碼</button><button onclick="removeTrade(event, '${stock.symbol}')" class="bg-red-600 hover:bg-red-500 text-white text-[10px] px-2 py-1 rounded font-bold transition-colors shadow-sm cursor-pointer z-10 relative">➖ 賣出</button></div><span class="text-base font-mono font-black text-white">${trade.shares.toLocaleString()} 股</span></div>
+                        <button onclick="event.stopPropagation(); openSellModal('${stock.symbol}', ${stock.price})" class="absolute top-2 right-2 text-slate-500 hover:text-white bg-slate-800 rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">✖</button>
+<div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2"><div class="flex items-center gap-2"><span class="text-xs font-black text-blue-300 tracking-widest">💼 我的實戰部位</span><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="bg-blue-600 hover:bg-blue-500 text-white text-[10px] px-2 py-1 rounded font-bold transition-colors shadow-sm cursor-pointer z-10 relative">➕ 加碼</button><button onclick="event.stopPropagation(); openSellModal('${stock.symbol}', ${stock.price})" class="bg-red-600 hover:bg-red-500 text-white text-[10px] px-2 py-1 rounded font-bold transition-colors shadow-sm cursor-pointer z-10 relative">➖ 賣出</button></div><span class="text-base font-mono font-black text-white">${trade.shares.toLocaleString()} 股</span></div>
                         <div class="flex justify-between items-end mb-4">
                             <div><p class="text-sm text-slate-400 font-bold mb-1">未實現損益</p><p class="text-4xl font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}$${Math.round(unrealizedPnL).toLocaleString()}</p></div>
                             <div class="text-right"><p class="text-sm text-slate-400 font-bold mb-1">報酬率</p><p class="text-2xl font-mono font-black ${pnlColor}">${unrealizedPnL > 0 ? '+' : ''}${pnlPct}%</p></div>
