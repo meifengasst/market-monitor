@@ -12,38 +12,33 @@ jobs:
     permissions:
       contents: write
 
-    steps:
-      - name: 📥 1. 下載專案程式碼
+steps:
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: 🐍 2. 設定 Python 3.10
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: 📦 3. 讀取清單安裝套件
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          # 👉 重點是這一段！讓機器人去讀取裝備清單並安裝
- 
+          pip install yfinance feedparser pandas requests
 
-      - name: 🧠 4. 執行阿土伯量化大腦
+      - name: Run analyze.py
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
           LINE_TARGET_ID: ${{ secrets.LINE_TARGET_ID }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }} # 美股報價鑰匙
-          TZ: Asia/Taipei # 強制台灣時區
         run: python analyze.py
-        
-        - name: Commit and push changes
+
+      - name: Commit and push changes
         run: |
           git config --global user.name "股市阿土伯機器人"
           git config --global user.email "action@github.com"
-          # 💡 關鍵修復：把 git add data.json 改成 git add . (代表全部打包)
           git add .
-          git commit -m "🤖 自動更新盤中報價與停損警報" || echo "No changes to commit"
+          git commit -m "🤖 自動更新" || echo "No changes to commit"
           git pull origin main --rebase
           git push
