@@ -9,6 +9,7 @@ import requests
 import xml.etree.ElementTree as ET
 import re
 import time
+import urllib.parse
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36"}
 
@@ -79,13 +80,23 @@ STOCKS = {
 }
 
 def get_ai_news_sentiment(stock_name, symbol):
-    print(f"📰 啟動精準雷達，抓取 {stock_name} 近15日新聞...")
+    """【進化五：情報網升級】改用 Google News 抓取近15天內最多5則重大新聞"""
+    print(f"📰 啟動精準雷達，改用 Google News 抓取 {stock_name} 近15日新聞...")
     try:
-        ticker = yf.Ticker(symbol)
-        raw_news = ticker.news
-        recent_news = []
-        now = datetime.now()
-        fifteen_days_ago = now - timedelta(days=15) 
+        search_keyword = f"{stock_name} 股票" if not symbol.endswith(".TW") else stock_name
+        
+        # 💡 修正 1：把 when:15d (近15天) 跟關鍵字綁在一起進行 URL 編碼，確保 Google 看得懂
+        query = urllib.parse.quote(f"{search_keyword} when:15d")
+        rss_url = f"https://news.google.com/rss/search?q={query}&hl=zh-TW&gl=TW&ceid=TW:zh-Hant"
+        
+        # 💡 修正 2：披上隱形斗篷！用 requests 帶上 HEADERS (偽裝成 Chrome 瀏覽器) 去抓，突破 Google 封鎖！
+        res = requests.get(rss_url, headers=HEADERS, timeout=10)
+        feed = feedparser.parse(res.text)
+        
+        top_news = []
+        
+        # 2. 直接抓取前 5 則最新重點新聞
+        for entry in feed.entries[:5]:
         
         # 1. 過濾時間
         for item in raw_news:
@@ -522,4 +533,5 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
+
 
