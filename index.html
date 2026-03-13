@@ -153,21 +153,20 @@
         <div class="bg-slate-800 rounded-3xl w-full max-w-sm border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col cursor-auto p-6" id="tradeModalContent">
             <h3 class="text-2xl font-black text-blue-400 mb-4 flex items-center gap-2"><span>💼</span> 紀錄實戰部位</h3>
             <p class="text-slate-400 text-sm mb-6 font-bold">為 <span id="tradeSymbol" class="text-white font-mono text-base"></span> 設定買進紀錄，系統將自動啟動移動停利追蹤。</p>
-            <div class="mb-4">
 
+            <div class="mb-4">
                 <label class="block text-sm font-bold text-slate-400 mb-2">買進成交均價</label>
-                <input type="number" id="tradePrice" oninput="calculateTradeTotal()" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold mb-4 focus:outline-none focus:border-blue-500">
+                <input type="number" id="tradePrice" oninput="calculateTradeTotal()" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-blue-500">
             </div>
 
-            <label class="block text-sm font-bold text-slate-400 mb-2">買進成交均價</label>
-                <input type="number" id="tradePrice" oninput="calculateTradeTotal()" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold mb-4 focus:outline-none focus:border-blue-500">
-
+            <div class="mb-4">
                 <label class="block text-sm font-bold text-slate-400 mb-2">買進總股數 (台股請換算成股)</label>
                 <input type="number" id="tradeShares" oninput="calculateTradeTotal()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-blue-500" placeholder="例如: 1000">
+            </div>
 
-                <div class="text-right mt-2 h-6">
-                    <span id="tradeTotalCalc" class="text-sm font-black text-blue-400 hidden">本次投入金額: $0</span>
-                </div>
+            <div class="text-right h-6 mb-4">
+                <span id="tradeTotalCalc" class="text-sm font-black text-blue-400 hidden">本次投入金額: $0</span>
+            </div>
             <div class="flex gap-3">
                 <button onclick="saveTrade()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">💾 儲存</button>
                 <button onclick="closeTradeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button>
