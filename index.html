@@ -336,8 +336,9 @@
             } catch (error) { console.error("⚠️ 同步出錯"); }
         }
         
+
+        // 💡 買進與加碼存檔 (修復瞬間刷新 Bug)
         function saveTrade() {
-            // 💡 阿土伯抓蟲：span 標籤要用 innerText 抓取字串才對！
             const symbol = document.getElementById('tradeSymbol').innerText; 
             const price = parseFloat(document.getElementById('tradePrice').value);
             const shares = parseInt(document.getElementById('tradeShares').value);
@@ -345,10 +346,8 @@
             if(!price || !shares || shares <= 0) return alert('請輸入正確的價格與股數');
 
             if (myPortfolio[symbol]) {
-                // 💡 觸發加碼邏輯：計算「加權平均成本」
                 const oldShares = myPortfolio[symbol].shares;
                 const oldPrice = myPortfolio[symbol].entryPrice;
-                
                 const newShares = oldShares + shares;
                 const newEntryPrice = ((oldShares * oldPrice) + (shares * price)) / newShares;
 
@@ -357,38 +356,61 @@
                 myPortfolio[symbol].peakPrice = Math.max(myPortfolio[symbol].peakPrice, price); 
                 myPortfolio[symbol].alerted = false; 
             } else {
-                // 💡 觸發新買進邏輯
-                myPortfolio[symbol] = {
-                    shares: shares,
-                    entryPrice: price,
-                    peakPrice: price,
-                    alerted: false
-                };
+                myPortfolio[symbol] = { shares: shares, entryPrice: price, peakPrice: price, alerted: false };
             }
 
             localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-            closeModal('tradeModal');
-            syncPortfolioToCloud();
-            renderData(document.getElementById('searchBar') ? document.getElementById('searchBar').value : '');
-            renderPortfolioSummary(); // 💡 確保左側帳戶總覽會立刻更新
+            
+            // 1. 關閉視窗
+            if (typeof closeTradeModal === 'function') closeTradeModal();
+            else closeModal('tradeModal');
+
+            // 2. 💡 關鍵修復：優先強制刷新畫面！
+            const searchVal = document.getElementById('searchInput') ? document.getElementById('searchInput').value : '';
+            renderData(searchVal);
+            renderPortfolioSummary();
+
+            // 3. 最後再背景同步到 GitHub，絕不卡畫面
+            if (typeof syncPortfolioToGithub === 'function') syncPortfolioToGithub();
         }
 
-        // 平倉結算
-// 💡 賣出視窗控制
-        function openSellModal(symbol, currentPrice) {
+        // 💡 賣出與平倉存檔 (修復瞬間刷新 Bug)
+        function saveSellTrade() {
+            const symbol = document.getElementById('sellSymbol').innerText;
+            const price = parseFloat(document.getElementById('sellPrice').value);
+            const sellShares = parseInt(document.getElementById('sellShares').value);
             let trade = myPortfolio[symbol];
-            if (!trade) return;
+            let stock = stockMap[symbol];
 
-            document.getElementById('sellModal').classList.remove('hidden');
-            setTimeout(() => { document.getElementById('sellModal').classList.remove('opacity-0'); document.getElementById('sellModalContent').classList.remove('scale-95'); }, 10);
+            if(!trade) return;
+            if(!price || !sellShares || sellShares <= 0) return alert('請輸入正確的價格與股數');
+            if(sellShares > trade.shares) return alert(`庫存不足！你目前只有 ${trade.shares} 股。`);
 
-            document.getElementById('sellSymbol').innerText = symbol;
-            document.getElementById('sellCurrentShares').innerText = trade.shares;
-            document.getElementById('sellPrice').value = currentPrice;
-            document.getElementById('sellShares').value = trade.shares; // 預設帶入全部股數
+            let pnl = (price - trade.entryPrice) * sellShares;
+            let pnlPct = (((price - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
 
-            document.getElementById('sellTotalCalc').classList.add('hidden');
-            calculateSellTotal(); // 打開時先算一次給你看
+            tradeHistory.push({ date: new Date().toLocaleString('zh-TW', {hour12: false}), symbol: symbol, name: stock ? stock.name : symbol, shares: sellShares, entryPrice: trade.entryPrice, exitPrice: price, pnl: Math.round(pnl), pnlPct: pnlPct });
+            localStorage.setItem('atu_trade_history', JSON.stringify(tradeHistory));
+
+            if (sellShares === trade.shares) {
+                delete myPortfolio[symbol];
+            } else {
+                myPortfolio[symbol].shares -= sellShares;
+            }
+
+            localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
+            
+            // 1. 關閉視窗
+            if (typeof closeSellModal === 'function') closeSellModal();
+            else closeModal('sellModal');
+
+            // 2. 💡 關鍵修復：優先強制刷新畫面！
+            const searchVal = document.getElementById('searchInput') ? document.getElementById('searchInput').value : '';
+            renderData(searchVal);
+            renderPortfolioSummary();
+
+            // 3. 最後再背景同步到 GitHub，絕不卡畫面
+            if (typeof syncPortfolioToGithub === 'function') syncPortfolioToGithub();
         }
 
         function closeSellModal() {
