@@ -845,10 +845,16 @@ function openModal(stock) {
                         let slDecimal = stock.actual_sl / 100; let sharesToBuy = Math.floor((totalCapital * 0.02) / (stock.price * slDecimal));
                         positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 group"><div class="flex justify-between items-center mb-1"><p class="text-[11px] text-red-400 font-bold tracking-wide">🛡️ 2% 動態複利風控</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-[10px] bg-red-600 hover:bg-red-500 text-white px-2 py-0.5 rounded font-bold transition-colors">➕ 買進</button></div><div class="flex justify-between items-end"><p class="text-2xl font-mono font-black text-red-300">${sharesToBuy}股</p><div class="text-right"><p class="text-[10px] text-red-400/70 font-bold tracking-wide">預計投入金額</p><p class="text-base font-mono font-black text-red-200">$${Math.round(sharesToBuy * stock.price).toLocaleString()}</p></div></div></div>`;
                     } else if (!isBullish) {
-                        positionHtml = `<div class="mt-4 bg-green-900/20 p-4 rounded-xl border border-green-500/30 shadow-inner text-center"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破${bestMaName}，風控系統鎖定</p></div>`;
+                        // 💡 阿土伯新增：給凹單補登用的後門按鈕
+                        positionHtml = `
+                        <div class="mt-4 bg-green-900/20 p-3 rounded-xl border border-green-500/30 shadow-inner flex flex-col items-center justify-center gap-2">
+                            <p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破${bestMaName}，風控系統鎖定</p>
+                            <button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-600 hover:border-slate-400 text-[10px] px-3 py-1 rounded font-bold transition-colors shadow-sm">
+                                ⚠️ 強制解鎖 (僅限補登歷史部位)
+                            </button>
+                        </div>`;
                     }
                 }
-
 // 💡 阿土伯獨家：絕佳進場雷達掃描！(將對照表轉化為程式邏輯)
                 let isPerfectEntry = (stock.vol_ratio >= 2.5) && isBullish && (stock.rsi >= 55 && stock.rsi <= 65) && (stock.rs_score > 0);
 
