@@ -470,19 +470,6 @@ def generate_dashboard_data():
                     if trade.get('alerted', False):
                         trade['alerted'] = False
                         portfolio_updated = True
-                        if is_bear:
-                            reason_msg = f"\n⚠️ [大盤避險啟動]\n停損已由 {int(best_sl*100)}% 強制收緊至 3%！"
-                        else:
-                            reason_msg = f"\n(套用系統最佳停損 {int(best_sl*100)}%)"
-
-                        alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}{reason_msg}\n\n⚡ 已跌破嚴格防線，請立即無情清倉，保護本金！"
-                        send_line_alert(alert_msg)
-                        trade['alerted'] = True
-                        portfolio_updated = True
-                else:
-                    if trade.get('alerted', False):
-                        trade['alerted'] = False
-                        portfolio_updated = True
 
 
             news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
