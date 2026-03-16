@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-16 [01:58]",
+    "last_update": "2026-03-16 [03:00]",
     "data": [
         {
             "symbol": "NVDA",
@@ -17,14 +17,14 @@
                     "date": "2026-03-04"
                 },
                 {
-                    "title": "世芯-KY啟動人才布局，攬NVIDIA前高層任商務長",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiqAJBVV95cUxPandxY0JyR2FBSEJ3RU9yQVg4ZjJ0LU5acmtpb1hQNUR1NS1YbmJCUzZaV1lMbndQeWFOM1V4NGk3RUczeTNpODFsUFN3X1BnalVMLW9NaXc3NHU2Rkk0WG9TNWd0VzFsa2ZWSkRrdkVFRWU2Mm9PSDc5MGNjRTF6ZWdTcFppMzFXaFFQNjN0eXdZeU5MeFVydW9WMzhsdXBael9OMHhTVUJIWWNJa29hbjN2QWtMQ252cDY4OW91MW1RY3dXbzZqTHE0YlRaRXZzUWRWcXAwVUxkS3o4QWZRVmRJbGRRSDV2UzBHc0tFc0tmUUFKTG1Rdl9KZGNieUVHQVRsR3V4TjVqbHJfV25aUnVXcDdYY09RYUh1dWJCR3FZQjdmMk52Sg?oc=5",
-                    "date": "2026-03-09"
+                    "title": "AMD、Meta 聯手挑戰 Nvidia 簽署 6GW 巨額 GPU 訂單",
+                    "sentiment": "利空",
+                    "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNdFhVeXB1ejFMeEMtWDhBQ29mbUhZNlJTdFZYVTEtOGlKWlhLcFdld3NWUmtvOFAyb2NKTkREUFB2cF9FbFBtQjRtSW9CUnZoTURuRmxodHo4b0VKRFFZampsT0Q5dnAtS1lvQklNeDJzMk9keEhyckVrTlUzOVByYXhVcTBZYzc5b3BRRHNlY3kxaDhZaldlUWpRY2lDR3Yybng1T2V1LTVYR210cWJGYXU4NzVPSmdGWmc?oc=5",
+                    "date": "2026-03-03"
                 },
                 {
                     "title": "Nvidia股票是否面臨風險？Meta與Google達成重大協議| MEXC 新聞",
-                    "sentiment": "中立",
+                    "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5PR25fVVZrZGR0Z1BDQnlFNWpuMHBhcmIxQkg2Z3F5bXpRelZSQkZ4czFFWms2dmREMFFPaldGak9hd0h3Q1Izd2lLSXZUQ3M?oc=5",
                     "date": "2026-03-02"
                 },
@@ -950,12 +950,12 @@
             ],
             "rs_score": 1.46,
             "ai_debate": {
-                "pattern": "價下量縮",
-                "bull": "近期價格下跌，但量縮減，可能是技術指標錯過買點",
-                "bear": "價格下跌且量縮，RSI低於40，可能是市場開始擔心公司未來成長",
-                "judge": "觀望，最後一天收盤價小於20MA，需觀察後續發展"
+                "pattern": "價跌量縮",
+                "bull": "近期股價下跌，但量縮表明買盤仍在積極參與，可能是短期低點",
+                "bear": "股價連續下跌，量縮加重，表明賣盤壓力增大，短期走勢仍有下跌風險",
+                "judge": "觀望，最後一天收盤價小於 20MA，需觀察後續走勢"
             },
-            "funda_summary": "Nvidia 的財務隱患：高盈利率與高ROE，可能是過度依賴GPU市場，缺乏多元化，若市場下滑將導致嚴重的營收下滑。",
+            "funda_summary": "Nvidia 的財務隱患：高淨利率與高ROE之間存在巨大差距，可能是由於高營收成長率帶來的暫時性利潤。",
             "best_ma_name": "10MA",
             "best_ma_price": 182.35,
             "lights": {
@@ -980,7 +980,7 @@
                     "date": "2026-03-11"
                 },
                 {
-                    "title": "投資者Gary Black痛批TSLA股票五年來毫無成長，稱自駕技術進步卻「遠落後",
+                    "title": "投資者Gary Black痛批TSLA股票五年來毫無成長，稱自駕技術進步卻「遠落後\"",
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBoVk1CYnpuMk02dncxaDh2WU9CYWJ0dnd0STYyQnFBQ1Z2a053Tkx1Z0I0c0xFckNndEU5aW04ZE12MWdhTHh4MktzUmtOcjhCd0haUVphV2t5eWNzal9kdXlzZTlJbHc?oc=5",
                     "date": "2026-03-02"
@@ -1913,12 +1913,12 @@
             ],
             "rs_score": -3.43,
             "ai_debate": {
-                "pattern": "價下量縮",
-                "bull": "近期股價下跌，但量縮表明買盤仍在積極參與，可能是買盤在等待機會買入",
-                "bear": "股價連續下跌，量縮加重，表明賣盤壓力增大，可能是空頭在趁機加碼",
-                "judge": "最後一天的收盤價小於 20MA，最終裁決是偏空，建議觀望或短暫賣出"
+                "pattern": "價跌量縮",
+                "bull": "近期股價下跌，但量縮表明買氣未完全消失，仍有機會反彈",
+                "bear": "股價連續下跌，量縮加劇，表明賣壓增強，反彈機會不大",
+                "judge": "最後一天收盤價小於 20MA，最終裁決偏空，建議觀望或短空"
             },
-            "funda_summary": "\"Tesla 的高本益比與股價淨值比，表明市場對其估值過高，高風險。\"",
+            "funda_summary": "\"Tesla 的高本益比與股價淨值比表明市場對其估值過高，ROE 達 4.93% 仍不足以支撐如此高的估值，營收成長率負值是重大財務隱患\"",
             "best_ma_name": "60MA",
             "best_ma_price": 430.05,
             "lights": {
@@ -1950,7 +1950,7 @@
                 },
                 {
                     "title": "分散投資組合降低風險 專家籲投資人勿過度集中美股",
-                    "sentiment": "中立",
+                    "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMi9wJBVV95cUxNbVZ3TmNmOVAyY1BnaGRuVE5YeHpYUGhwOGNJaWxLV2tfQ2Y3RlpZUHlBLXJaeDY5djRSdW1Kd3ZUMWIyemdqc1lVUWlsZldiNWlvUFViZkl4QXJYYXZEcWZjR3FUOEdrUEMxYkNWTmdBY2t6bHZKbUtkcHVrRnRCRmZ5MU1fQ0dGWWtHS1AxLXJZWHBwZ1hLVDExeEFCMEI3UGFvaHRTcWJpS2ZRR0RpcF9JUTEza3JSVXJNX2lBUnJFdjVBZk9HSG5HQ3VnMTdpNHV0dUFRSnRQcXJBcDhKSDR5eWMxLW9wdUxWRENLcXFFdmtLd19hSDFlLXdBUGt2VXBIQ0U2WFRDLXNFUkJURnBvSHFOMm1QaDQ5Sm5iWlVFUUZOcGdUTm5kQXdQMlNNa0FhUnRvdGFOM0ZEYUU5cXlrM256VXhoUEJEVzBBTlYzV21PWU9jbUVXWGRucXhjTU5reVBHUlN6aXNwVUNvVmppazh6Nkk?oc=5",
                     "date": "2026-03-13"
                 },
@@ -2876,12 +2876,12 @@
             ],
             "rs_score": 0.0,
             "ai_debate": {
-                "pattern": "價下量縮",
-                "bull": "近期大盤走勢平穩,但近5日量價下降,可能是市場在整理,但仍有機會反彈",
-                "bear": "近5日大盤收盤價連續下跌,量價下降,RSI也下降,市場可能進入熊市",
-                "judge": "觀望,最後一天收盤價662.29小於20MA681.43,嚴守阿土伯鐵律,不建議買進"
+                "pattern": "價跌量縮",
+                "bull": "近期大盤走勢平穩,但近日股價下跌,可能是市場正處於調整期,但仍有機會反彈",
+                "bear": "近期大盤走勢平穩,但近日股價下跌,且量縮,可能是市場正處於下跌趨勢,下跌機會較大",
+                "judge": "觀望,因為最後一天的收盤價(662.29)小於20MA(681.43),阿土伯最終裁決是觀望,嚴禁建議買進!"
             },
-            "funda_summary": "這個S&P 500的基本面數據不夠完整，但仍可發現：\n\n最大的財務隱患：高本益比（26.271679），可能表明市場對未來成長的估值過高。",
+            "funda_summary": "這個S&P 500的本益比已經超過市場平均值，表明市場對其估值過高，存在風險。",
             "best_ma_name": "5MA",
             "best_ma_price": 672.03,
             "lights": {
@@ -2894,9 +2894,9 @@
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "晶圓代工",
-            "price": 1855.0,
-            "rsi": 46.28,
-            "bias": -1.85,
+            "price": 1860.0,
+            "rsi": 46.67,
+            "bias": -1.6,
             "atr": 62.14,
             "news_sentiment": [
                 {
@@ -2912,12 +2912,6 @@
                     "date": "2026-03-04"
                 },
                 {
-                    "title": "昨天賺到的先跑？台積電跌55元收1885元 名師：是買點",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMi4AJBVV95cUxNWmt5bW1XU3dKbzM2TVgyT2FlUzljYWxUZDlsR3huTWhwck81SEpVMm9welZINkp4Ny0ySk5tNFozMjNwaDUySDFXeGJWYjAtb29GNXJ0V1BxR0thQWc4d0JkU0FwTDVQQWpldVAtLXRHMERQLVFhVzlBekJzTFhnQ3lFWlQ3SFdlQVRvbzFwX2JuQkFBMEpRRTNXUnlOOC14d2w5N284dHlNNFNmUkhZcW9mdmxFUXF6RWVZM1BvZ3hMVXg1VmN5MGN1d1NDeVZxZEhrRWwxTzBWY1ZEcWNyTnNqTFF3U0RTZG5LWkstQW9lNnY3Z3A0cklCeWlncmh3MlBTbjAtUDVnMjlOendmT1dnSE1jbzZyRFRYdU54VEx3YVFmMUtpR2R0WGZXZDU3a3BiSHpkVUpmRDFGUjM5ZzFIN2lEeERySjJvVDFUT1ZLclNzd0VYTTNCY21MempM?oc=5",
-                    "date": "2026-03-12"
-                },
-                {
                     "title": "台積電收跌70元至1865元！市值失守50兆元 專家喊「是黃金」",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMi-wJBVV95cUxPbmZ0OHlPQlBJR2NJamdKR1FOeVZCbzJLcjJ4OGlNbl94RGlHZFpyXzBNd3Y5LWp4NW5HeTlCWFNZdzhJdEhCbFNUZlRoSmVRY0lFb2NGdUtKQnA1RThIMFc5NXNlVEhCVnUtSVBfSWwtWUZ3MFk0Sk9wTlp4ZlhSamFDM0txUVRDa2xBZkozWTFTYkg0MEx3ZjRqS2phWXlUSXVoaVhXTGNsM0dtaVR0ZkNjLWhLVDc4TkRiNHZfdjhEOXB6eU9VSndnZW9oM2NkU2xEV1ROZk9yTmZBRnk5RjVvZlBoMEhOZUo0SHhJLW9PZWp4LVVHSmxOcDFocy14UkJxTV9wZl91N090ZFctTVNEZE5TOFJjTF82TTV6Q1BUdk5wRUhveWZhT1VaclZsVE5qNWxTekNoUDVBTjVTVEFEeXI0d01CYkdYazJVNHVoRDlycGpYTV9aUWlZelhZRWw5aFluaWRjM2g2U0xYekxCUTh4UFItbXhJ?oc=5",
@@ -2928,13 +2922,19 @@
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMimwNBVV95cUxPSjZiUFQ0VjZSRGs1QzdFbWx0VWVkV3ZBSXNDc2ZoUGhuSGtqR0s5Qi1sUHNTLXdOdHJXcGFlQ1hkN1Rvck5FNHhPUThhUXJJLWRWb2Vody13LTllV3hoOWoxZDNNNENuOTJpeENDYnBuc0hyNllXTWt0aEpSMzRtaDJHXzFZUEtaeEJZZnQtVTFnZ18yRU4yOG9YdlJvTjcwVzlaWjVfb1lyM1I5a1BNQW55dTlPRjkxazVNbmJsY0ZsS19tWGtkVHZsTUxzbnJPRXl2OVZmc1g4dUNzVkJXZjMtMjJDR1Uzck12dkVUYUxaRGxDWHJ3cENGTXMwNTFGZTlVVlNOQ2x3OFFPQWdiZG4zd1RvOUJtb3NLdllBM0JsWHoxcWRrcERLSmM1LW5NQXZiTWlvd3o2R0RxOHMxaEFySFQxRXFnN0cwZlRuRHc4cDdBb0YwRTJPTUpsdFZqVlR6cUI2dmpZb0swRGJMRW94cFNfSFNjS0VtdXBaNG9VSTh1Z1hGWmVEaUpLMXpkN2xacFF5SG9fNUU?oc=5",
                     "date": "2026-03-09"
+                },
+                {
+                    "title": "昨天賺到的先跑？台積電跌55元收1885元 名師：是買點",
+                    "sentiment": "利空",
+                    "link": "https://news.google.com/rss/articles/CBMi4AJBVV95cUxNWmt5bW1XU3dKbzM2TVgyT2FlUzljYWxUZDlsR3huTWhwck81SEpVMm9welZINkp4Ny0ySk5tNFozMjNwaDUySDFXeGJWYjAtb29GNXJ0V1BxR0thQWc4d0JkU0FwTDVQQWpldVAtLXRHMERQLVFhVzlBekJzTFhnQ3lFWlQ3SFdlQVRvbzFwX2JuQkFBMEpRRTNXUnlOOC14d2w5N284dHlNNFNmUkhZcW9mdmxFUXF6RWVZM1BvZ3hMVXg1VmN5MGN1d1NDeVZxZEhrRWwxTzBWY1ZEcWNyTnNqTFF3U0RTZG5LWkstQW9lNnY3Z3A0cklCeWlncmh3MlBTbjAtUDVnMjlOendmT1dnSE1jbzZyRFRYdU54VEx3YVFmMUtpR2R0WGZXZDU3a3BiSHpkVUpmRDFGUjM5ZzFIN2lEeERySjJvVDFUT1ZLclNzd0VYTTNCY21MempM?oc=5",
+                    "date": "2026-03-12"
                 }
             ],
             "vol_ratio": 1.2,
             "optimal_sl": 8,
             "actual_sl": 3,
-            "ev": 0.76,
-            "win_rate": 38.46,
+            "ev": 0.77,
+            "win_rate": 38.76,
             "history": [
                 {
                     "date": "2025-12-09",
@@ -3823,30 +3823,30 @@
                 },
                 {
                     "date": "2026-03-16",
-                    "price": 1855.0,
-                    "volume": 10966537,
-                    "ma5": 1879.0,
-                    "ma20": 1890.0,
-                    "ma60": 1718.17,
-                    "macd": 28.67,
-                    "macd_signal": 44.21,
-                    "macd_hist": -15.54,
-                    "rsi": 46.28,
+                    "price": 1860.0,
+                    "volume": 15608313,
+                    "ma5": 1880.0,
+                    "ma20": 1890.25,
+                    "ma60": 1718.25,
+                    "macd": 29.07,
+                    "macd_signal": 44.29,
+                    "macd_hist": -15.22,
+                    "rsi": 46.67,
                     "bb_upper": 2026.73,
-                    "bb_lower": 1753.27,
+                    "bb_lower": 1753.77,
                     "atr": 62.14
                 }
             ],
-            "rs_score": 0.1,
+            "rs_score": 0.17,
             "ai_debate": {
                 "pattern": "價平量縮",
-                "bull": "近期大盤弱勢，台積電相對強勁，可能是買盤補倉",
-                "bear": "近期量縮，RSI下跌，可能是賣盤減持",
-                "judge": "觀望，最後一天收盤價小於20MA，需觀察後續走勢"
+                "bull": "近期股價未能突破20MA，量縮跡象未見明顯改善，需觀察下一波動態",
+                "bear": "股價未能維持上升趨勢，量縮加劇，RSI下探45，空方機會增加",
+                "judge": "觀望，需觀察下一波動態，未見明確買進信號"
             },
-            "funda_summary": "台積電的淨利率高達45.1%，但股價淨值比(P/B)高達8.852182，顯示市場對公司未來成長前景有過高期待，可能存在泡沫風險。",
+            "funda_summary": "台積電的淨利率過高，可能意味著公司過度依賴高營收來維持高利潤，缺乏可持續性。",
             "best_ma_name": "60MA",
-            "best_ma_price": 1718.17,
+            "best_ma_price": 1718.25,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3875,13 +3875,7 @@
                     "date": "2026-03-13"
                 },
                 {
-                    "title": "旺宏爆5902萬元違約交割 股價震盪走揚逾1%",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMiowJBVV95cUxNZ09JLUhoQXBueGNLZWR6Mk1VejdRWEJyZEJMdkxzRTFhTklvWnlZdVlGMWtQZjh5MC0xVmp1N3VRSzhCZGh5SWFlZjlpWEtqTF9NMEl2a09VY014eFBSLVQ5aENNUHd5eVpEd0M5N3pGdXR4Q3I2V2lGQ1FmRFA2QjdDeTViMTc0ZU1wa29vaF96NFliQnZ1NGhsc0d3ejdma09XbkJGWDBWY25sWDVudFJRcDlucjNwRmR0VlROa2x2X182LThKWHhfOXhwWG5BZFVzU0NoSW1Ndm8xOUlKRDBSTzRnSGpLU2E4Z0hxR1B6QWxqTERmUkVGMkFKeWhEV1dhVGJDc3lneWFDUnFTa3d2ZG05UzRPOXppSXRMQ2wyT2c?oc=5",
-                    "date": "2026-03-05"
-                },
-                {
-                    "title": "《台北股市》三大法人13日買超股：旺宏、南亞、定穎投控",
+                    "title": "三大法人13日買超股：旺宏、南亞、定穎投控",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMi0wJBVV95cUxNRFBaQ0dYbjRLQklMU2hiZUQ4V3RIcERKQ1haOUVrNzV3cHdfTTlTS2NaVDR0VHlVOW1SMTZEMFVfQ09lSjNiazEwSGhDdUZLcGF6TUxwM1ZSYTJLeVZrVW9SLUZsYUxuOU51ejRWNTZiUXdJYXR0RzVBeks5RnRUY016cmNKc2lTZlBITlB2Nk0tZXdmZHJsY0NyV1dMS2ZYMFVIbW80SFNYUjJxQURUZ1gyY1Y1aWdWRmxubTY3dUx6c2dzb3pKMVNBNmxSN3VFa28wUFZZNEw2eWR6WV9SM0pLb2htWXg0T2t2ay11eTNMUmkzNUhjcmNvWTFtQnpCeDNBakh0RUFwMVJYMUNrdmhnTW5CcGhXRGdZQU1CTTlSTmNYbGltZ3JYWUpuSW1LbmU1UHZ2anJlMTVUTlQtLVlRbU9oYXllXzVHTTd0ZUh6MmM?oc=5",
                     "date": "2026-03-14"
@@ -3891,6 +3885,12 @@
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMivwJBVV95cUxNT0NBdVlUMkxmcV8wQTdDd1VFSUJCazNVUmdRZE5yZm1LTE5SVlZYdG1IQTBxM2ZIc1NVQWoybHlxUXRZanJYc2xKYnhLaHlyYmRQWGtLVzRwMkF0cE4zT3ZVcjdvekJjSExJWnRDci1Fb0xINXRTY2RESXpSWnZlNG5hMUxISjdyNlY2MFpuMkpaRGlhNmFBcHNiWENRNDJXdEV5MXhpWm1PektFc3lRbTFlRjhKckcteS1UbU8wV09TYlU5ZVUtT0hBT09QZWpGb3NpWWJ1cGtjTUpCQ2lGU3V3Q0M3dXc1TmxMczM0Z05PdE1iZmlxcGRMeGlyUTZwV3RLT2lJR0FsOTBnT1BUMEk2aFFZQ1d0MllsNi1KRDZCaWtFRXd1UkdmZUpJWlhpVVVfdGd0RVdSUTZieVdR?oc=5",
                     "date": "2026-03-05"
+                },
+                {
+                    "title": "投信12日賣超股：玉山金、裕民、旺宏",
+                    "sentiment": "利空",
+                    "link": "https://news.google.com/rss/articles/CBMirwJBVV95cUxOS3FGNkRyQ1o3ZE5MMVlhUFkwTkdPa29JQkQwX2gxdmkwVUVUM0VjeG1LSkZjNHFHYkdmUElKU0dwemZ1cG1ENDNEUHF4S0VTMjkybGUzN3hLeUc4MFRyeElvRjRfZ1pHMkVJalZsLTdZUkxyTXg1UjNueEVfLTA0YUhHUWtoWWFJWWcwdTliSmNqYmxGajNBRFp0NUs2bGtiV1FRdVhrQW5EY0t1dFlKV2hHTGZRNWxOaXdLZkZDWDZMbEhiUWRuaDlrU1I4RzJsMDhpbnNoTXg1X1B5ZEE1bV80RGQxdHQ2TFpEdW1kMFdLZW9OUEVkb2dhWUZWMVVzTTJxUC14THlLbjFrV2x0cFI1QjZaTVJHS2F5ZHZGTDluSTdwTVhrd0xfV1BPSVU?oc=5",
+                    "date": "2026-03-12"
                 }
             ],
             "vol_ratio": 1.2,
@@ -4787,7 +4787,7 @@
                 {
                     "date": "2026-03-16",
                     "price": 119.0,
-                    "volume": 21567848,
+                    "volume": 23979453,
                     "ma5": 103.38,
                     "ma20": 100.92,
                     "ma60": 71.81,
@@ -4800,14 +4800,14 @@
                     "atr": 10.39
                 }
             ],
-            "rs_score": 30.38,
+            "rs_score": 30.17,
             "ai_debate": {
                 "pattern": "價升量縮",
-                "bull": "近期旺宏股價上升，量縮可能是市場已經買盤趨於饒舌，需要觀察是否有下一步的買盤出現",
-                "bear": "旺宏股價上升但量縮，可能是市場買盤趨於疲勞，下一步可能會出現空盤出現",
-                "judge": "最後一天的收盤價小於 20MA，最終裁決是偏空，建議觀望或短空"
+                "bull": "近期旺宏股價上升，但成交量逐日減少，可能是市場買盤減弱，需觀察是否能夠恢復成交量",
+                "bear": "旺宏股價上升但成交量減少，可能是市場買盤減弱，若持續下降，可能會導致股價下跌",
+                "judge": "最後一天收盤價(119.00)小於20MA(100.92)，最終裁決為偏空"
             },
-            "funda_summary": "旺宏的財務隱患：負ROE與負淨利率，表明公司營運效率惡化，財務狀況嚴重。",
+            "funda_summary": "\"旺宏的負 ROE 和負淨利率表明其財務管理嚴重不濟，需要緊急整頓。\"",
             "best_ma_name": "20MA",
             "best_ma_price": 100.92,
             "lights": {
@@ -5750,7 +5750,7 @@
                 {
                     "date": "2026-03-16",
                     "price": 313.0,
-                    "volume": 2070948,
+                    "volume": 3301423,
                     "ma5": 300.7,
                     "ma20": 287.38,
                     "ma60": 231.78,
@@ -5766,11 +5766,11 @@
             "rs_score": 33.27,
             "ai_debate": {
                 "pattern": "價升量縮",
-                "bull": "穩懋股價持續上漲，量縮可能是市場內部力量的消耗，需觀察是否能夠維持上升趨勢",
-                "bear": "近期股價上漲但量縮，市場可能已經過度買入，下跌風險增加",
-                "judge": "觀望，需觀察下一交易日的價格變化"
+                "bull": "穩懋股價持續上升，量縮跡象表明買氣減弱，但仍未見明顯賣壓，需觀察下一交易日的走勢。",
+                "bear": "穩懋股價上升但量縮，RSI也未達過熱區域，但近期買氣減弱，需關注是否出現明顯賣壓。",
+                "judge": "觀望，需觀察下一交易日的走勢，最後一天的收盤價小於20MA，需謹慎評估多空機會。"
             },
-            "funda_summary": "穩懋的高本益比（75.75377）與高股價淨值比（3.0731125）表明股價過高，存在風險。",
+            "funda_summary": "穩懋的高本益比（P/E）與高股價淨值比（P/B）表明股價過高，存在泡沫風險。",
             "best_ma_name": "60MA",
             "best_ma_price": 231.78,
             "lights": {
@@ -5783,9 +5783,9 @@
             "symbol": "0050.TW",
             "name": "台灣50",
             "category": "台股龍頭",
-            "price": 75.65,
-            "rsi": 46.03,
-            "bias": -1.35,
+            "price": 75.75,
+            "rsi": 46.24,
+            "bias": -1.23,
             "atr": 2.32,
             "news_sentiment": [
                 {
@@ -5801,22 +5801,22 @@
                     "date": "2026-03-01"
                 },
                 {
-                    "title": "「不配息0050」009816跌逾6%仍爆45萬張成交量 分析師：可逢低布局",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiggNBVV95cUxPMHh4a3ktb1NpVl80TmEzRlQtX1Fac2U4MEZFX0Jxa1RJUFNBN1pjb2FfbExfbFkyTWFRaGwtRlB1NkJfemI1cG80OHZmUnhvOHZGbW9MdWZjRlJUN1RWZUR5MWlETUMtWk5OZi04SmM1TjBnb2N1YWRGNXctaG5XOFJXNWppQTRiZ1BXVmd2dXYzVWdvanpCa21rZnByOHgwX05QYndQc0xhQ0dUdDNPNWx0Ny1UNF9reUwtUkVyNmZaZTRMRmFtSE1NT0NvdDBQd3I4TFJLZDE3akZFZWhyeHZVc3ZmcEVnYl9UaE1oSUFzczBmSWJWamp3UFh4UEQ1WU5Ic3BQdllZdzVoZ0F6RC1BbHFmUFYtSDNkaTc2d2daY2FqMkg4VTBiXzB6dkVELWFKYTJLNmhTSWtWRVB2cERBazVxenh4cnp1Wk1UZ3FrQ3hRbDNBUHhHRmhjaDB5TURBQ2dPNzkxejZDNHNwMjA1X0oydHpiVlAtLUc0NER2UQ?oc=5",
-                    "date": "2026-03-09"
-                },
-                {
-                    "title": "「不配息的0050」為什麼這麼夯？從ETF圈的「怪物新人」破解台灣人的配息迷思",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMi5ANBVV95cUxQeUFTUFYycEd3cjdlVnQ0SkJabjItaU9nZVBoMkt5dGl0cjhOMjFDSkV6eHlZOHBQQ21hZFZjdXd4NWFtQlRJQlhqeHJuamlQbm9ZRGZCZHVISlUwXzJvNERtb19KOWd0UTBNTFJUT2pHdFAzMUx6aXd1aGZhcU1yX3VlbVhvalBLMXNFUjY2bkJGRUp2ZExfTFo2TDRoc1RnX3dld2pnSGhXUkxTZ2hYTWtXWFZVbW1XSUZLaDBUVXhBeVE5ei05dmhMdzh0eUpWUFh5MERrRHpWYW1KcHRnMHlPOWdmdWJPcXB2SF9lR05WcGVfelBXeExtakprY0pVNzlPOERPcnMxSVNGcmNDZFkyQ2QzY3RhN2dCa1BRWjFZODBWT21IeE9VcUhvUmhZUFp4WkNNcXpZU1pJaUNONHVNem5VUEp2Y0tZWFRaZDZ0RUtnb21iakw5eFhmZDJNaU0zZFhzYW9IOGxZc2l6WE04ckRHV0JGaWFnMTgxWGxOaDY5WVBNblNNbXladzJ0ZkhCd0NKOGozSE9TU01LV1F5d2RXWGFrUVBocWVGVEdONEFDNzJvbzRzNWlkbF83WEpKc1YtUVFfajF3c3pEd0N1M00tdF8xSmxTbElGazZKNTVT?oc=5",
-                    "date": "2026-03-02"
-                },
-                {
                     "title": "無腦買0050穩賺？內行喊做好「1神操作」：勝率很高",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMisgJBVV95cUxOSy1xWk16THdRM2wzZDl2U042SjZRUTRxclBpOHFXTk1rMm1KRjI1NFhBX2Y3R3VPbmprVFpiQmlKX3dORWJXVng0YWdWSHAyN3lNSDlXb3FXbVUtNm1ONVBlTmhqQkhpejlISEd0UzZkNlZ1Z0RZSS1pd0dfNWlkd0ZMV3c0Z0l3NmpjTlc2T2JibWJnN0Z3OENRNUo3dk13MmhkZGdBYjBWMGtMUndJaWRjMnlqOTZSUFBZSGVOeUg2LWdreG5JS0ZjQmNBalFxXzJMbm94MFdnWlhadHZWdXhGMElRZkt3ZG9SOVl6SndXVXlSTS14YXNiTG41Nno4aTQ1R0VfNnloV1MzdGNDci1nTFZ3dGgtazhMdWdTN0dXUmlxWVdFRUE2MlRzSHNON3c?oc=5",
                     "date": "2026-03-10"
+                },
+                {
+                    "title": "0050被賣了10天！外資領走679億元 5檔主動式ETF全遭砍破萬張",
+                    "sentiment": "利空",
+                    "link": "https://news.google.com/rss/articles/CBMi3wJBVV95cUxNa1hHMGJhQzdQRURJZjcxOWpwelowWlpGRS13TGFuS0ZIYVlsWF8zdHI1bHhEbXh0eDUzSWF3eFdRUFRhOG9fdjc3REx0YWthSHNfSmFpNFMwZWR0eTNPeThGVms4UG5scnhydVJfeE9kMWowRkFmN1JzRWItVVZuS21fSERGWXR6M3BEOUU3Q3FXVXN6TXZhaTFZTEZUM0FDWE9xcUkzUmM0UGhTQ3NGREVndUlrSkRvOTFjWnVQaUdkczdaLWc4VlR0MzVqNEFldTJqX3BzUXlrM1lDbjZzbFY3VFhJbHZ4Z1VUNERBelgxeHNlN0JFODRoVzlSZExmai1obTZINmRTMW5NM2NmdWhhWlFIRUhLbGxvVzFnMG5nb0ptRnAwaGpnalBjaEZ0V3g1MlZBSDlwMVUydEJYcUZUSHZxU2trVWRXMl81TFhtM2trWllod3BOQXF1dDg?oc=5",
+                    "date": "2026-03-09"
+                },
+                {
+                    "title": "「不配息0050」009816跌逾6%仍爆45萬張成交量 分析師：可逢低布局",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMiggNBVV95cUxPMHh4a3ktb1NpVl80TmEzRlQtX1Fac2U4MEZFX0Jxa1RJUFNBN1pjb2FfbExfbFkyTWFRaGwtRlB1NkJfemI1cG80OHZmUnhvOHZGbW9MdWZjRlJUN1RWZUR5MWlETUMtWk5OZi04SmM1TjBnb2N1YWRGNXctaG5XOFJXNWppQTRiZ1BXVmd2dXYzVWdvanpCa21rZnByOHgwX05QYndQc0xhQ0dUdDNPNWx0Ny1UNF9reUwtUkVyNmZaZTRMRmFtSE1NT0NvdDBQd3I4TFJLZDE3akZFZWhyeHZVc3ZmcEVnYl9UaE1oSUFzczBmSWJWamp3UFh4UEQ1WU5Ic3BQdllZdzVoZ0F6RC1BbHFmUFYtSDNkaTc2d2daY2FqMkg4VTBiXzB6dkVELWFKYTJLNmhTSWtWRVB2cERBazVxenh4cnp1Wk1UZ3FrQ3hRbDNBUHhHRmhjaDB5TURBQ2dPNzkxejZDNHNwMjA1X0oydHpiVlAtLUc0NER2UQ?oc=5",
+                    "date": "2026-03-09"
                 }
             ],
             "vol_ratio": 1.2,
@@ -6712,30 +6712,30 @@
                 },
                 {
                     "date": "2026-03-16",
-                    "price": 75.65,
-                    "volume": 33808936,
-                    "ma5": 76.32,
+                    "price": 75.75,
+                    "volume": 54113902,
+                    "ma5": 76.34,
                     "ma20": 76.69,
                     "ma60": 70.64,
                     "macd": 1.07,
-                    "macd_signal": 1.61,
-                    "macd_hist": -0.55,
-                    "rsi": 46.03,
+                    "macd_signal": 1.62,
+                    "macd_hist": -0.54,
+                    "rsi": 46.24,
                     "bb_upper": 82.05,
-                    "bb_lower": 71.33,
+                    "bb_lower": 71.34,
                     "atr": 2.32
                 }
             ],
-            "rs_score": 0.07,
+            "rs_score": 0.0,
             "ai_debate": {
                 "pattern": "價平量縮",
-                "bull": "近期股價未能突破20MA，量能減弱，多方需耐心觀察",
-                "bear": "股價下跌，量能減弱，RSI指標進入弱勢區域，空方看好下跌機會",
-                "judge": "觀望，需等待股價與20MA之間的關係明朗，目前無明確的買進建議"
+                "bull": "近期大盤強弱為 0.0%，未見明顯多方支撐，需觀察下一波動態",
+                "bear": "近5日量價呈現下降趨勢，RSI 低於 50，表明空方勢力增強",
+                "judge": "觀望，未見明確多方支撐，需觀察下一波動態"
             },
-            "funda_summary": "阿土伯的財務隱患：高本益比(P/E) 25.97964，可能表明市場對台灣50的估值過高，存在風險。",
+            "funda_summary": "阿土伯的股價高達 26 倍本益比，高於市場平均值，顯示股價可能過高，隱患在於未來業績未能維持目前的成長率。",
             "best_ma_name": "10MA",
-            "best_ma_price": 76.38,
+            "best_ma_price": 76.39,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6746,19 +6746,19 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 82.8,
-            "rsi": 16.85,
-            "bias": -6.96,
+            "price": 83.0,
+            "rsi": 17.07,
+            "bias": -6.74,
             "atr": 2.26,
             "news_sentiment": [
                 {
-                    "title": "鈺齊-KY公告: 受邀參加國泰證券舉辦之法人說明會",
+                    "title": "鈺齊-KY公告:受邀參加國泰證券舉辦之法人說明會",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMi0AJBVV95cUxNaGZFZW1IM2Jfd0VWeFRDOW9aTGNTUHJ3UkZrU05GbTdrb2NMMWdQeUFXb3dTRFljV1ZLM0ZCaVdLcXE4eEg4VXNzaUg4alhtV2lNMl9KZnc2SWlPQldJaktncTZmR2xQekRaczJNbTd0YzRQcDFUM2hVNF9PamZySHA5akRjUVMtb1VzTGgyQm5wdHdLRnNYNzJpSDc0OHN5MWNCT0JGeFdGV21Oa05TTTVYbi1VeDdvNU9PZmRUZDRsX1RrNzJXbHlRY3lXOTZla1haTmwzc2V1cHl0VVpNNEc5VkdXUHhMRjZYVUFkdzRZV3kycVFEaHV2bnFzWFQ1VHA0clBoMFd6UE5sZTgtMWtkTUdiR2lQa1dYeXhMUEFvR19hTnRsa1pndFBpV3lYTWozLUZIdGU2Ym9FYmlsNkM0YU93bWtUSzZEaTAzMXU?oc=5",
                     "date": "2026-03-05"
                 },
                 {
-                    "title": "鈺齊-KY股票反彈一樣沒有份",
+                    "title": "鈺齊-KY股票分析:明天反彈一樣沒有份",
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5HOENlOE5uTTdSVXFLUTNOWFprMlVBT0NfdGgyQVlteVlaNUZIYlZfUWhpbEtfN29aOUFxX0g4X2hDS1JoNnJLa29Tb3dTWHVnTXZleXBTQkI?oc=5",
                     "date": "2026-03-10"
@@ -7657,30 +7657,30 @@
                 },
                 {
                     "date": "2026-03-16",
-                    "price": 82.8,
-                    "volume": 605197,
-                    "ma5": 83.93,
-                    "ma20": 88.99,
+                    "price": 83.0,
+                    "volume": 798462,
+                    "ma5": 83.97,
+                    "ma20": 89.0,
                     "ma60": 95.74,
-                    "macd": -3.07,
-                    "macd_signal": -2.6,
-                    "macd_hist": -0.48,
-                    "rsi": 16.85,
-                    "bb_upper": 96.26,
-                    "bb_lower": 81.72,
+                    "macd": -3.06,
+                    "macd_signal": -2.59,
+                    "macd_hist": -0.46,
+                    "rsi": 17.07,
+                    "bb_upper": 96.23,
+                    "bb_lower": 81.77,
                     "atr": 2.26
                 }
             ],
-            "rs_score": -15.67,
+            "rs_score": -15.66,
             "ai_debate": {
                 "pattern": "價平量縮",
-                "bull": "近期鈺齊-KY價格回落，量縮明顯，可能是多方出清，需要觀察是否有底部形成",
-                "bear": "鈺齊-KY價格連續下跌，量縮加劇，RSI快速下降，表明空方勢力強大",
-                "judge": "最後一天的收盤價(82.80)小於 20MA(88.99)，最終裁決偏空，建議觀望或短空"
+                "bull": "近期量價變化呈現下降趨勢，但RSI仍未達到極低區域，仍有買點",
+                "bear": "近期量價變化呈現下降趨勢，RSI已經跌破30，表明市場已經走弱",
+                "judge": "觀望，最後一天的收盤價小於20MA，需觀察後續走勢"
             },
-            "funda_summary": "\"鈺齊-KY的財務隱患：低ROE與淨利率，表明公司獲利能力不足，需要改善營收成長率來支撐股價。\"",
+            "funda_summary": "\"鈺齊-KY的高股價淨值比(P/B)與低股東權益報酬率(ROE)表明其股價可能過高，存在資本效率低下風險。\"",
             "best_ma_name": "20MA",
-            "best_ma_price": 88.99,
+            "best_ma_price": 89.0,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7691,40 +7691,40 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 82.9,
-            "rsi": 26.78,
-            "bias": -9.05,
+            "price": 83.6,
+            "rsi": 27.59,
+            "bias": -8.32,
             "atr": 3.14,
             "news_sentiment": [
                 {
-                    "title": "【公告】重要子公司 Growth-Link Overseas Company Limited 股東會重要決議事項",
+                    "title": "豐泰重要子公司 Growth-Link Overseas Company Limited 股東會重要決議事項",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQOS16S0NfTEVnSjVsX2I1c1BxeGVEVDJjOVFyR3Q1djYyaWZoTk9NUVRTbFVSVHBrRDVOZ1RJMVEtem9RVmNFa2FVQjhpYmM4Y1BLRUM5aExPaFJKaEYtd0kxNktlOHBXUmNsX0YwUFpDLU9mRDdpaEV5VnNra2E0a2ZlSXp5TWZ1Vm1SMzJrZ3owNjJLdGQ0NVJZY3RfdThvVFNwR1Etd0xxa3k2UTNsZXVTdElLWmJwWDVEaUhrYTNyclhPSDhQbjd0VFlVdnFZ?oc=5",
                     "date": "2026-03-06"
                 },
                 {
-                    "title": "豐泰(9910) 個股概覽 | 個股 - 股市",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE83YTF5cGtlSzY3QzItUjhBdGZOWURwSk12Wkc0ZnRvczB4SHhReU5aNFk5Z05MbzBKbmpsQjV1UGpueWxVNTlRajlXWDllSjBSb1gw?oc=5",
-                    "date": "2026-03-15"
-                },
-                {
-                    "title": "【公告】重要子公司 Growth-Link Overseas Company Limited改選董事名單",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNVWlmN0Nrek1fZUM3aTFLVW5odHdWYXJvakJRX0RXaFQwQmF4SVBhUUNSaV9KZGlEcEhtaGNrU0pRNmNmM2t0cjNVcTZJYzlVazFQVXM4RUJkbDdWYndBQTZiQVpfRUNURW1FUGtiZUo0RnhiaVI3OGxGQmJFeHppTmN4eHMzeERkaG1xX0FSTnV2R0hHeDJlOVR6X0lVMEpjZUdVaG9qcjlqLXlKNkktNVZlM210N3QwWmc4TFdXaUw2OUZ3TnRCWGlOVmF5R0Jn?oc=5",
-                    "date": "2026-03-06"
-                },
-                {
-                    "title": "豐泰(9910)- - 券商分點進出買賣統計｜股市爆料同學會",
+                    "title": "豐泰券商分點進出買賣統計",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBReGExOTR1TWNiQ1BmVnZ2OVZwM0pEUldLOWsxRVQ1N0NJcU5jcHVqQ3lQaXIzaXRDa2JhN1JLelpJQlo0OFlhM2xDVnJOY1cxVzl0WTI4M3p2YmpWQmF3SnRoUVFUOGpZZ2c?oc=5",
                     "date": "2026-03-10"
                 },
                 {
-                    "title": "寶成(9904) 今日股價、行情討論｜股市爆料同學會",
+                    "title": "豐泰重要子公司 Growth-Link Overseas Company Limited改選董事名單",
                     "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1PclJPQ2RFZktYTzlvN1l6NEQyU19NN2x6bWlMYXFoUURveU9HRHRkODFISlNlaXNNc2t3bFFMS2Nlc1ZSRVpxQ2E5TnY0Vlk?oc=5",
-                    "date": "2026-03-13"
+                    "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNVWlmN0Nrek1fZUM3aTFLVW5odHdWYXJvakJRX0RXaFQwQmF4SVBhUUNSaV9KZGlEcEhtaGNrU0pRNmNmM2t0cjNVcTZJYzlVazFQVXM4RUJkbDdWYndBQTZiQVpfRUNURW1FUGtiZUo0RnhiaVI3OGxGQmJFeHppTmN4eHMzeERkaG1xX0FSTnV2R0hHeDJlOVR6X0lVMEpjZUdVaG9qcjlqLXlKNkktNVZlM210N3QwWmc4TFdXaUw2OUZ3TnRCWGlOVmF5R0Jn?oc=5",
+                    "date": "2026-03-06"
+                },
+                {
+                    "title": "豐泰個股概覽",
+                    "sentiment": "中立",
+                    "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE83YTF5cGtlSzY3QzItUjhBdGZOWURwSk12Wkc0ZnRvczB4SHhReU5aNFk5Z05MbzBKbmpsQjV1UGpueWxVNTlRajlXWDllSjBSb1gw?oc=5",
+                    "date": "2026-03-15"
+                },
+                {
+                    "title": "豐泰券商分點進出買賣統計",
+                    "sentiment": "中立",
+                    "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFB2YUdTN290aUFJRk4tSVBkYjAzYVlqMngxTlpwLWVLVlR6ODNtbGNtekZlbG9aYWFpWTNiWkRxcWFORGxhT2kzbzRvTDZqbWFHV1N5ZnAzanRNUEJwLXFmQjRtT1BEUDk2TVE?oc=5",
+                    "date": "2026-03-14"
                 }
             ],
             "vol_ratio": 1.2,
@@ -8620,30 +8620,30 @@
                 },
                 {
                     "date": "2026-03-16",
-                    "price": 82.9,
-                    "volume": 378900,
-                    "ma5": 86.16,
-                    "ma20": 91.15,
-                    "ma60": 102.49,
-                    "macd": -3.82,
-                    "macd_signal": -3.38,
-                    "macd_hist": -0.43,
-                    "rsi": 26.78,
-                    "bb_upper": 98.33,
-                    "bb_lower": 83.97,
+                    "price": 83.6,
+                    "volume": 837502,
+                    "ma5": 86.3,
+                    "ma20": 91.19,
+                    "ma60": 102.5,
+                    "macd": -3.76,
+                    "macd_signal": -3.37,
+                    "macd_hist": -0.39,
+                    "rsi": 27.59,
+                    "bb_upper": 98.2,
+                    "bb_lower": 84.17,
                     "atr": 3.14
                 }
             ],
-            "rs_score": -16.81,
+            "rs_score": -16.27,
             "ai_debate": {
                 "pattern": "價跌量縮",
-                "bull": "近期價格下跌，但量縮指出買盤仍在積極參與，可能是短期低點",
-                "bear": "連續五天價格下跌，量縮加劇，表明賣盤壓力增強",
-                "judge": "最後一天收盤價小於 20MA，最終裁決偏空，建議觀望或短空"
+                "bull": "價格回升趨勢未破20MA，量縮可能是短期震盪，需觀察下一交易日",
+                "bear": "近5日連續下跌，量縮加劇，RSI深入低區，多空風向明顯",
+                "judge": "觀望，需觀察下一交易日收盤價與20MA之關係"
             },
-            "funda_summary": "\"豐泰股價淨值比高達3.17，表明公司股價過高，隱患在於未來股價下跌風險。\"",
+            "funda_summary": "豐泰的財務隱患：營收成長率大幅下滑 (-5.4%)，可能是產業或管理效率問題。",
             "best_ma_name": "20MA",
-            "best_ma_price": 91.15,
+            "best_ma_price": 91.19,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -8654,19 +8654,13 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 29.15,
-            "rsi": 34.13,
-            "bias": -3.85,
-            "atr": 0.69,
+            "price": 29.1,
+            "rsi": 33.86,
+            "bias": -4.01,
+            "atr": 0.7,
             "news_sentiment": [
                 {
-                    "title": "寶成今日股價、行情討論",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1PclJPQ2RFZktYTzlvN1l6NEQyU19NN2x6bWlMYXFoUURveU9HRHRkODFISlNlaXNNc2t3bFFMS2Nlc1ZSRVpxQ2E5TnY0Vlk?oc=5",
-                    "date": "2026-03-13"
-                },
-                {
-                    "title": "【公告】寶成之子公司裕元工業(集團)有限公司及寶勝國際(控股)有限公司115年2月自結營收",
+                    "title": "寶成之子公司裕元工業(集團)有限公司及寶勝國際(控股)有限公司115年2月自結營收",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMijANBVV95cUxQMm94cEtyVmN3ZGo1RXh2dFR2ZVBWVmFwaDVVSE9uekRkOEM1enBSYm83QXlMMWlFV0tpQUlTcjB6bTdaNVgxcm44cXE1Rlp5cnVUNFNBVG5lMjJ1TVNyOS15bVBjdzFlaUtFTDZhd0hONnA0eFBXWGRSbjJLckhEOE5JcDduUUxaY3dqRC1XSjQ4X1pDT1ZmUm9mNEl3NmhrSFdJbmxTTE95SHBQSlU0RFRRMUJTWm5KTllpY2tQS1h2VnpFdTRheGtqd3B0b083NGRlcmswSE9waWFWUTVET0kzUHhxV3JGRzV4bVViYXFGN19GTTgwRk9XSXJsdVUzaGlKdWtDamk1ZTBPMktxd2R0YUFYb29KWFEzM3Zka0dUbDZEMzZ2RTBKS1ZQUFlJMmxzX0pDOEFycWxtWlpveHlfNloyNl9wVGRUc2NTblNWUEJwNDluRHVkQnV5YklyTW41c0R0SzNvSmd4YzdHeENBdWxwRjBsYUYzQUEyaTV3U2tDRWstcE5yTzU?oc=5",
                     "date": "2026-03-10"
@@ -8678,16 +8672,22 @@
                     "date": "2026-03-12"
                 },
                 {
-                    "title": "匯率干擾 寶成2025年獲利年減",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNem9PREwwYXF3cFNYQ2RkRnhyX01DTFhrRjBSdEZDM0Nxb3I2V25BaEEtVUY1Z2ZxV3FJazhBMFVhMGVwUTdUcG9sNlNkaG5FQzFGTDVycXZ6eDRZa2VManZkLW1jS1hCLXRwcTcyRzYwNzhLdVFNTmFuWUJFdWZEdFItaFFjNkhCRnhXZ2VYLTVfRE1DLWh2OGRLUHpPRTlsQVEtS2JnZWdObFhWVUh3djREeldZMWNyamNFRlpLaGU3b1IzOHEzTzA0S3llaG1BR213dGxNTnZBbzNiSjVIbk9HdnZmZw?oc=5",
-                    "date": "2026-03-12"
-                },
-                {
                     "title": "屋漏偏逢連夜雨",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5nTk1IUThzMTZuQ0x3dVlnNVBwNEtVRHpNaHNJWDlZRlB0ZHF5RUxUZEhoVzloWDduc3JFSjNfNE1MaUxrSU9mVG9TNzhPclZwVVpiMnFNcFA?oc=5",
                     "date": "2026-03-13"
+                },
+                {
+                    "title": "寶成代重要子公司裕元工業(集團)有限公司(\"裕元工業\")公告董事會決議114年末期股息分派",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMigANBVV95cUxOcFBZTC1IT2c2RXlrWDE4VFhsQ1dhTEh4ZnA5Vm50YkM0d2ZOMm5EQmFadnd6SUozMnpLM0dIZTBXbnVmMmtNYngtRGhBOU5TV3NKYmtfUTU0T0ozbnNSazFxWjlmTWNEbFFPWUotNVl1QUFYTF8yTWR1NDQxdjBNZEpwcDJSOVA2ZjlqVHNaVzZqanpWTlJRRHRGSlVCNzFJSXVjTG53UzZfaDZnQ2JjQWFsWTFoSC1KVHpTTXpNTDZoTFlvdkUxbmhjTm1jNW5qaDdabzVhOGtFZVY2cE9wbkxyMW1QdVc5eTRHM19iWnNmUkZkc1NrTG5RMUEwLXZJWFZ5dTZSQllRUmEwdTQyM1NRYnN1Tll5Qnp2OXE3eF81N1M3Wi01ZVBsZENob2Z3bDN4bllheTNIX0dFTWZBdVJvby1tR2hwMmpoLUhwdWlWeHZzaVpoOHJCRTRzUlpfcEJ6MGtGQWpiclJwaElVcllwNGRBT2c5dmhJSmdvalk?oc=5",
+                    "date": "2026-03-11"
+                },
+                {
+                    "title": "寶成(9904)-統一-竹南 - 券商分點進出買賣統計｜股市爆料同學會",
+                    "sentiment": "中立",
+                    "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBDazJadk9GbWg0NFVlVFZlYldrd1dPY2U2T0lNOGx4Yko5bmhldVV3ZE94X2U1V3ZRWjBXZW9HRk1VSi1fMVhTU2xNU1F2bEdhTEFoUlZnemRYV3FBZk9SaHZLVGNTQlR6WEEw?oc=5",
+                    "date": "2026-03-14"
                 }
             ],
             "vol_ratio": 1.2,
@@ -9583,28 +9583,28 @@
                 },
                 {
                     "date": "2026-03-16",
-                    "price": 29.15,
-                    "volume": 2701732,
-                    "ma5": 29.65,
-                    "ma20": 30.32,
+                    "price": 29.1,
+                    "volume": 5513838,
+                    "ma5": 29.64,
+                    "ma20": 30.31,
                     "ma60": 30.69,
                     "macd": -0.36,
                     "macd_signal": -0.27,
-                    "macd_hist": -0.09,
-                    "rsi": 34.13,
-                    "bb_upper": 31.73,
-                    "bb_lower": 28.9,
-                    "atr": 0.69
+                    "macd_hist": -0.1,
+                    "rsi": 33.86,
+                    "bb_upper": 31.74,
+                    "bb_lower": 28.89,
+                    "atr": 0.7
                 }
             ],
-            "rs_score": -10.82,
+            "rs_score": -11.19,
             "ai_debate": {
-                "pattern": "價平量縮",
-                "bull": "近期價格震盪在20MA附近，量縮可能是市場消化過剩資金，未來有機會反彈",
-                "bear": "近期價格下跌，量縮可能是市場恐慌，未來有機會下跌加速",
-                "judge": "最後一天的收盤價29.15小於20MA30.32，最終裁決偏空"
+                "pattern": "價回落量縮",
+                "bull": "近期價格回落但量縮，可能是買方補倉或短線買盤出現，需觀察是否能夠突破20MA",
+                "bear": "近期價格回落且量縮，可能是賣方補倉或短線賣盤出現，且RSI已經下跌至33.86，可能是市場開始疲弱",
+                "judge": "觀望，需觀察是否能夠突破20MA，否則可能會持續下跌"
             },
-            "funda_summary": "\"寶成的股價淨值比偏低，可能是市場對公司未來成長前景持悲觀態度，需要關注公司未來營收和利潤的恢復。\"",
+            "funda_summary": "\"寶成公司的股價淨值比(P/B)僅0.61，顯示股價嚴重低估，具有極大升值潛力，但近期營收成長率為-8.2%，表明公司面臨嚴重的營收衰退風險。\"",
             "best_ma_name": "60MA",
             "best_ma_price": 30.69,
             "lights": {
@@ -9635,7 +9635,7 @@
                 "pct": -0.37
             }
         },
-        "ai_script": "今天台股開盤，必須嚴格遵守風險控制！資金曝險上限建議 30%。費半(SOXX)和台積電ADR(TSM)昨夜表現良好，抱牢持續。標普500小幅下跌，紀律買入高股息股。恐慌指數回升，警戒信號未發出。今日台股開盤，嚴禁接刀！"
+        "ai_script": "今日台股開盤，資金曝險上限建議 30%。費半(SOXX)微升，台積電ADR(TSM)微升，市場趨勢穩定。今日台股操作鐵律：\n\n1. 今日不接刀，抱牢現有持倉。\n2. 不進行新買入或凹單。\n3. 等待市場情緒穩定後再進行操作。\n\n記住，紀律第一，韭菜不要碰！"
     },
     "macro": {
         "tw_insight": "⚠️ 0050破線避險",
