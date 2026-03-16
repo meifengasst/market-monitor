@@ -849,9 +849,28 @@ function openModal(stock) {
                     }
                 }
 
-                card.className = `border-slate-700 bg-slate-800/50 p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group`;
+// 💡 阿土伯獨家：絕佳進場雷達掃描！(將對照表轉化為程式邏輯)
+                let isPerfectEntry = (stock.vol_ratio >= 2.5) && isBullish && (stock.rsi >= 55 && stock.rsi <= 65) && (stock.rs_score > 0);
+
+                let cardBaseClass = "p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group";
+                
+                // 如果是絕佳進場，換上土豪金外框與黃金光暈
+                card.className = isPerfectEntry 
+                    ? `${cardBaseClass} border-yellow-400 bg-gradient-to-br from-yellow-900/40 to-slate-900 shadow-[0_0_30px_rgba(250,204,21,0.5)] ring-1 ring-yellow-400` 
+                    : `${cardBaseClass} border-slate-700 bg-slate-800/50`;
+
+                // 特效徽章 (如果是絕佳進場才顯示)
+                let perfectBanner = isPerfectEntry ? `
+                    <div class="absolute -top-4 -right-2 z-50 animate-bounce">
+                        <div class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-black px-4 py-1.5 rounded-full font-black shadow-[0_0_20px_rgba(249,115,22,0.8)] border-2 border-white flex items-center gap-1.5">
+                            <span class="text-xl">🎯</span> 絕佳進場訊號
+                        </div>
+                    </div>
+                ` : '';
+
                 card.innerHTML = `
-                    <div class="flex flex-col h-full">
+                    ${perfectBanner}
+                    <div class="flex flex-col h-full relative z-10">
                         <div class="flex justify-between items-center mb-5">
                             <div class="flex items-center gap-2">
                                 <span class="bg-black/50 text-white text-xs px-3.5 py-1.5 rounded-full font-bold uppercase border border-white/10">${stock.category}</span>
