@@ -677,17 +677,54 @@
             }).catch(err => console.log("等待資料..."));
         }
         setInterval(() => loadData(true), 60000);
-
+        
         async function triggerGitHubAction() {
             let token = localStorage.getItem('atu_github_token');
-            if (!token) { token = prompt("請輸入 GitHub Token："); if (!token) return; localStorage.setItem('atu_github_token', token); }
-            const btn = document.getElementById('forceUpdateBtn'); const ot = btn.innerHTML; btn.disabled = true; btn.innerHTML = `⏳ 運算中...`;
+            if (!token) { 
+                token = prompt("請輸入 GitHub Token："); 
+                if (!token) return; 
+                localStorage.setItem('atu_github_token', token); 
+            }
+            const btn = document.getElementById('forceUpdateBtn'); 
+            const ot = btn.innerHTML; 
+            btn.disabled = true; 
+            btn.innerHTML = `⏳ 呼叫雲端...`;
+            
             try {
-                const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILENAME}/dispatches`, { method: 'POST', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: 'main' }) });
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILENAME}/dispatches`, { 
+                    method: 'POST', 
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ ref: 'main' }) 
+                });
+                
                 if (res.ok) {
-                    let cd = 50; const timer = setInterval(() => { cd--; btn.innerHTML = `⏳ ${cd}s 重整`; if (cd <= 0) { clearInterval(timer); btn.disabled = false; btn.innerHTML = ot; loadData(true); } }, 1000);
-                } else { localStorage.removeItem('atu_github_token'); btn.disabled = false; btn.innerHTML = ot; }
-            } catch (error) { alert("連線錯誤"); btn.disabled = false; btn.innerHTML = ot; }
+                    // 💡 阿土伯防冬眠機制：記錄「未來的真實完成時間」
+                    const targetTime = Date.now() + 50000; // 50秒後
+                    
+                    const timer = setInterval(() => { 
+                        // 每次都拿「現在的真實時間」去減，瀏覽器睡覺也騙不過它！
+                        let remaining = Math.round((targetTime - Date.now()) / 1000);
+                        
+                        if (remaining <= 0) { 
+                            clearInterval(timer); 
+                            btn.disabled = false; 
+                            btn.innerHTML = ot; 
+                            loadData(true); 
+                        } else {
+                            btn.innerHTML = `⏳ ${remaining}s 雲端運算中`;
+                        }
+                    }, 1000);
+                } else { 
+                    localStorage.removeItem('atu_github_token'); 
+                    alert("⚠️ GitHub Token 可能過期或權限錯誤，請重新輸入！");
+                    btn.disabled = false; 
+                    btn.innerHTML = ot; 
+                }
+            } catch (error) { 
+                alert("⚠️ 網路連線錯誤，呼叫阿土伯雲端失敗！"); 
+                btn.disabled = false; 
+                btn.innerHTML = ot; 
+            }
         }
 
 function openModal(stock) {
