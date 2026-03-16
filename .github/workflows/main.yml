@@ -2,8 +2,8 @@ name: 阿土伯戰情室自動更新
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # 每 30 分鐘自動跑一次
-  workflow_dispatch:       # 允許你在網頁上手動點擊強制更新
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -30,14 +30,12 @@ jobs:
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
           LINE_TARGET_ID: ${{ secrets.LINE_TARGET_ID }}
         run: python analyze.py
-        
-        - name: Commit and push changes
+
+      - name: Commit and push changes
         run: |
           git config --global user.name "股市阿土伯機器人"
           git config --global user.email "action@github.com"
           git add .
           git commit -m "🤖 自動更新盤中報價與帳務" || echo "No changes to commit"
-          # 放棄容易卡住的 --rebase，改用標準合併。
-          # -X ours 代表：如果遇到資料打架，一律以機器人這次抓到的最新資料為主！
           git pull origin main --no-rebase -s recursive -X ours
           git push
