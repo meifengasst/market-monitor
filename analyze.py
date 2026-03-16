@@ -434,21 +434,42 @@ def generate_dashboard_data():
             actual_win = actual_res['win_rate'] if actual_res else 0
 
             current_price = round(df['Close'].iloc[-1], 2)
-
+            
             if symbol in cloud_portfolio:
                 trade = cloud_portfolio[symbol]
                 entry_price = trade.get('entryPrice', current_price)
                 peak_price = trade.get('peakPrice', entry_price)
+                # 💡 阿土伯新增：去雲端金庫看看主人有沒有下達「自訂死守價」？
+                custom_sl_price = trade.get('customSL')
 
                 if current_price > peak_price:
                     trade['peakPrice'] = current_price
                     portfolio_updated = True
                     peak_price = current_price
 
-                actual_exit_price = max(entry_price * (1 - actual_sl), peak_price * (1 - actual_sl))
+                # 💡 阿土伯邏輯：如果有自訂死守價，LINE 機器人就看這個絕對數字！
+                if custom_sl_price:
+                    actual_exit_price = float(custom_sl_price)
+                    reason_msg = f"\n(觸發自訂嚴格停損防線)"
+                else:
+                    # 如果沒設定，就啟動原本聰明的移動停利雷達
+                    actual_exit_price = max(entry_price * (1 - actual_sl), peak_price * (1 - actual_sl))
+                    if is_bear:
+                        reason_msg = f"\n⚠️ [大盤避險啟動]\n停損已強制收緊至 3%！"
+                    else:
+                        reason_msg = f"\n(觸發移動停利網 {int(best_sl*100)}%)"
 
+                # 判斷是否跌破防線
                 if current_price <= actual_exit_price:
                     if not trade.get('alerted', False):
+                        alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}{reason_msg}\n\n⚡ 已跌破嚴格防線，請立即無情清倉，保護本金！"
+                        send_line_alert(alert_msg)
+                        trade['alerted'] = True
+                        portfolio_updated = True
+                else:
+                    if trade.get('alerted', False):
+                        trade['alerted'] = False
+                        portfolio_updated = True
                         if is_bear:
                             reason_msg = f"\n⚠️ [大盤避險啟動]\n停損已由 {int(best_sl*100)}% 強制收緊至 3%！"
                         else:
