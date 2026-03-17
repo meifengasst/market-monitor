@@ -486,14 +486,21 @@ def generate_dashboard_data():
             time.sleep(2) # 💡 喘口氣 2：避免被 Groq 踢下線
             
             funda_insight = get_fundamental_risk(symbol, info["name"])
-            
+
+
+            # 💡 阿土伯計算：今日成交量 vs 過去20日平均成交量
+            avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
+            current_vol = df['Volume'].iloc[-1]
+            # 算出真實倍數，如果沒數據就給 1.0
+            real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
             dashboard_data.append({
                 "symbol": symbol, "name": info["name"], "category": info["category"],
                 "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), 
                 "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
                 "atr": round(df['atr'].iloc[-1], 2),
                 "news_sentiment": news_sentiment_data,
-                "vol_ratio": 1.2, "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
+                "vol_ratio": real_vol_ratio,  # ✅ 這裡改用我們剛算好的 real_vol_ratio
+                "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
                 "ev": actual_ev, "win_rate": actual_win, "history": hist, 
                 "rs_score": rs_score, 
                 "ai_debate": debate_result, 
