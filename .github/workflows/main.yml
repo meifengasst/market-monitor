@@ -25,7 +25,7 @@ jobs:
 
       - name: Run analyze.py
         env:
-          TZ: Asia/Taipei  # 💡 阿土伯指令：強制切換為台灣時區
+          TZ: Asia/Taipei
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
@@ -38,6 +38,5 @@ jobs:
           git config --global user.email "action@github.com"
           git add .
           git commit -m "🤖 自動更新盤中報價與帳務" || echo "No changes to commit"
-          # 💡 阿土伯推土機邏輯：遇到衝突以機器人為主，保證不卡住
           git pull origin main --no-rebase -s recursive -X ours
           git push
