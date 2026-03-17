@@ -22,9 +22,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install yfinance feedparser pandas requests
-
-      - name: Run analyze.py
+          
+          - name: Run analyze.py
         env:
+          TZ: Asia/Taipei  # 💡 阿土伯指令：強制切換為台灣時區
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
           LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
