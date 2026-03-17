@@ -227,14 +227,20 @@ def get_ai_technical_brain(stock_name, recent_df, rs_score):
     trend_str = ""
     for date, row in recent_df.iterrows():
         trend_str += f"{date.strftime('%m/%d')} - 收:{row['Close']:.2f} | 量:{int(row['Volume'])} | 20MA:{row['ma20']:.2f} | RSI:{row['rsi']:.2f}\n"
-        
+
+    # 💡 阿土伯絕招：Python 自己算好大小，強迫 AI 接受事實！
+    last_close = recent_df['Close'].iloc[-1]
+    last_ma20 = recent_df['ma20'].iloc[-1]
+    if last_close > last_ma20:
+        ma_status = "【已強勢站上 20MA 多頭生命線】(嚴禁在空方與裁決說它沒突破或被20MA壓制)"
+    else:
+        ma_status = "【已跌破 20MA 進入弱勢區】(嚴禁在多方與裁決建議買進)"
+
     system_prompt = """
     你現在是一個「台股高階量化戰情室」。請觀察數據並進行多空辯論。
     
     【判斷邏輯核心】：
-    1. 比較最後一天的 Close 與 20MA。
-    2. 若 Close > 20MA，這是「多頭站穩」，嚴禁說它是小於或偏空！
-    3. 若 Close < 20MA，這是「空頭破線」，裁決必須觀望或偏空。
+    請絕對遵照 user 提示中的「目前的均線狀態」來撰寫內容。AI 經常比較錯數字大小，所以請放棄自己算，直接聽從「目前的均線狀態」指示！
     
     【極度重要警告】：
     你「只能」輸出一個合法的 JSON 物件，絕對不能包含任何其他的問候語、解釋文字或 Markdown 標籤。
@@ -243,13 +249,14 @@ def get_ai_technical_brain(stock_name, recent_df, rs_score):
         "pattern": "型態名稱(限8字內)",
         "bull": "多方觀點(限20字內)",
         "bear": "空方觀點(限20字內)",
-        "judge": "最終裁決(限30字內，依真實數字判斷)"
+        "judge": "最終裁決(限30字內，必須符合目前的均線狀態)"
     }
     """
-    user_prompt = f"股票：{stock_name}\n相對大盤強弱：{rs_score}%\n近5日量價變化：\n{trend_str}"
+    user_prompt = f"股票：{stock_name}\n相對大盤強弱：{rs_score}%\n目前的均線狀態：{ma_status}\n近5日量價變化：\n{trend_str}"
 
     try:
         headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
+# ... 下面保留你原本的 payload 與 API 呼叫 ...
         payload = {
             "model": "llama-3.1-8b-instant",
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
