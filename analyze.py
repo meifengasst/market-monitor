@@ -229,20 +229,21 @@ def get_ai_technical_brain(stock_name, recent_df, rs_score):
         trend_str += f"{date.strftime('%m/%d')} - 收:{row['Close']:.2f} | 量:{int(row['Volume'])} | 20MA:{row['ma20']:.2f} | RSI:{row['rsi']:.2f}\n"
         
     system_prompt = """
-    你現在是一個「台股高階量化戰情室」。
-    請觀察提供的數據，辨識出目前的「籌碼型態」，並進行多空辯論。
+    你現在是一個「台股高階量化戰情室」。請觀察數據並進行多空辯論。
     
     【判斷邏輯核心】：
     1. 比較最後一天的 Close 與 20MA。
-    2. 如果 Close > 20MA (如 130.5 > 101.49)，這是「多頭站穩」，嚴禁說它是小於或偏空！
-    3. 如果 Close < 20MA，這是「空頭破線」，裁決必須觀望或偏空。
+    2. 若 Close > 20MA，這是「多頭站穩」，嚴禁說它是小於或偏空！
+    3. 若 Close < 20MA，這是「空頭破線」，裁決必須觀望或偏空。
     
-    請【嚴格以純 JSON 格式】回傳。
+    【極度重要警告】：
+    你「只能」輸出一個合法的 JSON 物件，絕對不能包含任何其他的問候語、解釋文字或 Markdown 標籤。
+    請嚴格遵守以下格式與字數限制：
     {
-        "pattern": "型態名稱",
-        "bull": "多方觀點",
-        "bear": "空方觀點",
-        "judge": "阿土伯最終裁決(請根據真實數學大小判斷)"
+        "pattern": "型態名稱(限8字內)",
+        "bull": "多方觀點(限20字內)",
+        "bear": "空方觀點(限20字內)",
+        "judge": "最終裁決(限30字內，依真實數字判斷)"
     }
     """
     user_prompt = f"股票：{stock_name}\n相對大盤強弱：{rs_score}%\n近5日量價變化：\n{trend_str}"
@@ -256,11 +257,22 @@ def get_ai_technical_brain(stock_name, recent_df, rs_score):
         }
         res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
         res.raise_for_status()
+        
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
-        ai_text = re.sub(r'```json|```', '', ai_text).strip()
-        match = re.search(r'\{.*\}', ai_text, re.DOTALL)
-        if match: return json.loads(match.group(0))
-        else: return {"pattern": "解析失敗", "bull": "格式錯誤", "bear": "格式錯誤", "judge": "🤖 格式跑掉啦！"}
+        
+        # 💡 阿土伯終極過濾器：直接找出字串中的第一個 { 和最後一個 }
+        start_idx = ai_text.find('{')
+        end_idx = ai_text.rfind('}')
+        
+        if start_idx != -1 and end_idx != -1:
+            json_str = ai_text[start_idx:end_idx+1]
+            try:
+                return json.loads(json_str)
+            except json.JSONDecodeError:
+                return {"pattern": "格式損毀", "bull": "AI 輸出包含非法字元", "bear": "AI 輸出包含非法字元", "judge": "🤖 無法解析 JSON 結構"}
+        else:
+            return {"pattern": "解析失敗", "bull": "AI 沒有回傳 JSON 物件", "bear": "AI 囉唆講了一堆廢話", "judge": "🤖 AI 格式完全跑掉啦！"}
+            
     except Exception as e:
         print(f"⚠️ 綜合大腦失敗 ({stock_name}): {e}")
         return {"pattern": "連線中斷", "bull": "連線異常", "bear": "連線異常", "judge": "🤖 API 限速或異常。"}
