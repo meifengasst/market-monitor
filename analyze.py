@@ -218,71 +218,77 @@ def generate_morning_script_via_groq(market_data):
         print(f"⚠️ Groq API 呼叫失敗: {e}")
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
         
-def get_ai_technical_brain(stock_name, recent_df, rs_score):
-    print(f"🕵️‍♂️ 啟動連貫型態掃描與多空辯論：{stock_name}...")
-    groq_api_key = os.environ.get("GROQ_API_KEY")
-    if not groq_api_key:
-        return {"pattern": "未知", "bull": "無法連線", "bear": "無法連線", "judge": "⚠️ 未設定 API KEY。"}
+def get_ai_technical_brain_o3(stock_name, recent_df, rs_score):
+    print(f"🕵️‍♂️ [o3-mini 重裝版] 啟動深度邏輯掃描與多空辯論：{stock_name}...")
+    
+    # 抓取你剛申請的 OpenAI API Key
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        return {"pattern": "未知", "bull": "無法連線", "bear": "無法連線", "judge": "⚠️ 未設定 OPENAI_API_KEY。"}
 
     trend_str = ""
     for date, row in recent_df.iterrows():
         trend_str += f"{date.strftime('%m/%d')} - 收:{row['Close']:.2f} | 量:{int(row['Volume'])} | 20MA:{row['ma20']:.2f} | RSI:{row['rsi']:.2f}\n"
 
-    # 💡 阿土伯絕招：Python 自己算好大小，強迫 AI 接受事實！
+    # 阿土伯的防呆地基：把事實先準備好
     last_close = recent_df['Close'].iloc[-1]
     last_ma20 = recent_df['ma20'].iloc[-1]
     if last_close > last_ma20:
-        ma_status = "【已強勢站上 20MA 多頭生命線】(嚴禁在空方與裁決說它沒突破或被20MA壓制)"
+        ma_status = "【已站上 20MA 多頭生命線】(嚴格遵守此事實，不可看空)"
     else:
-        ma_status = "【已跌破 20MA 進入弱勢區】(嚴禁在多方與裁決建議買進)"
+        ma_status = "【已跌破 20MA 進入弱勢區】(嚴格遵守此事實，不可看多)"
 
     system_prompt = """
-    你現在是一個「台股高階量化戰情室」。請觀察數據並進行多空辯論。
+    你現在是一個「台股高階量化戰情室」的推理大腦。請觀察數據並進行多空辯論。
+    請嚴格遵照 user 提示中的「目前的均線狀態」來撰寫內容。
     
-    【判斷邏輯核心】：
-    請絕對遵照 user 提示中的「目前的均線狀態」來撰寫內容。AI 經常比較錯數字大小，所以請放棄自己算，直接聽從「目前的均線狀態」指示！
-    
-    【極度重要警告】：
-    你「只能」輸出一個合法的 JSON 物件，絕對不能包含任何其他的問候語、解釋文字或 Markdown 標籤。
-    請嚴格遵守以下格式與字數限制：
+    你「只能」輸出一個合法的 JSON 物件，絕對不能包含任何其他的問候語或 Markdown 標籤。格式必須完全吻合以下 Key：
     {
         "pattern": "型態名稱(限8字內)",
         "bull": "多方觀點(限20字內)",
         "bear": "空方觀點(限20字內)",
-        "judge": "最終裁決(限30字內，必須符合目前的均線狀態)"
+        "judge": "最終裁決(限30字內，結論必須符合目前的均線狀態)"
     }
     """
     user_prompt = f"股票：{stock_name}\n相對大盤強弱：{rs_score}%\n目前的均線狀態：{ma_status}\n近5日量價變化：\n{trend_str}"
 
     try:
-        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
-# ... 下面保留你原本的 payload 與 API 呼叫 ...
-        payload = {
-            "model": "llama-3.1-8b-instant",
-            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "temperature": 0.2, "max_tokens": 200
+        headers = {
+            "Authorization": f"Bearer {openai_api_key}",
+            "Content-Type": "application/json"
         }
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
+        
+        # o3-mini 的專屬 Payload 結構
+        payload = {
+            "model": "o3-mini",
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            # 強制鎖定 JSON 格式，減少解析錯誤
+            "response_format": {"type": "json_object"} 
+            # 注意：o3-mini 不支援 temperature，所以我們不放
+        }
+        
+        # 超時時間拉長到 30 秒，因為 o3-mini 需要時間「思考」
+        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
         res.raise_for_status()
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         
-        # 💡 阿土伯終極過濾器：直接找出字串中的第一個 { 和最後一個 }
+        # 💡 阿土伯終極過濾器：穩穩抓出 JSON
         start_idx = ai_text.find('{')
         end_idx = ai_text.rfind('}')
         
         if start_idx != -1 and end_idx != -1:
             json_str = ai_text[start_idx:end_idx+1]
-            try:
-                return json.loads(json_str)
-            except json.JSONDecodeError:
-                return {"pattern": "格式損毀", "bull": "AI 輸出包含非法字元", "bear": "AI 輸出包含非法字元", "judge": "🤖 無法解析 JSON 結構"}
+            return json.loads(json_str)
         else:
-            return {"pattern": "解析失敗", "bull": "AI 沒有回傳 JSON 物件", "bear": "AI 囉唆講了一堆廢話", "judge": "🤖 AI 格式完全跑掉啦！"}
+            return {"pattern": "解析失敗", "bull": "AI 格式錯誤", "bear": "AI 格式錯誤", "judge": "🤖 無法解析 o3-mini 回傳結果"}
             
     except Exception as e:
-        print(f"⚠️ 綜合大腦失敗 ({stock_name}): {e}")
-        return {"pattern": "連線中斷", "bull": "連線異常", "bear": "連線異常", "judge": "🤖 API 限速或異常。"}
+        print(f"⚠️ o3-mini 綜合大腦連線失敗 ({stock_name}): {e}")
+        return {"pattern": "連線中斷", "bull": "API異常", "bear": "API異常", "judge": "🤖 請檢查 API Key 或餘額是否充足。"}
 
 def get_fundamental_risk(symbol, stock_name):
     print(f"🔎 正在調閱 {stock_name} 的財務報表...")
