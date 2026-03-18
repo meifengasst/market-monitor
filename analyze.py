@@ -293,9 +293,54 @@ def generate_morning_script_o3(market_data):
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
         
 
-
+# 💡 在你設定環境變數的地方加入 FMP_API_KEY
+# FMP_API_KEY = os.environ.get("FMP_API_KEY")
 def get_fundamental_risk_o3(symbol, stock_name):
     print(f"🔎 [o3-mini 財報掃雷] 正在調閱 {stock_name} 的財務報表...")
+    # 阿土伯預設變數
+    pe = pb = roe = rev_growth = margins = '未知'
+    
+    fmp_key = os.environ.get("FMP_API_KEY")
+    
+    # 🌟 美股走專用高速公路 (FMP API)
+    if not symbol.endswith(".TW") and fmp_key:
+        try:
+            # 呼叫 FMP 的關鍵指標 API
+            metrics_url = f"https://financialmodelingprep.com/api/v3/key-metrics/{symbol}?apikey={fmp_key}"
+            res = requests.get(metrics_url, timeout=5).json()
+            if len(res) > 0:
+                pe = round(res[0].get('peRatio', 0), 2)
+                pb = round(res[0].get('pbRatio', 0), 2)
+                roe = f"{round(res[0].get('roe', 0) * 100, 2)}%"
+                
+            # 呼叫 FMP 的財務成長 API
+            growth_url = f"https://financialmodelingprep.com/api/v3/financial-growth/{symbol}?apikey={fmp_key}"
+            res_growth = requests.get(growth_url, timeout=5).json()
+            if len(res_growth) > 0:
+                rev_growth = f"{round(res_growth[0].get('revenueGrowth', 0) * 100, 2)}%"
+                
+            margins = "請參考ROE" # 簡化傳遞
+            print(f"✅ 成功透過 FMP 獲取 {stock_name} 財報！")
+        except Exception as e:
+            print(f"⚠️ FMP 抓取失敗，準備退回 Yahoo: {e}")
+            
+    # 🌟 台股或 FMP 失敗時，退回原本的 yfinance 備用路線
+    if pe == '未知' or pe == 0:
+        try:
+            info = yf.Ticker(symbol).info
+            pe = info.get('trailingPE', '未知')
+            pb = info.get('priceToBook', '未知')
+            roe_val = info.get('returnOnEquity', '未知')
+            roe = f"{round(roe_val * 100, 2)}%" if roe_val != '未知' else '未知'
+            rg_val = info.get('revenueGrowth', '未知')
+            rev_growth = f"{round(rg_val * 100, 2)}%" if rg_val != '未知' else '未知'
+            m_val = info.get('profitMargins', '未知')
+            margins = f"{round(m_val * 100, 2)}%" if m_val != '未知' else '未知'
+        except:
+            pass
+
+    # ... 下面繼續接你原本呼叫 o3-mini 判讀財報的程式碼 ...
+    # (system_prompt, user_prompt, requests.post... 保留原樣)
     try:
         info = yf.Ticker(symbol).info
         pe = info.get('trailingPE', '未知')
