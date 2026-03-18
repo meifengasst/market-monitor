@@ -299,6 +299,21 @@
         let rawData = [];
         let stockMap = {}; 
         let priceChart = null; let rsiChart = null; let macdChart = null;
+
+        // 💡 這裡是我們要加的新功能：風控長徽章變色邏輯
+        const getCroBadgeStyle = (decision) => {
+            if (!decision) return "bg-gray-800 text-gray-300 border-gray-600";
+            if (decision.includes("停損") || decision.includes("出局") || decision.includes("嚴格觀望")) {
+                return "bg-red-900/80 text-red-300 border-red-500 animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.5)]";
+            }
+            if (decision.includes("抱牢") || decision.includes("做多")) {
+                return "bg-green-900/80 text-green-300 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.3)]";
+            }
+            if (decision.includes("縮注") || decision.includes("減碼")) {
+                return "bg-yellow-900/80 text-yellow-300 border-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.3)]";
+            }
+            return "bg-purple-900/80 text-purple-300 border-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.3)]";
+        };
         
         // 💡 全域變數大腦：紀錄帳務狀態
         let myPortfolio = JSON.parse(localStorage.getItem('atu_portfolio')) || {};
@@ -941,14 +956,49 @@ function openModal(stock) {
                             </div>
                             ${positionHtml}
                             
-                            
                             <div class="pt-3 border-t border-slate-700/50 space-y-2">
-                                <div class="bg-slate-900/50 p-5 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-3 relative mt-3">
-                                    <div class="absolute -top-3 -right-2 z-10"><span class="bg-yellow-500 text-slate-900 text-sm px-3.5 py-1 rounded-full font-black shadow-[0_0_10px_rgba(234,179,8,0.5)] border border-yellow-300 flex items-center gap-1 group-hover:animate-pulse"><span>🔎</span> ${stock.ai_debate && stock.ai_debate.pattern ? stock.ai_debate.pattern : '分析中'}</span></div>
-<div class="flex items-start gap-3 pt-1"><span class="text-red-400 text-sm md:text-base font-black mt-0.5 whitespace-nowrap">🔴 多方:</span><p class="text-sm md:text-base font-bold text-slate-200 leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.bull : '讀取中...'}</p></div>
-                                    <div class="flex items-start gap-3"><span class="text-green-400 text-sm md:text-base font-black mt-0.5 whitespace-nowrap">🟢 空方:</span><p class="text-sm md:text-base font-bold text-slate-200 leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.bear : '讀取中...'}</p></div>
-                                    <div class="border-t border-slate-700 mt-1 pt-3 flex items-start gap-3"><span class="text-blue-400 text-base md:text-lg font-black mt-0.5 whitespace-nowrap">👨‍⚖️ 裁決:</span><p class="text-base md:text-lg font-black text-white leading-relaxed flex-1 tracking-wide">${stock.ai_debate ? stock.ai_debate.judge : '讀取中...'}</p></div>
+                                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-600/50 shadow-inner flex flex-col gap-2 relative mt-3">
+                                    <div class="absolute -top-3 -right-2 z-10"><span class="bg-yellow-500 text-slate-900 text-xs px-3 py-0.5 rounded-full font-black shadow-[0_0_10px_rgba(234,179,8,0.5)] border border-yellow-300 flex items-center gap-1 group-hover:animate-pulse"><span>🔎</span> ${stock.ai_debate && stock.ai_debate.pattern ? stock.ai_debate.pattern : '分析中'}</span></div>
+                                    <div class="flex items-start gap-2 pt-1"><span class="text-red-400 text-xs font-black mt-0.5 whitespace-nowrap">🔴 多方:</span><p class="text-xs font-bold text-slate-300 leading-relaxed flex-1">${stock.ai_debate ? stock.ai_debate.bull : '讀取中...'}</p></div>
+                                    <div class="flex items-start gap-2"><span class="text-green-400 text-xs font-black mt-0.5 whitespace-nowrap">🟢 空方:</span><p class="text-xs font-bold text-slate-300 leading-relaxed flex-1">${stock.ai_debate ? stock.ai_debate.bear : '讀取中...'}</p></div>
+                                    <div class="border-t border-slate-700/50 mt-1 pt-2 flex items-start gap-2"><span class="text-blue-400 text-xs font-black mt-0.5 whitespace-nowrap">👨‍⚖️ 裁決:</span><p class="text-xs font-black text-white leading-relaxed flex-1">${stock.ai_debate ? stock.ai_debate.judge : '讀取中...'}</p></div>
                                 </div>
+
+                                ${stock.ultimate_risk ? `
+                                <div class="mt-4 bg-[#151a23] border border-indigo-500/30 rounded-xl p-4 shadow-lg hover:border-indigo-400/60 transition-colors">
+                                    <div class="flex justify-between items-center mb-3 border-b border-indigo-900/50 pb-2">
+                                        <div class="flex items-center space-x-1.5">
+                                            <span class="text-lg animate-pulse drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]">🕵️‍♂️</span>
+                                            <h3 class="text-indigo-300 font-black text-[11px] tracking-widest">o3-mini 跨維度風控</h3>
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-black border ${getCroBadgeStyle(stock.ultimate_risk.action_decision)}">
+                                            ${stock.ultimate_risk.action_decision || '無指令'}
+                                        </span>
+                                    </div>
+                                    
+                                    <div class="space-y-2.5 text-[11px]">
+                                        <div class="flex items-start">
+                                            <span class="text-slate-500 w-16 flex-shrink-0 mt-0.5 font-bold">⚠️ 騙線掃描</span>
+                                            <span class="text-yellow-400 font-bold leading-relaxed">
+                                                ${stock.ultimate_risk.divergence_warning || '無背離訊號'}
+                                            </span>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="text-slate-500 w-16 flex-shrink-0 mt-0.5 font-bold">🛡️ 動態防守</span>
+                                            <div class="text-slate-300 font-bold">
+                                                建議跌破 <span class="text-red-400 font-black text-xs mx-0.5">$${stock.ultimate_risk.atr_stop_loss_price || '未知'}</span> 停損
+                                                <span class="text-[9px] text-slate-500 ml-0.5">(ATR基準)</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start">
+                                            <span class="text-slate-500 w-16 flex-shrink-0 mt-0.5 font-bold">💰 資金控管</span>
+                                            <span class="text-blue-300 font-bold leading-relaxed">
+                                                ${stock.ultimate_risk.position_sizing_advice || '依標準風控執行'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                ` : ''}
                             </div>
                         </div>
                         <div class="bg-blue-900/30 p-4 rounded-xl border border-blue-500/30 mt-auto">
