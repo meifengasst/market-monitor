@@ -506,7 +506,7 @@ def generate_dashboard_data():
             
             print(f"⚖️ 正在請求多空 AI 辯論 {info['name']} 的技術面...")
             recent_5d = df.tail(5)
-            debate_result = get_ai_technical_brain(info["name"], recent_5d, rs_score)
+            debate_result = get_ai_technical_brain_o3(info["name"], recent_5d, rs_score)
             
             time.sleep(2) # 💡 喘口氣 2：避免被 Groq 踢下線
             
