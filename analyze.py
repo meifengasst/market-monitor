@@ -301,8 +301,8 @@ def get_ai_technical_brain_o3(stock_name, recent_df, rs_score):
         print(f"⚠️ o3-mini 綜合大腦連線失敗 ({stock_name}): {e}")
         return {"pattern": "連線中斷", "bull": "API異常", "bear": "API異常", "judge": "🤖 請檢查 API Key 或餘額是否充足。"}
 
-def get_fundamental_risk(symbol, stock_name):
-    print(f"🔎 正在調閱 {stock_name} 的財務報表...")
+def get_fundamental_risk_o3(symbol, stock_name):
+    print(f"🔎 [o3-mini 財報掃雷] 正在調閱 {stock_name} 的財務報表...")
     try:
         info = yf.Ticker(symbol).info
         pe = info.get('trailingPE', '未知')
@@ -322,27 +322,40 @@ def get_fundamental_risk(symbol, stock_name):
         print(f"⚠️ 抓取 {symbol} 財報失敗: {e}")
         return "⚠️ 財報數據連線異常，無法進行基本面掃雷。"
 
-    groq_api_key = os.environ.get("GROQ_API_KEY")
-    if not groq_api_key:
-        return "⚠️ 未設定 API KEY，無法啟動財報掃雷。"
+    # 💡 換上我們剛設定好的 OpenAI 金鑰
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        return "⚠️ 未設定 OPENAI_API_KEY，無法啟動財報掃雷。"
 
     system_prompt = """
     你是一位極度嚴格、挑剔的華爾街財報分析師，現在為台灣老手「阿土伯」效力。
     你的任務是看著這家公司的「基本面數據」，用【一句話（嚴格限制 40 字以內）】挑出它最大的財務隱患或亮點。
+    請直接給出致命的點評，不要講廢話。
     """
     user_prompt = f"股票：{stock_name}\n本益比(P/E): {pe}\n股價淨值比(P/B): {pb}\n股東權益報酬率(ROE): {roe}\n近期營收成長率: {rev_growth}\n淨利率: {margins}"
 
     try:
-        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
-        payload = {
-            "model": "llama-3.1-8b-instant",
-            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "temperature": 0.3, "max_tokens": 100
+        headers = {
+            "Authorization": f"Bearer {openai_api_key}", 
+            "Content-Type": "application/json"
         }
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=10)
+        payload = {
+            "model": "o3-mini",
+            "messages": [
+                {"role": "system", "content": system_prompt}, 
+                {"role": "user", "content": user_prompt}
+            ]
+            # 💡 o3-mini 同樣不需要設定 temperature
+        }
+        
+        # 思考財報需要一點時間，timeout 設 20 秒
+        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=20)
         res.raise_for_status()
+        
         return res.json()["choices"][0]["message"]["content"].strip()
+        
     except Exception as e:
+        print(f"⚠️ o3-mini 財報解讀中斷: {e}")
         return "🤖 AI 財報解讀中斷，請手動確認風險。"
 
 def get_best_ma_strategy(df):
@@ -521,7 +534,7 @@ def generate_dashboard_data():
             
             time.sleep(2) # 💡 喘口氣 2：避免被 Groq 踢下線
             
-            funda_insight = get_fundamental_risk(symbol, info["name"])
+            funda_insight = get_fundamental_risk_o3(symbol, info["name"])
 
 
             # 💡 阿土伯計算：今日成交量 vs 過去20日平均成交量
