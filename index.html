@@ -991,13 +991,15 @@ card.innerHTML = `
                                         </span>
                                     </div>
                                     
-                                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 relative z-10">
-                                        <div class="space-y-4">
-                                            <div class="flex items-center gap-2">
-                                                <span class="bg-indigo-900/50 text-indigo-300 text-sm px-3 py-1 rounded font-bold border border-indigo-500/30 shadow-inner">
-                                                    狀態：${stock.unified_brain.pattern}
-                                                </span>
-                                            </div>
+                                    <div class="flex flex-col gap-4 relative z-10">
+                                        
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="bg-indigo-900/50 text-indigo-300 text-sm px-4 py-1.5 rounded font-bold border border-indigo-500/30 shadow-inner">
+                                                狀態：${stock.unified_brain.pattern}
+                                            </span>
+                                        </div>
+                                        
+                                        <div class="flex flex-col gap-3 bg-black/20 p-4 rounded-xl border border-white/5">
                                             <div class="flex items-start gap-2">
                                                 <span class="text-red-400 text-base font-black mt-0.5 whitespace-nowrap">🔴 好消息:</span>
                                                 <p class="text-base font-bold text-slate-200 leading-relaxed">${stock.unified_brain.bull}</p>
@@ -1008,24 +1010,24 @@ card.innerHTML = `
                                             </div>
                                         </div>
 
-                                        <div class="space-y-4 bg-black/40 p-5 rounded-xl border border-white/5">
-                                            <div class="flex items-start gap-2">
-                                                <span class="text-yellow-500 text-xl flex-shrink-0 mt-0.5">⚠️</span>
+                                        <div class="space-y-5 bg-black/40 p-5 rounded-xl border border-white/5 mt-1">
+                                            <div class="flex items-start gap-3">
+                                                <span class="text-yellow-500 text-2xl flex-shrink-0 mt-0.5">⚠️</span>
                                                 <div>
                                                     <p class="text-sm text-slate-500 font-bold mb-1">主力騙線掃描</p>
-                                                    <p class="text-base font-black text-yellow-400">${stock.unified_brain.trap}</p>
+                                                    <p class="text-base font-black text-yellow-400 leading-relaxed">${stock.unified_brain.trap}</p>
                                                 </div>
                                             </div>
                                             
-                                            <div class="flex items-start gap-2">
-                                                <span class="text-blue-400 text-xl flex-shrink-0 mt-0.5">💰</span>
+                                            <div class="flex items-start gap-3">
+                                                <span class="text-blue-400 text-2xl flex-shrink-0 mt-0.5">💰</span>
                                                 <div>
                                                     <p class="text-sm text-slate-500 font-bold mb-1">資金控管建議</p>
-                                                    <p class="text-base font-bold text-blue-300">${stock.unified_brain.sizing}</p>
+                                                    <p class="text-base font-bold text-blue-300 leading-relaxed">${stock.unified_brain.sizing}</p>
                                                 </div>
                                             </div>
 
-                                            <div class="flex items-center justify-between bg-red-900/20 px-4 py-3 rounded-xl border border-red-500/20 mt-3 shadow-inner">
+                                            <div class="flex items-center justify-between bg-red-900/20 px-4 py-3 rounded-xl border border-red-500/20 mt-2 shadow-inner">
                                                 <span class="text-sm text-slate-400 font-bold">🛡️ 動態防守價</span>
                                                 <p class="text-2xl font-mono font-black text-red-400">$${stock.unified_brain.stop_price}</p>
                                             </div>
