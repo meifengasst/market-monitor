@@ -185,6 +185,88 @@ def get_us_market_summary():
             summary[name] = {"price": 0, "pct": 0}
     return summary
 
+def get_ultimate_o3_risk_control(stock_name, current_price, ma20, rsi, atr, news_data, funda_insight):
+    print(f"🌪️ [終極融合] 啟動 o3-mini 跨維度騙線掃描與動態風控：{stock_name}...")
+    
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        return {"warning": "未連線", "stop_loss": 0, "position": "未知", "decision": "API未設定"}
+
+    # 1. 整理跨維度情報網
+    # 將新聞陣列轉換成純文字摘要，避免 Token 浪費
+    news_str = "\n".join([f"- {n['date']} [{n['sentiment']}]: {n['title']}" for n in news_data])
+    if not news_str.strip():
+        news_str = "近期無重大新聞。"
+
+    # 計算目前的趨勢乖離率
+    bias_pct = round(((current_price - ma20) / ma20) * 100, 2) if ma20 > 0 else 0
+
+    system_prompt = """
+    你現在是華爾街頂級「量化避險基金的風控長 (CRO)」，輔佐台灣股神「阿土伯」。
+    你的任務是接收【技術面】、【基本面】、【新聞面】與【波動率(ATR)】，進行「跨維度邏輯推理」。
+
+    【核心任務 1：抓出主力騙線 (邏輯背離)】
+    - 檢查是否「新聞極度樂觀，但股價跌破20MA或RSI轉弱」。
+    - 檢查是否「基本面極差，但股價強勢站上20MA且爆量」。
+    - 如果發現不合理之處，這就是主力騙線，請發出嚴厲警告！
+
+    【核心任務 2：ATR 動態風控 (絕對不要用固定 % 數)】
+    - 真實波動幅度(ATR)代表該股票近期的震盪劇烈程度。
+    - 請根據 ATR 計算合理的「防守停損價」。公式建議：做多時，停損設在 [現價 - (1.5倍 到 2倍的 ATR)]。
+    - 如果 ATR 極大(波動極高)，必須嚴格要求「縮減部位(Position Sizing)」。
+
+    【嚴格輸出格式】：
+    你只能輸出合法的 JSON，嚴禁 Markdown 標籤與廢話。格式如下：
+    {
+        "divergence_warning": "你的跨維度背離觀察，例如：新聞利多但跌破均線，疑為主力出貨 (限40字)",
+        "atr_stop_loss_price": 數字 (你算出的合理防守價，精確到小數點後兩位),
+        "position_sizing_advice": "資金控管建議，例如：波動過大，建議資金上限 10% (限20字)",
+        "action_decision": "最終結論：『抱牢』/『縮注進場』/『嚴格觀望』/『立即停損』"
+    }
+    """
+
+    user_prompt = f"""
+    股票：{stock_name}
+    【技術面與波動率】
+    - 現價：{current_price}
+    - 20日均線(20MA)：{ma20} (乖離率 {bias_pct}%)
+    - RSI (熱度指標)：{rsi}
+    - ATR (14日真實波動幅)：{atr}
+
+    【基本面財報評語】
+    {funda_insight}
+
+    【近期新聞情緒】
+    {news_str}
+
+    請風控長給出最終 JSON 裁決！
+    """
+
+    try:
+        headers = {"Authorization": f"Bearer {openai_api_key}", "Content-Type": "application/json"}
+        payload = {
+            "model": "o3-mini",
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+            "response_format": {"type": "json_object"}
+        }
+        
+        # 跨維度思考比較花時間，給它 30 秒
+        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
+        res.raise_for_status()
+        
+        ai_text = res.json()["choices"][0]["message"]["content"].strip()
+        
+        start_idx = ai_text.find('{')
+        end_idx = ai_text.rfind('}')
+        if start_idx != -1 and end_idx != -1:
+            return json.loads(ai_text[start_idx:end_idx+1])
+        else:
+            return {"warning": "格式錯誤", "stop_loss": current_price*0.95, "position": "未知", "decision": "解析失敗"}
+
+    except Exception as e:
+        print(f"⚠️ 終極風控引擎連線中斷 ({stock_name}): {e}")
+        return {"warning": "連線異常", "stop_loss": current_price*0.95, "position": "防禦狀態", "decision": "強制縮小部位"}
+
 def generate_morning_script_o3(market_data):
     # 抓取 OpenAI 鑰匙
     openai_api_key = os.environ.get("OPENAI_API_KEY")
@@ -523,6 +605,23 @@ def generate_dashboard_data():
 
 
             news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
+            
+# ...(前面你原本計算 RSI, MA, ATR 的程式碼)...
+# 💡 呼叫終極大腦！把所有數據當成參數丟進去
+ultimate_risk = get_ultimate_o3_risk_control(
+    stock_name=info["name"],
+    current_price=current_price,
+    ma20=round(df['ma20'].iloc[-1], 2),
+    rsi=round(df['rsi'].iloc[-1], 2),
+    atr=round(df['atr'].iloc[-1], 2),
+    news_data=news_sentiment_data,
+    funda_insight=funda_insight
+)
+
+# 💡 覆蓋阿土伯原本的停損價！用 o3-mini 算出來的 ATR 動態停損取代死板的 % 數
+dynamic_stop_price = ultimate_risk.get('atr_stop_loss_price', current_price * 0.95)
+
+# ...(把 ultimate_risk 包進去 dashboard_data 陣列裡，傳到前端網頁顯示)...
             
             time.sleep(2) # 💡 喘口氣 1：避免被 Groq 踢下線
 
