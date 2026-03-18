@@ -520,7 +520,7 @@ def generate_dashboard_data():
 
             recent_5d = df.tail(5)
 
-            # 💡 只要呼叫一次終極大腦！
+            # 💡 大合體！只呼叫一次終極大腦
             unified_brain = get_unified_o3_brain(
                 stock_name=info["name"],
                 current_price=current_price,
@@ -535,22 +535,8 @@ def generate_dashboard_data():
 
             # 動態停損價改從 unified_brain 拿
             dynamic_stop_price = unified_brain.get('stop_price', current_price * 0.95)
-            
-            debate_result = get_ai_technical_brain_o3(info["name"], recent_5d, rs_score)
-            time.sleep(2) 
 
-            ultimate_risk = get_ultimate_o3_risk_control(
-                stock_name=info["name"],
-                current_price=current_price,
-                ma20=round(df['ma20'].iloc[-1], 2),
-                rsi=round(df['rsi'].iloc[-1], 2),
-                atr=round(df['atr'].iloc[-1], 2),
-                news_data=news_sentiment_data,
-                funda_insight=funda_insight
-            )
-
-            dynamic_stop_price = ultimate_risk.get('atr_stop_loss_price', current_price * 0.95)
-
+            # 準備畫圖用的歷史資料
             hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2)} for i, r in df.tail(60).iterrows()]
             
             avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
@@ -567,10 +553,8 @@ def generate_dashboard_data():
                 "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
                 "ev": actual_ev, "win_rate": actual_win, "history": hist, 
                 "rs_score": rs_score,
-                "unified_brain": unified_brain,
-                "ai_debate": debate_result, 
+                "unified_brain": unified_brain,  # 👈 打包新的大腦裁決
                 "funda_summary": funda_insight, 
-                "ultimate_risk": ultimate_risk, 
                 "best_ma_name": best_ma_name,        
                 "best_ma_price": best_ma_price,      
                 "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
