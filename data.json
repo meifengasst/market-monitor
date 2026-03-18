@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-18 [12:49]",
+    "last_update": "2026-03-18 [13:03]",
     "data": [
         {
             "symbol": "NVDA",
@@ -951,11 +951,11 @@
             "rs_score": -0.95,
             "ai_debate": {
                 "pattern": "弱勢型態",
-                "bull": "雖然跌破 20MA 但近期量價有反彈跡象，仍有機會反轉",
-                "bear": "跌破 20MA 進入弱勢區，短期內難以恢復",
-                "judge": "建議空方持續觀察，短期內難以買進"
+                "bull": "Nvidia 股價雖跌破 20MA，但近期量價變化仍有反彈跡象，多方觀察是否有機會反轉。",
+                "bear": "Nvidia 股價已跌破 20MA，RSI 低於 40，表明弱勢區域，空方認為機會較大。",
+                "judge": "目前判斷為空方主導，建議觀望或短空策略。"
             },
-            "funda_summary": "\"高淨利率與高ROE表明Nvidia營運效率高，但高P/E與P/B指數卻表明市場對其估值過高，隱患在於泡沫化風險。\"",
+            "funda_summary": "Nvidia 最大的財務隱患：過高本益比與股價淨值比，表明股價過高，存在泡沫風險。",
             "best_ma_name": "10MA",
             "best_ma_price": 182.61,
             "lights": {
@@ -986,16 +986,16 @@
                     "date": "2026-03-12"
                 },
                 {
-                    "title": "美股資金大逃離！219億美元撤出股票基金、油價暴漲引爆通膨憂慮",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNakZ4aWJxSE5tWVhuNVU1cTBPbF8zdW1XcGtrMHRfM29XTTdFdEUtdnZ0d09WMUFXQkNzak54RnZyMWJySVZaT0pCOU9WeUhvbWd6SmhaamRXYzJyTU1mSW1ieXNMUnJuVk5vem9mM3FZMVI3R2hVZEtEUW90akt0ZVpGamNPc2MtTjJMY2dORlNET0E3YnZYY2NJMWV6WTg?oc=5",
-                    "date": "2026-03-07"
-                },
-                {
                     "title": "Tesla Museum台北南港開幕 抽價值12萬特斯拉股票！資格、獎項一次看 | 劉芯衣 | 新聞",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE0yLWZCVXl5RGdoeDZTc25XekNtMFNaMlo3cW1DVWxlZWs2dDRkLWtMTlo1bmRFS21Pdy1wLTk5czUteEtmMHdCZ0dHa2Ftdw?oc=5",
                     "date": "2026-03-13"
+                },
+                {
+                    "title": "美國能源部：Tesla(TSLA.US)與LG Energy Solution簽署三年電池供應協議",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNVFNNZDM2cWs3VElFOUw4SEFNN2Z1UE1jdWh1Z2E4ZmxUSUxiOTRkZ19HVFBYSVV4TE5JYzRiYWNFMDUtbG5Rb21DbGZDZldUek5nY3hGV1hrNTdXdTViVWtHZU5uTFlZbl8yMThTNXpaRzdYNHBkQnJlNHhfTVpHSDQ5MU1OTHBhNzg2MGw0N1h3Qm5mRUlaemhzcW43RG1JOUE?oc=5",
+                    "date": "2026-03-17"
                 },
                 {
                     "title": "20 億美元 xAI 持股換 SpaceX 股權，特斯拉資本重配置引發市場觀望",
@@ -1914,11 +1914,11 @@
             "rs_score": -0.67,
             "ai_debate": {
                 "pattern": "弱勢型態",
-                "bull": "但近期股價有反彈跡象，可能是短期低點",
-                "bear": "已跌破 20MA 進入弱勢區，短期內續跌機率高",
-                "judge": "目前建議空方持續觀察，等待明確的反彈跡象後再進行多方操作"
+                "bull": "雖然 Tesla 股價跌破 20MA，但近期量價變化仍有波動空間，多方可觀察短期反彈機會。",
+                "bear": "Tesla 股價已跌破 20MA，RSI 低於 40，表明股價處於弱勢區，空方可觀察下跌機會。",
+                "judge": "根據目前的均線狀態，Tesla 股價處於弱勢區，建議空方觀察下跌機會，多方需謹慎評估短期反彈風險。"
             },
-            "funda_summary": "\"高本益比與股價淨值比，表明市場對Tesla過度樂觀，高估其未來成長潛力，財務隱患在於高風險高回報的投資風格。\"",
+            "funda_summary": "\"Tesla 的高本益比與股價淨值比，表明市場對其估值過高，ROE 低於業界平均值，近期營收成長率負面，顯示財務隱患。\"",
             "best_ma_name": "60MA",
             "best_ma_price": 427.34,
             "lights": {
@@ -1949,16 +1949,16 @@
                     "date": "2026-03-05"
                 },
                 {
-                    "title": "009816出道即爆紅3優勢掩蓋不了4個真相美股ETF早演過「1限制是落後的開始」 - 基金",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5xYjFmWGU2bTM5WXh6a1JYVVJtam0zVjV0cFlyQWtlMHhZR3hvelFITllOR0RLdGZGVFlmay1heHZvdnF4NE0ySG5NSzBoSzZXcEptd0N3ODE1V1Y2RXN2U0VmUURDSTRTWmc?oc=5",
-                    "date": "2026-03-03"
-                },
-                {
                     "title": "SPY Bear Regime Short System",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE04LTJiSWd0Nmw4N19NZ2ZBNkVQY283aEpkbEhndm1XdkJqTFJMTmRGQ1N1WDNhaTVmX2Y3ck1WLVBJbFlKbTd1RlFsVHpHOTFvLURhREtVZk1aV3VrYi1XZncxSXVveVAxaXhjSEJsZGx4X2lJYUYtemw0dFI?oc=5",
                     "date": "2026-03-15"
+                },
+                {
+                    "title": "009816出道即爆紅3優勢掩蓋不了4個真相美股ETF早演過「1限制是落後的開始」",
+                    "sentiment": "中立",
+                    "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5xYjFmWGU2bTM5WXh6a1JYVVJtam0zVjV0cFlyQWtlMHhZR3hvelFITllOR0RLdGZGVFlmay1heHZvdnF4NE0ySG5NSzBoSzZXcEptd0N3ODE1V1Y2RXN2U0VmUURDSTRTWmc?oc=5",
+                    "date": "2026-03-03"
                 },
                 {
                     "title": "ESG投資有成？iShares ETF近五年報酬率超越S&P 500",
@@ -2876,12 +2876,12 @@
             ],
             "rs_score": 0.0,
             "ai_debate": {
-                "pattern": "弱勢區震盪",
-                "bull": "雖然跌破 20MA 但近期量價變化有反彈跡象，仍有機會反彈",
-                "bear": "跌破 20MA 進入弱勢區，RSI 低於 40 且近期量價下跌明顯，高機率持續下跌",
-                "judge": "目前判斷為空方主導，建議持續觀察並考慮空方操作"
+                "pattern": "連線中斷",
+                "bull": "連線異常",
+                "bear": "連線異常",
+                "judge": "🤖 API 限速或異常。"
             },
-            "funda_summary": "\"本益比(P/E)高於歷史平均值，表明市場對 S&P 500 的估值過高，隱患存在。\"",
+            "funda_summary": "阿土伯的 S&P 500 股票基本面數據不夠完整，缺乏關鍵指標如 ROE、營收成長率和淨利率，難以評估其財務隱患或亮點。",
             "best_ma_name": "5MA",
             "best_ma_price": 668.9,
             "lights": {
@@ -2894,9 +2894,9 @@
             "symbol": "2330.TW",
             "name": "台積電",
             "category": "晶圓代工",
-            "price": 1910.0,
-            "rsi": 41.35,
-            "bias": 0.76,
+            "price": 1895.0,
+            "rsi": 39.77,
+            "bias": 0.0,
             "atr": 58.47,
             "news_sentiment": [
                 {
@@ -2907,7 +2907,7 @@
                 },
                 {
                     "title": "台積電收跌70元至1865元！市值失守50兆元 專家喊「是黃金」",
-                    "sentiment": "利多",
+                    "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMi-wJBVV95cUxPbmZ0OHlPQlBJR2NJamdKR1FOeVZCbzJLcjJ4OGlNbl94RGlHZFpyXzBNd3Y5LWp4NW5HeTlCWFNZdzhJdEhCbFNUZlRoSmVRY0lFb2NGdUtKQnA1RThIMFc5NXNlVEhCVnUtSVBfSWwtWUZ3MFk0Sk9wTlp4ZlhSamFDM0txUVRDa2xBZkozWTFTYkg0MEx3ZjRqS2phWXlUSXVoaVhXTGNsM0dtaVR0ZkNjLWhLVDc4TkRiNHZfdjhEOXB6eU9VSndnZW9oM2NkU2xEV1ROZk9yTmZBRnk5RjVvZlBoMEhOZUo0SHhJLW9PZWp4LVVHSmxOcDFocy14UkJxTV9wZl91N090ZFctTVNEZE5TOFJjTF82TTV6Q1BUdk5wRUhveWZhT1VaclZsVE5qNWxTekNoUDVBTjVTVEFEeXI0d01CYkdYazJVNHVoRDlycGpYTV9aUWlZelhZRWw5aFluaWRjM2g2U0xYekxCUTh4UFItbXhJ?oc=5",
                     "date": "2026-03-03"
                 },
@@ -2918,19 +2918,19 @@
                     "date": "2026-03-03"
                 },
                 {
+                    "title": "台積電飆逾5%衝1960元！市值回補逾2兆元 股市名師李永年看好續漲",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMinANBVV95cUxNUUlXNERhTGFnSUtabDRXVmw1RDltak43VEpSVTc3SndhUVFxTWdCX0JWZklqVndjbnBxUWxLYkVGVjFGeHRrRWhrTjdXdnFkN1FxdWhqdjlSV1hkdE1tZGJ5R21IdVRZa25MQjZCTDhqVW5TSXQxMU1rb1RIVEhmZHRtS0d1cGZWTklOZ0J4RDJmMXpQZmFNSDZ6WURXeUJQLXR0d1pEVHg1MUg4RW1SUnNBbUlCT3FSd3Rvby1SXzMzN3UtQl9HQmFKbEFtYWZSUUw4RVhFYkRpc01MTU5ONlh6bWtyekpPMzRSYlJDdUppbTFBcC1EN09peTRTdFh3TkNZdjM2Q2JUb3VDa3pnQlRxWGZmalBWdHVDd1hPYS14YWJTWU13VUZENnBUNXVNSTFfS0h4Skc0UXR3ZnIwWHlRdmRKUWNnX2Rla2hRdVhpMm1WU2NldmpKZGlvelN1Ymt4aWdpd1BIVFl5TmdZdkZONXlnLUFiR3BPUEpmRG9GSmZIOXFWMl82WmNxcFJKd2VqU2Z3UUViQUty?oc=5",
+                    "date": "2026-03-04"
+                },
+                {
                     "title": "小資族抄底0050！ 零股1天湧近5000萬股 吸金35億元",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMiuAJBVV95cUxNUG5FazdoaVgya0d1QzZCSWdrUTBlZHhrakRMX1dUbUdVRm14VUdqYl90aGMxaGQ4cUV0b0taUG03clIxOE14M2JkYzh1STB2S01rRmtZcGZWWE83LXc3RHBwWXJRN3laRUFJaW1EVklSZ3RMRzN2OXJpUHNrWVFoelFHY2xzOFRHUHU0aGZXWWhRa1pmalB3c1hsbDN0aWNVVFVfVVBsYy15c2NXZE0tbFQ2bTlONTJWdGJTdTZZdE16UXkwVTZhdW1yTWhhODc1Unpsd20yZ0JmbE5mMnZYb3BLSzdSNDVwMmlwYkNsQUFtY1diRkxDd0txbHFOTi1mOVFXbTlyUUxLQndnTXVod2UzQlpacDljSkVfVXMxcEs3UWRYR2VMeHl5UjR3aWt6OFlvajZwcHQ?oc=5",
                     "date": "2026-03-08"
-                },
-                {
-                    "title": "台積電2月營收3176億元！月減 21% 仍創史上單月第十強",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMi1wJBVV95cUxOUS12a2JaWmpHUWg2czRxSlRQWkdsS1BYYkg1ZlZpQURmUkdqelJCVjV0ZWZRVHUzd3VqdTF3Q1IwWjA4OE45UW0tMEtVVWw3ZnVsZjZSVFQ4czJ0dmdXdmlUU2djQ2tNcWRVT0JUR0dFRW11Z1FhTzhTbTM3dWZ3NklCcC1UekwyUzNpeFlBT2NYS2tyemttU2tEOVFzNGwyTndlTFFZVEc5M09PSWw3eTlKdU5zTXFUMDNfVGdPME1xb0ktNXZ1dFVZRUdCRl82WmduZWRrWHNhLUppRXRiQmNMRGtURjJPUlQzMUlrVVNnbmJQQVpYTzBGUzFTLVNjTmtmTnNEQ0NzRmF2dTd1T1pUSW9pUTh5M2tXRFVjXzFHQi1XbUkza0VuMGdMNzZKUkY3WDlPRnpsTEJhQ3BUbml1Z1p3eFFTVmxrY2VFMkNCSkotdG4w?oc=5",
-                    "date": "2026-03-09"
                 }
             ],
-            "vol_ratio": 0.34,
+            "vol_ratio": 0.38,
             "optimal_sl": 8,
             "actual_sl": 8,
             "ev": 1.85,
@@ -3823,30 +3823,30 @@
                 },
                 {
                     "date": "2026-03-18",
-                    "price": 1910.0,
-                    "volume": 14474929,
-                    "ma5": 1871.36,
-                    "ma20": 1895.68,
-                    "ma60": 1725.99,
-                    "macd": 26.58,
-                    "macd_signal": 37.5,
-                    "macd_hist": -10.91,
-                    "rsi": 41.35,
-                    "bb_upper": 2007.65,
-                    "bb_lower": 1783.71,
+                    "price": 1895.0,
+                    "volume": 16095216,
+                    "ma5": 1868.36,
+                    "ma20": 1894.93,
+                    "ma60": 1725.74,
+                    "macd": 25.39,
+                    "macd_signal": 37.26,
+                    "macd_hist": -11.87,
+                    "rsi": 39.77,
+                    "bb_upper": 2006.7,
+                    "bb_lower": 1783.17,
                     "atr": 58.47
                 }
             ],
-            "rs_score": -2.63,
+            "rs_score": -3.32,
             "ai_debate": {
-                "pattern": "已強勢站上20MA多頭生命線",
-                "bull": "台積電已突破20MA，表明多頭勢力強勁，近期量價變化顯示買氣持續，RSI下跌但仍在中線區域，表明市場尚未過熱",
-                "bear": "雖然台積電已突破20MA，但近期量價變化顯示買氣減弱，RSI持續下跌，表明市場可能已經過熱，空方機會逐漸增加",
-                "judge": "根據目前的均線狀態和近期量價變化，台積電仍然處於多頭行情中，買方機會較大，建議持續觀察20MA的支撐力度"
+                "pattern": "連線中斷",
+                "bull": "連線異常",
+                "bear": "連線異常",
+                "judge": "🤖 API 限速或異常。"
             },
-            "funda_summary": "台積電最大的財務隱患是高淨值比（9.1153555），可能表明公司股價過高，未來成長率難以支撐高估值。",
+            "funda_summary": "🤖 AI 財報解讀中斷，請手動確認風險。",
             "best_ma_name": "60MA",
-            "best_ma_price": 1725.99,
+            "best_ma_price": 1725.74,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -3863,37 +3863,13 @@
             "atr": 10.43,
             "news_sentiment": [
                 {
-                    "title": "記憶體又跌！『旺宏』才飆漲停就慘摔9.5%狂噴387億元 旺宏同步重挫炸量17.2萬張",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMivwJBVV95cUxNT0NBdVlUMkxmcV8wQTdDd1VFSUJCazNVUmdRZE5yZm1LTE5SVlZYdG1IQTBxM2ZIc1NVQWoybHlxUXRZanJYc2xKYnhLaHlyYmRQWGtLVzRwMkF0cE4zT3ZVcjdvekJjSExJWnRDci1Fb0xINXRTY2RESXpSWnZlNG5hMUxISjdyNlY2MFpuMkpaRGlhNmFBcHNiWENRNDJXdEV5MXhpWm1PektFc3lRbTFlRjhKckcteS1UbU8wV09TYlU5ZVUtT0hBT09QZWpGb3NpWWJ1cGtjTUpCQ2lGU3V3Q0M3dXc1TmxMczM0Z05PdE1iZmlxcGRMeGlyUTZwV3RLT2lJR0FsOTBnT1BUMEk2aFFZQ1d0MllsNi1KRDZCaWtFRXd1UkdmZUpJWlhpVVVfdGd0RVdSUTZieVdR?oc=5",
-                    "date": "2026-03-05"
-                },
-                {
-                    "title": "旺宏爆5902萬元違約交割 股價震盪走揚逾1%",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMiowJBVV95cUxNZ09JLUhoQXBueGNLZWR6Mk1VejdRWEJyZEJMdkxzRTFhTklvWnlZdVlGMWtQZjh5MC0xVmp1N3VRSzhCZGh5SWFlZjlpWEtqTF9NMEl2a09VY014eFBSLVQ5aENNUHd5eVpEd0M5N3pGdXR4Q3I2V2lGQ1FmRFA2QjdDeTViMTc0ZU1wa29vaF96NFliQnZ1NGhsc0d3ejdma09XbkJGWDBWY25sWDVudFJRcDlucjNwRmR0VlROa2x2X182LThKWHhfOXhwWG5BZFVzU0NoSW1Ndm8xOUlKRDBSTzRnSGpLU2E4Z0hxR1B6QWxqTERmUkVGMkFKeWhEV1dhVGJDc3lneWFDUnFTa3d2ZG05UzRPOXppSXRMQ2wyT2c?oc=5",
-                    "date": "2026-03-05"
-                },
-                {
-                    "title": "記憶體大反攻！南亞科旺宏等4檔亮燈漲停 分析師：行情至少看到上半年",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMi0gNBVV95cUxNRE9yZHRUdmtscVZMMzJZZlVmd3dnYUx6MGNjYkRZdzBMa0pnb3Nsdk9DWEJpVWRWQ25PY2pUUTUwQW4zWkZNUnRaLXdKWVlQcVR5X1ozNG9EcnkzUTdwakdTamhwS3U1NXBaTmRPMjFCRkNWaHQtODBkSmlqTnhObTNma1pKSGxGaDdYeDY5TXYxZ0hSY1pzZjBKUlN4Z1RwTFFzR19jSG90TGd4WmRsX1lDd183cEVVOUwyREctb1c4MHh4R1NQOVZ4UE9JNGxBNDJOVHkxTWFJZDZ6NmNwLUlrcFJWU1hWUkJOXzFxbFRxWUFrRGNNQ211dFc1T0NueVB2RHd4aWtpQnFoeWtBTHcxRS1WYmpuRFpVZFA5TnhaRE1FSlJxZklnZXdDYVpUdHdMUWhWenJpRWpBUm5XOVhzZUgzUmVYc0x5TUJEaWtWUy0tV1NNZTI4TEZXTDBFRWNsdm55alczWEpoaUhjLWloLWVhcWk0VU9EWW54Tm9yUTVvbldKUS1YVjdmcVRIYlh5bUEzRndYcGtISDk4Zm9rcnlFVXZhN3kwQm41Ump6Z2lXbHkyMkF4ejVKUWpIYUpLN0pPLVBmZk8zTl9idk1n?oc=5",
-                    "date": "2026-03-04"
-                },
-                {
-                    "title": "記憶體繼續飆！『旺宏』拉第5根漲停衝近70%寫新天價 挾南亞科、旺宏、晶豪科齊亮紅燈",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMi-AJBVV95cUxPNHZTUGhBQURnZ1drRXJMaXMzNVEybXpEOGszbXEzcVpINlJuOWFwdkdTVk8xa0ZlUjJxX0IwcWdfdEJXX2J5dFh2YllLLVhYbVVNNjJ6Zl9iSm1DODd2dU5pbUdPbnVuU2hscFczR3E3ZnNaV2prNk13c1BMUmZ5VXB2TWFpc2xfRjhTVnY5ZWp4RkNGU1pZRjB2WVBtVGtHeXFUdlVMSzVpaVF3Z25MSDd4NVJtYnViaGdNeVFHdUdyNTdkWFFGUjA3a2g1SkNES0hHUU5WZVNjM1VZUG5RZk1PT0VrZ3ZhdVpGUGVweFhNSXREZlFVQ2k4T2pZLVVMOUNCQUNhQU9VTnpLdjNrVUprLTVuSlUxemxUOENKczBXSzhyRWhhUWRrTGxWOENsNWFQVWhZQVBVcXVjanVDdUEzakRmS20tSGVTVEl1S3FEb2pERkhpVm4zUEVsbTJhSFU3c094M0o0NDFPdXYyU2hQQjYyRmFk?oc=5",
-                    "date": "2026-03-11"
-                },
-                {
-                    "title": "台股刷史上第三大跌點！三大法人豪擲129億送暖記憶體3檔 台塑四寶『旺宏』也獲掃1.3萬張",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMi2wNBVV95cUxNSDVPMjJseUhFcXZMSFg4YlZ0Q0F4R1dhbVVhT1VQcTVueXZXR0Z3Qk5IbWQ3QXdTQlpUdTFoQWRxLUNsOGlsRWV1SFZpWi1TRU5QMkswbVE0eHE2VkI3OFhsci1lSHF0YklUZFM4VmowZW9SenhqcmR6V1FNTUZ0TUt3V0dJNExwYWhLWC1wQjFfWU81RkMyYlJMZlIzN2NFM0U3endINWZSbFQ5a2J3aHo0bXRmVGJQMFl3T2QyOEh4QUd0cXNCUVdJby14bThaUkEySGdTYTdua0Y0UVF4OEVKeTZhTHVYejZKcmw1MXhkd3VUZ0xEVlptOEhfX25mVy1ubWt5eFV6Ni1oT3VxOVd2dm1iQl9WaTRETlVPQ2hXYnBENkItbTk4cWhGcmlkQzFWb0l2R3kwNDdFdS1lc1J4VXk4UUVPUTFfMmJ0bENUMm5uOEdUQTlxTnlnUUl4YWFPRWcxV21yZXlqdGJuOUNnY0pNaWt4Q2M3VWR4enQzUlJJajB1VGhJalZNWmRVam1PTzMyblMwSGZlRmtXcmJRbHI3Q2V5UEFHdEdVNnVfQmtTRTBWTGRoNWt5bXB4VVVtM0o0VUFnWHlaemxvMURUQnI2d1EzOFNJ?oc=5",
-                    "date": "2026-03-04"
+                    "title": "新聞掃雷器故障或限速中",
+                    "sentiment": "未判定",
+                    "link": "#",
+                    "date": "未知"
                 }
             ],
-            "vol_ratio": 1.32,
+            "vol_ratio": 1.33,
             "optimal_sl": 12,
             "actual_sl": 12,
             "ev": 1.08,
@@ -4787,7 +4763,7 @@
                 {
                     "date": "2026-03-18",
                     "price": 143.5,
-                    "volume": 238154019,
+                    "volume": 238833113,
                     "ma5": 120.1,
                     "ma20": 106.18,
                     "ma60": 75.12,
@@ -4800,14 +4776,14 @@
                     "atr": 10.43
                 }
             ],
-            "rs_score": 53.39,
+            "rs_score": 53.53,
             "ai_debate": {
-                "pattern": "強勢突破20MA",
-                "bull": "旺宏強勢站上20MA，表明多頭勢力增強，短期內有望繼續上揚",
-                "bear": "雖然旺宏突破20MA，但近期RSI快速上升，可能已經處於超買區域，需要觀察下一波反彈",
-                "judge": "目前旺宏強勢站上20MA，多頭勢力增強，短期內有望繼續上揚，但需要注意RSI的超買跡象"
+                "pattern": "連線中斷",
+                "bull": "連線異常",
+                "bear": "連線異常",
+                "judge": "🤖 API 限速或異常。"
             },
-            "funda_summary": "旺宏的最大財務隱患：負ROE和負淨利率，表明公司經營效率嚴重下降，財務狀況不穩定。",
+            "funda_summary": "\"旺宏的負ROE和負淨利率表明公司經營效率嚴重惡化，需要緊急轉型以避免衰退。\"",
             "best_ma_name": "20MA",
             "best_ma_price": 106.18,
             "lights": {
@@ -4826,34 +4802,10 @@
             "atr": 26.18,
             "news_sentiment": [
                 {
-                    "title": "穩懋 法人按讚",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPdzJMR19La1A3ZFFKazFwQndiYjlsSEUzVC1tSkpDTW9yWUh5eXVpdTBEUHlHX2JPMC10UnUxemZCQ1FnWmRUTTdCZno3ekNBUl9QSmc5LXlhS2xZajFBc2pxYV9zNkVhbVNjNi1wbVM5aS15aHMtbzVKT3o2cjNQRjAzZDR0WGRXYW0xM2dPaEJIQjNMcFNzTzF1RDNocnRpeVQ2Y2NwQWRLb1lJdEdDakZfNEVVRUEzX1BCd3NB?oc=5",
-                    "date": "2026-03-16"
-                },
-                {
-                    "title": "穩懋(3105) 二月營收14.74億元，表現亮眼、呈現雙成長，創近2個月以來新高，年增25.92%",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQX2FKUlRscExJNlFqUjJ3V0xYRERmVDYwMVFnSmxMTnlOOFZ1Ym9QRkRGV1VUcV9MNENzeWt1VlNzVnlpWDRYOGNvZmtXQU1Wa2s5WS1FNTg4dGg0TXVucGFKTVpYdlJKVTVrYWhZcGtGX2prTEVXQ19YdHV4dkhoWlFqa0hlNW56QXc?oc=5",
-                    "date": "2026-03-05"
-                },
-                {
-                    "title": "穩懋(3105) 03/03到03/16列入處置股，採5分盤交易",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5tOUVjSk9UVmJEd05BcER5OEx0UFhMMUdWNHkzRHl5ay1KMkpiaXh0WnpyQmloOHh6Y1hvWV82MmhxWW9OSFJtNXVPNmE2WlJPN1JLci1tSE5GdXk0WGlTcWxZa2VfV1k?oc=5",
-                    "date": "2026-03-03"
-                },
-                {
-                    "title": "亞股殺聲震天 台股跌1494點收最低32828點 三天暴跌2586點",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE9iX2tuRXAzc3NXMjBNbFBINEdQcjVFOUxQY0o3blgwaDdXSk5COFhoZklGLVhyNGc4cUpmdjgyVWZSZXNTcmEzd3RremRzVlE?oc=5",
-                    "date": "2026-03-04"
-                },
-                {
-                    "title": "期交所調高欣興、致茂、穩懋期貨保證金",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMingJBVV95cUxNdUVWZjhHV3QweHdtNUg3cG1RR2toUXh3Sm9qXzJSZFg5c2ZZc205T1R3cG42SVl6RnRJcEN0V0Z2UUxFcXhSTTNFUG42M05MOG1NTW5lRzFOU3k1NW9RVm1ZTHdhTEtITjlyTTZCLURYSVdjYnp0VkxqSG96QzA2Y1FNM1BQbk96MXBVMkdlc2VTamtyVGw3WnVLSU83RU45MHVzZ2d0bk8xcWRMRXdfVFBScllyNldNbzJlU2RBM001OERRM0RTamotd3g0d1Q4WVd1R0RpSkxaTEhTSFg0czFXQ0FxSmkxQ3MzbWNuSzJtWW9iV1pDcUdOTnlWaU9LZ0owTERNbUdsaFRCQTFUZUxSMjBxQkVsamh6WWpB?oc=5",
-                    "date": "2026-03-03"
+                    "title": "新聞掃雷器故障或限速中",
+                    "sentiment": "未判定",
+                    "link": "#",
+                    "date": "未知"
                 }
             ],
             "vol_ratio": 1.21,
@@ -5750,7 +5702,7 @@
                 {
                     "date": "2026-03-18",
                     "price": 293.5,
-                    "volume": 23029353,
+                    "volume": 23135370,
                     "ma5": 302.0,
                     "ma20": 293.27,
                     "ma60": 235.73,
@@ -5765,12 +5717,12 @@
             ],
             "rs_score": 26.36,
             "ai_debate": {
-                "pattern": "穩懋強勢突破20MA",
-                "bull": "穩懋已站上20MA，表明多頭勢力強勁，短期內仍有上漲機會",
-                "bear": "穩懋近期量價下跌，RSI下破50，表明空頭勢力增強，需觀察是否能夠反彈",
-                "judge": "穩懋已強勢站上20MA，短期內仍有上漲機會，多方觀點優於空方觀點"
+                "pattern": "連線中斷",
+                "bull": "連線異常",
+                "bear": "連線異常",
+                "judge": "🤖 API 限速或異常。"
             },
-            "funda_summary": "穩懋的高本益比（80.827065）與高股價淨值比（3.2871602）表明股價過高，可能存在泡沫風險。",
+            "funda_summary": "穩懋的高本益比(P/E)與高股價淨值比(P/B)表明股價過高，可能存在風險。",
             "best_ma_name": "20MA",
             "best_ma_price": 293.27,
             "lights": {
@@ -5783,43 +5735,19 @@
             "symbol": "0050.TW",
             "name": "台灣50",
             "category": "台股龍頭",
-            "price": 77.8,
-            "rsi": 46.41,
-            "bias": 1.07,
+            "price": 77.65,
+            "rsi": 46.05,
+            "bias": 0.89,
             "atr": 2.34,
             "news_sentiment": [
                 {
-                    "title": "小資族抄底0050！ 零股1天湧近5000萬股 吸金35億元",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiuAJBVV95cUxNUG5FazdoaVgya0d1QzZCSWdrUTBlZHhrakRMX1dUbUdVRm14VUdqYl90aGMxaGQ4cUV0b0taUG03clIxOE14M2JkYzh1STB2S01rRmtZcGZWWE83LXc3RHBwWXJRN3laRUFJaW1EVklSZ3RMRzN2OXJpUHNrWVFoelFHY2xzOFRHUHU0aGZXWWhRa1pmalB3c1hsbDN0aWNVVFVfVVBsYy15c2NXZE0tbFQ2bTlONTJWdGJTdTZZdE16UXkwVTZhdW1yTWhhODc1Unpsd20yZ0JmbE5mMnZYb3BLSzdSNDVwMmlwYkNsQUFtY1diRkxDd0txbHFOTi1mOVFXbTlyUUxLQndnTXVod2UzQlpacDljSkVfVXMxcEs3UWRYR2VMeHl5UjR3aWt6OFlvajZwcHQ?oc=5",
-                    "date": "2026-03-08"
-                },
-                {
-                    "title": "ETF別只選0050？股災驚見「1檔股低調賺」打敗大盤",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiqgJBVV95cUxQMFk2dXRZMUgxS0lIVXFtazN1LVc5YmVobzgyeHFDRmZ4cXRWVmY5SC1XWl9ibVI1bl9ka3ZLU25MVUNaVmxKMkdhRFIzRU5RcGNDaUFsWVJ4UGVtZFJHdGhIUmx6OW5JekpuSGdMUnN3dnZCR09IYkp3WnJhS3JhZS11N0c3WnA5SnBXMTZBaWRWckNJZkg3TEVCeTlYQWJGLWpJanR3Q0xWcElvQk5POGZRTXRiWXVlQlFsRDd0V1ppN1N4R3YtSWw4WVZfRy1kUkRidzBiZXhBdENvcTVrTWw5S1RzNk55VE9vWElmajZXeGw0UGhLNTZIQkhFR2NKdnJKM1hHNDdITGJFdXVja0JvLWpZYkJ6QkVxN1Zrc3pPOUZrcjBVX3R3?oc=5",
-                    "date": "2026-03-03"
-                },
-                {
-                    "title": "0050被賣了10天！外資領走679億元 5檔主動式ETF全遭砍破萬張",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMi3wJBVV95cUxNa1hHMGJhQzdQRURJZjcxOWpwelowWlpGRS13TGFuS0ZIYVlsWF8zdHI1bHhEbXh0eDUzSWF3eFdRUFRhOG9fdjc3REx0YWthSHNfSmFpNFMwZWR0eTNPeThGVms4UG5scnhydVJfeE9kMWowRkFmN1JzRWItVVZuS21fSERGWXR6M3BEOUU3Q3FXVXN6TXZhaTFZTEZUM0FDWE9xcUkzUmM0UGhTQ3NGREVndUlrSkRvOTFjWnVQaUdkczdaLWc4VlR0MzVqNEFldTJqX3BzUXlrM1lDbjZzbFY3VFhJbHZ4Z1VUNERBelgxeHNlN0JFODRoVzlSZExmai1obTZINmRTMW5NM2NmdWhhWlFIRUhLbGxvVzFnMG5nb0ptRnAwaGpnalBjaEZ0V3g1MlZBSDlwMVUydEJYcUZUSHZxU2trVWRXMl81TFhtM2trWllod3BOQXF1dDg?oc=5",
-                    "date": "2026-03-09"
-                },
-                {
-                    "title": "外資砍1208億創史上最大賣超金額 調節0050、台積電",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMiwAJBVV95cUxPUmJJTVBjWks2NVZkZ0lfeXZTWWRoUFJUTG9VbFR6aV9jbU5zVVRuem1kNHJhc2cxMGs1Q3R0d0toRGdJdWRDeUV4aEdCX0E5ekZBSXlMcEJkOUx2enFCRTVHeTZNaXNmUGVQRnRUOU03c3ZzZkRXQ3NIV1lnaENZaTFUb3pIRHdjeXF2R3ctVVJVb3RiQTFlVE5GNmpESVlkNWV6X1JCRXlNdVpEZ3lTelp2OTBMWm1IMGxUOXVGOFp2LWJHQmRXMWZFT29ZVXBIOVpfd0NaX1ZiaWlaWmptanVqTjNiX2dPNlkxMmRsX013cUU1ZkxtVnNHOTRrTXZHQzNkMVBJYXVJVHJiTmpyMlN5aGxVLUhTcWJiRmVUeEg3OWgxcXdhNDE1dVZMWnlTeEJBekVsbVVLY3ZZU2JJMQ?oc=5",
-                    "date": "2026-03-09"
-                },
-                {
-                    "title": "0050 AI含量更濃了！台灣50指數換股5進5出 鴻勁、京元電入列",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMi3gJBVV95cUxNZUF4VmRNa2VvMHlxd2xzZDg1a3ZQNlR5QVNVZkx0aW1mN2xkXy1KeGpCVWtRWWlWWlNaSVM1RzVyVzd1MkF1RVVfTEdSYkVSQ1VveVZNNGtFWDA2Q1o4MjNfMVpzX0ZjS0w1V0JWVGxIWkJjdVlvY1N2UlJBRkxHbUtmTEdsaUJIeXJReGxHZmZZUzNpRDVIdTRxNnYxVmZKSWJRcUZ0XzlLSnp4M0duOUFuN2MyYjZMTUFELUhGdTZXN2RZWERndUxjbkswM3gydnRVaE95MFVxTHBYVGdzaGRxQXN6RFFnMXUyZ2hxMVptX3pZQnRidFpKSHVVSldVbkNpcVRlQmNLN2Y0cHRIZEJNbVIydHZPN2FJVUVWYkJVNjJyTTZzdUdocTVxTzdwQlZLNnlGYW9aWjZBT0RjLWVqS2owZVRTSWhmNmpwMjlVc2RoaVotNXRIcGJjZw?oc=5",
-                    "date": "2026-03-06"
+                    "title": "新聞掃雷器故障或限速中",
+                    "sentiment": "未判定",
+                    "link": "#",
+                    "date": "未知"
                 }
             ],
-            "vol_ratio": 0.32,
+            "vol_ratio": 0.34,
             "optimal_sl": 4,
             "actual_sl": 4,
             "ev": 1.47,
@@ -6712,30 +6640,993 @@
                 },
                 {
                     "date": "2026-03-18",
-                    "price": 77.8,
-                    "volume": 56695298,
-                    "ma5": 76.83,
+                    "price": 77.65,
+                    "volume": 61100998,
+                    "ma5": 76.8,
                     "ma20": 76.97,
                     "ma60": 70.89,
-                    "macd": 1.09,
+                    "macd": 1.08,
                     "macd_signal": 1.51,
                     "macd_hist": -0.42,
-                    "rsi": 46.41,
-                    "bb_upper": 81.88,
+                    "rsi": 46.05,
+                    "bb_upper": 81.86,
                     "bb_lower": 72.07,
                     "atr": 2.34
                 }
             ],
-            "rs_score": -0.0,
+            "rs_score": -0.07,
             "ai_debate": {
-                "pattern": "已強勢站上20MA多頭生命線",
-                "bull": "近期股價反彈，RSI回升，20MA支撐確立，多頭勢力持續增強",
-                "bear": "股價仍未突破20MA上方阻力，RSI仍處於低位，空頭機會未盡",
-                "judge": "目前已強勢站上20MA，多頭生命線未被破壞，持續看多"
+                "pattern": "連線中斷",
+                "bull": "連線異常",
+                "bear": "連線異常",
+                "judge": "🤖 API 限速或異常。"
             },
-            "funda_summary": "台灣50的本益比(P/E)已經達到26.73516，表明市場對這些公司的估值過高，隱患在於未來業績不會超越市場預期。",
+            "funda_summary": "阿土伯的財務隱患：高本益比26.649305，可能代表市場對公司未來成長的過度樂觀，隱藏著高風險。",
             "best_ma_name": "10MA",
-            "best_ma_price": 76.28,
+            "best_ma_price": 76.26,
+            "lights": {
+                "short": "⚪",
+                "mid": "⚪",
+                "long": "⚪"
+            }
+        },
+        {
+            "symbol": "00981A.TW",
+            "name": "主動統一台股增長",
+            "category": "台股",
+            "price": 20.88,
+            "rsi": 58.88,
+            "bias": 9.06,
+            "atr": 0.79,
+            "news_sentiment": [
+                {
+                    "title": "32萬受益人注意！00981A確定配0.41元 下周一最後上車日",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMizwJBVV95cUxQalFDQVJPMXRXN3ZtQlBpd2dZdV9NU0lzMlh4R3ZjMzYxd3c2S3Jxd0d0MjJxM00wX1hxcFd3eFVibmlpeTlJTDlKUU1hR0lEaEpDaXZtTzNHSUZzSC0wWWEyeWpPZV9JT2RDRHJvdDkxa2pzT3BOYzMyaXU1bU1HT1Boek1mNU81Rktmajhqd01DRXhVUldZcHhLSFRsY2VPdG9idWl2Mkw5RGNueGFGaFkyZWwwcVNITjBnb2o3bUlQQV9HS1EzYXdzMVRKTV91MXkwQkZjZ3dvdlBZdUdabGJpMDVVUzhNd2U5VmE1S1VFZnNxV1NoczBLU0d5WmVOOVA2ZGNxQ3ZVc1VkZkNrSkhnN3loTTgwRWVGV0NUR1p2UVY4ZHU0X1FxZUxrVnpyb0o0YTZvZ2cyWlpvUlB2TFR6cGMxZ0NhTDR6UEhuQQ?oc=5",
+                    "date": "2026-03-13"
+                },
+                {
+                    "title": "投資人彎腰撿鑽石！00981A配息王、00988A績效王頭銜吸人氣奪雙冠",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1BUG5sbER1YzFGZVFPbExRM1ludHZsdU94aFZjYkJscW9xczJOZzBCM1U3X2RIcENXVzJaRTFoRW02SHFqWkQ4WXoteGl1QkE?oc=5",
+                    "date": "2026-03-09"
+                },
+                {
+                    "title": "27萬人開心！統一00981A年化配息率上升至8.8%",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMinAJBVV95cUxPcVozNW5DVDI1alJsTDAwLVRGM3NWVDJVcDU1akpBaUhpMjVGZkpLZ0x1dG81YkJobkFBeHNxYU82X1ZZVmtSb1l0MlZIU2gzU3hrVHhxOEVBS0VWNHhybkFuS3k0bTlvRzZUbWxScGpRTENUMlhpbVMzcGxQZTE1aUp3TVF2YkxtZ3FSV0tQMHhrQ3VVa0FKNWdfZ0pBTlYyby1sdDVTZ0N6c1RGdTZoZl93ZWNLYTAxdlk4TTlXUjlhUy15N1hFeUNGWVJZV2EtZjBNc0ttel9YS2dTMV8xcjU4bmYyTzgwOUd2RXdqMUZRNlZsd1NEbmhJanRRb21yWEZ5R3FxSm1EbEdSa2pTUHhUMTE2S0Niei1EOQ?oc=5",
+                    "date": "2026-03-03"
+                },
+                {
+                    "title": "主動台股ETF配息金額比一比00981A勇奪配息王達人：這招領息最開心- 理財",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBjeURiQXhfQ1JDTzhyd2VvTklMTlpWcldWVDkxdS1nanNKR2laUEhQVG1qMmdMV2tkVGpKRmxBRDRva2E2b3poeDRjdVpYYl9vaU1HRGxJM2NZMHdJc0Ew?oc=5",
+                    "date": "2026-03-03"
+                },
+                {
+                    "title": "台股主動 ETF 配息王易主！00981A首發配息金額奪冠 15億資金提前卡位",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5CbHh6ejZUN1JEYTlBYkgyWV84TlE3NUNKdUdSUVRqRXd0TFlZcFVUWVhZTUtia2JCOTRZLTNnOHRCRkpzWWpwaThwem1SVjJqNWJSbjZWeE0zUdIBX0FVX3lxTE1FOExPOGpWUHJNSkhaV0xzZHlzSjF1WVl0Qm03Q2ZtZ1RmWUg0SXhkcmh1RG9FQlV4MVQ5OGY1SEotWm1aZURYN0x3bG96VERDaGlhaXprdnY1YXVYZGpv?oc=5",
+                    "date": "2026-03-03"
+                }
+            ],
+            "vol_ratio": 0.89,
+            "optimal_sl": 9,
+            "actual_sl": 9,
+            "ev": 5.64,
+            "win_rate": 71.43,
+            "history": [
+                {
+                    "date": "2025-11-04",
+                    "price": 15.39,
+                    "volume": 155485400,
+                    "ma5": 15.3,
+                    "ma20": 14.3,
+                    "ma60": 13.45,
+                    "macd": 0.53,
+                    "macd_signal": 0.41,
+                    "macd_hist": 0.13,
+                    "rsi": 84.08,
+                    "bb_upper": 15.63,
+                    "bb_lower": 12.97,
+                    "atr": 0.29
+                },
+                {
+                    "date": "2025-11-05",
+                    "price": 15.21,
+                    "volume": 183686800,
+                    "ma5": 15.34,
+                    "ma20": 14.37,
+                    "ma60": 13.5,
+                    "macd": 0.52,
+                    "macd_signal": 0.43,
+                    "macd_hist": 0.1,
+                    "rsi": 75.93,
+                    "bb_upper": 15.74,
+                    "bb_lower": 13.01,
+                    "atr": 0.3
+                },
+                {
+                    "date": "2025-11-06",
+                    "price": 15.52,
+                    "volume": 83169270,
+                    "ma5": 15.42,
+                    "ma20": 14.46,
+                    "ma60": 13.55,
+                    "macd": 0.54,
+                    "macd_signal": 0.45,
+                    "macd_hist": 0.09,
+                    "rsi": 77.19,
+                    "bb_upper": 15.88,
+                    "bb_lower": 13.04,
+                    "atr": 0.31
+                },
+                {
+                    "date": "2025-11-07",
+                    "price": 15.2,
+                    "volume": 106229400,
+                    "ma5": 15.37,
+                    "ma20": 14.53,
+                    "ma60": 13.6,
+                    "macd": 0.52,
+                    "macd_signal": 0.46,
+                    "macd_hist": 0.05,
+                    "rsi": 73.58,
+                    "bb_upper": 15.95,
+                    "bb_lower": 13.12,
+                    "atr": 0.32
+                },
+                {
+                    "date": "2025-11-10",
+                    "price": 15.49,
+                    "volume": 70196840,
+                    "ma5": 15.36,
+                    "ma20": 14.61,
+                    "ma60": 13.64,
+                    "macd": 0.52,
+                    "macd_signal": 0.47,
+                    "macd_hist": 0.04,
+                    "rsi": 74.68,
+                    "bb_upper": 16.06,
+                    "bb_lower": 13.17,
+                    "atr": 0.33
+                },
+                {
+                    "date": "2025-11-11",
+                    "price": 15.44,
+                    "volume": 93305710,
+                    "ma5": 15.37,
+                    "ma20": 14.7,
+                    "ma60": 13.69,
+                    "macd": 0.51,
+                    "macd_signal": 0.48,
+                    "macd_hist": 0.03,
+                    "rsi": 71.72,
+                    "bb_upper": 16.12,
+                    "bb_lower": 13.29,
+                    "atr": 0.33
+                },
+                {
+                    "date": "2025-11-12",
+                    "price": 15.39,
+                    "volume": 66178800,
+                    "ma5": 15.41,
+                    "ma20": 14.8,
+                    "ma60": 13.73,
+                    "macd": 0.49,
+                    "macd_signal": 0.48,
+                    "macd_hist": 0.01,
+                    "rsi": 72.45,
+                    "bb_upper": 16.12,
+                    "bb_lower": 13.48,
+                    "atr": 0.33
+                },
+                {
+                    "date": "2025-11-14",
+                    "price": 15.19,
+                    "volume": 129824600,
+                    "ma5": 15.34,
+                    "ma20": 14.87,
+                    "ma60": 13.77,
+                    "macd": 0.46,
+                    "macd_signal": 0.48,
+                    "macd_hist": -0.02,
+                    "rsi": 68.05,
+                    "bb_upper": 16.12,
+                    "bb_lower": 13.62,
+                    "atr": 0.35
+                },
+                {
+                    "date": "2025-11-17",
+                    "price": 15.33,
+                    "volume": 66988420,
+                    "ma5": 15.37,
+                    "ma20": 14.93,
+                    "ma60": 13.81,
+                    "macd": 0.44,
+                    "macd_signal": 0.47,
+                    "macd_hist": -0.03,
+                    "rsi": 65.75,
+                    "bb_upper": 16.13,
+                    "bb_lower": 13.74,
+                    "atr": 0.34
+                },
+                {
+                    "date": "2025-11-18",
+                    "price": 14.73,
+                    "volume": 158577800,
+                    "ma5": 15.22,
+                    "ma20": 14.98,
+                    "ma60": 13.84,
+                    "macd": 0.37,
+                    "macd_signal": 0.45,
+                    "macd_hist": -0.08,
+                    "rsi": 48.73,
+                    "bb_upper": 16.06,
+                    "bb_lower": 13.9,
+                    "atr": 0.36
+                },
+                {
+                    "date": "2025-11-19",
+                    "price": 14.7,
+                    "volume": 71601220,
+                    "ma5": 15.07,
+                    "ma20": 15.01,
+                    "ma60": 13.88,
+                    "macd": 0.3,
+                    "macd_signal": 0.42,
+                    "macd_hist": -0.12,
+                    "rsi": 44.63,
+                    "bb_upper": 16.0,
+                    "bb_lower": 14.03,
+                    "atr": 0.36
+                },
+                {
+                    "date": "2025-11-20",
+                    "price": 15.3,
+                    "volume": 109973600,
+                    "ma5": 15.05,
+                    "ma20": 15.07,
+                    "ma60": 13.93,
+                    "macd": 0.3,
+                    "macd_signal": 0.4,
+                    "macd_hist": -0.09,
+                    "rsi": 52.45,
+                    "bb_upper": 15.98,
+                    "bb_lower": 14.16,
+                    "atr": 0.38
+                },
+                {
+                    "date": "2025-11-21",
+                    "price": 14.53,
+                    "volume": 217492300,
+                    "ma5": 14.92,
+                    "ma20": 15.09,
+                    "ma60": 13.96,
+                    "macd": 0.23,
+                    "macd_signal": 0.36,
+                    "macd_hist": -0.13,
+                    "rsi": 38.69,
+                    "bb_upper": 15.92,
+                    "bb_lower": 14.26,
+                    "atr": 0.42
+                },
+                {
+                    "date": "2025-11-24",
+                    "price": 14.53,
+                    "volume": 76645530,
+                    "ma5": 14.76,
+                    "ma20": 15.11,
+                    "ma60": 13.99,
+                    "macd": 0.18,
+                    "macd_signal": 0.33,
+                    "macd_hist": -0.15,
+                    "rsi": 36.29,
+                    "bb_upper": 15.85,
+                    "bb_lower": 14.38,
+                    "atr": 0.42
+                },
+                {
+                    "date": "2025-11-25",
+                    "price": 14.92,
+                    "volume": 74093950,
+                    "ma5": 14.8,
+                    "ma20": 15.14,
+                    "ma60": 14.03,
+                    "macd": 0.16,
+                    "macd_signal": 0.29,
+                    "macd_hist": -0.13,
+                    "rsi": 44.09,
+                    "bb_upper": 15.8,
+                    "bb_lower": 14.47,
+                    "atr": 0.42
+                },
+                {
+                    "date": "2025-11-26",
+                    "price": 15.28,
+                    "volume": 84802000,
+                    "ma5": 14.91,
+                    "ma20": 15.16,
+                    "ma60": 14.06,
+                    "macd": 0.18,
+                    "macd_signal": 0.27,
+                    "macd_hist": -0.09,
+                    "rsi": 50.94,
+                    "bb_upper": 15.81,
+                    "bb_lower": 14.52,
+                    "atr": 0.41
+                },
+                {
+                    "date": "2025-11-27",
+                    "price": 15.63,
+                    "volume": 114700400,
+                    "ma5": 14.98,
+                    "ma20": 15.19,
+                    "ma60": 14.11,
+                    "macd": 0.22,
+                    "macd_signal": 0.26,
+                    "macd_hist": -0.04,
+                    "rsi": 51.29,
+                    "bb_upper": 15.87,
+                    "bb_lower": 14.52,
+                    "atr": 0.41
+                },
+                {
+                    "date": "2025-11-28",
+                    "price": 15.9,
+                    "volume": 121443600,
+                    "ma5": 15.25,
+                    "ma20": 15.23,
+                    "ma60": 14.15,
+                    "macd": 0.27,
+                    "macd_signal": 0.26,
+                    "macd_hist": 0.0,
+                    "rsi": 58.53,
+                    "bb_upper": 15.98,
+                    "bb_lower": 14.49,
+                    "atr": 0.41
+                },
+                {
+                    "date": "2025-12-01",
+                    "price": 15.56,
+                    "volume": 235389200,
+                    "ma5": 15.46,
+                    "ma20": 15.24,
+                    "ma60": 14.2,
+                    "macd": 0.27,
+                    "macd_signal": 0.26,
+                    "macd_hist": 0.01,
+                    "rsi": 50.82,
+                    "bb_upper": 15.99,
+                    "bb_lower": 14.48,
+                    "atr": 0.41
+                },
+                {
+                    "date": "2025-12-02",
+                    "price": 15.46,
+                    "volume": 140458200,
+                    "ma5": 15.57,
+                    "ma20": 15.23,
+                    "ma60": 14.24,
+                    "macd": 0.27,
+                    "macd_signal": 0.27,
+                    "macd_hist": 0.0,
+                    "rsi": 50.23,
+                    "bb_upper": 15.98,
+                    "bb_lower": 14.49,
+                    "atr": 0.42
+                },
+                {
+                    "date": "2025-12-03",
+                    "price": 15.51,
+                    "volume": 85723160,
+                    "ma5": 15.61,
+                    "ma20": 15.24,
+                    "ma60": 14.29,
+                    "macd": 0.27,
+                    "macd_signal": 0.27,
+                    "macd_hist": 0.0,
+                    "rsi": 51.39,
+                    "bb_upper": 16.0,
+                    "bb_lower": 14.49,
+                    "atr": 0.42
+                },
+                {
+                    "date": "2025-12-04",
+                    "price": 15.4,
+                    "volume": 89528340,
+                    "ma5": 15.57,
+                    "ma20": 15.25,
+                    "ma60": 14.33,
+                    "macd": 0.25,
+                    "macd_signal": 0.26,
+                    "macd_hist": -0.01,
+                    "rsi": 52.61,
+                    "bb_upper": 16.01,
+                    "bb_lower": 14.49,
+                    "atr": 0.41
+                },
+                {
+                    "date": "2025-12-05",
+                    "price": 15.66,
+                    "volume": 73870480,
+                    "ma5": 15.52,
+                    "ma20": 15.26,
+                    "ma60": 14.38,
+                    "macd": 0.26,
+                    "macd_signal": 0.26,
+                    "macd_hist": -0.0,
+                    "rsi": 53.81,
+                    "bb_upper": 16.03,
+                    "bb_lower": 14.49,
+                    "atr": 0.4
+                },
+                {
+                    "date": "2025-12-08",
+                    "price": 15.75,
+                    "volume": 74677140,
+                    "ma5": 15.56,
+                    "ma20": 15.29,
+                    "ma60": 14.42,
+                    "macd": 0.27,
+                    "macd_signal": 0.26,
+                    "macd_hist": 0.01,
+                    "rsi": 63.78,
+                    "bb_upper": 16.09,
+                    "bb_lower": 14.48,
+                    "atr": 0.37
+                },
+                {
+                    "date": "2025-12-09",
+                    "price": 15.74,
+                    "volume": 66800550,
+                    "ma5": 15.61,
+                    "ma20": 15.3,
+                    "ma60": 14.46,
+                    "macd": 0.27,
+                    "macd_signal": 0.27,
+                    "macd_hist": 0.01,
+                    "rsi": 63.95,
+                    "bb_upper": 16.12,
+                    "bb_lower": 14.48,
+                    "atr": 0.37
+                },
+                {
+                    "date": "2025-12-10",
+                    "price": 16.0,
+                    "volume": 89635670,
+                    "ma5": 15.71,
+                    "ma20": 15.33,
+                    "ma60": 14.5,
+                    "macd": 0.29,
+                    "macd_signal": 0.27,
+                    "macd_hist": 0.02,
+                    "rsi": 60.29,
+                    "bb_upper": 16.2,
+                    "bb_lower": 14.45,
+                    "atr": 0.34
+                },
+                {
+                    "date": "2025-12-11",
+                    "price": 16.0,
+                    "volume": 136725000,
+                    "ma5": 15.83,
+                    "ma20": 15.36,
+                    "ma60": 14.54,
+                    "macd": 0.31,
+                    "macd_signal": 0.28,
+                    "macd_hist": 0.03,
+                    "rsi": 78.2,
+                    "bb_upper": 16.28,
+                    "bb_lower": 14.43,
+                    "atr": 0.3
+                },
+                {
+                    "date": "2025-12-12",
+                    "price": 16.1,
+                    "volume": 78431260,
+                    "ma5": 15.92,
+                    "ma20": 15.4,
+                    "ma60": 14.59,
+                    "macd": 0.32,
+                    "macd_signal": 0.29,
+                    "macd_hist": 0.03,
+                    "rsi": 78.99,
+                    "bb_upper": 16.38,
+                    "bb_lower": 14.42,
+                    "atr": 0.29
+                },
+                {
+                    "date": "2025-12-15",
+                    "price": 15.89,
+                    "volume": 139307900,
+                    "ma5": 15.94,
+                    "ma20": 15.43,
+                    "ma60": 14.63,
+                    "macd": 0.31,
+                    "macd_signal": 0.29,
+                    "macd_hist": 0.02,
+                    "rsi": 69.26,
+                    "bb_upper": 16.43,
+                    "bb_lower": 14.42,
+                    "atr": 0.29
+                },
+                {
+                    "date": "2025-12-16",
+                    "price": 15.55,
+                    "volume": 226227100,
+                    "ma5": 15.91,
+                    "ma20": 15.47,
+                    "ma60": 14.67,
+                    "macd": 0.27,
+                    "macd_signal": 0.29,
+                    "macd_hist": -0.01,
+                    "rsi": 55.29,
+                    "bb_upper": 16.42,
+                    "bb_lower": 14.52,
+                    "atr": 0.3
+                },
+                {
+                    "date": "2025-12-17",
+                    "price": 15.44,
+                    "volume": 113556900,
+                    "ma5": 15.8,
+                    "ma20": 15.51,
+                    "ma60": 14.7,
+                    "macd": 0.23,
+                    "macd_signal": 0.28,
+                    "macd_hist": -0.04,
+                    "rsi": 45.89,
+                    "bb_upper": 16.38,
+                    "bb_lower": 14.63,
+                    "atr": 0.29
+                },
+                {
+                    "date": "2025-12-18",
+                    "price": 15.38,
+                    "volume": 112691400,
+                    "ma5": 15.67,
+                    "ma20": 15.51,
+                    "ma60": 14.73,
+                    "macd": 0.19,
+                    "macd_signal": 0.26,
+                    "macd_hist": -0.07,
+                    "rsi": 37.32,
+                    "bb_upper": 16.39,
+                    "bb_lower": 14.64,
+                    "atr": 0.28
+                },
+                {
+                    "date": "2025-12-19",
+                    "price": 15.67,
+                    "volume": 97380160,
+                    "ma5": 15.59,
+                    "ma20": 15.57,
+                    "ma60": 14.77,
+                    "macd": 0.18,
+                    "macd_signal": 0.24,
+                    "macd_hist": -0.06,
+                    "rsi": 52.71,
+                    "bb_upper": 16.31,
+                    "bb_lower": 14.83,
+                    "atr": 0.27
+                },
+                {
+                    "date": "2025-12-22",
+                    "price": 15.92,
+                    "volume": 68057950,
+                    "ma5": 15.59,
+                    "ma20": 15.64,
+                    "ma60": 14.81,
+                    "macd": 0.19,
+                    "macd_signal": 0.23,
+                    "macd_hist": -0.04,
+                    "rsi": 60.73,
+                    "bb_upper": 16.21,
+                    "bb_lower": 15.06,
+                    "atr": 0.27
+                },
+                {
+                    "date": "2025-12-23",
+                    "price": 15.96,
+                    "volume": 60581340,
+                    "ma5": 15.67,
+                    "ma20": 15.69,
+                    "ma60": 14.85,
+                    "macd": 0.2,
+                    "macd_signal": 0.23,
+                    "macd_hist": -0.03,
+                    "rsi": 60.55,
+                    "bb_upper": 16.17,
+                    "bb_lower": 15.21,
+                    "atr": 0.26
+                },
+                {
+                    "date": "2025-12-24",
+                    "price": 16.17,
+                    "volume": 106354500,
+                    "ma5": 15.82,
+                    "ma20": 15.73,
+                    "ma60": 14.9,
+                    "macd": 0.22,
+                    "macd_signal": 0.23,
+                    "macd_hist": -0.0,
+                    "rsi": 67.11,
+                    "bb_upper": 16.22,
+                    "bb_lower": 15.25,
+                    "atr": 0.26
+                },
+                {
+                    "date": "2025-12-26",
+                    "price": 16.41,
+                    "volume": 101602700,
+                    "ma5": 16.03,
+                    "ma20": 15.77,
+                    "ma60": 14.95,
+                    "macd": 0.25,
+                    "macd_signal": 0.23,
+                    "macd_hist": 0.02,
+                    "rsi": 66.96,
+                    "bb_upper": 16.34,
+                    "bb_lower": 15.2,
+                    "atr": 0.26
+                },
+                {
+                    "date": "2025-12-29",
+                    "price": 16.48,
+                    "volume": 109521000,
+                    "ma5": 16.19,
+                    "ma20": 15.8,
+                    "ma60": 15.01,
+                    "macd": 0.28,
+                    "macd_signal": 0.24,
+                    "macd_hist": 0.04,
+                    "rsi": 66.52,
+                    "bb_upper": 16.45,
+                    "bb_lower": 15.15,
+                    "atr": 0.26
+                },
+                {
+                    "date": "2025-12-30",
+                    "price": 16.49,
+                    "volume": 70969030,
+                    "ma5": 16.3,
+                    "ma20": 15.85,
+                    "ma60": 15.06,
+                    "macd": 0.3,
+                    "macd_signal": 0.25,
+                    "macd_hist": 0.05,
+                    "rsi": 67.26,
+                    "bb_upper": 16.56,
+                    "bb_lower": 15.14,
+                    "atr": 0.26
+                },
+                {
+                    "date": "2025-12-31",
+                    "price": 16.57,
+                    "volume": 89140020,
+                    "ma5": 16.42,
+                    "ma20": 15.9,
+                    "ma60": 15.11,
+                    "macd": 0.32,
+                    "macd_signal": 0.27,
+                    "macd_hist": 0.05,
+                    "rsi": 64.22,
+                    "bb_upper": 16.66,
+                    "bb_lower": 15.15,
+                    "atr": 0.25
+                },
+                {
+                    "date": "2026-01-02",
+                    "price": 16.45,
+                    "volume": 158751000,
+                    "ma5": 16.48,
+                    "ma20": 15.95,
+                    "ma60": 15.16,
+                    "macd": 0.32,
+                    "macd_signal": 0.28,
+                    "macd_hist": 0.04,
+                    "rsi": 60.65,
+                    "bb_upper": 16.72,
+                    "bb_lower": 15.19,
+                    "atr": 0.25
+                },
+                {
+                    "date": "2026-02-10",
+                    "price": 18.28,
+                    "volume": 91566850,
+                    "ma5": 16.85,
+                    "ma20": 16.1,
+                    "ma60": 15.24,
+                    "macd": 0.47,
+                    "macd_signal": 0.32,
+                    "macd_hist": 0.15,
+                    "rsi": 78.37,
+                    "bb_upper": 17.35,
+                    "bb_lower": 14.84,
+                    "atr": 0.36
+                },
+                {
+                    "date": "2026-02-11",
+                    "price": 18.5,
+                    "volume": 84003040,
+                    "ma5": 17.26,
+                    "ma20": 16.24,
+                    "ma60": 15.32,
+                    "macd": 0.59,
+                    "macd_signal": 0.37,
+                    "macd_hist": 0.22,
+                    "rsi": 83.76,
+                    "bb_upper": 17.87,
+                    "bb_lower": 14.6,
+                    "atr": 0.36
+                },
+                {
+                    "date": "2026-02-23",
+                    "price": 18.61,
+                    "volume": 113701300,
+                    "ma5": 17.68,
+                    "ma20": 16.38,
+                    "ma60": 15.4,
+                    "macd": 0.69,
+                    "macd_signal": 0.44,
+                    "macd_hist": 0.26,
+                    "rsi": 92.16,
+                    "bb_upper": 18.31,
+                    "bb_lower": 14.45,
+                    "atr": 0.35
+                },
+                {
+                    "date": "2026-02-24",
+                    "price": 18.95,
+                    "volume": 78388900,
+                    "ma5": 18.16,
+                    "ma20": 16.54,
+                    "ma60": 15.48,
+                    "macd": 0.79,
+                    "macd_signal": 0.51,
+                    "macd_hist": 0.28,
+                    "rsi": 95.43,
+                    "bb_upper": 18.76,
+                    "bb_lower": 14.32,
+                    "atr": 0.36
+                },
+                {
+                    "date": "2026-02-25",
+                    "price": 19.62,
+                    "volume": 92704750,
+                    "ma5": 18.79,
+                    "ma20": 16.72,
+                    "ma60": 15.58,
+                    "macd": 0.91,
+                    "macd_signal": 0.59,
+                    "macd_hist": 0.32,
+                    "rsi": 97.37,
+                    "bb_upper": 19.31,
+                    "bb_lower": 14.13,
+                    "atr": 0.4
+                },
+                {
+                    "date": "2026-02-26",
+                    "price": 19.79,
+                    "volume": 117635000,
+                    "ma5": 19.09,
+                    "ma20": 16.91,
+                    "ma60": 15.69,
+                    "macd": 1.01,
+                    "macd_signal": 0.67,
+                    "macd_hist": 0.34,
+                    "rsi": 97.3,
+                    "bb_upper": 19.81,
+                    "bb_lower": 14.01,
+                    "atr": 0.41
+                },
+                {
+                    "date": "2026-03-02",
+                    "price": 19.68,
+                    "volume": 156731300,
+                    "ma5": 19.33,
+                    "ma20": 17.09,
+                    "ma60": 15.79,
+                    "macd": 1.06,
+                    "macd_signal": 0.75,
+                    "macd_hist": 0.31,
+                    "rsi": 94.65,
+                    "bb_upper": 20.22,
+                    "bb_lower": 13.96,
+                    "atr": 0.43
+                },
+                {
+                    "date": "2026-03-03",
+                    "price": 19.4,
+                    "volume": 244967500,
+                    "ma5": 19.49,
+                    "ma20": 17.27,
+                    "ma60": 15.88,
+                    "macd": 1.07,
+                    "macd_signal": 0.81,
+                    "macd_hist": 0.26,
+                    "rsi": 88.57,
+                    "bb_upper": 20.5,
+                    "bb_lower": 14.03,
+                    "atr": 0.47
+                },
+                {
+                    "date": "2026-03-04",
+                    "price": 18.25,
+                    "volume": 398966900,
+                    "ma5": 19.35,
+                    "ma20": 17.4,
+                    "ma60": 15.95,
+                    "macd": 0.98,
+                    "macd_signal": 0.85,
+                    "macd_hist": 0.13,
+                    "rsi": 69.33,
+                    "bb_upper": 20.56,
+                    "bb_lower": 14.24,
+                    "atr": 0.54
+                },
+                {
+                    "date": "2026-03-05",
+                    "price": 19.11,
+                    "volume": 181698900,
+                    "ma5": 19.25,
+                    "ma20": 17.58,
+                    "ma60": 16.04,
+                    "macd": 0.96,
+                    "macd_signal": 0.87,
+                    "macd_hist": 0.09,
+                    "rsi": 72.43,
+                    "bb_upper": 20.69,
+                    "bb_lower": 14.48,
+                    "atr": 0.6
+                },
+                {
+                    "date": "2026-03-06",
+                    "price": 19.38,
+                    "volume": 130200700,
+                    "ma5": 19.16,
+                    "ma20": 17.78,
+                    "ma60": 16.12,
+                    "macd": 0.95,
+                    "macd_signal": 0.89,
+                    "macd_hist": 0.07,
+                    "rsi": 73.34,
+                    "bb_upper": 20.8,
+                    "bb_lower": 14.76,
+                    "atr": 0.63
+                },
+                {
+                    "date": "2026-03-09",
+                    "price": 17.99,
+                    "volume": 448952700,
+                    "ma5": 18.83,
+                    "ma20": 17.9,
+                    "ma60": 16.19,
+                    "macd": 0.83,
+                    "macd_signal": 0.87,
+                    "macd_hist": -0.04,
+                    "rsi": 59.87,
+                    "bb_upper": 20.75,
+                    "bb_lower": 15.05,
+                    "atr": 0.73
+                },
+                {
+                    "date": "2026-03-10",
+                    "price": 18.62,
+                    "volume": 193788000,
+                    "ma5": 18.67,
+                    "ma20": 18.03,
+                    "ma60": 16.26,
+                    "macd": 0.77,
+                    "macd_signal": 0.85,
+                    "macd_hist": -0.08,
+                    "rsi": 62.58,
+                    "bb_upper": 20.74,
+                    "bb_lower": 15.33,
+                    "atr": 0.78
+                },
+                {
+                    "date": "2026-03-11",
+                    "price": 19.64,
+                    "volume": 144014200,
+                    "ma5": 18.95,
+                    "ma20": 18.22,
+                    "ma60": 16.35,
+                    "macd": 0.8,
+                    "macd_signal": 0.84,
+                    "macd_hist": -0.04,
+                    "rsi": 67.64,
+                    "bb_upper": 20.83,
+                    "bb_lower": 15.61,
+                    "atr": 0.84
+                },
+                {
+                    "date": "2026-03-12",
+                    "price": 19.75,
+                    "volume": 132321500,
+                    "ma5": 19.08,
+                    "ma20": 18.4,
+                    "ma60": 16.43,
+                    "macd": 0.82,
+                    "macd_signal": 0.84,
+                    "macd_hist": -0.02,
+                    "rsi": 60.03,
+                    "bb_upper": 20.91,
+                    "bb_lower": 15.89,
+                    "atr": 0.75
+                },
+                {
+                    "date": "2026-03-13",
+                    "price": 19.82,
+                    "volume": 164960000,
+                    "ma5": 19.16,
+                    "ma20": 18.57,
+                    "ma60": 16.51,
+                    "macd": 0.84,
+                    "macd_signal": 0.84,
+                    "macd_hist": -0.0,
+                    "rsi": 59.21,
+                    "bb_upper": 20.97,
+                    "bb_lower": 16.17,
+                    "atr": 0.77
+                },
+                {
+                    "date": "2026-03-16",
+                    "price": 19.86,
+                    "volume": 203171500,
+                    "ma5": 19.54,
+                    "ma20": 18.74,
+                    "ma60": 16.59,
+                    "macd": 0.84,
+                    "macd_signal": 0.84,
+                    "macd_hist": 0.0,
+                    "rsi": 58.82,
+                    "bb_upper": 20.99,
+                    "bb_lower": 16.48,
+                    "atr": 0.77
+                },
+                {
+                    "date": "2026-03-17",
+                    "price": 20.35,
+                    "volume": 124295800,
+                    "ma5": 19.89,
+                    "ma20": 18.93,
+                    "ma60": 16.67,
+                    "macd": 0.87,
+                    "macd_signal": 0.85,
+                    "macd_hist": 0.03,
+                    "rsi": 59.65,
+                    "bb_upper": 21.03,
+                    "bb_lower": 16.83,
+                    "atr": 0.79
+                },
+                {
+                    "date": "2026-03-18",
+                    "price": 20.88,
+                    "volume": 152421642,
+                    "ma5": 20.13,
+                    "ma20": 19.15,
+                    "ma60": 16.76,
+                    "macd": 0.93,
+                    "macd_signal": 0.86,
+                    "macd_hist": 0.07,
+                    "rsi": 58.88,
+                    "bb_upper": 21.11,
+                    "bb_lower": 17.19,
+                    "atr": 0.79
+                }
+            ],
+            "rs_score": 18.86,
+            "ai_debate": {
+                "pattern": "連線中斷",
+                "bull": "連線異常",
+                "bear": "連線異常",
+                "judge": "🤖 API 限速或異常。"
+            },
+            "funda_summary": "阿土伯的財務隱患：高本益比(P/E) 40.9861，可能表明股價過高，未來成長率未必能夠維持這高的估值。",
+            "best_ma_name": "20MA",
+            "best_ma_price": 19.15,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -6746,9 +7637,9 @@
             "symbol": "9802.TW",
             "name": "鈺齊-KY",
             "category": "運動鞋",
-            "price": 84.7,
-            "rsi": 23.36,
-            "bias": -4.03,
+            "price": 85.0,
+            "rsi": 24.88,
+            "bias": -3.7,
             "atr": 2.3,
             "news_sentiment": [
                 {
@@ -6758,13 +7649,13 @@
                     "date": "2026-03-05"
                 },
                 {
-                    "title": "鈺齊-KY股價明天反彈一樣沒有份",
+                    "title": "鈺齊-KY股市爆料:明天反彈一樣沒有份",
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5HOENlOE5uTTdSVXFLUTNOWFprMlVBT0NfdGgyQVlteVlaNUZIYlZfUWhpbEtfN29aOUFxX0g4X2hDS1JoNnJLa29Tb3dTWHVnTXZleXBTQkI?oc=5",
                     "date": "2026-03-04"
                 }
             ],
-            "vol_ratio": 0.6,
+            "vol_ratio": 0.63,
             "optimal_sl": 12,
             "actual_sl": 12,
             "ev": 0.2,
@@ -7657,30 +8548,30 @@
                 },
                 {
                     "date": "2026-03-18",
-                    "price": 84.7,
-                    "volume": 593857,
-                    "ma5": 84.02,
-                    "ma20": 88.25,
+                    "price": 85.0,
+                    "volume": 618992,
+                    "ma5": 84.08,
+                    "ma20": 88.27,
                     "ma60": 95.02,
-                    "macd": -2.89,
-                    "macd_signal": -2.71,
-                    "macd_hist": -0.18,
-                    "rsi": 23.36,
-                    "bb_upper": 95.57,
-                    "bb_lower": 80.94,
+                    "macd": -2.86,
+                    "macd_signal": -2.7,
+                    "macd_hist": -0.16,
+                    "rsi": 24.88,
+                    "bb_upper": 95.56,
+                    "bb_lower": 80.98,
                     "atr": 2.3
                 }
             ],
-            "rs_score": -15.26,
+            "rs_score": -14.79,
             "ai_debate": {
-                "pattern": "弱勢型態",
-                "bull": "但近期股價有反彈跡象，可能是買盤回補",
-                "bear": "已跌破 20MA 進入弱勢區，短期內難以反彈",
-                "judge": "持續觀察弱勢區的反彈機會，短期內建議空方"
+                "pattern": "弱勢下跌",
+                "bull": "鈺齊-KY 處於弱勢區，短期內可能反彈，但需觀察 20MA 的穩定性",
+                "bear": "鈺齊-KY 已跌破 20MA，短期內下跌風險較高，需密切觀察量價變化",
+                "judge": "目前判斷為空方，建議觀察 20MA 的穩定性和量價變化，待有反彈跡象後再考慮多方"
             },
-            "funda_summary": "鈺齊-KY的最大財務隱患是低ROE，僅8.69%，表明公司的經營效率不佳，難以維持長期增長。",
+            "funda_summary": "「鈺齊-KY的股價淨值比過高，表明股價過高，存在資本溢價風險。」",
             "best_ma_name": "20MA",
-            "best_ma_price": 88.25,
+            "best_ma_price": 88.27,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -7691,10 +8582,10 @@
             "symbol": "9910.TW",
             "name": "豐泰",
             "category": "運動鞋",
-            "price": 84.2,
-            "rsi": 27.87,
-            "bias": -6.59,
-            "atr": 3.27,
+            "price": 84.1,
+            "rsi": 27.57,
+            "bias": -6.7,
+            "atr": 3.28,
             "news_sentiment": [
                 {
                     "title": "豐泰董事會決議2025年度盈餘分配案",
@@ -7715,19 +8606,19 @@
                     "date": "2026-03-15"
                 },
                 {
-                    "title": "豐泰(9910)- - 券商分點進出買賣統計｜股市爆料同學會",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1XdnU5RzlMN1RVX3ZJTWh2X1ZabVVCZVBKRlFxR0IzQS1OUDhkRFh5eG83WHVrWnRRYlVOeUdXcHp6dGhBWUVfSGxKdm9nUk5pXzVpakUzSjg1ZFppUUFrN2JtM1ZwWU9IX0E?oc=5",
-                    "date": "2026-03-04"
-                },
-                {
-                    "title": "豐泰(9910)重要子公司 Growth-Link Overseas Company Limited股利分派資訊",
+                    "title": "豐泰(重要子公司) Growth-Link Overseas Company Limited股利分派資訊",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNZUpLRjgyQ2NDdUtHam16bXlUV3hIRFJaSnRZbGpGdlY3NThXU1l1cEpmdjVpMWlOSHlDR09ONFprWVV5ellORjd4UThDUWpiaEZpRHQwSkdRVUJrRjByS0VqVFNWQnZYNzNzU0dOQy03bXlKY19VMF9qQXBQZGMxRkNUbjkwbDVBN2hJSlFFSjVzc1QxME1mQ1hYd3ItZTBYZW92Uldic3JKdGFkSURWOEdtajRuZlkxS1BNWW9RUmFYeTN3bXlRZXlfSVduMHh4?oc=5",
                     "date": "2026-03-06"
+                },
+                {
+                    "title": "豐泰(9910)- - 券商分點進出買賣統計｜股市爆料同學會",
+                    "sentiment": "中立",
+                    "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE55eENTUkZoNGhOQVdiSWNlSU12d1VHUFRKQjlxZXZRZ2RLTERnOWZLVXIzNmI4bzN2aUVhYXhLYmJYUlJBYUo4aE54OGJJU1dmWTI0bEwyVXQyUWJMSlQ2cE1tdjRaTGVaRkE?oc=5",
+                    "date": "2026-03-10"
                 }
             ],
-            "vol_ratio": 0.3,
+            "vol_ratio": 0.33,
             "optimal_sl": 3,
             "actual_sl": 3,
             "ev": -0.89,
@@ -8620,30 +9511,30 @@
                 },
                 {
                     "date": "2026-03-18",
-                    "price": 84.2,
-                    "volume": 1420012,
-                    "ma5": 84.08,
-                    "ma20": 90.15,
+                    "price": 84.1,
+                    "volume": 1546395,
+                    "ma5": 84.06,
+                    "ma20": 90.14,
                     "ma60": 101.17,
-                    "macd": -4.0,
+                    "macd": -4.01,
                     "macd_signal": -3.6,
-                    "macd_hist": -0.4,
-                    "rsi": 27.87,
-                    "bb_upper": 98.53,
-                    "bb_lower": 81.76,
-                    "atr": 3.27
+                    "macd_hist": -0.41,
+                    "rsi": 27.57,
+                    "bb_upper": 98.54,
+                    "bb_lower": 81.74,
+                    "atr": 3.28
                 }
             ],
-            "rs_score": -16.78,
+            "rs_score": -16.75,
             "ai_debate": {
-                "pattern": "弱勢型態",
-                "bull": "儘管跌破20MA，但近期量價變化仍有反彈跡象，多方觀察是否有底部形成",
-                "bear": "跌破20MA進入弱勢區，RSI持續低迷，空方認為股價仍有下跌風險",
-                "judge": "目前判斷為空方主導，建議觀望或空方操作"
+                "pattern": "連線中斷",
+                "bull": "連線異常",
+                "bear": "連線異常",
+                "judge": "🤖 API 限速或異常。"
             },
-            "funda_summary": "豐泰的最大財務隱患是近期營收成長率大幅下滑達-5.4%，表明公司營運面臨嚴重挑戰。",
+            "funda_summary": "豐泰的最大財務隱患是近期營收成長率大幅下滑至-5.4%，可能表明公司面臨嚴重的市場競爭或經營效率問題。",
             "best_ma_name": "20MA",
-            "best_ma_price": 90.15,
+            "best_ma_price": 90.14,
             "lights": {
                 "short": "⚪",
                 "mid": "⚪",
@@ -8654,9 +9545,9 @@
             "symbol": "9904.TW",
             "name": "寶成",
             "category": "運動鞋",
-            "price": 29.05,
-            "rsi": 35.54,
-            "bias": -3.62,
+            "price": 29.0,
+            "rsi": 35.25,
+            "bias": -3.77,
             "atr": 0.68,
             "news_sentiment": [
                 {
@@ -8664,12 +9555,6 @@
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMirwJBVV95cUxNbTFUT2hnOUNWWGRrNVZsNW8zRmQ0aVk0VG1zVmtjcy0tM3lnZEVKODdsMFA1N1VWVlFEaGF5RTdZNmNkRkxjRVoxQnBIZnVWb3dNYXFVeTZzcWNFZ2l6S0JkVlh3NXkyMWNDY3BTMXAyd1FSeUNpY3NiWEJjTnFjbW5HNG9ROTRQSFZ0VU5QeTB3djN6UHFuNGlTWFhoN2ZEQmduRkxUcXQ5X0lzUmlqZ2VwdjRsSks5YjZ3WC0tQk9TbVh3UWxHcEdVRnhyMGFFaXlmOHBaTjJSV3NSSDVWVUFTUlFDSGN6b2s5QWdlVzdySW9VSi0xX09TVkpxaWg0QV9PZTVPZFJDMnNlWHVfWTFmbVF1TkRUcTNoTlRxZUtTbjFoTGltVEdTdHNpcTQ?oc=5",
                     "date": "2026-03-12"
-                },
-                {
-                    "title": "【公告】寶成代重要子公司裕元工業(集團)有限公司(\"裕元工業\")公告董事會決議召開115年股東常會",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMigANBVV95cUxNSzQwaFROVXpVRG5SVm1zYWgtTkxtYk9nb29QWThuUU9KRk94alZaNTZfN1c1b1BzZFVfY3BWdF9tM1hJdzRCbHpQMlkxZ1NUOWdpbGJOLUhndU5ZZUJfZGVOX1pKNDd6TFpzckt3bVh6OXNZVHpBQWdXcmNxMTFNYllhUDJ0MnFCOGVDSUlwLXhUZW1HTGZHR0NVTFRtRTBpWnZRNjF5azNvclAwSWZoNUU0YTlMUUVzZDR1eFNjSFFZOW1idzkxM2tEYW5MQlZ2dG1NdVZKZ3FCbDVxMDBUamtrcHNTOHEzT0R4OGo0TzNuOTJQdEd3bXlmb2s0SEtwUkZmbGFvYmUzbUdHbVVGWEx5dXVjWkdJSnhwMXdXQ2hHZmZPVWpMZDM2eV9vZnMzVVpndjdkNjY5czlDQjZfMEozTU1ubFRCTUJzSlJXNFI4alJKa1pRTWhOaUVRdmQtUVV5eFVRLTJuaGtIYXJCSTkxYVFlcWp3UkpGZXBVMlI?oc=5",
-                    "date": "2026-03-11"
                 },
                 {
                     "title": "屋漏偏逢連夜雨",
@@ -8684,13 +9569,19 @@
                     "date": "2026-03-10"
                 },
                 {
+                    "title": "匯率干擾 寶成2025年獲利年減",
+                    "sentiment": "利空",
+                    "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNem9PREwwYXF3cFNYQ2RkRnhyX01DTFhrRjBSdEZDM0Nxb3I2V25BaEEtVUY1Z2ZxV3FJazhBMFVhMGVwUTdUcG9sNlNkaG5FQzFGTDVycXZ6eDRZa2VManZkLW1jS1hCLXRwcTcyRzYwNzhLdVFNTmFuWUJFdWZEdFItaFFjNkhCRnhXZ2VYLTVfRE1DLWh2OGRLUHpPRTlsQVEtS2JnZWdObFhWVUh3djREeldZMWNyamNFRlpLaGU3b1IzOHEzTzA0S3llaG1BR213dGxNTnZBbzNiSjVIbk9HdnZmZw?oc=5",
+                    "date": "2026-03-12"
+                },
+                {
                     "title": "寶成(9904)-元大-蘆洲中正 - 券商分點進出買賣統計｜股市爆料同學會",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9xck1hZ21GNU41bHZIamdnN1dtOVMwTnNPcmtwMVJIUFhVeXIwVUIxVVdBb2U4RlQzSU9wVFJFUTlvbngtV0Y5LVhvemc5NUNuNDRKRUh5cl9tbGQ4ZFc5WElnM3VQbW85ZXc?oc=5",
                     "date": "2026-03-11"
                 }
             ],
-            "vol_ratio": 0.8,
+            "vol_ratio": 0.85,
             "optimal_sl": 6,
             "actual_sl": 6,
             "ev": -0.06,
@@ -9583,28 +10474,28 @@
                 },
                 {
                     "date": "2026-03-18",
-                    "price": 29.05,
-                    "volume": 6653978,
-                    "ma5": 29.41,
+                    "price": 29.0,
+                    "volume": 7087155,
+                    "ma5": 29.4,
                     "ma20": 30.14,
                     "ma60": 30.64,
                     "macd": -0.42,
                     "macd_signal": -0.32,
-                    "macd_hist": -0.1,
-                    "rsi": 35.54,
+                    "macd_hist": -0.11,
+                    "rsi": 35.25,
                     "bb_upper": 31.68,
-                    "bb_lower": 28.6,
+                    "bb_lower": 28.59,
                     "atr": 0.68
                 }
             ],
-            "rs_score": -14.5,
+            "rs_score": -14.52,
             "ai_debate": {
-                "pattern": "弱勢下跌",
-                "bull": "但近期量價有下降趨勢，可能是反彈前奏",
-                "bear": "弱勢區內且RSI低於40，空方機會較大",
-                "judge": "目前已跌破20MA，強烈建議空方持續觀望"
+                "pattern": "連線中斷",
+                "bull": "連線異常",
+                "bear": "連線異常",
+                "judge": "🤖 API 限速或異常。"
             },
-            "funda_summary": "\"寶成股價過低，但近期營收成長率嚴重負面，表明公司業務面臨嚴重挑戰，投資風險極高。\"",
+            "funda_summary": "「寶成股價過低，但營收成長率大幅下滑，隱患在於未來業績是否能夠恢復。」",
             "best_ma_name": "60MA",
             "best_ma_price": 30.64,
             "lights": {
@@ -9616,7 +10507,7 @@
     ],
     "market_health": {
         "vix": 22.37,
-        "health_pct": 40,
+        "health_pct": 45,
         "us_summary": {
             "標普500": {
                 "price": 670.79,
@@ -9635,7 +10526,7 @@
                 "pct": -4.85
             }
         },
-        "ai_script": "今日台股開盤，資金曝險上限建議 20%。費半(SOXX)微升，台積電ADR(TSM)微升，恐慌指數大跌。今日台股操作鐵律：\n\n1. **抱牢**穩健股，避免高風險交易。\n2. **嚴禁**接刀，避免加碼。\n3. **紀律**守住止損，避免虧損擴大。\n4. **韭菜**股不買，不買不賣，避免被套。\n\n今日台股操作，需謹慎小心！"
+        "ai_script": "今日台股開盤，資金曝險上限建議 30%！費半(SOXX)微微上漲，台積電ADR(TSM)大漲1.98%，恐慌指數大降，表明市場情緒轉好。今日台股抱牢持股，避免接刀風險！今日台股操作鐵律：買進台積電、買進科技股，賣出傳統股！"
     },
     "macro": {
         "tw_insight": "✅ 0050多頭穩定",
