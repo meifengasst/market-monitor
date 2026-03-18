@@ -604,57 +604,53 @@ def generate_dashboard_data():
                         portfolio_updated = True
 
 
-            news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
-            
-# ...(前面你原本計算 RSI, MA, ATR 的程式碼)...
-# 💡 呼叫終極大腦！把所有數據當成參數丟進去
-ultimate_risk = get_ultimate_o3_risk_control(
-    stock_name=info["name"],
-    current_price=current_price,
-    ma20=round(df['ma20'].iloc[-1], 2),
-    rsi=round(df['rsi'].iloc[-1], 2),
-    atr=round(df['atr'].iloc[-1], 2),
-    news_data=news_sentiment_data,
-    funda_insight=funda_insight
-)
+news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
+            time.sleep(2) 
 
-# 💡 覆蓋阿土伯原本的停損價！用 o3-mini 算出來的 ATR 動態停損取代死板的 % 數
-dynamic_stop_price = ultimate_risk.get('atr_stop_loss_price', current_price * 0.95)
+            # 先抓財報，這樣後面的風控長才看得到資料
+            funda_insight = get_fundamental_risk_o3(symbol, info["name"])
+            time.sleep(2) 
 
-# ...(把 ultimate_risk 包進去 dashboard_data 陣列裡，傳到前端網頁顯示)...
-            
-            time.sleep(2) # 💡 喘口氣 1：避免被 Groq 踢下線
+            # 技術面多空辯論
+            recent_5d = df.tail(5)
+            debate_result = get_ai_technical_brain_o3(info["name"], recent_5d, rs_score)
+            time.sleep(2) 
+
+            # 呼叫終極風控長！
+            ultimate_risk = get_ultimate_o3_risk_control(
+                stock_name=info["name"],
+                current_price=current_price,
+                ma20=round(df['ma20'].iloc[-1], 2),
+                rsi=round(df['rsi'].iloc[-1], 2),
+                atr=round(df['atr'].iloc[-1], 2),
+                news_data=news_sentiment_data,
+                funda_insight=funda_insight
+            )
+
+            dynamic_stop_price = ultimate_risk.get('atr_stop_loss_price', current_price * 0.95)
 
             hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2)} for i, r in df.tail(60).iterrows()]
             
-            print(f"⚖️ 正在請求多空 AI 辯論 {info['name']} 的技術面...")
-            recent_5d = df.tail(5)
-            debate_result = get_ai_technical_brain_o3(info["name"], recent_5d, rs_score)
-            
-            time.sleep(2) # 💡 喘口氣 2：避免被 Groq 踢下線
-            
-            funda_insight = get_fundamental_risk_o3(symbol, info["name"])
-
-
-            # 💡 阿土伯計算：今日成交量 vs 過去20日平均成交量
             avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
             current_vol = df['Volume'].iloc[-1]
-            # 算出真實倍數，如果沒數據就給 1.0
             real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
+
+            # 最終結算，把所有東西裝進儀表板陣列裡
             dashboard_data.append({
                 "symbol": symbol, "name": info["name"], "category": info["category"],
                 "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), 
                 "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
                 "atr": round(df['atr'].iloc[-1], 2),
                 "news_sentiment": news_sentiment_data,
-                "vol_ratio": real_vol_ratio,  # ✅ 這裡改用我們剛算好的 real_vol_ratio
+                "vol_ratio": real_vol_ratio, 
                 "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
                 "ev": actual_ev, "win_rate": actual_win, "history": hist, 
                 "rs_score": rs_score, 
                 "ai_debate": debate_result, 
                 "funda_summary": funda_insight, 
-                "best_ma_name": best_ma_name,       
-                "best_ma_price": best_ma_price,     
+                "ultimate_risk": ultimate_risk, 
+                "best_ma_name": best_ma_name,        
+                "best_ma_price": best_ma_price,      
                 "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
             })
 
