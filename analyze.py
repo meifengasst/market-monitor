@@ -497,7 +497,6 @@ def generate_dashboard_data():
     for symbol, info in STOCKS.items():
         print(f"處理中: {symbol}")
         
-        # 💡 阿土伯的堅固地基：TRY 包住了整個處理流程！
         try:
             df = yf.download(symbol, start="2021-01-01", progress=False)
             if df.empty: continue
@@ -567,11 +566,11 @@ def generate_dashboard_data():
 
             current_price = round(df['Close'].iloc[-1], 2)
             
+            # --- 雲端帳務與停損警報 ---
             if symbol in cloud_portfolio:
                 trade = cloud_portfolio[symbol]
                 entry_price = trade.get('entryPrice', current_price)
                 peak_price = trade.get('peakPrice', entry_price)
-                # 💡 阿土伯新增：去雲端金庫看看主人有沒有下達「自訂死守價」？
                 custom_sl_price = trade.get('customSL')
 
                 if current_price > peak_price:
@@ -579,19 +578,16 @@ def generate_dashboard_data():
                     portfolio_updated = True
                     peak_price = current_price
 
-                # 💡 阿土伯邏輯：如果有自訂死守價，LINE 機器人就看這個絕對數字！
                 if custom_sl_price:
                     actual_exit_price = float(custom_sl_price)
                     reason_msg = f"\n(觸發自訂嚴格停損防線)"
                 else:
-                    # 如果沒設定，就啟動原本聰明的移動停利雷達
                     actual_exit_price = max(entry_price * (1 - actual_sl), peak_price * (1 - actual_sl))
                     if is_bear:
                         reason_msg = f"\n⚠️ [大盤避險啟動]\n停損已強制收緊至 3%！"
                     else:
                         reason_msg = f"\n(觸發移動停利網 {int(best_sl*100)}%)"
 
-                # 判斷是否跌破防線
                 if current_price <= actual_exit_price:
                     if not trade.get('alerted', False):
                         alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}{reason_msg}\n\n⚡ 已跌破嚴格防線，請立即無情清倉，保護本金！"
@@ -604,19 +600,17 @@ def generate_dashboard_data():
                         portfolio_updated = True
 
 
-news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
+            # --- 🔥 阿土伯的戰情便當生產線開始 ---
+            news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
             time.sleep(2) 
 
-            # 先抓財報，這樣後面的風控長才看得到資料
             funda_insight = get_fundamental_risk_o3(symbol, info["name"])
             time.sleep(2) 
 
-            # 技術面多空辯論
             recent_5d = df.tail(5)
             debate_result = get_ai_technical_brain_o3(info["name"], recent_5d, rs_score)
             time.sleep(2) 
 
-            # 呼叫終極風控長！
             ultimate_risk = get_ultimate_o3_risk_control(
                 stock_name=info["name"],
                 current_price=current_price,
@@ -635,7 +629,6 @@ news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
             current_vol = df['Volume'].iloc[-1]
             real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
 
-            # 最終結算，把所有東西裝進儀表板陣列裡
             dashboard_data.append({
                 "symbol": symbol, "name": info["name"], "category": info["category"],
                 "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), 
@@ -654,7 +647,6 @@ news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
                 "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
             })
 
-        # 💡 天花板與地基完美對齊！
         except Exception as e:
             print(f"⚠️ 處理 {symbol} 時發生錯誤: {e}")
             
@@ -672,7 +664,7 @@ news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
         "vix": us_market_data.get("恐慌指數", {}).get("price", 0) if isinstance(us_market_data, dict) else 0,
         "health_pct": health_pct,
         "us_summary": us_market_data,     
-        "ai_script": morning_script       
+        "ai_script": morning_script        
     }
 
     with open("data.json", "w", encoding="utf-8") as f:
