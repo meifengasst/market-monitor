@@ -185,61 +185,48 @@ def get_us_market_summary():
             summary[name] = {"price": 0, "pct": 0}
     return summary
 
-def get_ultimate_o3_risk_control(stock_name, current_price, ma20, rsi, atr, news_data, funda_insight):
-    print(f"🌪️ [終極融合] 啟動 o3-mini 跨維度騙線掃描與動態風控：{stock_name}...")
+def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, recent_df, rs_score, news_data, funda_insight):
+    print(f"🧠 [o3-mini 大合體] 啟動全白話文戰情分析：{stock_name}...")
     
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     if not openai_api_key:
-        return {"warning": "未連線", "stop_loss": 0, "position": "未知", "decision": "API未設定"}
+        return {"pattern": "未連線", "bull": "API未設定", "bear": "API未設定", "trap": "無法掃描", "stop_price": 0, "sizing": "未知", "action": "無法判斷"}
 
-    # 1. 整理跨維度情報網
-    # 將新聞陣列轉換成純文字摘要，避免 Token 浪費
-    news_str = "\n".join([f"- {n['date']} [{n['sentiment']}]: {n['title']}" for n in news_data])
-    if not news_str.strip():
-        news_str = "近期無重大新聞。"
-
-    # 計算目前的趨勢乖離率
-    bias_pct = round(((current_price - ma20) / ma20) * 100, 2) if ma20 > 0 else 0
+    # 整理近5日趨勢與新聞
+    trend_str = "\n".join([f"{r.name.strftime('%m/%d')} - 收:{r['Close']:.2f} | 量:{int(r['Volume'])}" for _, r in recent_df.iterrows()])
+    news_str = "\n".join([f"- [{n['sentiment']}] {n['title']}" for n in news_data]) if news_data else "無重大新聞"
+    
+    # 阿土伯防呆事實
+    ma_status = "【已站上 20MA，趨勢偏多】" if current_price > ma20 else "【已跌破 20MA，趨勢偏空】"
 
     system_prompt = """
-    你現在是華爾街頂級「量化避險基金的風控長 (CRO)」，輔佐台灣股神「阿土伯」。
-    你的任務是接收【技術面】、【基本面】、【新聞面】與【波動率(ATR)】，進行「跨維度邏輯推理」。
+    你現在是台灣股市老手「阿土伯」的首席量化風控長。你需要綜合【技術面】、【基本面】、【新聞】與【波動率】給出唯一裁決。
+    
+    【極度重要：必須說白話文】
+    請用台灣股民最熟悉的「白話文」撰寫！
+    - 不要說「MACD頂背離」，要說「漲不動了，動能衰退」。
+    - 不要說「籌碼發散」，要說「主力趁好消息偷出貨」。
+    - 語氣要接地氣、直接、冷酷。
 
-    【核心任務 1：抓出主力騙線 (邏輯背離)】
-    - 檢查是否「新聞極度樂觀，但股價跌破20MA或RSI轉弱」。
-    - 檢查是否「基本面極差，但股價強勢站上20MA且爆量」。
-    - 如果發現不合理之處，這就是主力騙線，請發出嚴厲警告！
-
-    【核心任務 2：ATR 動態風控 (絕對不要用固定 % 數)】
-    - 真實波動幅度(ATR)代表該股票近期的震盪劇烈程度。
-    - 請根據 ATR 計算合理的「防守停損價」。公式建議：做多時，停損設在 [現價 - (1.5倍 到 2倍的 ATR)]。
-    - 如果 ATR 極大(波動極高)，必須嚴格要求「縮減部位(Position Sizing)」。
-
-    【嚴格輸出格式】：
-    你只能輸出合法的 JSON，嚴禁 Markdown 標籤與廢話。格式如下：
+    【輸出格式要求】：純 JSON 格式，嚴格遵守以下 Key 與字數：
     {
-        "divergence_warning": "你的跨維度背離觀察，例如：新聞利多但跌破均線，疑為主力出貨 (限40字)",
-        "atr_stop_loss_price": 數字 (你算出的合理防守價，精確到小數點後兩位),
-        "position_sizing_advice": "資金控管建議，例如：波動過大，建議資金上限 10% (限20字)",
-        "action_decision": "最終結論：『抱牢』/『縮注進場』/『嚴格觀望』/『立即停損』"
+        "pattern": "目前的狀態 (例如: 強勢突破 / 跌破月線轉弱，限10字)",
+        "bull": "多方好消息 (白話文，限20字)",
+        "bear": "空方壞消息 (白話文，限20字)",
+        "trap": "騙線警告 (若新聞極好但破線，請警告『主力誘多』；若無異常填『目前無明顯主力騙線』，限25字)",
+        "stop_price": 數字 (用現價與 ATR 算出的合理防守價，精確到小數點後兩位),
+        "sizing": "資金建議 (例如: 波動大，買一半就好 / 安全，正常買，限20字)",
+        "action": "最終指令 (限選一個：抱牢續賺 / 縮注試單 / 嚴格觀望 / 破線快逃)"
     }
     """
 
     user_prompt = f"""
     股票：{stock_name}
-    【技術面與波動率】
-    - 現價：{current_price}
-    - 20日均線(20MA)：{ma20} (乖離率 {bias_pct}%)
-    - RSI (熱度指標)：{rsi}
-    - ATR (14日真實波動幅)：{atr}
-
-    【基本面財報評語】
-    {funda_insight}
-
-    【近期新聞情緒】
-    {news_str}
-
-    請風控長給出最終 JSON 裁決！
+    大盤強弱：相對大盤 {rs_score}%
+    事實：{ma_status}，現價 {current_price}，20MA {ma20}，RSI {rsi}，ATR {atr}
+    近5日量價：\n{trend_str}
+    財報：{funda_insight}
+    新聞：\n{news_str}
     """
 
     try:
@@ -249,23 +236,17 @@ def get_ultimate_o3_risk_control(stock_name, current_price, ma20, rsi, atr, news
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
             "response_format": {"type": "json_object"}
         }
-        
-        # 跨維度思考比較花時間，給它 30 秒
         res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
         res.raise_for_status()
         
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
-        
-        start_idx = ai_text.find('{')
-        end_idx = ai_text.rfind('}')
+        start_idx, end_idx = ai_text.find('{'), ai_text.rfind('}')
         if start_idx != -1 and end_idx != -1:
             return json.loads(ai_text[start_idx:end_idx+1])
         else:
-            return {"warning": "格式錯誤", "stop_loss": current_price*0.95, "position": "未知", "decision": "解析失敗"}
-
+            return {"pattern": "格式錯誤", "bull": "解析失敗", "bear": "解析失敗", "trap": "解析失敗", "stop_price": current_price*0.95, "sizing": "防禦狀態", "action": "觀望"}
     except Exception as e:
-        print(f"⚠️ 終極風控引擎連線中斷 ({stock_name}): {e}")
-        return {"warning": "連線異常", "stop_loss": current_price*0.95, "position": "防禦狀態", "decision": "強制縮小部位"}
+        return {"pattern": "連線異常", "bull": "API中斷", "bear": "API中斷", "trap": "API中斷", "stop_price": current_price*0.95, "sizing": "防禦狀態", "action": "觀望"}
 
 def generate_morning_script_o3(market_data):
     # 抓取 OpenAI 鑰匙
@@ -311,77 +292,7 @@ def generate_morning_script_o3(market_data):
         print(f"⚠️ o3-mini 晨間劇本呼叫失敗: {e}")
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
         
-def get_ai_technical_brain_o3(stock_name, recent_df, rs_score):
-    print(f"🕵️‍♂️ [o3-mini 重裝版] 啟動深度邏輯掃描與多空辯論：{stock_name}...")
-    
-    # 抓取你剛申請的 OpenAI API Key
-    openai_api_key = os.environ.get("OPENAI_API_KEY")
-    if not openai_api_key:
-        return {"pattern": "未知", "bull": "無法連線", "bear": "無法連線", "judge": "⚠️ 未設定 OPENAI_API_KEY。"}
 
-    trend_str = ""
-    for date, row in recent_df.iterrows():
-        trend_str += f"{date.strftime('%m/%d')} - 收:{row['Close']:.2f} | 量:{int(row['Volume'])} | 20MA:{row['ma20']:.2f} | RSI:{row['rsi']:.2f}\n"
-
-    # 阿土伯的防呆地基：把事實先準備好
-    last_close = recent_df['Close'].iloc[-1]
-    last_ma20 = recent_df['ma20'].iloc[-1]
-    if last_close > last_ma20:
-        ma_status = "【已站上 20MA 多頭生命線】(嚴格遵守此事實，不可看空)"
-    else:
-        ma_status = "【已跌破 20MA 進入弱勢區】(嚴格遵守此事實，不可看多)"
-
-    system_prompt = """
-    你現在是一個「台股高階量化戰情室」的推理大腦。請觀察數據並進行多空辯論。
-    請嚴格遵照 user 提示中的「目前的均線狀態」來撰寫內容。
-    
-    你「只能」輸出一個合法的 JSON 物件，絕對不能包含任何其他的問候語或 Markdown 標籤。格式必須完全吻合以下 Key：
-    {
-        "pattern": "型態名稱(限8字內)",
-        "bull": "多方觀點(限20字內)",
-        "bear": "空方觀點(限20字內)",
-        "judge": "最終裁決(限30字內，結論必須符合目前的均線狀態)"
-    }
-    """
-    user_prompt = f"股票：{stock_name}\n相對大盤強弱：{rs_score}%\n目前的均線狀態：{ma_status}\n近5日量價變化：\n{trend_str}"
-
-    try:
-        headers = {
-            "Authorization": f"Bearer {openai_api_key}",
-            "Content-Type": "application/json"
-        }
-        
-        # o3-mini 的專屬 Payload 結構
-        payload = {
-            "model": "o3-mini",
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt}
-            ],
-            # 強制鎖定 JSON 格式，減少解析錯誤
-            "response_format": {"type": "json_object"} 
-            # 注意：o3-mini 不支援 temperature，所以我們不放
-        }
-        
-        # 超時時間拉長到 30 秒，因為 o3-mini 需要時間「思考」
-        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
-        res.raise_for_status()
-        
-        ai_text = res.json()["choices"][0]["message"]["content"].strip()
-        
-        # 💡 阿土伯終極過濾器：穩穩抓出 JSON
-        start_idx = ai_text.find('{')
-        end_idx = ai_text.rfind('}')
-        
-        if start_idx != -1 and end_idx != -1:
-            json_str = ai_text[start_idx:end_idx+1]
-            return json.loads(json_str)
-        else:
-            return {"pattern": "解析失敗", "bull": "AI 格式錯誤", "bear": "AI 格式錯誤", "judge": "🤖 無法解析 o3-mini 回傳結果"}
-            
-    except Exception as e:
-        print(f"⚠️ o3-mini 綜合大腦連線失敗 ({stock_name}): {e}")
-        return {"pattern": "連線中斷", "bull": "API異常", "bear": "API異常", "judge": "🤖 請檢查 API Key 或餘額是否充足。"}
 
 def get_fundamental_risk_o3(symbol, stock_name):
     print(f"🔎 [o3-mini 財報掃雷] 正在調閱 {stock_name} 的財務報表...")
@@ -608,6 +519,23 @@ def generate_dashboard_data():
             time.sleep(2) 
 
             recent_5d = df.tail(5)
+
+            # 💡 只要呼叫一次終極大腦！
+            unified_brain = get_unified_o3_brain(
+                stock_name=info["name"],
+                current_price=current_price,
+                ma20=round(df['ma20'].iloc[-1], 2),
+                rsi=round(df['rsi'].iloc[-1], 2),
+                atr=round(df['atr'].iloc[-1], 2),
+                recent_df=recent_5d,
+                rs_score=rs_score,
+                news_data=news_sentiment_data,
+                funda_insight=funda_insight
+            )
+
+            # 動態停損價改從 unified_brain 拿
+            dynamic_stop_price = unified_brain.get('stop_price', current_price * 0.95)
+            
             debate_result = get_ai_technical_brain_o3(info["name"], recent_5d, rs_score)
             time.sleep(2) 
 
@@ -638,7 +566,8 @@ def generate_dashboard_data():
                 "vol_ratio": real_vol_ratio, 
                 "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
                 "ev": actual_ev, "win_rate": actual_win, "history": hist, 
-                "rs_score": rs_score, 
+                "rs_score": rs_score,
+                "unified_brain": unified_brain,
                 "ai_debate": debate_result, 
                 "funda_summary": funda_insight, 
                 "ultimate_risk": ultimate_risk, 
