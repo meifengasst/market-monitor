@@ -185,12 +185,14 @@ def get_us_market_summary():
             summary[name] = {"price": 0, "pct": 0}
     return summary
 
-def generate_morning_script_via_groq(market_data):
-    groq_api_key = os.environ.get("GROQ_API_KEY")
-    if not groq_api_key:
-        return "⚠️ 未設定 GROQ_API_KEY，無法產生晨間劇本。請遵守 20MA 紀律操作。"
+def generate_morning_script_o3(market_data):
+    # 抓取 OpenAI 鑰匙
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        return "⚠️ 未設定 OPENAI_API_KEY，無法產生晨間劇本。請遵守 20MA 紀律操作，縮減部位。"
 
     data_str = ", ".join([f"{k}: 變化 {v['pct']}% (收 {v['price']})" for k, v in market_data.items()])
+    
     system_prompt = """
     你現在是台灣股市老手「阿土伯」，極度重視風險控制，極度痛恨賭徒式加碼與凹單。
     你的任務是根據提供的【昨夜美股數據】，給出【今日台股開盤的行動指南】。
@@ -198,24 +200,33 @@ def generate_morning_script_via_groq(market_data):
     規則：
     1. 語氣要果斷、嚴厲、接地氣（可使用「接刀」、「韭菜」、「抱牢」、「紀律」等詞彙）。
     2. 必須給出「今日資金曝險上限建議（例如 20% 或 50%）」。
-    3. 如果費半(SOXX)或台積電ADR(TSM)大跌，必須嚴格警告「開盤嚴禁接刀」。
+    3. 仔細觀察數字：如果費半(SOXX)或台積電ADR(TSM)大跌超過 1.5%，必須嚴格警告「開盤嚴禁接刀」。
     4. 字數嚴格限制在 80 字以內，不要廢話，直接給指令！
     """
     user_prompt = f"昨夜美股數據：{data_str}。請阿土伯下達今日台股操作鐵律！"
 
     try:
-        print("🧠 呼叫 Groq AI 撰寫晨間劇本...")
-        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
-        payload = {
-            "model": "llama-3.1-8b-instant", 
-            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "temperature": 0.3, "max_tokens": 150
+        print("🧠 呼叫 o3-mini 撰寫冷酷無情的晨間戰報...")
+        headers = {
+            "Authorization": f"Bearer {openai_api_key}", 
+            "Content-Type": "application/json"
         }
-        response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
-        response.raise_for_status()
-        return response.json()["choices"][0]["message"]["content"].strip()
+        payload = {
+            "model": "o3-mini", 
+            "messages": [
+                {"role": "system", "content": system_prompt}, 
+                {"role": "user", "content": user_prompt}
+            ]
+            # 💡 阿土伯提醒：o3-mini 不支援 temperature 參數，它只講求純粹的邏輯推理！
+        }
+        
+        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
+        res.raise_for_status()
+        
+        return res.json()["choices"][0]["message"]["content"].strip()
+        
     except Exception as e:
-        print(f"⚠️ Groq API 呼叫失敗: {e}")
+        print(f"⚠️ o3-mini 晨間劇本呼叫失敗: {e}")
         return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
         
 def get_ai_technical_brain_o3(stock_name, recent_df, rs_score):
@@ -544,7 +555,7 @@ def generate_dashboard_data():
 
     print("📊 準備結算並產出 JSON 報表...")
     us_market_data = get_us_market_summary()
-    morning_script = generate_morning_script_via_groq(us_market_data)
+    morning_script = generate_morning_script_o3(us_market_data)
 
     above_20ma_count = sum(1 for d in dashboard_data if d['price'] > d['history'][-1]['ma20'])
     health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
