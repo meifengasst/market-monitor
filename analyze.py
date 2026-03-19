@@ -185,35 +185,40 @@ def get_us_market_summary():
             summary[name] = {"price": 0, "pct": 0}
     return summary
 
-def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, recent_df, rs_score, news_data, funda_insight):
-    print(f"🧠 [o3-mini 大合體] 啟動全白話文戰情分析：{stock_name}...")
+# 💡 注意參數多了一個 poc_price
+def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, recent_df, rs_score, news_data, funda_insight):
+    print(f"🧠 [o3-mini 大合體] 啟動全白話文戰情分析 (含POC籌碼視角)：{stock_name}...")
     
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     if not openai_api_key:
         return {"pattern": "未連線", "bull": "API未設定", "bear": "API未設定", "trap": "無法掃描", "stop_price": 0, "sizing": "未知", "action": "無法判斷"}
 
-    # 整理近5日趨勢與新聞
     trend_str = "\n".join([f"{r.name.strftime('%m/%d')} - 收:{r['Close']:.2f} | 量:{int(r['Volume'])}" for _, r in recent_df.iterrows()])
     news_str = "\n".join([f"- [{n['sentiment']}] {n['title']}" for n in news_data]) if news_data else "無重大新聞"
     
-    # 阿土伯防呆事實
     ma_status = "【已站上 20MA，趨勢偏多】" if current_price > ma20 else "【已跌破 20MA，趨勢偏空】"
 
     system_prompt = """
-    你現在是台灣股市老手「阿土伯」的首席量化風控長。你需要綜合【技術面】、【基本面】、【新聞】與【波動率】給出唯一裁決。
+    你現在是台灣股市老手「阿土伯」的首席量化風控長。你需要綜合【技術面】、【籌碼密集區(POC)】、【基本面】、【新聞】給出唯一裁決。
     
     【極度重要：必須說白話文】
     請用台灣股民最熟悉的「白話文」撰寫！
     - 不要說「MACD頂背離」，要說「漲不動了，動能衰退」。
-    - 不要說「籌碼發散」，要說「主力趁好消息偷出貨」。
     - 語氣要接地氣、直接、冷酷。
+
+    【籌碼密集區 (POC) 判斷密技】：
+    - POC 代表過去半年市場最大的「主力成本區」。
+    - 如果現價遠高於 POC：代表「主力已經拉開成本，獲利滿滿，隨時可能倒貨」。
+    - 如果現價剛好在 POC 附近：代表「有鐵板支撐，適合建倉防守」。
+    - 如果現價跌破 POC：代表「連主力都被套牢，上方壓力極大，快逃」。
+    請務必將 POC 的觀察寫進你的 bull, bear 或 trap 分析中！
 
     【輸出格式要求】：純 JSON 格式，嚴格遵守以下 Key 與字數：
     {
         "pattern": "目前的狀態 (例如: 強勢突破 / 跌破月線轉弱，限10字)",
-        "bull": "多方好消息 (白話文，限20字)",
-        "bear": "空方壞消息 (白話文，限20字)",
-        "trap": "騙線警告 (若新聞極好但破線，請警告『主力誘多』；若無異常填『目前無明顯主力騙線』，限25字)",
+        "bull": "多方好消息 (白話文，限25字)",
+        "bear": "空方壞消息 (白話文，限25字)",
+        "trap": "騙線警告 (包含POC籌碼判斷，例如：現價乖離POC太遠，小心主力倒貨，限30字)",
         "stop_price": 數字 (用現價與 ATR 算出的合理防守價，精確到小數點後兩位),
         "sizing": "資金建議 (例如: 波動大，買一半就好 / 安全，正常買，限20字)",
         "action": "最終指令 (限選一個：抱牢續賺 / 縮注試單 / 嚴格觀望 / 破線快逃)"
@@ -223,7 +228,10 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, recent_df, r
     user_prompt = f"""
     股票：{stock_name}
     大盤強弱：相對大盤 {rs_score}%
-    事實：{ma_status}，現價 {current_price}，20MA {ma20}，RSI {rsi}，ATR {atr}
+    事實：{ma_status}
+    現價：{current_price}
+    近半年籌碼密集區(POC)：{poc_price} 
+    均線與波動：20MA {ma20}，RSI {rsi}，ATR {atr}
     近5日量價：\n{trend_str}
     財報：{funda_insight}
     新聞：\n{news_str}
@@ -395,7 +403,30 @@ def get_fundamental_risk_o3(symbol, stock_name):
     except Exception as e:
         print(f"⚠️ o3-mini 財報解讀中斷: {e}")
         return "🤖 AI 財報解讀中斷，請手動確認風險。"
-
+# 💡 阿土伯黑科技：計算近半年最大籌碼密集區 (POC)
+def calculate_poc(df, days=120, bins=20):
+    try:
+        # 取近半年的資料來算籌碼
+        recent_df = df.tail(days).copy()
+        if len(recent_df) < 20: 
+            return round(df['Close'].iloc[-1], 2)
+        
+        # 把價格切成 20 個抽屜 (bins)
+        recent_df['Price_Bin'] = pd.cut(recent_df['Close'], bins=bins)
+        
+        # 計算每個抽屜裡累積了多少成交量
+        volume_by_price = recent_df.groupby('Price_Bin', observed=False)['Volume'].sum()
+        
+        # 找出裝最多成交量的那個抽屜
+        poc_bin = volume_by_price.idxmax()
+        
+        # 取這個抽屜的中間價，當作主力成本區 (POC)
+        poc_price = poc_bin.mid
+        return round(float(poc_price), 2)
+    except Exception as e:
+        print(f"⚠️ POC 計算失敗: {e}")
+        return round(df['Close'].iloc[-1], 2)
+        
 def get_best_ma_strategy(df):
     ma_list = ['ma5', 'ma10', 'ma20', 'ma60']
     best_ma = 'ma20'
@@ -564,7 +595,9 @@ def generate_dashboard_data():
             time.sleep(2) 
 
             recent_5d = df.tail(5)
-
+            
+            # 💡 1. 呼叫我們剛寫好的 POC 引擎
+            poc_price = calculate_poc(df, days=120, bins=20)
             # 💡 大合體！只呼叫一次終極大腦
             unified_brain = get_unified_o3_brain(
                 stock_name=info["name"],
@@ -572,6 +605,7 @@ def generate_dashboard_data():
                 ma20=round(df['ma20'].iloc[-1], 2),
                 rsi=round(df['rsi'].iloc[-1], 2),
                 atr=round(df['atr'].iloc[-1], 2),
+                poc_price=poc_price,
                 recent_df=recent_5d,
                 rs_score=rs_score,
                 news_data=news_sentiment_data,
@@ -593,6 +627,7 @@ def generate_dashboard_data():
                 "price": current_price, "rsi": round(df['rsi'].iloc[-1], 2), 
                 "bias": round(((current_price - df['ma20'].iloc[-1]) / df['ma20'].iloc[-1]) * 100, 2) if df['ma20'].iloc[-1] else 0,
                 "atr": round(df['atr'].iloc[-1], 2),
+                "poc_price": poc_price,
                 "news_sentiment": news_sentiment_data,
                 "vol_ratio": real_vol_ratio, 
                 "optimal_sl": int(best_sl*100), "actual_sl": int(actual_sl*100),
