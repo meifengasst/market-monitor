@@ -862,13 +862,6 @@ function openModal(stock) {
                 // 主力強弱徽章字體放大
                 let rsBadge = stock.rs_score > 5 ? `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-sm font-black animate-bounce">👑 主力強勢 (+${stock.rs_score}%)</span>` : (stock.rs_score > 0 ? `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-sm font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>` : `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-sm font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
 
-                // 期望值 EV 字體放大
-                let evBadge = "";
-                if (stock.ev !== undefined) {
-                    let colorClass = stock.ev > 0 ? "red" : "green";
-                    evBadge = `<div class="flex justify-between items-center bg-${colorClass}-900/30 p-2.5 rounded-xl border border-${colorClass}-500/40 mb-3 shadow-inner"><span class="text-sm text-${colorClass}-200 font-bold">${stock.ev > 0 ? '🏆' : '⚠️'} 期望值(含停損)</span><span class="text-lg font-mono font-black text-${colorClass}-400">${stock.ev > 0 ? '+' : ''}${stock.ev}%</span></div>`;
-                }
-
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
                     // (這段是你原本實戰部位的程式碼，保留不變)
@@ -959,7 +952,6 @@ card.innerHTML = `
                                 </div>
                             </div>
                             
-                            ${evBadge}
                             
                       <div class="grid grid-cols-4 items-center bg-black/30 p-3 rounded-xl border border-white/5 mb-4 mt-3 shadow-inner relative divide-x divide-white/10">
                                 
@@ -1007,13 +999,7 @@ card.innerHTML = `
                                     
                                     <div class="flex flex-col gap-4 relative z-10">
                                         
-                                        <div class="flex items-center gap-2 mb-1">
-                                            <span class="bg-indigo-900/50 text-indigo-300 text-sm px-4 py-1.5 rounded font-bold border border-indigo-500/30 shadow-inner">
-                                                狀態：${stock.unified_brain.pattern}
-                                            </span>
-                                        </div>
-                                        
-                                        <div class="flex flex-col gap-3 bg-black/20 p-4 rounded-xl border border-white/5">
+                                        <div class="flex flex-col gap-3 bg-black/20 p-4 rounded-xl border border-white/5 mt-1">
                                             <div class="flex items-start gap-2">
                                                 <span class="text-red-400 text-base font-black mt-0.5 whitespace-nowrap">🔴 好消息:</span>
                                                 <p class="text-base font-bold text-slate-200 leading-relaxed">${stock.unified_brain.bull}</p>
@@ -1024,7 +1010,7 @@ card.innerHTML = `
                                             </div>
                                         </div>
 
-                                        <div class="space-y-5 bg-black/40 p-5 rounded-xl border border-white/5 mt-1">
+                                        <div class="space-y-5 bg-black/40 p-5 rounded-xl border border-white/5">
                                             <div class="flex items-start gap-3">
                                                 <span class="text-yellow-500 text-2xl flex-shrink-0 mt-0.5">⚠️</span>
                                                 <div>
@@ -1041,10 +1027,12 @@ card.innerHTML = `
                                                 </div>
                                             </div>
 
+                                            ${myPortfolio[stock.symbol] ? '' : `
                                             <div class="flex items-center justify-between bg-red-900/20 px-4 py-3 rounded-xl border border-red-500/20 mt-2 shadow-inner">
-                                                <span class="text-sm text-slate-400 font-bold">🛡️ 動態防守價</span>
+                                                <span class="text-sm text-slate-400 font-bold">🛡️ 建倉參考防守價</span>
                                                 <p class="text-2xl font-mono font-black text-red-400">$${stock.unified_brain.stop_price}</p>
                                             </div>
+                                            `}
                                         </div>
                                     </div>
                                 </div>
