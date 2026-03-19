@@ -185,6 +185,36 @@ def get_us_market_summary():
             summary[name] = {"price": 0, "pct": 0}
     return summary
 
+# 💡 阿土伯黑科技 2：板塊輪動雷達 (追蹤聰明錢流向)
+def get_sector_rotation():
+    print("🧭 啟動板塊輪動雷達 (追蹤聰明錢)...")
+    # 設定觀測名單：科技攻擊 vs 金融/高息防禦
+    sectors = {
+        "XLK": {"name": "🇺🇸美股科技", "bm": "SPY"},
+        "XLF": {"name": "🇺🇸美股金融", "bm": "SPY"},
+        "00881.TW": {"name": "🇹🇼台股科技", "bm": "0050.TW"},
+        "00878.TW": {"name": "🇹🇼台股高息", "bm": "0050.TW"}
+    }
+    results = []
+    for sym, info in sectors.items():
+        try:
+            # 抓取近一個月歷史
+            stock_df = yf.Ticker(sym).history(period="1mo")
+            bm_df = yf.Ticker(info["bm"]).history(period="1mo")
+            if len(stock_df) >= 20 and len(bm_df) >= 20:
+                # 計算近 20 日報酬率
+                stock_ret = (stock_df['Close'].iloc[-1] - stock_df['Close'].iloc[-20]) / stock_df['Close'].iloc[-20]
+                bm_ret = (bm_df['Close'].iloc[-1] - bm_df['Close'].iloc[-20]) / bm_df['Close'].iloc[-20]
+                # 算出相對大盤的強弱度 (RS)
+                rs = (stock_ret - bm_ret) * 100
+                results.append({"name": info["name"], "rs": round(rs, 2)})
+        except Exception as e:
+            print(f"⚠️ 板塊 {sym} 掃描失敗: {e}")
+    
+    # 依照強弱度由大到小排序
+    results.sort(key=lambda x: x['rs'], reverse=True)
+    return results
+
 # 💡 注意參數多了一個 poc_price
 def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, recent_df, rs_score, news_data, funda_insight):
     print(f"🧠 [o3-mini 大合體] 啟動全白話文戰情分析 (含POC籌碼視角)：{stock_name}...")
@@ -256,49 +286,40 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, r
     except Exception as e:
         return {"pattern": "連線異常", "bull": "API中斷", "bear": "API中斷", "trap": "API中斷", "stop_price": current_price*0.95, "sizing": "防禦狀態", "action": "觀望"}
 
-def generate_morning_script_o3(market_data):
-    # 抓取 OpenAI 鑰匙
+# 💡 新增 sector_data 參數
+def generate_morning_script_o3(market_data, sector_data):
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     if not openai_api_key:
-        return "⚠️ 未設定 OPENAI_API_KEY，無法產生晨間劇本。請遵守 20MA 紀律操作，縮減部位。"
+        return "⚠️ 未設定 OPENAI_API_KEY，無法產生晨間劇本。"
 
-    data_str = ", ".join([f"{k}: 變化 {v['pct']}% (收 {v['price']})" for k, v in market_data.items()])
+    data_str = ", ".join([f"{k}: 變化 {v['pct']}%" for k, v in market_data.items()])
+    # 把板塊流向轉成文字給 AI 看
+    sector_str = ", ".join([f"{s['name']}(動能 {s['rs']}%)" for s in sector_data]) if sector_data else "無資料"
     
     system_prompt = """
-    你現在是台灣股市老手「阿土伯」，極度重視風險控制，極度痛恨賭徒式加碼與凹單。
-    你的任務是根據提供的【昨夜美股數據】，給出【今日台股開盤的行動指南】。
+    你現在是台灣股市老手「阿土伯」，極度重視風險控制與資金輪動。
+    你的任務是根據【昨夜美股數據】與【板塊資金流向(動能>0代表資金流入，<0代表流出)】，給出今日台股開盤的行動指南。
     
     規則：
-    1. 語氣要果斷、嚴厲、接地氣（可使用「接刀」、「韭菜」、「抱牢」、「紀律」等詞彙）。
+    1. 語氣要果斷、嚴厲、接地氣（可使用「接刀」、「避風港」、「抱牢」等詞）。
     2. 必須給出「今日資金曝險上限建議（例如 20% 或 50%）」。
-    3. 仔細觀察數字：如果費半(SOXX)或台積電ADR(TSM)大跌超過 1.5%，必須嚴格警告「開盤嚴禁接刀」。
-    4. 字數嚴格限制在 80 字以內，不要廢話，直接給指令！
+    3. 如果科技板塊動能為負，高息/金融為正，必須警告「資金正在撤出科技股，轉往防禦板塊」。
+    4. 字數嚴格限制在 80 字以內，直接給指令！
     """
-    user_prompt = f"昨夜美股數據：{data_str}。請阿土伯下達今日台股操作鐵律！"
+    user_prompt = f"昨夜美股：{data_str}。\n資金流向：{sector_str}。\n請阿土伯下達操作鐵律！"
 
     try:
-        print("🧠 呼叫 o3-mini 撰寫冷酷無情的晨間戰報...")
-        headers = {
-            "Authorization": f"Bearer {openai_api_key}", 
-            "Content-Type": "application/json"
-        }
+        print("🧠 呼叫 o3-mini 撰寫晨間戰報 (結合資金輪動)...")
+        headers = {"Authorization": f"Bearer {openai_api_key}", "Content-Type": "application/json"}
         payload = {
             "model": "o3-mini", 
-            "messages": [
-                {"role": "system", "content": system_prompt}, 
-                {"role": "user", "content": user_prompt}
-            ]
-            # 💡 阿土伯提醒：o3-mini 不支援 temperature 參數，它只講求純粹的邏輯推理！
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
         }
-        
         res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
         res.raise_for_status()
-        
         return res.json()["choices"][0]["message"]["content"].strip()
-        
     except Exception as e:
-        print(f"⚠️ o3-mini 晨間劇本呼叫失敗: {e}")
-        return "🤖 AI 戰情室連線異常，請手動依據 20MA 鐵律操作，縮小部位。"
+        return "🤖 AI 戰情室連線異常，請縮小部位觀望。"
         
 
 # 💡 在你設定環境變數的地方加入 FMP_API_KEY
@@ -648,7 +669,9 @@ def generate_dashboard_data():
 
     print("📊 準備結算並產出 JSON 報表...")
     us_market_data = get_us_market_summary()
-    morning_script = generate_morning_script_o3(us_market_data)
+    # 💡 1. 呼叫雷達
+    sector_data = get_sector_rotation()
+    morning_script = generate_morning_script_o3(us_market_data, sector_data)
 
     above_20ma_count = sum(1 for d in dashboard_data if d['price'] > d['history'][-1]['ma20'])
     health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
@@ -656,7 +679,8 @@ def generate_dashboard_data():
     market_health = {
         "vix": us_market_data.get("恐慌指數", {}).get("price", 0) if isinstance(us_market_data, dict) else 0,
         "health_pct": health_pct,
-        "us_summary": us_market_data,     
+        "us_summary": us_market_data,
+        "sector_data": sector_data,
         "ai_script": morning_script        
     }
 
