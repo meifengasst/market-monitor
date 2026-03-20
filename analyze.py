@@ -688,23 +688,7 @@ def generate_dashboard_data():
                 smart_money=smart_money_insight   # 👈 傳遞進去！
             )
             
-            recent_5d = df.tail(5)
-            
-            # 💡 1. 呼叫我們剛寫好的 POC 引擎
-            poc_price = calculate_poc(df, days=120, bins=20)
-            # 💡 大合體！只呼叫一次終極大腦
-            unified_brain = get_unified_o3_brain(
-                stock_name=info["name"],
-                current_price=current_price,
-                ma20=round(df['ma20'].iloc[-1], 2),
-                rsi=round(df['rsi'].iloc[-1], 2),
-                atr=round(df['atr'].iloc[-1], 2),
-                poc_price=poc_price,
-                recent_df=recent_5d,
-                rs_score=rs_score,
-                news_data=news_sentiment_data,
-                funda_insight=funda_insight
-            )
+
 
             # 動態停損價改從 unified_brain 拿
             dynamic_stop_price = unified_brain.get('stop_price', current_price * 0.95)
