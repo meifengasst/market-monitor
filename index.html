@@ -669,7 +669,7 @@
             document.getElementById('newsModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
         }
 
-        // 💡 股票卡片渲染引擎 (究極完整版：含進化四、新聞按鈕、圖表)
+// 💡 股票卡片渲染引擎 (究極完整版：含進化四、新聞按鈕、圖表)
         function renderData(filterText = '') {
             const list = document.getElementById('stock-list'); list.innerHTML = ''; 
             const search = filterText.toLowerCase().trim();
@@ -742,6 +742,7 @@
 
                 let isPerfectEntry = (stock.vol_ratio >= 2.5) && isBullish && (stock.rsi >= 55 && stock.rsi <= 65) && (stock.rs_score > 0);
                 let cardBaseClass = "p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group";
+                // 💡 終極修正版：這裡就是修正金色發光特效的地方
                 card.className = isPerfectEntry 
                     ? `${cardBaseClass} border-yellow-400 bg-gradient-to-br from-yellow-900/40 to-slate-900 shadow-[0_0_30px_rgba(250,204,21,0.5)] ring-1 ring-yellow-400` 
                     : `${cardBaseClass} border-slate-700 bg-slate-800/50`;
@@ -806,16 +807,6 @@
                                     <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 text-sm lg:text-base animate-bounce drop-shadow-[0_0_5px_rgba(168,85,247,0.8)]">👑</div>
                                     <p class="text-[10px] lg:text-xs text-purple-300 font-black mb-1 tracking-wider">主力POC</p>
                                     <p class="text-base lg:text-xl font-mono font-black ${stock.price > stock.poc_price ? 'text-red-400' : 'text-green-400'}">${stock.poc_price || '計算中'}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-blue-900/30 p-3 rounded-xl border border-blue-500/30 mb-4 mt-2 shadow-inner">
-                                <div class="flex justify-between items-end mb-2">
-                                    <p class="text-sm font-black ${stock.vol_ratio > 1.5 ? 'text-red-400' : 'text-blue-300'}">${stock.vol_ratio > 1.5 ? '🔥 大戶進場表態' : '💤 散戶量縮盤整'}</p>
-                                    <p class="text-sm font-mono font-black text-blue-200">量能 ${stock.vol_ratio}x</p>
-                                </div>
-                                <div class="w-full bg-black/50 h-2 rounded-full overflow-hidden border border-black/50">
-                                    <div class="${stock.vol_ratio > 1.5 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : 'bg-blue-500'} h-full transition-all duration-500" style="width: ${Math.min(stock.vol_ratio * 30, 100)}%"></div>
                                 </div>
                             </div>
                             
