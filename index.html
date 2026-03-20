@@ -334,14 +334,42 @@
         let baseCapital = parseFloat(localStorage.getItem('atu_base_capital')) || 100000;
         let globalDynamicCapital = baseCapital; 
 
-        const SECRET_PASSWORD = "29399909"; 
-        document.getElementById("passInput").addEventListener("keypress", function(event) { if (event.key === "Enter") { event.preventDefault(); checkPassword(); } });
-        function checkPassword() {
-            if (document.getElementById('passInput').value === SECRET_PASSWORD) {
+// 💡 阿土伯的安全金庫密碼 (這是 "29399909" 的 SHA-256 雜湊加密值)
+        const SECRET_HASH = "81b674b88d374ce0f7f32924155b41315e219712a297e651e0ffba6e066aab75"; 
+
+        // 幫密碼加上防護罩的加密引擎
+        async function hashPassword(password) {
+            const msgBuffer = new TextEncoder().encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        document.getElementById("passInput").addEventListener("keypress", function(event) { 
+            if (event.key === "Enter") { 
+                event.preventDefault(); 
+                checkPassword(); 
+            } 
+        });
+
+        // 升級版的密碼檢查器 (加入 async 等待加密完成)
+        async function checkPassword() {
+            const input = document.getElementById('passInput').value;
+            const inputHash = await hashPassword(input); // 將你輸入的密碼轉換成亂碼
+
+            if (inputHash === SECRET_HASH) { // 比對兩串亂碼是否一樣
                 document.getElementById('loginScreen').classList.add('opacity-0');
-                setTimeout(() => { document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('dashboardContent').classList.remove('hidden'); document.getElementById('dashboardContent').classList.add('flex'); setTimeout(() => { document.getElementById('dashboardContent').classList.remove('opacity-0'); }, 50); loadData(); }, 500);
+                setTimeout(() => { 
+                    document.getElementById('loginScreen').classList.add('hidden'); 
+                    document.getElementById('dashboardContent').classList.remove('hidden'); 
+                    document.getElementById('dashboardContent').classList.add('flex'); 
+                    setTimeout(() => { document.getElementById('dashboardContent').classList.remove('opacity-0'); }, 50); 
+                    loadData(); 
+                }, 500);
             } else {
-                document.getElementById('errorMsg').classList.remove('opacity-0'); document.getElementById('passInput').value = ""; setTimeout(() => { document.getElementById('errorMsg').classList.add('opacity-0'); }, 2000);
+                document.getElementById('errorMsg').classList.remove('opacity-0'); 
+                document.getElementById('passInput').value = ""; 
+                setTimeout(() => { document.getElementById('errorMsg').classList.add('opacity-0'); }, 2000);
             }
         }
 
