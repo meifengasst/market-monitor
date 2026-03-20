@@ -1,5 +1,5 @@
 {
-    "last_update": "2026-03-21 [06:05]",
+    "last_update": "2026-03-21 [07:52]",
     "data": [
         {
             "symbol": "NVDA",
@@ -24,6 +24,12 @@
                     "date": "2026-03-18"
                 },
                 {
+                    "title": "Nvidia (NVDA) 股票；因與AWS 達成價值100 萬美元的GPU 交易而小幅下跌",
+                    "sentiment": "利空",
+                    "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFBoYlp0aUNEdC1LNXJCRlB3SEI1YWtRTHdQaU1iYnc0R2FSa0lSRVFJZXJya3B3YmwtUklCdWowWWZub2RFV2NVbmpBd2lpdms?oc=5",
+                    "date": "2026-03-20"
+                },
+                {
                     "title": "NVIDIA Corp(NVDA)股票3月6日收盤下跌3.02%：背後推手曝光",
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxORXcyd215cXJuZ0RaUjR3WU5pdXZGN3VvNjVqaDF4c2YtaWloSi03d0V3MVRMLVlrVHd0Xy05REFKVGE3WnJlUGNfQ19BQnVVbW1lYWd0Vl9YOGJWSlFUb2g4MmtpN3JRV0t4bXFZQUNUcW9za1ptLV8wcVZCajU2MnBFcEptSlBRMVpRWQ?oc=5",
@@ -31,14 +37,8 @@
                 },
                 {
                     "title": "真金白銀挺AI 「史上最強散戶」大買200萬股輝達股票",
-                    "sentiment": "利多",
+                    "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQcVUxTDBPTEk1SjBINGp2NWtpbFhJMUp1VnIwemwtbTZyZTExQnMzN2c1c1o3VXRVdTdkamxPU1pMTDVhSXVIQXNBZzM0RGNnYV9NUExtMWhxSllUOWJVaF9QeWlCS2I1S3RFTFBFcmxvYjZWZ0hKNFpwS0pXRGN5c21KX2YySDNickFEUXM4NW5Hdm1IOHRpXzAxYWdidw?oc=5",
-                    "date": "2026-03-09"
-                },
-                {
-                    "title": "【即時新聞】特斯拉大戶廖凱原砸重金翻倍加碼輝達(NVDA)，盼安撫震盪市場情緒",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPS3l1RWhua3dMWWVkYW1jbnBOUDY0Z0twbzVhckRRQTZzVmpRVGc2bWJIVlB1VUt5elQ1UUNDLWt1aDZORTBGRXBQMy1zU2U1NXJoYWlrZmVFRm5DUEg0U0NueHlqcUZoSDVnNzl0Z1JHdmJncHp4aGpQb1plOFBpdmE4WV9BQS03TkVOcXJwODQ?oc=5",
                     "date": "2026-03-09"
                 }
             ],
@@ -997,10 +997,10 @@
                     "date": "2026-03-13"
                 },
                 {
-                    "title": "馬斯克宣布晶片廠TeraFab 7 天內啟動，對於台積電是受惠還是承壓？｜美股觀察｜豐雲學堂2026 年 03 月",
+                    "title": "特斯拉多線布局加速 股價卻異常平靜",
                     "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMi3wNBVV95cUxPSUstaHJLd25tNUZoMHFmNmFSTU9jMlUxUURXVm9DUUtZcDREMVhRWjRJQnV0MHBQX29DWWkzTUxnYTZSMmpWWlhIRkM3b0lqRnFOLXRnd3MySXc5QmlNcFhaZTRYSnluTjZWckZRN3MtbnFQWDJiSE1iOC1ackJyWmJMaEdoclVFaGdDTlRjTmQ5eUFYOXRYMGV0b1pKWm9Wd2pOem9MUHZqblNudWgxRVFFNFRmVGNFZFV3X1FLRnF2b196OEI1b2NQSjRzMWdoN1dDbjZRRVE0TTBxSWZqQmE4cVRVZkdIbmZFSDk0cy1VQzhCb05jT1dCMkRvMXo0YWFGeHdZdUhYUjZLWnY3dzVvQS1scjlZc0tTazRpMmR5Vl9xZ1czLVdOUDNQTFYzZnd0QUJPXzkxMk5pdUYyTmpNNC1peThhMzhYemVVbnJ1WXJSMWhSdGUxQmN2NW1wNmU5UjdHM1VmV01hcnFqMTdPN1ZpdnVoQUFBZGU3SVRtaFdhMDVtbWRKVHdqYnprR0hZS19Za3dyM2F2alRtbmVQdFlqalkzUkNHU3pibDZHbDFsLVE3ckxwOTdkU0VYVm1LNHJOMDZ1bDlxcThlakNNSHN2d0Z3X2FsXzZ0MA?oc=5",
-                    "date": "2026-03-14"
+                    "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOd0hLTmw5RTdYX2JoTXFKLXRjMDB0RGNUWDl6Z1JfVTdhSVlsZ0xBTTBwaHBJZkxFYXNPcjVzUEw5Uk5Gdm5QZllRR2ZJM3RVbW4ya3dkdzhiN3pVcnNFNHF0dFZ3SXBWY0hOaW1CeldjYU1PaGdiTkRXaEtWWHZSUWRlZmtSenBqQnZOU2xpYmhXcTdSUW1yTw?oc=5",
+                    "date": "2026-03-20"
                 },
                 {
                     "title": "Tesla Inc(TSLA)股票3月12日盤中下跌3.03%：關鍵驅動因素揭曉",
@@ -1947,25 +1947,19 @@
             "news_sentiment": [
                 {
                     "title": "標普500落後！三檔國際ETF今年逆勢狂飆，海外股市迎來強勁補漲行情",
-                    "sentiment": "中立",
+                    "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE45ckFwMy16UmRFNTNIWDdSUHBzRUQxWWJiVV8ySGJrRmJpX1FCc2JmV3pfNEphdlNtcGs2UDBJbW13dHQ4bHRhc3dIM0JKZWpVOGFhOXBGTHF4UnBGNGllejNGREk3UU0?oc=5",
                     "date": "2026-03-20"
                 },
                 {
                     "title": "標普500落後！三檔國際ETF今年逆勢狂飆，海外股市迎來強勁補漲行情",
-                    "sentiment": "中立",
+                    "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNeVNKYVhoOHMtanlWX0l2eEUxQWZTeUo2cDJVUzlpYUJ3eDk0Z3NfRXZTcFpxNkNJcUxqUGZ4aXBlOTdfanJra0otRFE1V0NXZmwzMWFiQmVnVnJOcHhSWlJKc0pCSzhTUF80QzBHM3YxMDVfRS1TNGhhS3VRMlJvNFJsN21qRVUxWjlneEFiYXA?oc=5",
                     "date": "2026-03-20"
                 },
                 {
-                    "title": "SPY的藍芽胎壓監測系統",
-                    "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxNNDlaS0hWdkVHUEtweWxpR3VXM0R0bk9RMVpRcEx4dkJUNlVJNHloaDBuMGkyVDZMQnVNOWlfRG1zSHN2SGM2bDhqVWNsa1dYdGh2dUszZ2JxX2REVlp3ZFNtbFVRLXVOMVlrYzhaQW9BTURtcjdyRVFEd0RXUElteDhQNnA4bFVuSnRfZkp2cFByVzVmcXJOT2xBbVdZcDR4YWJNdUlvLXhJWkI5TmwzNFZvSEpTbFBBM04ya250M0tEWFlDRzM1VDhiUGxJcEs3S2JwbXFIazZFTzRYV0l1anJJcTlQcmpLY2R1d0ZmZ3BsOFhDS2NwZlVqejg?oc=5",
-                    "date": "2026-03-16"
-                },
-                {
                     "title": "分散投資組合降低風險 專家籲投資人勿過度集中美股",
-                    "sentiment": "利多",
+                    "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNbTA3Y1hqM2JnUFM5NDFhTHFJSkhRMmRWUW5BV2NaYkhPVXN1RUtfalZBMkp4WGRnVk00WWtEdGN4ejRYeUdyVmc1dWVjaHJIcHNGOFRlcVY4dG9UQ3RUVFViM3NqQUs2S0pvOHdlWlRZRlBzSDRCaGZWVzJEN2hRbE1FTGNjOGtrZnVHSQ?oc=5",
                     "date": "2026-03-13"
                 },
@@ -1974,6 +1968,12 @@
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE93dGdWLWNKTEFDRGp6RGVIZk5jM3VxSVBJZnR4Y2VLVjF1X2hDNTBlcXdBcmZ4RVFQVGdObC05Z0Q3WUNfWi1oQ29pcWRsVTBuRjdhaUpGbEs1ZWhKcEwyS3ExY1ZjZ9IBa0FVX3lxTFBrVzFLYm12Qi10MWhPNFN5QXRFNFM2MzJVZWtIQzJpTXRRSXRIbjh3WGNVR2FyTkR1bU1QeEszSzlwZVc2T3N6Z3hPMWtibS04V2cxd1J3ZVJ3dnJaQ0J6Mm5YMnJ0NzZtOEIw?oc=5",
                     "date": "2026-03-16"
+                },
+                {
+                    "title": "ESG投資有成？iShares ETF近五年報酬率超越S&P 500",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE96ZXhaVDNXWDNoeTFkdVByMFAtTkFwRE1pZEN2RXRWTW15c0xTd1hXa1BfeXlMbmdPc0cwZUpjYzNxQQ?oc=5",
+                    "date": "2026-03-11"
                 }
             ],
             "vol_ratio": 1.52,
@@ -2919,19 +2919,19 @@
                     "date": "2026-03-08"
                 },
                 {
-                    "title": "台積電收跌80元『史上第三大』！ 市值瞬間蒸發2兆元",
+                    "title": "台積電收跌80元「史上第三大」！ 市值瞬間蒸發2兆元",
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMiygNBVV95cUxOTGU0cmQ1dW1iRnN2aVRkUVR2TTcwbXdCSDc3dEN3aE5qbE1HaGkzdTFmc2g0NWF5ZUFKUnVqNG1KazMxbXpId3dPU1VvcnQ5UHYtWkxnQTZLYjJ1NmhYdFJueWZPdG5NRUoycWlIZ0Z4WG9NTVZzMmZ5OUc5UEE3NVNYUVBjNmJxbUN6c3RZVV9yMy1CUl9udk52b0M1VFp4V0tfTWZGaHh4ZmF6MzdaclJLMWhKVTJYTmVVNkxuQ0FLUWFsWlE2bUtRZ1Q1Q0Nyb3hHbkZFRXBPaHRqNGFqYjVWUF9WY0oxb01SbFZmQlNOdmpaX2R2WGNPM1A1X3BuaTBqLWlLekdLOXhuVFAwTkIzMWpoM3BpT1dFT0FqZlF1ajl2amVuUjRXbnN4emZQQVdvSGlrV2dZeUVyVGdZbVlvRFlqZVpYSlh2VWhhZ1NTQW9INHlJTDhOdFVvSlUzVmF1SndsVnRGME9NS1ZEMHcxUkRJdTRaTlF5cjlSZ3A3T1BpVE85RkJqaVdNVmpEclg1OWFxejdXNDVEYmtSemNnNWNGZlBFUGNnQmZOdTQ1czI1U2t3THF4OEp0SXJxSHc2akRXN1BNUQ?oc=5",
                     "date": "2026-03-08"
                 },
                 {
-                    "title": "台股暴跌1489點『史上第四大』！ 市值一天蒸發5兆元",
+                    "title": "台股暴跌1489點「史上第四大」！ 市值一天蒸發5兆元",
                     "sentiment": "利空",
                     "link": "https://news.google.com/rss/articles/CBMi3wJBVV95cUxNSGVhYmdvVXVFOENXMWpuUHpyaFJMNXlRdmU0bEFpLVF0QnVqMG5WdHlPRGRrMlBsSDFQU3JVZzk0TUVkRDI0Q0tTRlVqMGltOGRlOEhUMGVzV3RubHhCYVNCSjVVakw5OGNNcFBaYzRhTzV1ZG96NmRPTWtuaEQxVWp1UnFIdmFwRVhyWmQ3YnZUNnpicE5aczRQaW5oN3dISThLWmhOMDVQUEV1WlZBSHk0UnE4VHJZUUVrd0ZpdFpZbGtUU0JFTUt0NUp1MDNuNVR3NVhtMERFNlhYX1A5dzhGRFp6SGkwdjlON0J2c0ZMTTcwMmxEQ084X0NXSjZEUU5UcnQ0clZ4RDlSOGJ3eWVsUnNTV2RKWmNJM3dBVnJ6cngwalN5cnBLZEZaMmlLSEFmcndyVmFHajdHRVdmMWlqUlp4emFuUXdpeTZjN19XcWtTRmtRd0I0dmRkRkk?oc=5",
                     "date": "2026-03-08"
                 },
                 {
-                    "title": "台積電一度漲80元『史上盤中第三大』！ 市值一次回補3兆元",
+                    "title": "台積電一度漲80元「史上盤中第三大」！ 市值一次回補3兆元",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMi-gNBVV95cUxPNk9HZnRVdmY3MlFCdnZpMl9obWZjOXdBMzZrUXEtR3ZKTmxyWC1UZjc1aXRsd0V5cXJPLVcyekZzSng0bzRWa24yNnJvMk1kYU5JLXF3TlVLY3paUGdNNVVQVU5fMV83NmMxdGw1TkJtdmp6UmxnaWdRU0cteTljVzh5eFdZTFljeUNKSHppU3F3WkFXMEp3RDI5MGFhaUtfV3JwX1lMLVBrd2FIalNtazFQN21DajJ6M09wSENYclJUTjNPaUJUVmpnOE51UWF1ZHJ4dzBSX2ZVWEgyNzVRMlJpQi1nUU15NWR4bHd6WjN2SWRRZVR4X1hJWms0MWJ1VWwxWEQwbU8tbVlYMDFYUUpoU2RXVnFiV0Z0YkZ5V2xZQVRvMmtiQkk5V3hNY3pWTkQ1RkRTaWJYRlE1d01LdEdPakp2QlpxZjk0cnctbmdqRHdiai1VQUZGRUtFMUtUZjRYLUhqUlRKdXVoZmIxaFV6OWhBZm5ybmV4S3hFVENxMGlXc3hxVkFKbjl5SkpCc0IxeEN3eXpaZUpkelJ4NjNVNy0weWYyUl9hRmVQbWFKR2MzTFlnVmc0bU1JYmtIaUJKOTlqWDlZT3lhMHFRcW01aWxkUnhBelhxS1AzclFnM3ZtblFaRlV6VDdRal85RXJOVGJrSmhOQQ?oc=5",
                     "date": "2026-03-09"
@@ -2946,8 +2946,8 @@
             "vol_ratio": 1.15,
             "optimal_sl": 8,
             "actual_sl": 3,
-            "ev": 0.73,
-            "win_rate": 38.17,
+            "ev": 0.74,
+            "win_rate": 38.46,
             "history": [
                 {
                     "date": "2025-12-15",
@@ -3880,7 +3880,7 @@
             "poc_price": 40.65,
             "news_sentiment": [
                 {
-                    "title": "記憶體繼續飆！「這檔」拉第5根漲停衝近70%寫新天價 挾南亞科、旺宏、晶豪科齊亮紅燈",
+                    "title": "記憶體繼續飆！「這檔」拉第5根漲停衝近70%寫新天價",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMi-AJBVV95cUxPNHZTUGhBQURnZ1drRXJMaXMzNVEybXpEOGszbXEzcVpINlJuOWFwdkdTVk8xa0ZlUjJxX0IwcWdfdEJXX2J5dFh2YllLLVhYbVVNNjJ6Zl9iSm1DODd2dU5pbUdPbnVuU2hscFczR3E3ZnNaV2prNk13c1BMUmZ5VXB2TWFpc2xfRjhTVnY5ZWp4RkNGU1pZRjB2WVBtVGtHeXFUdlVMSzVpaVF3Z25MSDd4NVJtYnViaGdNeVFHdUdyNTdkWFFGUjA3a2g1SkNES0hHUU5WZVNjM1VZUG5RZk1PT0VrZ3ZhdVpGUGVweFhNSXREZlFVQ2k4T2pZLVVMOUNCQUNhQU9VTnpLdjNrVUprLTVuSlUxemxUOENKczBXSzhyRWhhUWRrTGxWOENsNWFQVWhZQVBVcXVjanVDdUEzakRmS20tSGVTVEl1S3FEb2pERkhpVm4zUEVsbTJhSFU3c094M0o0NDFPdXYyU2hQQjYyRmFk?oc=5",
                     "date": "2026-03-10"
@@ -3892,19 +3892,19 @@
                     "date": "2026-03-14"
                 },
                 {
-                    "title": "列注意股還爆近24萬張天量！全球狂缺MLC「這家記憶體廠」成唯一霸主 專家喊話：別預設高點",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMikwNBVV95cUxObHRSaUh1Z1pDcjZ0X1FDeE1nMEdMY0tKMEJZVXJINTlqaUwwMjI0Sm9MUlFJREtISmVBZncwbzJPZ1JybTJZMEgtX05wbjl3MVhHM3J4SDJJV1g4V3VuZDI4VU1HeW1QVzIzVThITmFHaVNKai04TWEycmtacUtMMEZwTUxUSDNUcXl4QUllNHhvWnVxTjFqaVRQXzF2WXl0SHVCQmdlX05zUWpfUDY2UXdqU2FEeE5sMkd3Q0lCaXZfeEtwbzZVUlQ3bTlRZWFHbE96enloelFMcXNDS0JkYkNTZkpNZWxNMVF2Q3ZaSzlhMDRsR0lRSW83UmwzSGNBMEZkQll4eUxfZkRQdW1pZVVCcnRNR09FcFBBb29Xa1dERjdOT09Jcm5OcjVQT2pnekstcHg5bUlSZnpVbTJ1bDNfTEZVdTFJVm9KWC04REtvSmk3TXJ1NElxX0l2YWptZWp3ZUNTWmNEZlA5c1NESnRxNzRPZ05WRWR1azJULTd6V2gwNjEwcmgxYmNsUHFMUk44?oc=5",
-                    "date": "2026-03-18"
-                },
-                {
                     "title": "記憶體最強指標！旺宏不畏列注意股噴漲停 分析師續看多",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMiiANBVV95cUxPVnp0SzZGaFcyTDZGMWhDRHhFSmx3VXQyU1hRNXhMWkRTR25NYksxMlI2Mmdfb2RwM0JHZWt1THdSSk9McG5pbFNfMENfWkN3Z1hKUVMwQ1Rwc3FEanhnUTdBcG85MzhkSy03N1JDSFhONDNTWDJPVWhmS1dYM2Z6VTJoNXFEdmFrV1dJMGkteWdZRHdzdlZpa05nbndjWWs0QjFLSEs5X1JqNE5OOFBucnVYZDBPVV9Dd29Qd0o3Ykc1TUtSM3JXNXM0R3FiR3Q2RXdUUHNxb1hVaEJoM3lmVWh1MEJZQUxDMzNDYmZyME5oZFV0b0tibEpOdS1Ea1lUSU91Uk5KczFldnRwOXZmLUh4YUZNTTQ3dlhELUpHQlp6V2V0bDA3aDI3LWJualFiNUhTYnRTU0pTTjNfcV9VU05CbEIxTmJ3Y3pFYjF5bnhaNDA2bEZVZGJxTndpSWczRkNtUElQdnN1bVpXaFFRVXJRbFhKaFNhTlFqRkhoWW5MWExGLVhsVw?oc=5",
                     "date": "2026-03-18"
                 },
                 {
-                    "title": "狂拔7根！「記憶體模組廠」2月EPS達1.72元、同列75檔漲停股 旺宏、台揚開盤攻頂至收盤",
+                    "title": "列注意股還爆近24萬張天量！全球狂缺MLC「這家記憶體廠」成唯一霸主",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMikwNBVV95cUxObHRSaUh1Z1pDcjZ0X1FDeE1nMEdMY0tKMEJZVXJINTlqaUwwMjI0Sm9MUlFJREtISmVBZncwbzJPZ1JybTJZMEgtX05wbjl3MVhHM3J4SDJJV1g4V3VuZDI4VU1HeW1QVzIzVThITmFHaVNKai04TWEycmtacUtMMEZwTUxUSDNUcXl4QUllNHhvWnVxTjFqaVRQXzF2WXl0SHVCQmdlX05zUWpfUDY2UXdqU2FEeE5sMkd3Q0lCaXZfeEtwbzZVUlQ3bTlRZWFHbE96enloelFMcXNDS0JkYkNTZkpNZWxNMVF2Q3ZaSzlhMDRsR0lRSW83UmwzSGNBMEZkQll4eUxfZkRQdW1pZVVCcnRNR09FcFBBb29Xa1dERjdOT09Jcm5OcjVQT2pnekstcHg5bUlSZnpVbTJ1bDNfTEZVdTFJVm9KWC04REtvSmk3TXJ1NElxX0l2YWptZWp3ZUNTWmNEZlA5c1NESnRxNzRPZ05WRWR1azJULTd6V2gwNjEwcmgxYmNsUHFMUk44?oc=5",
+                    "date": "2026-03-18"
+                },
+                {
+                    "title": "狂拔7根！「記憶體模組廠」2月EPS達1.72元、同列75檔漲停股",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMixgJBVV95cUxOWEJHNzZVYXhvLWpoWFRfQmNUV1VCZG9HZ3hxbjB2TzNTNHZkTUdKWGdyUzlabGRPbEZqbEZhbXByNEVPUGZRQlNOWi1kYnB2eFF0ei1vX1A2N0lTNHpNbDlFQWZjckxNUkwzWmZWU0I3NmIxRUdpeDcwcUZHM2NPSUdHSndwV1FTSnhETEp5U3RNeWQ4Ym10dHdNSnlVVG1XdWVBbWNwNWphOEZrZ3JwWDNJUC0ydkJ3MXJXd3hNZHZGV2hOeS1uOHJCZm9mOEtWUWJ6Z2NqQVdpQmJ0TmJHejhIQU5NYm5JZ3JuZlBubFQxSnB0TXoyQUEtZzQ3bTNyeG8yeVpRcURjV0VrT3pIQWJOR2dwdWlEVm8tTEJobFNqbzR1Nmd2YVdsQml4WXV1QlNGYnZBd2loLTg2WHdIbGhUaTBhUQ?oc=5",
                     "date": "2026-03-17"
@@ -4847,14 +4847,14 @@
             "poc_price": 216.53,
             "news_sentiment": [
                 {
-                    "title": "穩懋逆勢亮燈創近4年新高！網歎「羨慕有穩懋的人」 分析師勸：要謹慎",
-                    "sentiment": "利多",
+                    "title": "穩懋逆勢亮燈創近4年新高！網歎\"羨慕有穩懋的人\" 分析師勸：要謹慎",
+                    "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMihgRBVV95cUxNdjVDT1VnUC1IX2Zvd2hidTN1Z3JfSWlyQ2gxRVNCSHA4bF80d3lhTTFEZGsyY0JsbllGSWlNY19SdmRYU2pySmJidDZmWHdCbnFMUWlFdVFLWmdmejk5Z2xXTm9WVFNlTUszckhWcG5wbHVTZldocGZBMS1xNDVnUVBRQ2VTNTdSdFdnYndoME10YlZPMk5sdTY0SWdubW0wS244S0RjMFRWMG1pU05ETnlGZDhvYVA0VU1fLVRYVzJtRWtDQVdTcXpJN0pJSHFhTjQzLTFwZ19OblVKQ2x4SnRRaWIzM3FEUlExaG1ha3RmeHpuU0pRQTNjWU41RU1lNFJ4QktRNzBYY3Z0ZDVoeExsUGxWY3BTQVVpV1ppU19GLVlKbmdmNF9uUWVucjFXblhSX21IOHVVMlBKM3ZFbGNrY0VBX2R3VFVYUVFMNHBUaEZCbHJJVEdfMHRCY29mUm9QWHUtel9fN3BhQ2pYMUNkMDI0Mll4YVZEYUVuQlhvSWcyM3hqbzlNZWQ1MHEzVm1wX25qM2hGWjhKWVZLaDlIaEJSXzB6bjJMS3BBQ0U0SmV5WlVqNTlscWlIODhLZDVZMjJDRmlHQU1yZG42ZW90d3VKUV9kV0xfV1VTVGF1MnZnWVlsdGlmcHdiS0ZndV9VdlJWaExLVXA3SXlWY0V3SGQtZw?oc=5",
                     "date": "2026-03-19"
                 },
                 {
                     "title": "全新、穩懋 法人按讚",
-                    "sentiment": "中立",
+                    "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPdzJMR19La1A3ZFFKazFwQndiYjlsSEUzVC1tSkpDTW9yWUh5eXVpdTBEUHlHX2JPMC10UnUxemZCQ1FnWmRUTTdCZno3ekNBUl9QSmc5LXlhS2xZajFBc2pxYV9zNkVhbVNjNi1wbVM5aS15aHMtbzVKT3o2cjNQRjAzZDR0WGRXYW0xM2dPaEJIQjNMcFNzTzF1RDNocnRpeVQ2Y2NwQWRLb1lJdEdDakZfNEVVRUEzX1BCd3NB?oc=5",
                     "date": "2026-03-16"
                 },
@@ -6781,34 +6781,10 @@
             "poc_price": 15.54,
             "news_sentiment": [
                 {
-                    "title": "32萬受益人注意！00981A確定配0.41元 下周一最後上車日",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMizwJBVV95cUxQalFDQVJPMXRXN3ZtQlBpd2dZdV9NU0lzMlh4R3ZjMzYxd3c2S3Jxd0d0MjJxM00wX1hxcFd3eFVibmlpeTlJTDlKUU1hR0lEaEpDaXZtTzNHSUZzSC0wWWEyeWpPZV9JT2RDRHJvdDkxa2pzT3BOYzMyaXU1bU1HT1Boek1mNU81Rktmajhqd01DRXhVUldZcHhLSFRsY2VPdG9idWl2Mkw5RGNueGFGaFkyZWwwcVNITjBnb2o3bUlQQV9HS1EzYXdzMVRKTV91MXkwQkZjZ3dvdlBZdUdabGJpMDVVUzhNd2U5VmE1S1VFZnNxV1NoczBLU0d5WmVOOVA2ZGNxQ3ZVc1VkZkNrSkhnN3loTTgwRWVGV0NUR1p2UVY4ZHU0X1FxZUxrVnpyb0o0YTZvZ2cyWlpvUlB2TFR6cGMxZ0NhTDR6UEhuQQ?oc=5",
-                    "date": "2026-03-13"
-                },
-                {
-                    "title": "投資人彎腰撿鑽石！00981A配息王、00988A績效王頭銜吸人氣奪雙冠",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE1BUG5sbER1YzFGZVFPbExRM1ludHZsdU94aFZjYkJscW9xczJOZzBCM1U3X2RIcENXVzJaRTFoRW02SHFqWkQ4WXoteGl1QkE?oc=5",
-                    "date": "2026-03-09"
-                },
-                {
-                    "title": "「主動式ETF股王」首次除息就秒填息！00981Ａ股利4/10入帳 34萬人期待",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMimgNBVV95cUxPbFg0OThDUHBiajU2UTJLYTNkay0wd3N3TWViVUJMVzFWZlZwSVBpRDhqT0VHX2ZGOTRiLUMwYzRxU1o2VGRMZFhVbzRyd2FZTVV3ZjJKMm5KZUZtOEVfWXlZcGIxZ0NQMTh1b0l2Y3hzVU5BN0JuR3ZCVUNMV2xTY2syR21YMHltYnU2X2lrNXA5d2R0ZTZYa2lXQnl1N195NFdKamxqaUJfSjdjVFpPWmtSVklxNHBMVEFERHNBRUhHbmFOd1cyRkMxd21CVjM2YWR4UHl4X3Y0MDU0U2FCR1dGdjU3QnRVY1lQdkVpdG15VWMxV0tKYzhLVGp6Vk0xWVFaeW9RbExEX2ZQcW5faWVraC15RnBKSFJGMTRGZmgwd2JwU2UtTm5XNlBZeGhvU1NJQTNiTVZReUhaNG5hZWViajJydzJBYVJObEJTakl6UjlnV3RYd3ZxU3dqMGFCVmozRXhFbUxtblFPZkd6R1JabnBjVEVmSEp2anM2VlhkNldPYkxKNUF0ckdXSTBrLVhhRTZXUHpJZw?oc=5",
-                    "date": "2026-03-17"
-                },
-                {
-                    "title": "台股市值大蒸發！4檔ETF規模逆勢創高 00981A靠2誘因強勢吸金",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5PSU1kVl9tTGJnNzZnaUZDRVdPV0QwTVRFRF9Dd2p6V1R6Q3RIRWFTRllPVEJ3TzgxeEpWM2lYNmVoVTRjV3hJNWNyLUcxT2s?oc=5",
-                    "date": "2026-03-06"
-                },
-                {
-                    "title": "主動式台股ETF規模衝破2000億元 00981A居規模王、00992A今年來漲21%稱霸",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMi9wJBVV95cUxONzRHdWpiZkRsZWh0ZDgzcmcwcHV0NWpzb2pZSjBrTlRaUXVPY1FiNHYzSWo5Tzc4a05wb2xXTERRMUhjeEVYOGtyTmdRbHZSckFKQnRiMThOcnhhYVgwSnFuR2FTZ01mT1I2VTRmN0NNWGZMSjdKc054YTdxbDQ4bmxpUlN2VGgyOVVKUHZwSktWd004SnBjQ0loTTFZWWhIbnNrV2hab2tFMjJfbWs5aDBTSTVFb2JWaXl3djdreExIRXZZWFRnV2YwZjZQMXQzWFVLMFFHdHRtNmUyZjd1eHctTGlmNFN1dFc3S05EbHpqMHhzNHFyTG9aRXdsYUljNnFabDFvRGlPeDJ6ZkZKNDRzQVdId0QydXlveF9fRjN0MWZVOEdUMVBZSHJqTzRPLUpXUlVuWjlvaTR1a3RDSFl0TGtYSlRBb3VDRDI0M0hyQU55SERpV2g2NUdYRUJpTzZwUmZ5QlVNeFNtSmxocTR3bmhHMm8?oc=5",
-                    "date": "2026-03-11"
+                    "title": "新聞掃雷器故障或限速中",
+                    "sentiment": "未判定",
+                    "link": "#",
+                    "date": "未知"
                 }
             ],
             "vol_ratio": 1.29,
@@ -8691,13 +8667,13 @@
             "poc_price": 95.05,
             "news_sentiment": [
                 {
-                    "title": "重要子公司 Growth-Link Overseas Company Limited 股東會重要決議事項",
+                    "title": "豐泰重要子公司 Growth-Link Overseas Company Limited 股東會重要決議事項",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQOS16S0NfTEVnSjVsX2I1c1BxeGVEVDJjOVFyR3Q1djYyaWZoTk9NUVRTbFVSVHBrRDVOZ1RJMVEtem9RVmNFa2FVQjhpYmM4Y1BLRUM5aExPaFJKaEYtd0kxNktlOHBXUmNsX0YwUFpDLU9mRDdpaEV5VnNra2E0a2ZlSXp5TWZ1Vm1SMzJrZ3owNjJLdGQ0NVJZY3RfdThvVFNwR1Etd0xxa3k2UTNsZXVTdElLWmJwWDVEaUhrYTNyclhPSDhQbjd0VFlVdnFZ?oc=5",
                     "date": "2026-03-06"
                 },
                 {
-                    "title": "豐泰(9910) 個股概覽 | 個股 - 股市",
+                    "title": "豐泰 個股概覽",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE83YTF5cGtlSzY3QzItUjhBdGZOWURwSk12Wkc0ZnRvczB4SHhReU5aNFk5Z05MbzBKbmpsQjV1UGpueWxVNTlRajlXWDllSjBSb1gw?oc=5",
                     "date": "2026-03-19"
@@ -8709,13 +8685,13 @@
                     "date": "2026-03-15"
                 },
                 {
-                    "title": "豐泰(9910)-陽信 - 券商分點進出買賣統計｜股市爆料同學會",
+                    "title": "豐泰-陽信 券商分點進出買賣統計",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTFB2YUdTN290aUFJRk4tSVBkYjAzYVlqMngxTlpwLWVLVlR6ODNtbGNtekZlbG9aYWFpWTNiWkRxcWFORGxhT2kzbzRvTDZqbWFHV1N5ZnAzanRNUEJwLXFmQjRtT1BEUDk2TVE?oc=5",
                     "date": "2026-03-14"
                 },
                 {
-                    "title": "豐泰(9910)- - 券商分點進出買賣統計｜股市爆料同學會",
+                    "title": "豐泰- 券商分點進出買賣統計",
                     "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE4ya09fdUtLMFRPbjRwVFFnYlJ2WTFEUUFTVUJ5d3Blcmk2QXZ1bzIzTnlyWkIyTWx0SDdwT0pncjlOY25DS3ZUZ3pXSTd1SHc5bVEtb1JrRjdVQWxDM0NzdHd3RXQwWndsSzJF?oc=5",
                     "date": "2026-03-19"
@@ -9671,15 +9647,15 @@
                 },
                 {
                     "title": "【公告】寶成 2026年2月合併營收213.6億元 年增14.69%",
-                    "sentiment": "中立",
+                    "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMilwJBVV95cUxOa0owZ1otM1czdzVuelZSSnJZU1d5dGRkU1IwX2NqeHF2dXhWdHg3NlR4ZnI5WVRnbklGQS0xNjN1Skw5dkRVbURlc05mQmoyMmhZNGpSQmtka3FwVmQwODRrNjRDUlg2dThINHpzV1k3WDg2OXRrZVZFanhXTEEtMEdTWHN6UHZWN0VPOW12MjdfVVdoU19KQk51TGJjX1BNQk5jTDZnMV9RVlFRNnplRGh2Q2dZUnBBQWROX0VYMmtYWTBPOGNaU080emluLTQzSHFaR3dvRFQ0RDhCbGVHY1pNOTVzY1VzTTlzQzJZT2RWYjhPWTRTcnE2NVpFdTVsNm5GOU5hOFdxcnp6NTNhdWdkSWVRWGs?oc=5",
                     "date": "2026-03-10"
                 },
                 {
-                    "title": "9904 寶成- 寶成…天天跌😑｜CMoney 股市爆料同學會",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE9hM2V2dGc5RXV5RnJGX0lLQXUyVUZYR1E1aEtJM29LVWo1YnFlbG8zeVZ4MWFtZDAza05qRnZ4aEhLUlU1Y05RZ2Z6VjlHYXZOZ0pJbkNvT2s?oc=5",
-                    "date": "2026-03-18"
+                    "title": "屋漏偏逢連夜雨",
+                    "sentiment": "中立",
+                    "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5nTk1IUThzMTZuQ0x3dVlnNVBwNEtVRHpNaHNJWDlZRlB0ZHF5RUxUZEhoVzloWDduc3JFSjNfNE1MaUxrSU9mVG9TNzhPclZwVVpiMnFNcFA?oc=5",
+                    "date": "2026-03-13"
                 },
                 {
                     "title": "寶成去年獲利年減24.7% 每股盈餘4.1元",
