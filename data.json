@@ -1,14 +1,14 @@
 {
-    "last_update": "2026-03-20 [22:55]",
+    "last_update": "2026-03-20 [23:05]",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia",
             "category": "美國科技",
-            "price": NaN,
-            "rsi": 44.05,
-            "poc_price": 181.14,
-            "vol_ratio": 0.35,
+            "price": 175.77,
+            "rsi": 40.61,
+            "poc_price": 182.66,
+            "vol_ratio": 0.38,
             "actual_sl": 3,
             "history": [
                 {
@@ -839,37 +839,41 @@
                 },
                 {
                     "date": "2026-03-20",
-                    "price": 0.0,
-                    "volume": 66772554,
-                    "ma5": 0.0,
-                    "ma20": 0.0,
-                    "ma60": 0.0,
-                    "macd": -1.37,
-                    "macd_signal": -1.04,
-                    "macd_hist": -0.33,
-                    "rsi": 44.05,
-                    "bb_upper": 0.0,
-                    "bb_lower": 0.0
+                    "price": 175.77,
+                    "volume": 72583489,
+                    "ma5": 179.98,
+                    "ma20": 183.27,
+                    "ma60": 185.27,
+                    "macd": -1.77,
+                    "macd_signal": -1.12,
+                    "macd_hist": -0.65,
+                    "rsi": 40.61,
+                    "bb_upper": 193.52,
+                    "bb_lower": 173.02
                 }
             ],
-            "rs_score": -95.54,
+            "rs_score": -3.8,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
-                "stop_price": 166.37,
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
+                "stop_price": 166.98,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "10MA",
-            "best_ma_price": 181.61
+            "best_ma_price": 181.67
         },
         {
             "symbol": "TSLA",
             "name": "Tesla",
             "category": "美國科技",
-            "price": NaN,
-            "rsi": 36.97,
-            "poc_price": 428.64,
-            "vol_ratio": 0.43,
+            "price": 373.06,
+            "rsi": 34.17,
+            "poc_price": 428.55,
+            "vol_ratio": 0.47,
             "actual_sl": 3,
             "history": [
                 {
@@ -1700,23 +1704,27 @@
                 },
                 {
                     "date": "2026-03-20",
-                    "price": 0.0,
-                    "volume": 24917515,
-                    "ma5": 0.0,
-                    "ma20": 0.0,
-                    "ma60": 0.0,
-                    "macd": -7.59,
-                    "macd_signal": -7.11,
-                    "macd_hist": -0.48,
-                    "rsi": 36.97,
-                    "bb_upper": 0.0,
-                    "bb_lower": 0.0
+                    "price": 373.06,
+                    "volume": 27258257,
+                    "ma5": 388.19,
+                    "ma20": 398.73,
+                    "ma60": 422.22,
+                    "macd": -8.87,
+                    "macd_signal": -7.37,
+                    "macd_hist": -1.5,
+                    "rsi": 34.17,
+                    "bb_upper": 418.92,
+                    "bb_lower": 378.54
                 }
             ],
-            "rs_score": -95.54,
+            "rs_score": -2.26,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
-                "stop_price": 354.45,
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
+                "stop_price": 354.41,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -1727,10 +1735,10 @@
             "symbol": "SPY",
             "name": "S&P 500",
             "category": "美股大盤",
-            "price": NaN,
-            "rsi": 29.54,
-            "poc_price": 678.1,
-            "vol_ratio": 0.44,
+            "price": 652.33,
+            "rsi": 26.49,
+            "poc_price": 680.9,
+            "vol_ratio": 0.47,
             "actual_sl": 3,
             "history": [
                 {
@@ -2561,28 +2569,32 @@
                 },
                 {
                     "date": "2026-03-20",
-                    "price": 0.0,
-                    "volume": 38119210,
-                    "ma5": 0.0,
-                    "ma20": 0.0,
-                    "ma60": 0.0,
-                    "macd": -6.24,
-                    "macd_signal": -4.76,
-                    "macd_hist": -1.47,
-                    "rsi": 29.54,
-                    "bb_upper": 0.0,
-                    "bb_lower": 0.0
+                    "price": 652.33,
+                    "volume": 40560975,
+                    "ma5": 662.68,
+                    "ma20": 675.86,
+                    "ma60": 684.6,
+                    "macd": -7.22,
+                    "macd_signal": -4.96,
+                    "macd_hist": -2.26,
+                    "rsi": 26.49,
+                    "bb_upper": 698.32,
+                    "bb_lower": 653.4
                 }
             ],
-            "rs_score": -95.54,
+            "rs_score": 0.03,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
-                "stop_price": 619.32,
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
+                "stop_price": 619.71,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "60MA",
-            "best_ma_price": 684.59
+            "best_ma_price": 684.6
         },
         {
             "symbol": "2330.TW",
@@ -3437,8 +3449,12 @@
             ],
             "rs_score": -1.92,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
                 "stop_price": 1748.0,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -4298,8 +4314,12 @@
             ],
             "rs_score": 64.12,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
                 "stop_price": 152.0,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -5157,10 +5177,14 @@
                     "bb_lower": 250.09
                 }
             ],
-            "rs_score": 44.29,
+            "rs_score": 44.27,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
                 "stop_price": 326.8,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -6020,8 +6044,12 @@
             ],
             "rs_score": 0.0,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
                 "stop_price": 72.1,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -6881,8 +6909,12 @@
             ],
             "rs_score": 15.32,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
                 "stop_price": 19.97,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -7742,8 +7774,12 @@
             ],
             "rs_score": -8.78,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
                 "stop_price": 76.76,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -8603,8 +8639,12 @@
             ],
             "rs_score": -10.23,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
                 "stop_price": 77.24,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -9464,8 +9504,12 @@
             ],
             "rs_score": -5.61,
             "unified_brain": {
-                "summary": "API連線受限，轉為防禦狀態",
+                "pattern": "連線異常",
+                "bull": "API中斷",
+                "bear": "API中斷",
+                "trap": "API中斷",
                 "stop_price": 27.17,
+                "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
@@ -9474,36 +9518,36 @@
         }
     ],
     "market_health": {
-        "vix": 26.2,
+        "vix": 26.07,
         "health_pct": 27,
         "us_summary": {
             "標普500": {
-                "price": 651.91,
-                "pct": -1.2
+                "price": 652.22,
+                "pct": -1.15
             },
             "費城半導體": {
-                "price": 333.65,
-                "pct": -1.93
+                "price": 333.5,
+                "pct": -1.97
             },
             "台積電ADR": {
-                "price": 328.35,
-                "pct": -3.08
+                "price": 328.65,
+                "pct": -2.99
             },
             "恐慌指數": {
-                "price": 26.2,
-                "pct": 8.89
+                "price": 26.07,
+                "pct": 8.35
             }
         },
         "sector_data": [
             {
                 "name": "🇺🇸美股科技",
-                "rs": 2.75
+                "rs": 2.76
             },
             {
                 "name": "🇺🇸美股金融",
-                "rs": 0.91
+                "rs": 0.95
             }
         ],
-        "ai_script": "今日台股操作鐵律：觀察美股跌勢，控制風險，資金曝險上限20%，謹慎布局。"
+        "ai_script": "今日台股操作鐵律：關注美股半導體下跌效應，建議資金曝險上限20%，謹慎操作。"
     }
 }
