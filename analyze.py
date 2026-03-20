@@ -288,14 +288,13 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, r
     except Exception as e:
         return {"pattern": "連線異常", "bull": "API中斷", "bear": "API中斷", "trap": "API中斷", "stop_price": current_price*0.95, "sizing": "防禦狀態", "action": "觀望"}
 
-# 💡 新增 sector_data 參數
-def generate_morning_script_o3(market_data, sector_data):
-    openai_api_key = os.environ.get("OPENAI_API_KEY")
-    if not openai_api_key:
-        return "⚠️ 未設定 OPENAI_API_KEY，無法產生晨間劇本。"
+# 💡 阿土伯修正：晨間劇本交給光速且免費的 Groq，避免 OpenAI 額度爆掉！
+def generate_morning_script_groq(market_data, sector_data):
+    groq_api_key = os.environ.get("GROQ_API_KEY")
+    if not groq_api_key:
+        return "⚠️ 未設定 GROQ_API_KEY，無法產生晨間劇本。"
 
     data_str = ", ".join([f"{k}: 變化 {v['pct']}%" for k, v in market_data.items()])
-    # 把板塊流向轉成文字給 AI 看
     sector_str = ", ".join([f"{s['name']}(動能 {s['rs']}%)" for s in sector_data]) if sector_data else "無資料"
     
     system_prompt = """
@@ -311,17 +310,21 @@ def generate_morning_script_o3(market_data, sector_data):
     user_prompt = f"昨夜美股：{data_str}。\n資金流向：{sector_str}。\n請阿土伯下達操作鐵律！"
 
     try:
-        print("🧠 呼叫 o3-mini 撰寫晨間戰報 (結合資金輪動)...")
-        headers = {"Authorization": f"Bearer {openai_api_key}", "Content-Type": "application/json"}
+        print("🧠 呼叫 Groq 撰寫晨間戰報 (結合資金輪動)...")
+        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
         payload = {
-            "model": "o3-mini", 
-            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
+            "model": "llama-3.1-8b-instant", 
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+            "temperature": 0.6,
+            "max_tokens": 200
         }
-        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
+        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload, timeout=20)
         res.raise_for_status()
         return res.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
-        return "🤖 AI 戰情室連線異常，請縮小部位觀望。"
+        print(f"⚠️ Groq 晨間劇本生成失敗: {e}")
+        # 💡 把真實的錯誤原因印在網頁上，方便我們抓蟲！
+        return f"🤖 戰情室連線異常: {str(e)[:50]}..."
         
 # 💡 阿土伯黑科技 3：華爾街暗池與內部人籌碼照妖鏡
 def get_smart_money_flow(symbol):
@@ -746,7 +749,8 @@ def generate_dashboard_data():
     us_market_data = get_us_market_summary()
     # 💡 1. 呼叫雷達
     sector_data = get_sector_rotation()
-    morning_script = generate_morning_script_o3(us_market_data, sector_data)
+    # 💡 這裡！把原本的 generate_morning_script_o3 改成 groq
+    morning_script = generate_morning_script_groq(us_market_data, sector_data)
 
     above_20ma_count = sum(1 for d in dashboard_data if d['price'] > d['history'][-1]['ma20'])
     health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
