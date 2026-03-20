@@ -23,7 +23,6 @@
     <div id="dashboardContent" class="hidden p-4 md:p-6 w-full max-w-[1800px] mx-auto flex-col xl:flex-row gap-6 xl:gap-8 opacity-0 transition-opacity duration-700">
         
         <aside class="w-full xl:w-[320px] xl:sticky xl:top-6 h-[calc(100vh-3rem)] overflow-y-auto bg-slate-800/60 backdrop-blur-md rounded-[2rem] border border-slate-700 shadow-2xl p-6 flex-shrink-0 custom-scrollbar">
-            
             <div id="portfolioSummarySection" class="mb-8 hidden">
                 <h2 class="text-2xl font-black text-green-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-3"><span>💼</span> 目前實戰庫存</h2>
                 <div id="portfolioList" class="flex flex-col gap-3"></div>
@@ -68,7 +67,6 @@
                 </div>
                 <span class="text-slate-500 group-hover:text-blue-400 transition-colors font-black text-xl">👉</span>
             </button>
-            
         </aside>
 
         <main class="flex-1 w-full min-w-0">
@@ -86,14 +84,12 @@
                     <input type="text" id="searchInput" placeholder="🔍 搜尋代號或名稱..." class="w-full md:w-72 bg-slate-800 border border-slate-600 rounded-xl px-5 py-3 text-base focus:outline-none focus:border-blue-500 shadow-inner">
                 </div>
             </header>
-            
+
             <div class="mb-8 bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 lg:p-8 shadow-2xl relative overflow-hidden backdrop-blur-md group hover:border-purple-500/50 transition-colors">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-blue-500 to-purple-500"></div>
                 
                 <div class="flex flex-col lg:flex-row gap-8">
-                    
                     <div class="w-full lg:w-5/12 flex flex-col gap-6 border-b lg:border-b-0 lg:border-r border-slate-700 pb-6 lg:pb-0 lg:pr-8">
-                        
                         <div>
                             <div class="flex items-center gap-2 mb-4">
                                 <span class="text-2xl animate-pulse">🦅</span>
@@ -123,7 +119,6 @@
                                 <span class="text-xs text-slate-500 col-span-2">讀取資金流向中...</span>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="w-full lg:w-7/12 flex flex-col">
@@ -139,21 +134,8 @@
                             </p>
                         </div>
                     </div>
-
                 </div>
             </div>
-            ```
-
----
-
-### 🛠️ 手術第二刀：治好「擠壓變形的 AI 面板」
-
-我們要拔掉那個害人的 `grid-cols-2`，強制它「由上往下」垂直堆疊。
-
-🔍 **往下捲動到 `card.innerHTML = ...` 的區域，找到這行開頭：**
-```javascript
-                            <div class="pt-4 border-t border-slate-700/50">
-                                ${stock.unified_brain ? `
 
             <div id="stock-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-6"></div>
         </main>
@@ -241,7 +223,7 @@
                 <button onclick="closeModal('rulesModal')" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
             </div>
             <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar space-y-8">
-<div>
+                <div>
                     <h2 class="text-xl font-black text-blue-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2"><span>📜</span> 進出最高指導原則</h2>
                     <div class="bg-black/40 p-5 rounded-2xl border border-white/10 shadow-[0_0_10px_rgba(255,255,255,0.05)] mb-8">
                         <p class="text-slate-300 leading-relaxed text-sm space-y-2">
@@ -288,6 +270,7 @@
                         </table>
                     </div>
                 </div>
+                <div>
                     <h2 class="text-xl font-black text-purple-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2"><span>📖</span> 術語白話文翻譯</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                         <div class="bg-black/20 p-4 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-colors">
@@ -331,31 +314,26 @@
         let stockMap = {}; 
         let priceChart = null; let rsiChart = null; let macdChart = null;
 
-        // 💡 更新版：精準對應 o3-mini 新白話文指令的變色邏輯
+        // 💡 徽章變色邏輯
         const getCroBadgeStyle = (decision) => {
             if (!decision) return "bg-gray-800 text-gray-300 border-gray-600";
-            // 危險警告 (紅)
             if (decision.includes("逃") || decision.includes("觀望") || decision.includes("停損")) {
                 return "bg-red-900/90 text-red-300 border-red-500 animate-pulse shadow-[0_0_15px_rgba(239,68,68,0.5)]";
             }
-            // 安全多頭 (綠)
             if (decision.includes("抱牢") || decision.includes("續賺")) {
                 return "bg-green-900/90 text-green-300 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.3)]";
             }
-            // 試單減碼 (黃)
             if (decision.includes("縮注") || decision.includes("試單")) {
                 return "bg-yellow-900/90 text-yellow-300 border-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.3)]";
             }
             return "bg-purple-900/80 text-purple-300 border-purple-500";
         };
         
-        // 💡 全域變數大腦：紀錄帳務狀態
         let myPortfolio = JSON.parse(localStorage.getItem('atu_portfolio')) || {};
         let tradeHistory = JSON.parse(localStorage.getItem('atu_trade_history')) || [];
         let baseCapital = parseFloat(localStorage.getItem('atu_base_capital')) || 100000;
-        let globalDynamicCapital = baseCapital; // 動態總資產
+        let globalDynamicCapital = baseCapital; 
 
-        // 登入驗證
         const SECRET_PASSWORD = "29399909"; 
         document.getElementById("passInput").addEventListener("keypress", function(event) { if (event.key === "Enter") { event.preventDefault(); checkPassword(); } });
         function checkPassword() {
@@ -367,22 +345,15 @@
             }
         }
 
-        // 交易與部位管理
-
         function openTradeModal(symbol, currentPrice) {
             document.getElementById('tradeModal').classList.remove('hidden');
             setTimeout(() => { document.getElementById('tradeModal').classList.remove('opacity-0'); document.getElementById('tradeModalContent').classList.remove('scale-95'); }, 10);
-            
-            // 填入股票代號與價格
             document.getElementById('tradeSymbol').innerText = symbol;
             document.getElementById('tradePrice').value = currentPrice;
             document.getElementById('tradeShares').value = "";
-            
-            // 💡 關鍵修復：每次打開時，把計算機藏起來並歸零！
             document.getElementById('tradeTotalCalc').classList.add('hidden');
             document.getElementById('tradeTotalCalc').innerText = '本次投入金額: $0';
         }
-        // 💡 新增：自動計算本次投入金額
         function calculateTradeTotal() {
             const p = parseFloat(document.getElementById('tradePrice').value) || 0;
             const s = parseInt(document.getElementById('tradeShares').value) || 0;
@@ -394,14 +365,12 @@
                 totalNode.classList.add('hidden');
             }
         }
-        
         function closeTradeModal() {
             document.getElementById('tradeModal').classList.add('opacity-0');
             document.getElementById('tradeModalContent').classList.add('scale-95');
             setTimeout(() => document.getElementById('tradeModal').classList.add('hidden'), 300);
         }
 
-        // 雲端同步
         const GITHUB_OWNER = "meifengasst"; 
         const GITHUB_REPO = "market-monitor";    
         const WORKFLOW_FILENAME = "main.yml"; 
@@ -420,22 +389,17 @@
                 if (putRes.ok) { console.log("✅ 雲端同步成功！"); triggerGitHubAction(); }
             } catch (error) { console.error("⚠️ 同步出錯"); }
         }
-        
 
-        // 💡 買進與加碼存檔 (修復瞬間刷新 Bug)
         function saveTrade() {
             const symbol = document.getElementById('tradeSymbol').innerText; 
             const price = parseFloat(document.getElementById('tradePrice').value);
             const shares = parseInt(document.getElementById('tradeShares').value);
-
             if(!price || !shares || shares <= 0) return alert('請輸入正確的價格與股數');
-
             if (myPortfolio[symbol]) {
                 const oldShares = myPortfolio[symbol].shares;
                 const oldPrice = myPortfolio[symbol].entryPrice;
                 const newShares = oldShares + shares;
                 const newEntryPrice = ((oldShares * oldPrice) + (shares * price)) / newShares;
-
                 myPortfolio[symbol].shares = newShares;
                 myPortfolio[symbol].entryPrice = parseFloat(newEntryPrice.toFixed(2));
                 myPortfolio[symbol].peakPrice = Math.max(myPortfolio[symbol].peakPrice, price); 
@@ -443,59 +407,33 @@
             } else {
                 myPortfolio[symbol] = { shares: shares, entryPrice: price, peakPrice: price, alerted: false };
             }
-
             localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-            
-            // 1. 關閉視窗
-            if (typeof closeTradeModal === 'function') closeTradeModal();
-            else closeModal('tradeModal');
-
-            // 2. 💡 關鍵修復：優先強制刷新畫面！
+            closeTradeModal();
             const searchVal = document.getElementById('searchInput') ? document.getElementById('searchInput').value : '';
             renderData(searchVal);
             renderPortfolioSummary();
-
-            // 3. 最後再背景同步到 GitHub，絕不卡畫面
-            if (typeof syncPortfolioToGithub === 'function') syncPortfolioToGithub();
+            syncPortfolioToGithub();
         }
 
-        // 💡 賣出與平倉存檔 (修復瞬間刷新 Bug)
         function saveSellTrade() {
             const symbol = document.getElementById('sellSymbol').innerText;
             const price = parseFloat(document.getElementById('sellPrice').value);
             const sellShares = parseInt(document.getElementById('sellShares').value);
-            let trade = myPortfolio[symbol];
-            let stock = stockMap[symbol];
-
+            let trade = myPortfolio[symbol]; let stock = stockMap[symbol];
             if(!trade) return;
             if(!price || !sellShares || sellShares <= 0) return alert('請輸入正確的價格與股數');
             if(sellShares > trade.shares) return alert(`庫存不足！你目前只有 ${trade.shares} 股。`);
-
             let pnl = (price - trade.entryPrice) * sellShares;
             let pnlPct = (((price - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
-
             tradeHistory.push({ date: new Date().toLocaleString('zh-TW', {hour12: false}), symbol: symbol, name: stock ? stock.name : symbol, shares: sellShares, entryPrice: trade.entryPrice, exitPrice: price, pnl: Math.round(pnl), pnlPct: pnlPct });
             localStorage.setItem('atu_trade_history', JSON.stringify(tradeHistory));
-
-            if (sellShares === trade.shares) {
-                delete myPortfolio[symbol];
-            } else {
-                myPortfolio[symbol].shares -= sellShares;
-            }
-
+            if (sellShares === trade.shares) { delete myPortfolio[symbol]; } else { myPortfolio[symbol].shares -= sellShares; }
             localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-            
-            // 1. 關閉視窗
-            if (typeof closeSellModal === 'function') closeSellModal();
-            else closeModal('sellModal');
-
-            // 2. 💡 關鍵修復：優先強制刷新畫面！
+            closeSellModal();
             const searchVal = document.getElementById('searchInput') ? document.getElementById('searchInput').value : '';
             renderData(searchVal);
             renderPortfolioSummary();
-
-            // 3. 最後再背景同步到 GitHub，絕不卡畫面
-            if (typeof syncPortfolioToGithub === 'function') syncPortfolioToGithub();
+            syncPortfolioToGithub();
         }
 
         function closeSellModal() {
@@ -508,11 +446,9 @@
             const symbol = document.getElementById('sellSymbol').innerText;
             const trade = myPortfolio[symbol];
             if (!trade) return;
-
             const p = parseFloat(document.getElementById('sellPrice').value) || 0;
             const s = parseInt(document.getElementById('sellShares').value) || 0;
             const totalNode = document.getElementById('sellTotalCalc');
-
             if (s > 0 && p > 0) {
                 let pnl = (p - trade.entryPrice) * s;
                 let pnlPct = (((p - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
@@ -524,71 +460,28 @@
             }
         }
 
-        // 💡 存檔邏輯：支援分批平倉與全部平倉
-        function saveSellTrade() {
-            const symbol = document.getElementById('sellSymbol').innerText;
-            const price = parseFloat(document.getElementById('sellPrice').value);
-            const sellShares = parseInt(document.getElementById('sellShares').value);
-            let trade = myPortfolio[symbol];
-            let stock = stockMap[symbol];
-
-            if(!trade) return;
-            if(!price || !sellShares || sellShares <= 0) return alert('請輸入正確的價格與股數');
-            if(sellShares > trade.shares) return alert(`庫存不足！你目前只有 ${trade.shares} 股。`);
-
-            let pnl = (price - trade.entryPrice) * sellShares;
-            let pnlPct = (((price - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
-
-            // 1. 寫入歷史對帳單
-            tradeHistory.push({ date: new Date().toLocaleString('zh-TW', {hour12: false}), symbol: symbol, name: stock ? stock.name : symbol, shares: sellShares, entryPrice: trade.entryPrice, exitPrice: price, pnl: Math.round(pnl), pnlPct: pnlPct });
-            localStorage.setItem('atu_trade_history', JSON.stringify(tradeHistory));
-
-            // 2. 扣除庫存處理
-            if (sellShares === trade.shares) {
-                delete myPortfolio[symbol]; // 賣光光，清空卡位
-            } else {
-                myPortfolio[symbol].shares -= sellShares; // 分批減碼，保留剩下的
-            }
-
-            localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-            closeSellModal();
-            if (typeof syncPortfolioToGithub === 'function') syncPortfolioToGithub();
-            renderData(document.getElementById('searchInput').value);
-            renderPortfolioSummary();
-        }
-
-        // 券商級帳務大腦
         function renderPortfolioSummary() {
             const summarySection = document.getElementById('portfolioSummarySection');
             const listContainer = document.getElementById('portfolioList');
             summarySection.classList.remove('hidden'); listContainer.innerHTML = '';
-            
             let totalPnL = 0; let totalRiskAmount = 0; let totalInvestedCost = 0; let totalMarketValue = 0; 
-            
             if (Object.keys(myPortfolio).length === 0) {
                 listContainer.innerHTML = `<div class="p-5 rounded-2xl border border-dashed border-slate-600 bg-slate-800/30 text-center shadow-inner"><p class="text-slate-400 text-sm font-bold tracking-widest">目前空手觀望中 ☕</p></div>`;
             }
-
             for (let symbol in myPortfolio) {
                 let trade = myPortfolio[symbol]; let stock = stockMap[symbol];
                 let currentPrice = stock ? stock.price : trade.entryPrice;
-                
                 totalInvestedCost += (trade.entryPrice * trade.shares);
                 totalMarketValue += (currentPrice * trade.shares);
-
                 let slDecimal = (stock ? stock.actual_sl : 5) / 100;
                 let peakPrice = trade.peakPrice || trade.entryPrice;
                 if (currentPrice > peakPrice) { peakPrice = currentPrice; trade.peakPrice = currentPrice; }
                 let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), peakPrice * (1 - slDecimal));
-
                 let isStopLossTriggered = currentPrice <= actualExitPrice;
                 totalRiskAmount += (Math.max(0, trade.entryPrice - actualExitPrice) * trade.shares);
-
                 let pnl = (currentPrice - trade.entryPrice) * trade.shares; totalPnL += pnl;
                 let pnlColor = pnl >= 0 ? 'text-red-400' : 'text-green-400';
-
                 let cardBg = isStopLossTriggered ? "bg-green-900/60 border-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" : "bg-black/30 border-white/10 hover:bg-slate-700 hover:border-blue-500";
-                
                 listContainer.innerHTML += `
                 <div class="p-4 rounded-2xl border flex justify-between items-center cursor-pointer transition-all ${cardBg}" onclick="document.getElementById('searchInput').value='${symbol}'; renderData('${symbol}');">
                     <div>
@@ -603,27 +496,19 @@
                     </div>
                 </div>`;
             }
-
-            // 更新財報數字
             let pnlEl = document.getElementById('totalPnL');
             if(pnlEl) { pnlEl.className = `text-xl font-mono font-black whitespace-nowrap ${totalPnL >= 0 ? 'text-red-400' : 'text-green-400'}`; pnlEl.innerText = `${totalPnL > 0 ? '+' : ''}$${Math.abs(Math.round(totalPnL)).toLocaleString()}`; }
             let mvEl = document.getElementById('totalMarketValue');
             if(mvEl) mvEl.innerText = `$${Math.round(totalMarketValue).toLocaleString()}`;
-
             let totalRealizedPnL = tradeHistory.reduce((sum, record) => sum + record.pnl, 0);
             let availableCash = baseCapital + totalRealizedPnL - totalInvestedCost;
             globalDynamicCapital = availableCash + totalMarketValue; 
-
             let rlzdEl = document.getElementById('realizedPnL');
             if(rlzdEl) { rlzdEl.className = `text-xl font-mono font-black whitespace-nowrap ${totalRealizedPnL >= 0 ? 'text-red-400' : 'text-green-400'}`; rlzdEl.innerText = `${totalRealizedPnL > 0 ? '+' : ''}$${Math.abs(Math.round(totalRealizedPnL)).toLocaleString()}`; }
-
             let cashEl = document.getElementById('availableCash');
             if(cashEl) { cashEl.innerText = `$${Math.round(availableCash).toLocaleString()}`; cashEl.className = `text-2xl md:text-3xl font-mono font-black whitespace-nowrap ${availableCash < 0 ? 'text-red-500 animate-pulse' : 'text-yellow-400'}`; }
-
             let dynCapEl = document.getElementById('dynamicCapital');
             if(dynCapEl) dynCapEl.innerText = `$${Math.round(globalDynamicCapital).toLocaleString()}`;
-
-            // 風控條
             let riskSection = document.getElementById('riskExposureSection');
             if(!riskSection && pnlEl) {
                 pnlEl.parentElement.insertAdjacentHTML('afterend', `<div id="riskExposureSection" class="mt-4 pt-4 border-t border-slate-700"><div class="flex justify-between items-end mb-1.5"><p class="text-[11px] text-slate-400 font-bold tracking-widest">🛡️ 總資產曝險 (建議 < 10%)</p><p id="totalRiskText" class="text-sm font-mono font-black text-white">0%</p></div><div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-600 shadow-inner"><div id="totalRiskBar" class="h-full transition-all duration-1000 ease-out" style="width: 0%"></div></div></div>`);
@@ -637,60 +522,40 @@
             }
         }
 
-        // 💡 全方位對帳單下載引擎
         function exportToCSV() {
-            // 加入 BOM 讓 Excel 打開不會中文亂碼
             let csvContent = "\uFEFF"; 
-
-            // --- 第一部分：目前實戰庫存 ---
             csvContent += "【目前實戰庫存 (未實現損益)】\n";
             csvContent += "股票代號,股票名稱,持有股數,買進均價,目前現價,未實現損益(元),報酬率(%)\n";
-            
             let hasPortfolio = false;
             for (let symbol in myPortfolio) {
                 hasPortfolio = true;
-                let trade = myPortfolio[symbol];
-                let stock = stockMap[symbol];
+                let trade = myPortfolio[symbol]; let stock = stockMap[symbol];
                 let currentPrice = stock ? stock.price : trade.entryPrice;
                 let pnl = (currentPrice - trade.entryPrice) * trade.shares;
                 let pnlPct = (((currentPrice - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
                 let name = stock ? stock.name : symbol;
-                
                 csvContent += `${symbol},${name},${trade.shares},${trade.entryPrice},${currentPrice},${Math.round(pnl)},${pnlPct}%\n`;
             }
             if (!hasPortfolio) csvContent += "目前空手觀望中\n";
-
-            csvContent += "\n"; // 空一行分隔
-
-            // --- 第二部分：歷史平倉紀錄 ---
-            csvContent += "【歷史平倉紀錄 (已實現損益)】\n";
+            csvContent += "\n【歷史平倉紀錄 (已實現損益)】\n";
             csvContent += "平倉時間,股票代號,股票名稱,賣出股數,買進均價,平倉價格,實現損益(元),報酬率(%)\n";
-            
             if (tradeHistory.length === 0) {
                 csvContent += "目前無平倉紀錄\n";
             } else {
-                tradeHistory.forEach(r => {
-                    csvContent += `${r.date},${r.symbol},${r.name},${r.shares},${r.entryPrice},${r.exitPrice},${r.pnl},${r.pnlPct}%\n`;
-                });
+                tradeHistory.forEach(r => { csvContent += `${r.date},${r.symbol},${r.name},${r.shares},${r.entryPrice},${r.exitPrice},${r.pnl},${r.pnlPct}%\n`; });
             }
-
-            // --- 觸發下載 ---
             const link = document.createElement("a"); 
             link.href = URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }));
             link.download = `阿土伯戰情報表_${new Date().toISOString().slice(0,10)}.csv`; 
-            document.body.appendChild(link); 
-            link.click(); 
-            document.body.removeChild(link);
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
-        // 🌟 一鍵重置系統
         function resetSystem() {
             if(confirm("⚠️ 確定要重置嗎？\n\n這將清空所有持股與歷史紀錄！")) {
                 let newCapital = prompt("🏦 請輸入重置後的開戶初始本金：", "100000");
                 baseCapital = parseFloat(newCapital) || 100000;
                 localStorage.setItem('atu_base_capital', baseCapital);
                 globalDynamicCapital = baseCapital;
-                
                 myPortfolio = {}; tradeHistory = [];
                 localStorage.removeItem('atu_portfolio'); localStorage.removeItem('atu_trade_history');
                 renderData(document.getElementById('searchInput').value || ''); renderPortfolioSummary(); syncPortfolioToGithub();
@@ -712,7 +577,7 @@
                     document.getElementById('health-bar').className = `h-full transition-all duration-1000 ease-out ${hd.health_pct >= 70 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : (hd.health_pct <= 30 ? 'bg-green-500' : 'bg-yellow-500')}`;
                     document.getElementById('health-score').className = `text-sm font-mono font-black ${hd.health_pct >= 70 ? 'text-red-400' : (hd.health_pct <= 30 ? 'text-green-400' : 'text-slate-300')}`;
                     let sEl = document.getElementById('ai-script-text');
-                    if (hd.ai_script) { sEl.innerText = hd.ai_script; sEl.className = `text-lg md:text-xl font-bold leading-relaxed tracking-wide min-h-[80px] flex items-center ${hd.ai_script.includes('嚴禁')||hd.ai_script.includes('警告') ? 'text-red-400 font-black' : 'text-green-300'}`; }
+                    if (hd.ai_script) { sEl.innerText = hd.ai_script; sEl.className = `text-slate-300 text-lg lg:text-2xl font-bold leading-relaxed tracking-wide ${hd.ai_script.includes('嚴禁')||hd.ai_script.includes('警告') ? 'text-red-400 font-black' : 'text-green-300'}`; }
                     let uGrid = document.getElementById('us-market-grid');
                     if (hd.us_summary) {
                         uGrid.innerHTML = '';
@@ -721,7 +586,6 @@
                             uGrid.innerHTML += `<div class="p-4 rounded-2xl border ${item.pct>0?'bg-red-900/20 border-red-500/30':(item.pct<0?'bg-green-900/20 border-green-500/30':'bg-slate-800 border-slate-700')} flex flex-col shadow-inner hover:border-blue-500/50"><p class="text-sm text-slate-400 font-bold mb-2">${k}</p><div class="flex justify-between items-baseline"><p class="text-xl font-mono font-black">${item.price}</p><p class="text-sm font-mono font-black ${colorClass}">${item.pct>0?'+':''}${item.pct}%</p></div></div>`;
                         }
                     }
-                    // 🧭 渲染資金輪動雷達
                     let sGrid = document.getElementById('sector-radar-container');
                     if (hd.sector_data && hd.sector_data.length > 0) {
                         sGrid.innerHTML = '';
@@ -730,14 +594,7 @@
                             let bgClass = isLeading ? 'bg-red-900/20 border-red-500/30' : 'bg-green-900/20 border-green-500/30';
                             let textClass = isLeading ? 'text-red-400' : 'text-green-400';
                             let icon = isLeading ? '🔥' : '❄️';
-                            sGrid.innerHTML += `
-                            <div class="flex justify-between items-center p-2.5 rounded-xl border ${bgClass} shadow-inner">
-                                <span class="text-xs font-bold text-slate-300 truncate mr-2">${s.name}</span>
-                                <div class="flex items-center gap-1.5 shrink-0">
-                                    <span class="text-[10px]">${icon}</span>
-                                    <span class="text-sm font-mono font-black ${textClass}">${isLeading?'+':''}${s.rs}%</span>
-                                </div>
-                            </div>`;
+                            sGrid.innerHTML += `<div class="flex justify-between items-center p-2.5 rounded-xl border ${bgClass} shadow-inner"><span class="text-xs font-bold text-slate-300 truncate mr-2">${s.name}</span><div class="flex items-center gap-1.5 shrink-0"><span class="text-[10px]">${icon}</span><span class="text-sm font-mono font-black ${textClass}">${isLeading?'+':''}${s.rs}%</span></div></div>`;
                         });
                     }
                 }
@@ -748,75 +605,28 @@
         
         async function triggerGitHubAction() {
             let token = localStorage.getItem('atu_github_token');
-            if (!token) { 
-                token = prompt("請輸入 GitHub Token："); 
-                if (!token) return; 
-                localStorage.setItem('atu_github_token', token); 
-            }
-            const btn = document.getElementById('forceUpdateBtn'); 
-            const ot = btn.innerHTML; 
-            btn.disabled = true; 
-            btn.innerHTML = `⏳ 呼叫雲端...`;
-            
+            if (!token) { token = prompt("請輸入 GitHub Token："); if (!token) return; localStorage.setItem('atu_github_token', token); }
+            const btn = document.getElementById('forceUpdateBtn'); const ot = btn.innerHTML; btn.disabled = true; btn.innerHTML = `⏳ 呼叫雲端...`;
             try {
                 const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILENAME}/dispatches`, { 
-                    method: 'POST', 
-                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify({ ref: 'main' }) 
+                    method: 'POST', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: 'main' }) 
                 });
-                
                 if (res.ok) {
-                    // 💡 阿土伯防冬眠機制：記錄「未來的真實完成時間」
-                    const targetTime = Date.now() + 50000; // 50秒後
-                    
+                    const targetTime = Date.now() + 50000; 
                     const timer = setInterval(() => { 
-                        // 每次都拿「現在的真實時間」去減，瀏覽器睡覺也騙不過它！
                         let remaining = Math.round((targetTime - Date.now()) / 1000);
-                        
-                        if (remaining <= 0) { 
-                            clearInterval(timer); 
-                            btn.disabled = false; 
-                            btn.innerHTML = ot; 
-                            loadData(true); 
-                        } else {
-                            btn.innerHTML = `⏳ ${remaining}s 雲端運算中`;
-                        }
+                        if (remaining <= 0) { clearInterval(timer); btn.disabled = false; btn.innerHTML = ot; loadData(true); } else { btn.innerHTML = `⏳ ${remaining}s 雲端運算中`; }
                     }, 1000);
-                } else { 
-                    localStorage.removeItem('atu_github_token'); 
-                    alert("⚠️ GitHub Token 可能過期或權限錯誤，請重新輸入！");
-                    btn.disabled = false; 
-                    btn.innerHTML = ot; 
-                }
-            } catch (error) { 
-                alert("⚠️ 網路連線錯誤，呼叫阿土伯雲端失敗！"); 
-                btn.disabled = false; 
-                btn.innerHTML = ot; 
-            }
+                } else { localStorage.removeItem('atu_github_token'); alert("⚠️ GitHub Token 可能過期或權限錯誤，請重新輸入！"); btn.disabled = false; btn.innerHTML = ot; }
+            } catch (error) { alert("⚠️ 網路連線錯誤，呼叫阿土伯雲端失敗！"); btn.disabled = false; btn.innerHTML = ot; }
         }
 
-function openModal(stock) {
+        function openModal(stock) {
             document.getElementById('dataModal').classList.remove('hidden'); 
-            setTimeout(() => { 
-                document.getElementById('dataModal').classList.remove('opacity-0'); 
-                document.getElementById('modalContent').classList.remove('scale-95'); 
-            }, 10);
-            
+            setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
             let historyData = stock.history || [];
-            const labels = historyData.map(h => h.date); 
-            const prices = historyData.map(h => h.price); 
-            const volumes = historyData.map(h => h.volume); 
-            const ma5 = historyData.map(h => h.ma5); 
-            const ma20 = historyData.map(h => h.ma20); 
-            const ma60 = historyData.map(h => h.ma60); 
-            const rsis = historyData.map(h => h.rsi); 
-            const bbUpper = historyData.map(h => h.bb_upper); 
-            const bbLower = historyData.map(h => h.bb_lower); 
-            const macd = historyData.map(h => h.macd); 
-            const macdSignal = historyData.map(h => h.macd_signal); 
-            const macdHist = historyData.map(h => h.macd_hist);
-
+            const labels = historyData.map(h => h.date); const prices = historyData.map(h => h.price); const volumes = historyData.map(h => h.volume); const ma5 = historyData.map(h => h.ma5); const ma20 = historyData.map(h => h.ma20); const ma60 = historyData.map(h => h.ma60); const rsis = historyData.map(h => h.rsi); const bbUpper = historyData.map(h => h.bb_upper); const bbLower = historyData.map(h => h.bb_lower); const macd = historyData.map(h => h.macd); const macdSignal = historyData.map(h => h.macd_signal); const macdHist = historyData.map(h => h.macd_hist);
             let datasets = [
                 { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, z: 10, yAxisID: 'y' },
                 { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' },
@@ -826,23 +636,16 @@ function openModal(stock) {
                 { label: '布林下軌', data: bbLower, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(56, 189, 248, 0.12)', yAxisID: 'y' },
                 { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.2)', yAxisID: 'y1' }
             ];
-
             if (myPortfolio[stock.symbol]) {
-                const entryPrice = myPortfolio[stock.symbol].entryPrice;
-                const entryPriceLine = new Array(labels.length).fill(entryPrice);
-                datasets.push({
-                    label: `我的成本 ($${entryPrice})`, data: entryPriceLine, borderColor: '#facc15',  borderWidth: 3, borderDash: [10, 5], pointRadius: 0, fill: false, z: 50, yAxisID: 'y'
-                });
+                const entryPrice = myPortfolio[stock.symbol].entryPrice; const entryPriceLine = new Array(labels.length).fill(entryPrice);
+                datasets.push({ label: `我的成本 ($${entryPrice})`, data: entryPriceLine, borderColor: '#facc15',  borderWidth: 3, borderDash: [10, 5], pointRadius: 0, fill: false, z: 50, yAxisID: 'y' });
             }
-
             const ctxPrice = document.getElementById('historyChart').getContext('2d');
             if(priceChart) priceChart.destroy();
             priceChart = new Chart(ctxPrice, { type: 'line', data: { labels: labels, datasets: datasets }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' } }, y1: { position: 'right', grid: { drawOnChartArea: false } }, x: { display: false } }, plugins: { legend: { labels: { color: '#cbd5e1', font: {size: 11} } } } } });
-
             const ctxMacd = document.getElementById('macdChart').getContext('2d');
             if(macdChart) macdChart.destroy();
             macdChart = new Chart(ctxMacd, { type: 'bar', data: { labels: labels, datasets: [ { type: 'line', label: 'MACD 快線', data: macd, borderColor: '#0ea5e9', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'line', label: 'Signal 慢線', data: macdSignal, borderColor: '#eab308', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'bar', label: 'MACD 柱狀圖', data: macdHist, backgroundColor: macdHist.map(v => v >= 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)') } ] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: false } }, plugins: { legend: { display: false } } } });
-            
             const ctxRsi = document.getElementById('rsiChart').getContext('2d');
             if(rsiChart) rsiChart.destroy();
             rsiChart = new Chart(ctxRsi, { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: true, ticks: {color: '#64748b'} } }, plugins: { legend: { display: false } } } });
@@ -850,41 +653,23 @@ function openModal(stock) {
 
         function closeModal(modalId) { const m = document.getElementById(modalId); m.classList.add('opacity-0'); setTimeout(() => m.classList.add('hidden'), 300); }
         function openRulesModal() { const m = document.getElementById('rulesModal'); m.classList.remove('hidden'); setTimeout(() => m.classList.remove('opacity-0'), 10); }
-
         function openNewsModal(symbol) {
-            const stock = stockMap[symbol];
-            if(!stock) return;
+            const stock = stockMap[symbol]; if(!stock) return;
             document.getElementById('newsModalSub').innerText = `${stock.name} (${stock.symbol}) - 近期焦點`;
-            const container = document.getElementById('newsListContainer');
-            container.innerHTML = '';
-            
-            if (!stock.news_sentiment || stock.news_sentiment.length === 0) { 
-                container.innerHTML = `<div class="text-center text-slate-400 py-10">目前無重大新聞，或 AI 掃雷器還沒跑到這檔股票。</div>`; 
-            } else {
+            const container = document.getElementById('newsListContainer'); container.innerHTML = '';
+            if (!stock.news_sentiment || stock.news_sentiment.length === 0) { container.innerHTML = `<div class="text-center text-slate-400 py-10">目前無重大新聞，或 AI 掃雷器還沒跑到這檔股票。</div>`; } else {
                 stock.news_sentiment.forEach(news => {
                     let badgeColor = "bg-slate-500/20 text-slate-300 border-slate-500";
                     if(news.sentiment && news.sentiment.includes('多')) badgeColor = "bg-red-500/20 text-red-400 border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.2)]";
                     else if(news.sentiment && news.sentiment.includes('空')) badgeColor = "bg-green-500/20 text-green-400 border-green-500 shadow-[0_0_10px_rgba(34,197,94,0.2)]";
-                    
-                    // 💡 阿土伯新增：顯示新聞日期
                     let dateHtml = news.date && news.date !== "未知" ? `<span class="text-xs font-mono text-blue-300 bg-blue-900/30 px-2 py-0.5 rounded border border-blue-500/30 mb-2 inline-block">📅 ${news.date}</span>` : "";
-
-                    container.innerHTML += `
-                    <div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700 mb-4 hover:border-blue-500/50 transition-colors">
-                        ${dateHtml}
-                        <div class="flex items-start justify-between gap-4">
-                            <h4 class="text-white text-lg font-bold leading-relaxed flex-1">${news.title}</h4>
-                            <span class="text-xs px-3 py-1 rounded-full border font-black shrink-0 ${badgeColor}">${news.sentiment || '未判定'}</span>
-                        </div>
-                        <a href="${news.link}" target="_blank" class="text-blue-400 text-sm hover:text-blue-300 mt-3 inline-flex items-center gap-1 font-bold">查看原文 🔗</a>
-                    </div>`;
+                    container.innerHTML += `<div class="bg-slate-800/60 p-5 rounded-2xl border border-slate-700 mb-4 hover:border-blue-500/50 transition-colors">${dateHtml}<div class="flex items-start justify-between gap-4"><h4 class="text-white text-lg font-bold leading-relaxed flex-1">${news.title}</h4><span class="text-xs px-3 py-1 rounded-full border font-black shrink-0 ${badgeColor}">${news.sentiment || '未判定'}</span></div><a href="${news.link}" target="_blank" class="text-blue-400 text-sm hover:text-blue-300 mt-3 inline-flex items-center gap-1 font-bold">查看原文 🔗</a></div>`;
                 });
             }
-            document.getElementById('newsModal').classList.remove('hidden'); 
-            setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
+            document.getElementById('newsModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
         }
 
-// 💡 股票卡片渲染引擎 (究極完整版：含進化四、新聞按鈕、圖表)
+        // 💡 股票卡片渲染引擎 (究極完整版：含進化四、新聞按鈕、圖表)
         function renderData(filterText = '') {
             const list = document.getElementById('stock-list'); list.innerHTML = ''; 
             const search = filterText.toLowerCase().trim();
@@ -907,14 +692,11 @@ function openModal(stock) {
                 let isBullish = stock.price > bestMaPrice;
 
                 let headerTheme = isBullish ? "bg-gradient-to-r from-red-900/40 to-transparent text-red-400 border-red-500/50 shadow-[0_0_25px_rgba(239,68,68,0.3)] ring-1 ring-red-500/30" : "bg-green-900/40 text-green-400 border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.5)] ring-1 ring-green-400 animate-pulse";
-                // 均線狀態字體放大
                 let statusLabel = isBullish ? `<span class='text-lg animate-bounce inline-block'>🚀</span> 站上${bestMaName}` : `<span class='text-lg inline-block'>🚨</span> 跌破${bestMaName}`;
-                // 主力強弱徽章字體放大
                 let rsBadge = stock.rs_score > 5 ? `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-sm font-black animate-bounce">👑 主力強勢 (+${stock.rs_score}%)</span>` : (stock.rs_score > 0 ? `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-sm font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>` : `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-sm font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
 
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
-                    // (這段是你原本實戰部位的程式碼，保留不變)
                     let trade = myPortfolio[stock.symbol]; 
                     if (stock.price > trade.peakPrice) { trade.peakPrice = stock.price; localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio)); }
                     let slDecimal = stock.actual_sl / 100;
@@ -942,7 +724,6 @@ function openModal(stock) {
                     const totalCapital = globalDynamicCapital;
                     if (totalCapital > 0 && isBullish) {
                         let slDecimal = stock.actual_sl / 100; let sharesToBuy = Math.floor((totalCapital * 0.02) / (stock.price * slDecimal));
-                        // 💡 2% 風控區塊字體全面放大
                         positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 group"><div class="flex justify-between items-center mb-1"><p class="text-sm text-red-400 font-bold tracking-wide">🛡️ 2% 動態複利風控</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-sm bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded font-bold transition-colors">➕ 買進</button></div><div class="flex justify-between items-end"><p class="text-3xl font-mono font-black text-red-300">${sharesToBuy}股</p><div class="text-right"><p class="text-sm text-red-400/70 font-bold tracking-wide mb-1">預計投入金額</p><p class="text-xl font-mono font-black text-red-200">$${Math.round(sharesToBuy * stock.price).toLocaleString()}</p></div></div></div>`;
                     } else if (!isBullish) {
                         positionHtml = `
@@ -1093,7 +874,3 @@ function openModal(stock) {
                 list.appendChild(card);
             });
         }
-        document.getElementById('searchInput').addEventListener('input', (e) => renderData(e.target.value));
-    </script>
-</body>
-</html>
