@@ -691,7 +691,13 @@ def generate_dashboard_data():
                 funda_insight=funda_insight,
                 smart_money=smart_money_insight
             )
-
+            # 🚨 阿土伯補血：把不小心刪掉的畫圖資料與量能計算加回來！
+            hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2)} for i, r in df.tail(60).iterrows()]
+            
+            avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
+            current_vol = df['Volume'].iloc[-1]
+            real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
+            
             # 準備打包資料
             dashboard_data.append({
                 "symbol": symbol, "name": info["name"], "category": info["category"],
