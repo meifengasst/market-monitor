@@ -669,7 +669,7 @@
             document.getElementById('newsModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
         }
 
-// 💡 股票卡片渲染引擎 (究極整合版：整合 AI、量能、特效)
+// 💡 股票卡片渲染引擎 (究極整合版：包含大戶內部人追蹤)
         function renderData(filterText = '') {
             const list = document.getElementById('stock-list'); list.innerHTML = ''; 
             const search = filterText.toLowerCase().trim();
@@ -677,14 +677,13 @@
 
             filtered.forEach(stock => {
                 const card = document.createElement('div'); 
-                card.onclick = () => openModal(stock); // 點擊卡片開啟圖表
+                card.onclick = () => openModal(stock); 
                 
                 const latestHist = stock.history && stock.history.length > 0 ? stock.history[stock.history.length - 1] : {};
                 const ma5 = latestHist.ma5 || '-'; 
                 const ma20 = latestHist.ma20 || '-'; 
                 const ma60 = latestHist.ma60 || '-';
 
-                // 💡 狀態標籤與徽章
                 let rsiBadge = stock.rsi >= 70 ? `<span class="text-sm px-2 py-0.5 rounded bg-red-500/20 text-red-400 border border-red-500/30">🔥過熱</span>` : (stock.rsi <= 30 ? `<span class="text-sm px-2 py-0.5 rounded bg-green-500/20 text-green-400 border border-green-500/30">❄️超賣</span>` : `<span class="text-sm px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">⚖️正常</span>`);
                 
                 let bestMaName = stock.best_ma_name || '20MA';
@@ -695,10 +694,32 @@
                 let statusLabel = isBullish ? `<span class='text-lg animate-bounce inline-block'>🚀</span> 站上${bestMaName}` : `<span class='text-lg inline-block'>🚨</span> 跌破${bestMaName}`;
                 let rsBadge = stock.rs_score > 5 ? `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-sm font-black animate-bounce">👑 主力強勢 (+${stock.rs_score}%)</span>` : (stock.rs_score > 0 ? `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-sm font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>` : `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-sm font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
 
-                // 💡 風控部位區
+                // 🕵️‍♂️ 大戶與內部人動向 (Smart Money) 視覺化處理
+                let smartMoneyText = stock.smart_money || "讀取中或無異常...";
+                let smartMoneyTheme = "bg-slate-800/50 border-slate-700 text-slate-400"; 
+                let smartMoneyIcon = "👀";
+
+                if (smartMoneyText.includes("偷倒貨") || smartMoneyText.includes("賣出")) {
+                    smartMoneyTheme = "bg-red-900/30 border-red-500/50 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.2)]";
+                    smartMoneyIcon = "🚨";
+                } else if (smartMoneyText.includes("狂買") || smartMoneyText.includes("買入")) {
+                    smartMoneyTheme = "bg-green-900/30 border-green-500/50 text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.2)]";
+                    smartMoneyIcon = "🔥";
+                }
+
+                let smartMoneyHtml = `
+                <div class="flex items-start gap-3 p-3 rounded-xl border ${smartMoneyTheme} mb-4 shadow-inner">
+                    <span class="text-xl shrink-0 mt-0.5">${smartMoneyIcon}</span>
+                    <div>
+                        <p class="text-[10px] font-black opacity-70 mb-0.5 tracking-wider">大戶與內部人動向</p>
+                        <p class="text-sm font-bold leading-tight">${smartMoneyText}</p>
+                    </div>
+                </div>
+                `;
+
+                // 風控部位區
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
-                    // (這段是你原本實戰部位的程式碼，保留不變)
                     let trade = myPortfolio[stock.symbol]; 
                     if (stock.price > trade.peakPrice) { trade.peakPrice = stock.price; localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio)); }
                     let slDecimal = stock.actual_sl / 100;
@@ -738,12 +759,8 @@
                     }
                 }
 
-                // 💡 金色特效邏輯
                 let isPerfectEntry = (stock.vol_ratio >= 2.5) && isBullish && (stock.rsi >= 55 && stock.rsi <= 65) && (stock.rs_score > 0);
-                
-                // 💡 卡片核心樣式
                 let cardBaseClass = "p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group";
-                // 💡 這裡是修正金色特效的地方 (整合了特效、陰影與動畫)
                 card.className = isPerfectEntry 
                     ? `${cardBaseClass} border-yellow-400 bg-gradient-to-br from-yellow-900/40 to-slate-900 shadow-[0_0_30px_rgba(250,204,21,0.5)] ring-1 ring-yellow-400` 
                     : `${cardBaseClass} border-slate-700 bg-slate-800/50`;
@@ -756,7 +773,6 @@
                     </div>
                 ` : '';
 
-                // 💡 整張卡片的 HTML (o3-mini 面板垂直不擠壓版)
                 card.innerHTML = `
                     ${perfectBanner}
                     <div class="flex flex-col h-full relative z-10">
@@ -821,7 +837,7 @@
                                 </div>
                             </div>
                             
-                            ${positionHtml}
+                            ${smartMoneyHtml} ${positionHtml}
                             
                             <div class="pt-4 border-t border-slate-700/50 mt-4">
                                 ${stock.unified_brain ? `
@@ -839,7 +855,6 @@
                                     </div>
                                     
                                     <div class="flex flex-col gap-4 relative z-10">
-                                        
                                         <div class="flex flex-col gap-3 bg-black/20 p-4 rounded-xl border border-white/5">
                                             <div class="flex items-start gap-2">
                                                 <span class="text-red-400 text-sm font-black mt-0.5 whitespace-nowrap shrink-0">🔴 好消息:</span>
@@ -859,7 +874,6 @@
                                                     <p class="text-sm font-black text-yellow-400 leading-relaxed">${stock.unified_brain.trap}</p>
                                                 </div>
                                             </div>
-                                            
                                             <div class="flex items-start gap-3">
                                                 <span class="text-blue-400 text-xl shrink-0 mt-0.5">💰</span>
                                                 <div>
@@ -875,7 +889,6 @@
                                             </div>
                                             `}
                                         </div>
-
                                     </div>
                                 </div>
                                 ` : `
