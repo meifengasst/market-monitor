@@ -52,13 +52,13 @@ def check_market_regime():
         tw = yf.download("0050.TW", period="2mo", progress=False)
         if tw['Close'].iloc[-1].item() < tw['Close'].rolling(20).mean().iloc[-1].item():
             regime["TW"] = True; triggered = True
-            alert_msg += f"🇹🇼 台股(0050)破月線避險！\n"
+            alert_msg += f"🇹🇼 台股(0050)破線，啟動避險！\n"
     except: pass
     try:
         us = yf.download("SPY", period="2mo", progress=False)
         if us['Close'].iloc[-1].item() < us['Close'].rolling(20).mean().iloc[-1].item():
             regime["US"] = True; triggered = True
-            alert_msg += f"🇺🇸 美股(SPY)破月線避險！\n"
+            alert_msg += f"🇺🇸 美股(SPY)破線，啟動避險！\n"
     except: pass
     if triggered: send_line_alert(alert_msg)
     return regime
@@ -70,9 +70,7 @@ STOCKS = {
     "9904.TW": {"name": "寶成", "category": "運動鞋"}
 }
 
-# 💡 粗活 1：新聞情緒交給免費的 Groq
 def get_ai_news_sentiment(stock_name, symbol):
-    print(f"📰 抓取 {stock_name} 新聞 (使用 Groq)...")
     try:
         search_keyword = f"{stock_name} 股票" if not symbol.endswith(".TW") else stock_name
         query = urllib.parse.quote(f"{search_keyword} when:15d")
@@ -107,8 +105,7 @@ def get_ai_news_sentiment(stock_name, symbol):
             if i < len(top_news): 
                 final_result.append({"title": item.get("title", top_news[i]["title"]), "sentiment": item.get("sentiment", "中立"), "link": top_news[i]["link"], "date": top_news[i]["date"]})
         return final_result
-    except Exception as e:
-        print(f"⚠️ 新聞掃雷失敗: {e}")
+    except:
         return [{"title": "新聞掃雷器故障", "sentiment": "未判定", "link": "#", "date": "未知"}]
 
 def get_us_market_summary():
@@ -180,18 +177,22 @@ def get_smart_money_flow(symbol):
         return "內部人近期無明顯大動作。"
     except: return "大戶動向偵測失敗"
 
-# 🧠 尊貴核心：深度推理交給你課金的 o3-mini
+# 🧠 尊貴核心：深度推理交給你課金的 o3-mini (還原文字詳解版)
 def get_unified_brain_o3(stock_name, current_price, ma20, rsi, poc_price, rs_score, smart_money):
     print(f"🧠 [o3-mini 深度推理] 啟動戰情分析：{stock_name}...")
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     if not openai_api_key: return None
 
-    system_prompt = """你是一位華爾街量化風控長。請用一句話(極簡)總結該股票目前狀態。
-    必須回傳 JSON: 
+    system_prompt = """你是一位華爾街量化風控長。你需要綜合數據給出唯一裁決，用「白話文」撰寫。
+    必須嚴格回傳 JSON 格式：
     {
-      "summary": "一句話點評(例如: 動能強勁但乖離POC太遠，隨時倒貨。限20字)",
-      "stop_price": 數字(合理防守價),
-      "action": "抱牢續賺" 或 "縮注試單" 或 "嚴格觀望" 或 "破線快逃"
+        "pattern": "目前的狀態 (限10字)",
+        "bull": "多方好消息 (白話文，限25字)",
+        "bear": "空方壞消息 (白話文，限25字)",
+        "trap": "騙線警告 (包含POC籌碼判斷，限30字)",
+        "stop_price": 數字 (合理防守價, 精確到小數點後兩位),
+        "sizing": "資金建議 (限20字)",
+        "action": "最終指令 (限選一個：抱牢續賺 / 縮注試單 / 嚴格觀望 / 破線快逃)"
     }"""
     
     user_prompt = f"股票:{stock_name}, 現價:{current_price}, 20MA:{ma20}, RSI:{rsi}, POC成本:{poc_price}, 大戶動向:{smart_money}"
@@ -206,9 +207,8 @@ def get_unified_brain_o3(stock_name, current_price, ma20, rsi, poc_price, rs_sco
         return json.loads(res.json()["choices"][0]["message"]["content"].strip())
     except Exception as e:
         print(f"o3-mini 錯誤: {e}")
-        return {"summary": "API連線受限，轉為防禦狀態", "stop_price": round(current_price * 0.95, 2), "action": "觀望"}
+        return {"pattern": "連線異常", "bull": "API中斷", "bear": "API中斷", "trap": "API中斷", "stop_price": round(current_price * 0.95, 2), "sizing": "防禦狀態", "action": "觀望"}
 
-# 💡 粗活 2：晨間報報交給免費的 Groq
 def generate_morning_script_groq(market_data, sector_data):
     groq_api_key = os.environ.get("GROQ_API_KEY")
     if not groq_api_key: return "⚠️ 未設定 GROQ_API_KEY。"
@@ -274,7 +274,6 @@ def generate_dashboard_data():
             smart_money = get_smart_money_flow(symbol)
             poc_price = calculate_poc(df, days=120, bins=20)
             
-            # 💡 呼叫你花錢的 o3-mini 大腦
             unified_brain = get_unified_brain_o3(info["name"], current_price, round(df['ma20'].iloc[-1], 2), round(df['rsi'].iloc[-1], 2), poc_price, rs_score, smart_money)
 
             avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
@@ -295,9 +294,9 @@ def generate_dashboard_data():
         except Exception as e:
             print(f"⚠️ 處理 {symbol} 失敗: {e}")
         
-        # 🚨 阿土伯的「保命符」：強制休息 12 秒，保證你的 Tier 1 帳號絕對不會被鎖！
-        print("⏳ 運算完畢，為了保護你的 5美金 o3-mini 額度，系統強制冷卻 12 秒...")
-        time.sleep(12)
+        # 🚨 阿土伯的「保命符」：強制休息 15 秒，保證你的 Tier 1 帳號絕對不會被鎖！
+        print("⏳ 運算完畢，為了保護你的 o3-mini 額度，系統強制冷卻 15 秒...")
+        time.sleep(15)
 
     us_market_data = get_us_market_summary()
     sector_data = get_sector_rotation()
