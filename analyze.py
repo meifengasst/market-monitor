@@ -713,8 +713,8 @@ def generate_dashboard_data():
         except Exception as e:
             print(f"⚠️ 處理 {symbol} 時發生錯誤: {e}")
             
-        print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
-        time.sleep(15)
+        print(f"⏳ {info['name']} 運算完畢，冷卻 30 秒鐘...")
+        time.sleep(30)
 
     print("📊 準備結算並產出 JSON 報表...")
     us_market_data = get_us_market_summary()
