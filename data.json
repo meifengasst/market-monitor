@@ -1,14 +1,14 @@
 {
-    "last_update": "2026-03-20 [22:31]",
+    "last_update": "2026-03-20 [22:40]",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia",
             "category": "美國科技",
-            "price": 175.81,
-            "rsi": 40.65,
-            "bias": -4.07,
-            "atr": 0.0,
+            "price": 175.91,
+            "rsi": 40.77,
+            "bias": -4.02,
+            "atr": 5.1,
             "poc_price": 182.66,
             "news_sentiment": [
                 {
@@ -42,7 +42,7 @@
                     "date": "2026-03-16"
                 }
             ],
-            "vol_ratio": 0.27,
+            "vol_ratio": 0.29,
             "optimal_sl": 12,
             "actual_sl": 3,
             "ev": -0.15,
@@ -935,43 +935,43 @@
                 },
                 {
                     "date": "2026-03-20",
-                    "price": 175.81,
-                    "volume": 52197700,
-                    "ma5": 179.98,
-                    "ma20": 183.27,
+                    "price": 175.91,
+                    "volume": 56376918,
+                    "ma5": 180.0,
+                    "ma20": 183.28,
                     "ma60": 185.28,
                     "macd": -1.76,
                     "macd_signal": -1.12,
                     "macd_hist": -0.64,
-                    "rsi": 40.65,
-                    "bb_upper": 193.52,
-                    "bb_lower": 173.03,
-                    "atr": 0.0
+                    "rsi": 40.77,
+                    "bb_upper": 193.51,
+                    "bb_lower": 173.05,
+                    "atr": 5.1
                 }
             ],
-            "rs_score": -3.77,
+            "rs_score": -3.84,
             "unified_brain": {
                 "pattern": "連線異常",
                 "bull": "API中斷",
                 "bear": "API中斷",
                 "trap": "API中斷",
-                "stop_price": 167.0195,
+                "stop_price": 167.1145,
                 "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "10MA",
-            "best_ma_price": 181.67
+            "best_ma_price": 181.68
         },
         {
             "symbol": "TSLA",
             "name": "Tesla",
             "category": "美國科技",
-            "price": 372.58,
-            "rsi": 34.0,
-            "bias": -6.55,
+            "price": 372.96,
+            "rsi": 34.14,
+            "bias": -6.46,
             "atr": 12.74,
-            "poc_price": 434.16,
+            "poc_price": 428.5,
             "news_sentiment": [
                 {
                     "title": "買Tesla股票為我上了昂貴一課",
@@ -992,19 +992,19 @@
                     "date": "2026-03-19"
                 },
                 {
-                    "title": "全台唯一 Tesla Museum 南港揭幕，本季入主新車抽 10 股 Tesla 股票活動同步推出 - Yahoo",
+                    "title": "全台唯一 Tesla Museum 南港揭幕，本季入主新車抽 10 股 Tesla 股票活動同步推出",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE0yLWZCVXl5RGdoeDZTc25XekNtMFNaMlo3cW1DVWxlZWs2dDRkLWtMTlo1bmRFS21Pdy1wLTk5czUteEtmMHdCZ0dHa2Ftdw?oc=5",
                     "date": "2026-03-13"
                 },
                 {
-                    "title": "Tesla Museum台北南港開幕 抽價值12萬特斯拉股票！資格、獎項一次看 | 劉芯衣 | 新聞",
+                    "title": "Tesla Museum台北南港開幕 抽價值12萬特斯拉股票！資格、獎項一次看",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMi5gJBVV95cUxNODJRUlRIUjFJRUs4dHVnR3Ixd0k4ZkEweXFVS3RvaVZ1YjhCR2lySml1SHpiSS11Nk1Qb2RYNi1SUFpHbTdyRjh1ekZUb0ZPY2RyNVczQllnZ2RIWDAzTFhZYWthdVAwMjhZTzBGNnRtQmJ1YklweFVuY2NMV29VYlFReUlueUhUeFNld08wZVVTVWNoUUVMQmhiTi1MUzRsYTdtMDY0OGdzN1BaYWZVV3c2UXJrMEdXOUlNc3hLOWFaY1BIX1ZvMzlna3JOV0syWFNLM1NTVC14bGE3X3RjcXVrd0xwcG9OVGZTUE1qU3JCMkVTVVVYcGlTaEh0UWd6WG5aS1pCczcyYmZlVGNvQjVseGo5QVdNTThQZmV3d1F4aTZjSDlWNThlMTZnd0hWVlRSTVJUTnZWQVRCOXByWDdORy1LU2lvbjNmVUJYMmM4MTZmRW13VVQ5ZktkN0x3a3hlMTBn?oc=5",
                     "date": "2026-03-11"
                 }
             ],
-            "vol_ratio": 0.35,
+            "vol_ratio": 0.38,
             "optimal_sl": 12,
             "actual_sl": 3,
             "ev": -0.13,
@@ -1897,27 +1897,27 @@
                 },
                 {
                     "date": "2026-03-20",
-                    "price": 372.58,
-                    "volume": 20337976,
-                    "ma5": 388.1,
-                    "ma20": 398.71,
+                    "price": 372.96,
+                    "volume": 21867889,
+                    "ma5": 388.17,
+                    "ma20": 398.72,
                     "ma60": 422.22,
-                    "macd": -8.9,
+                    "macd": -8.87,
                     "macd_signal": -7.37,
-                    "macd_hist": -1.53,
-                    "rsi": 34.0,
-                    "bb_upper": 419.02,
-                    "bb_lower": 378.39,
+                    "macd_hist": -1.51,
+                    "rsi": 34.14,
+                    "bb_upper": 418.94,
+                    "bb_lower": 378.51,
                     "atr": 12.74
                 }
             ],
-            "rs_score": -2.37,
+            "rs_score": -2.4,
             "unified_brain": {
                 "pattern": "連線異常",
                 "bull": "API中斷",
                 "bear": "API中斷",
                 "trap": "API中斷",
-                "stop_price": 353.95099999999996,
+                "stop_price": 354.31199999999995,
                 "sizing": "防禦狀態",
                 "action": "觀望"
             },
@@ -1929,10 +1929,10 @@
             "symbol": "SPY",
             "name": "S&P 500",
             "category": "美股大盤",
-            "price": 652.1,
-            "rsi": 26.41,
-            "bias": -3.51,
-            "atr": 10.06,
+            "price": 652.93,
+            "rsi": 26.72,
+            "bias": -3.4,
+            "atr": 0.0,
             "poc_price": 680.9,
             "news_sentiment": [
                 {
@@ -1966,7 +1966,7 @@
                     "date": "2026-03-09"
                 }
             ],
-            "vol_ratio": 0.25,
+            "vol_ratio": 0.27,
             "optimal_sl": 4,
             "actual_sl": 3,
             "ev": 0.27,
@@ -2859,33 +2859,33 @@
                 },
                 {
                     "date": "2026-03-20",
-                    "price": 652.1,
-                    "volume": 20906432,
-                    "ma5": 662.63,
-                    "ma20": 675.85,
-                    "ma60": 684.6,
-                    "macd": -7.24,
-                    "macd_signal": -4.96,
-                    "macd_hist": -2.27,
-                    "rsi": 26.41,
-                    "bb_upper": 698.36,
-                    "bb_lower": 653.34,
-                    "atr": 10.06
+                    "price": 652.93,
+                    "volume": 22808640,
+                    "ma5": 662.8,
+                    "ma20": 675.89,
+                    "ma60": 684.61,
+                    "macd": -7.17,
+                    "macd_signal": -4.95,
+                    "macd_hist": -2.22,
+                    "rsi": 26.72,
+                    "bb_upper": 698.22,
+                    "bb_lower": 653.57,
+                    "atr": 0.0
                 }
             ],
-            "rs_score": 0.01,
+            "rs_score": 0.0,
             "unified_brain": {
                 "pattern": "連線異常",
                 "bull": "API中斷",
                 "bear": "API中斷",
                 "trap": "API中斷",
-                "stop_price": 619.495,
+                "stop_price": 620.2834999999999,
                 "sizing": "防禦狀態",
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "60MA",
-            "best_ma_price": 684.6
+            "best_ma_price": 684.61
         },
         {
             "symbol": "2330.TW",
@@ -2898,10 +2898,10 @@
             "poc_price": 1463.43,
             "news_sentiment": [
                 {
-                    "title": "昨天賺到的先跑？台積電跌55元收1885元 名師：是買點",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMi4AJBVV95cUxNWmt5bW1XU3dKbzM2TVgyT2FlUzljYWxUZDlsR3huTWhwck81SEpVMm9welZINkp4Ny0ySk5tNFozMjNwaDUySDFXeGJWYjAtb29GNXJ0V1BxR0thQWc4d0JkU0FwTDVQQWpldVAtLXRHMERQLVFhVzlBekJzTFhnQ3lFWlQ3SFdlQVRvbzFwX2JuQkFBMEpRRTNXUnlOOC14d2w5N284dHlNNFNmUkhZcW9mdmxFUXF6RWVZM1BvZ3hMVXg1VmN5MGN1d1NDeVZxZEhrRWwxTzBWY1ZEcWNyTnNqTFF3U0RTZG5LWkstQW9lNnY3Z3A0cklCeWlncmh3MlBTbjAtUDVnMjlOendmT1dnSE1jbzZyRFRYdU54VEx3YVFmMUtpR2R0WGZXZDU3a3BiSHpkVUpmRDFGUjM5ZzFIN2lEeERySjJvVDFUT1ZLclNzd0VYTTNCY21MempM?oc=5",
-                    "date": "2026-03-11"
+                    "title": "台積電落榜「長抱首選」名單！外媒看好「這3檔」原因曝",
+                    "sentiment": "利空",
+                    "link": "https://news.google.com/rss/articles/CBMirgJBVV95cUxObEJRTEpIa3RzNF9jdGpfSkRTaHMzNGtxUWYtVUdsb050M1QyUG14V1dHODlUNmd2NmlmTXFTenFaQmdaNXotc0FweFI1dVA4ZkdVbGNjX3pNeS1IODk4dFE3cGRnLU43ZGg0U0FFX0I3djV5ODZwZ3YtSnh4SHdQbEViZXU4RzlxT2J3THBjaE9LTFBybGZBWWllQ0hadG5UdTFoYkp3Mi1WMEdFSVFfd213LWY5UTQzMnpLcHlzaDBfVTE1bU1PV0RwT1h5R2dVSGFyMXJqdldwdm91SEs1RWVtUk5sSVptRVNmOVRCTXhZY3pNeHUxR3NwMUhJQzdrZDB6SmpYZkR4OEQ1VUdWZkc0aEdnV0Mzcms5WVIwbDhOV2FmRzBBMWRyWHp1QQ?oc=5",
+                    "date": "2026-03-20"
                 },
                 {
                     "title": "台積電副總增買自家股票 4位新任副總持股曝光",
@@ -2910,22 +2910,22 @@
                     "date": "2026-03-11"
                 },
                 {
-                    "title": "台積電除息開盤衝1875元 上演秒填息 | 證券",
+                    "title": "台積電2月營收淡月減20.8% 本月回神 法人：Q1財測有望超標",
                     "sentiment": "中立",
-                    "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9nb1llZVVNa2FVa0VVQ3pNWERxUXhxYjVmQ1lQS2N4X2JUQnczd1pBV01yUUFYSlptcnFmbmlTb0t4cDVKZVM5WjNCbWRUS0ZRR3FzcWZPbURVczlOTWc?oc=5",
-                    "date": "2026-03-17"
-                },
-                {
-                    "title": "台積電高層續加碼自家股　新任副總田博仁2月增持2000股",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE92a2pIZ1VVc3NCeUJDalpNa3U1eWVsY1VCZ3U5V2UxaWh1NGY0V0haWU0tSEUwWThGcUtwSk9feG91ejk5NmR1ZmhVV2xDVW5SeXfSAW5BVV95cUxQeUgwRDFzdGt6TUpCTmhKbEpQcXk1TEdoX0trRjdwY0tCV2pzMGdWNjlvYURiT1hfS0ZvOEVCbEdkemdMaDBRSTBTVXVWcE41UWx4anVqZWFDWEZLalhYdGpkeTJhY1dEeEZtNkxUdw?oc=5",
+                    "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9pbFpzbGlISHNoMVdmaFdnSDNYRl8yaUNYMmNCaU52c0owRGlvZVBtYXRXamhYZkV0NVpFd0Z4VWVseVhHWnYweVJKeDg2cXFXckhQV3dnenVQUdIBX0FVX3lxTFB6UTJzNW5PdXBZNlZZbFNaakx2LVJWanFueGZGeXBFbXpKbkZ5b3BHMWlYRDVfRnFnTDJ1SzA0cDBXTzJJQ0dId1IwUmlVYVZuaHFSeklNTEdmbWhwSm5B?oc=5",
                     "date": "2026-03-11"
                 },
                 {
-                    "title": "台積電落榜「長抱首選」名單！外媒看好「這3檔」原因曝",
-                    "sentiment": "利空",
-                    "link": "https://news.google.com/rss/articles/CBMirgJBVV95cUxObEJRTEpIa3RzNF9jdGpfSkRTaHMzNGtxUWYtVUdsb050M1QyUG14V1dHODlUNmd2NmlmTXFTenFaQmdaNXotc0FweFI1dVA4ZkdVbGNjX3pNeS1IODk4dFE3cGRnLU43ZGg0U0FFX0I3djV5ODZwZ3YtSnh4SHdQbEViZXU4RzlxT2J3THBjaE9LTFBybGZBWWllQ0hadG5UdTFoYkp3Mi1WMEdFSVFfd213LWY5UTQzMnpLcHlzaDBfVTE1bU1PV0RwT1h5R2dVSGFyMXJqdldwdm91SEs1RWVtUk5sSVptRVNmOVRCTXhZY3pNeHUxR3NwMUhJQzdrZDB6SmpYZkR4OEQ1VUdWZkc0aEdnV0Mzcms5WVIwbDhOV2FmRzBBMWRyWHp1QQ?oc=5",
-                    "date": "2026-03-20"
+                    "title": "昨天賺到的先跑？台積電跌55元收1885元 名師：是買點",
+                    "sentiment": "中立",
+                    "link": "https://news.google.com/rss/articles/CBMi4AJBVV95cUxNWmt5bW1XU3dKbzM2TVgyT2FlUzljYWxUZDlsR3huTWhwck81SEpVMm9welZINkp4Ny0ySk5tNFozMjNwaDUySDFXeGJWYjAtb29GNXJ0V1BxR0thQWc4d0JkU0FwTDVQQWpldVAtLXRHMERQLVFhVzlBekJzTFhnQ3lFWlQ3SFdlQVRvbzFwX2JuQkFBMEpRRTNXUnlOOC14d2w5N284dHlNNFNmUkhZcW9mdmxFUXF6RWVZM1BvZ3hMVXg1VmN5MGN1d1NDeVZxZEhrRWwxTzBWY1ZEcWNyTnNqTFF3U0RTZG5LWkstQW9lNnY3Z3A0cklCeWlncmh3MlBTbjAtUDVnMjlOendmT1dnSE1jbzZyRFRYdU54VEx3YVFmMUtpR2R0WGZXZDU3a3BiSHpkVUpmRDFGUjM5ZzFIN2lEeERySjJvVDFUT1ZLclNzd0VYTTNCY21MempM?oc=5",
+                    "date": "2026-03-11"
+                },
+                {
+                    "title": "台積電股價1年漲107％現在上車來得及 外媒全說了",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBBd1NRUEJ3ZVJId1BYNEZTMWdBN01GclpueW9QbFNxZ2FUQVlPeG1YVzFJU0pYQVZqUk91bEtBNlVUTlhyR2F1enpFX3QxelUxblZXc2ZkN3FVUDFadlJV0gFkQVVfeXFMTmNLZnFOajY5N2VUeHlIcHlvR3Bqc1l1TGZlbFNIbExEeXpXWGlib1R6dVRjZDRQLVhmRUpuejhPdWR2NngtQWJ1NXFPUjRLdUs1Sm5Ud1RlWFNGaFFhZ3h3VXhROQ?oc=5",
+                    "date": "2026-03-14"
                 }
             ],
             "vol_ratio": 1.15,
@@ -3878,16 +3878,16 @@
                     "date": "2026-03-18"
                 },
                 {
-                    "title": "記憶體4檔逆勢刷天價！旺宏「大哥關不住」　處置首日尷尬飆漲停",
-                    "sentiment": "利多",
-                    "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5qaGtBV0ZrYkJjYkhoWTdST1ZhYXllejBleEg1eXk3Yk9aUFlmSkNLNFZidUN0Wi1VZ3M4UUNwSUpNeWZNNXMtUWhFQVUyVUZvUkHSAW5BVV95cUxQZE9SSWhsQWNOTEx3S3BYU2tlTTQ3SHpxU3dZckswN2tvSGhyeWMtUXRORHBnWUxhMUlZSFNxdk1oTmZKMUtuRFN0Rkw3WDNsT3c5dGJWRTRvc2U0amtHWmtxUkl3MjljVmFMOGc5Zw?oc=5",
-                    "date": "2026-03-19"
-                },
-                {
                     "title": "旺宏漲停1.5萬張排隊，108.5元能買？南亞科、華邦電…它最新目標價176%空間能漲！台股落底怎麼看",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNQUtyd1pPSDh5MXR0VnZBYWNrMUwxYmdmX2tCMDlTTzl3VHotSTFZZkVqeEd1bkpJTkdiU2p6SWRmbkRDMmZ2ZU9VQWZJOFFiR1pCUFBIbTB3T0dHTUREbWJsX3RJWldrUVdWU3dqSzRBWV9JWUJabTRTTzNzTGQ4dQ?oc=5",
                     "date": "2026-03-13"
+                },
+                {
+                    "title": "記憶體4檔逆勢刷天價！旺宏「大哥關不住」　處置首日尷尬飆漲停",
+                    "sentiment": "利多",
+                    "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5qaGtBV0ZrYkJjYkhoWTdST1ZhYXllejBleEg1eXk3Yk9aUFlmSkNLNFZidUN0Wi1VZ3M4UUNwSUpNeWZNNXMtUWhFQVUyVUZvUkHSAW5BVV95cUxQZE9SSWhsQWNOTEx3S3BYU2tlTTQ3SHpxU3dZckswN2tvSGhyeWMtUXRORHBnWUxhMUlZSFNxdk1oTmZKMUtuRFN0Rkw3WDNsT3c5dGJWRTRvc2U0amtHWmtxUkl3MjljVmFMOGc5Zw?oc=5",
+                    "date": "2026-03-19"
                 }
             ],
             "vol_ratio": 0.42,
@@ -5759,7 +5759,7 @@
                     "atr": 27.71
                 }
             ],
-            "rs_score": 44.28,
+            "rs_score": 44.16,
             "unified_brain": {
                 "pattern": "連線異常",
                 "bull": "API中斷",
@@ -5797,7 +5797,7 @@
                 },
                 {
                     "title": "0050 AI含量更濃了！台灣50指數換股5進5出 鴻勁、京元電入列",
-                    "sentiment": "利多",
+                    "sentiment": "中立",
                     "link": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE84RHhYQ3BFSHZwQWlVUW5PS0JJSnVRRno5M29ULW5fdnFlamljTkVyaUNLd0QzMVYzN3BETkNjM0lyVVBaSXpQQmJtVWh1MG8?oc=5",
                     "date": "2026-03-06"
                 },
@@ -6746,7 +6746,7 @@
             "poc_price": 15.54,
             "news_sentiment": [
                 {
-                    "title": "主動式ETF股王首次除息就秒填息！00981A股利4/10入帳 34萬人期待",
+                    "title": "主動式ETF股王首次除息就秒填息！00981Ａ股利4/10入帳 34萬人期待",
                     "sentiment": "利多",
                     "link": "https://news.google.com/rss/articles/CBMimgNBVV95cUxPbFg0OThDUHBiajU2UTJLYTNkay0wd3N3TWViVUJMVzFWZlZwSVBpRDhqT0VHX2ZGOTRiLUMwYzRxU1o2VGRMZFhVbzRyd2FZTVV3ZjJKMm5KZUZtOEVfWXlZcGIxZ0NQMTh1b0l2Y3hzVU5BN0JuR3ZCVUNMV2xTY2syR21YMHltYnU2X2lrNXA5d2R0ZTZYa2lXQnl1N195NFdKamxqaUJfSjdjVFpPWmtSVklxNHBMVEFERHNBRUhHbmFOd1cyRkMxd21CVjM2YWR4UHl4X3Y0MDU0U2FCR1dGdjU3QnRVY1lQdkVpdG15VWMxV0tKYzhLVGp6Vk0xWVFaeW9RbExEX2ZQcW5faWVraC15RnBKSFJGMTRGZmgwd2JwU2UtTm5XNlBZeGhvU1NJQTNiTVZReUhaNG5hZWViajJydzJBYVJObEJTakl6UjlnV3RYd3ZxU3dqMGFCVmozRXhFbUxtblFPZkd6R1JabnBjVEVmSEp2anM2VlhkNldPYkxKNUF0ckdXSTBrLVhhRTZXUHpJZw?oc=5",
                     "date": "2026-03-17"
@@ -10589,16 +10589,16 @@
         "health_pct": 27,
         "us_summary": {
             "標普500": {
-                "price": 652.57,
-                "pct": -1.1
+                "price": 652.3,
+                "pct": -1.14
             },
             "費城半導體": {
-                "price": 334.67,
-                "pct": -1.63
+                "price": 335.08,
+                "pct": -1.51
             },
             "台積電ADR": {
-                "price": 329.49,
-                "pct": -2.74
+                "price": 329.86,
+                "pct": -2.64
             },
             "恐慌指數": {
                 "price": 26.45,
@@ -10612,10 +10612,10 @@
             },
             {
                 "name": "🇺🇸美股金融",
-                "rs": 0.91
+                "rs": 0.89
             }
         ],
-        "ai_script": "「資金正在撤出科技股，轉往防禦板塊，立刻抱牢金電/金石！今日資金曝險上限建議30%。」"
+        "ai_script": "今天台股開盤，阿土伯下令：\n\n**避風港！**資金正在撤出科技股，轉往防禦板塊。高息/金融板塊動能正值，抱牢防禦板塊，今日資金曝險上限建議 20%。避免科技股投資！"
     },
     "macro": {
         "tw_insight": "⚠️ 0050破線避險",
