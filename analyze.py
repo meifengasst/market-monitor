@@ -728,7 +728,9 @@ def generate_dashboard_data():
                 "ev": actual_ev, "win_rate": actual_win, "history": hist, 
                 "rs_score": rs_score,
                 "unified_brain": unified_brain,  # 👈 打包新的大腦裁決
-                "funda_summary": funda_insight, 
+                "funda_summary": funda_insight,
+                # 💡 阿土伯新增：一定要加這行，把大戶底牌送給前端！
+                "smart_money": smart_money_insight,
                 "best_ma_name": best_ma_name,        
                 "best_ma_price": best_ma_price,      
                 "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
