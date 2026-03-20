@@ -216,7 +216,8 @@ def get_sector_rotation():
     return results
 
 # 💡 注意參數多了一個 poc_price
-def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, recent_df, rs_score, news_data, funda_insight):
+# 💡 參數新增了 smart_money
+def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, recent_df, rs_score, news_data, funda_insight, smart_money):
     print(f"🧠 [o3-mini 大合體] 啟動全白話文戰情分析 (含POC籌碼視角)：{stock_name}...")
     
     openai_api_key = os.environ.get("OPENAI_API_KEY")
@@ -264,6 +265,7 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, r
     均線與波動：20MA {ma20}，RSI {rsi}，ATR {atr}
     近5日量價：\n{trend_str}
     財報：{funda_insight}
+    大戶與內部人動向：{smart_money}
     新聞：\n{news_str}
     """
 
@@ -321,6 +323,55 @@ def generate_morning_script_o3(market_data, sector_data):
     except Exception as e:
         return "🤖 AI 戰情室連線異常，請縮小部位觀望。"
         
+# 💡 阿土伯黑科技 3：華爾街暗池與內部人籌碼照妖鏡
+def get_smart_money_flow(symbol):
+    print(f"🕵️‍♂️ 啟動大戶照妖鏡，掃描 {symbol} 內部人與暗池動向...")
+    fmp_key = os.environ.get("FMP_API_KEY")
+    
+    # 台股目前比較難透過 FMP 抓內部人，先跳過或給預設值
+    if symbol.endswith(".TW") or not fmp_key:
+        return "無明顯大戶異常動向"
+
+    try:
+        # 呼叫 FMP 內部人交易 API (抓取最新 10 筆)
+        url = f"https://financialmodelingprep.com/api/v4/insider-trading?symbol={symbol}&limit=10&apikey={fmp_key}"
+        res = requests.get(url, timeout=5)
+        
+        # 判斷是否為付費權限被擋，或無資料
+        if res.status_code != 200 or not res.json():
+            return "無明顯大戶異常動向"
+            
+        data = res.json()
+        buy_amount = 0
+        sell_amount = 0
+        
+        for trade in data:
+            # 判斷是買進 (P-Purchase) 還是賣出 (S-Sale)
+            # 有些 API 用 Acquired / Disposed
+            acq_disp = trade.get('acquistionOrDisposition', '')
+            shares = trade.get('securitiesTransacted', 0)
+            price = trade.get('price', 0)
+            
+            if shares and price:
+                value = shares * price
+                if acq_disp == 'A': # Acquired (買進)
+                    buy_amount += value
+                elif acq_disp == 'D': # Disposed (賣出)
+                    sell_amount += value
+                    
+        # 計算淨流向
+        net_flow = buy_amount - sell_amount
+        
+        if net_flow > 1000000: # 淨買超大於 100 萬美金
+            return f"🔥【內部大戶狂買】高管近期淨買入約 ${round(buy_amount/1000000, 2)}M 美金！"
+        elif net_flow < -1000000: # 淨賣超大於 100 萬美金
+            return f"🚨【高管偷倒貨】高管近期淨賣出約 ${round(sell_amount/1000000, 2)}M 美金，小心拉高出貨！"
+        else:
+            return "內部人大戶近期無明顯大動作。"
+            
+    except Exception as e:
+        print(f"⚠️ 大戶照妖鏡掃描失敗: {e}")
+        return "大戶動向偵測失敗"
 
 # 💡 在你設定環境變數的地方加入 FMP_API_KEY
 # FMP_API_KEY = os.environ.get("FMP_API_KEY")
@@ -614,7 +665,29 @@ def generate_dashboard_data():
 
             funda_insight = get_fundamental_risk_o3(symbol, info["name"])
             time.sleep(2) 
+            
+            # 💡 1. 呼叫大戶照妖鏡
+            smart_money_insight = get_smart_money_flow(symbol)
+            time.sleep(1)
 
+            recent_5d = df.tail(5)
+            poc_price = calculate_poc(df, days=120, bins=20)
+            
+            # 💡 2. 把 smart_money_insight 傳給大腦
+            unified_brain = get_unified_o3_brain(
+                stock_name=info["name"],
+                current_price=current_price,
+                ma20=round(df['ma20'].iloc[-1], 2),
+                rsi=round(df['rsi'].iloc[-1], 2),
+                atr=round(df['atr'].iloc[-1], 2),
+                poc_price=poc_price,
+                recent_df=recent_5d,
+                rs_score=rs_score,
+                news_data=news_sentiment_data,
+                funda_insight=funda_insight,
+                smart_money=smart_money_insight   # 👈 傳遞進去！
+            )
+            
             recent_5d = df.tail(5)
             
             # 💡 1. 呼叫我們剛寫好的 POC 引擎
