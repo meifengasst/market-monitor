@@ -855,12 +855,12 @@
             "rs_score": -95.54,
             "unified_brain": {
                 "summary": "API連線受限，轉為防禦狀態",
-                "stop_price": NaN,
+                "stop_price": 166.37,
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "10MA",
-            "best_ma_price": NaN
+            "best_ma_price": 181.61
         },
         {
             "symbol": "TSLA",
@@ -1716,12 +1716,12 @@
             "rs_score": -95.54,
             "unified_brain": {
                 "summary": "API連線受限，轉為防禦狀態",
-                "stop_price": NaN,
+                "stop_price": 354.45,
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "60MA",
-            "best_ma_price": NaN
+            "best_ma_price": 422.22
         },
         {
             "symbol": "SPY",
@@ -2577,12 +2577,12 @@
             "rs_score": -95.54,
             "unified_brain": {
                 "summary": "API連線受限，轉為防禦狀態",
-                "stop_price": NaN,
+                "stop_price": 619.32,
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "60MA",
-            "best_ma_price": NaN
+            "best_ma_price": 684.59
         },
         {
             "symbol": "2330.TW",
