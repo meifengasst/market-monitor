@@ -1,15 +1,15 @@
 {
-    "last_update": "2026-03-20 [22:50]",
+    "last_update": "2026-03-20 [22:55]",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia",
             "category": "美國科技",
-            "price": NaN,
-            "rsi": 44.05,
-            "poc_price": 181.14,
-            "vol_ratio": 0.33,
-            "actual_sl": 10,
+            "price": 175.13,
+            "rsi": 39.89,
+            "poc_price": 182.66,
+            "vol_ratio": 0.35,
+            "actual_sl": 3,
             "history": [
                 {
                     "date": "2025-12-23",
@@ -839,38 +839,38 @@
                 },
                 {
                     "date": "2026-03-20",
-                    "price": 0.0,
-                    "volume": 64035407,
-                    "ma5": 0.0,
-                    "ma20": 0.0,
-                    "ma60": 0.0,
-                    "macd": -1.37,
-                    "macd_signal": -1.04,
-                    "macd_hist": -0.33,
-                    "rsi": 44.05,
-                    "bb_upper": 0.0,
-                    "bb_lower": 0.0
+                    "price": 175.13,
+                    "volume": 66762668,
+                    "ma5": 179.85,
+                    "ma20": 183.24,
+                    "ma60": 185.26,
+                    "macd": -1.82,
+                    "macd_signal": -1.13,
+                    "macd_hist": -0.69,
+                    "rsi": 39.89,
+                    "bb_upper": 193.59,
+                    "bb_lower": 172.88
                 }
             ],
-            "rs_score": -95.63,
+            "rs_score": -4.11,
             "unified_brain": {
                 "summary": "API連線受限，轉為防禦狀態",
-                "stop_price": NaN,
+                "stop_price": 166.37,
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "10MA",
-            "best_ma_price": NaN
+            "best_ma_price": 181.61
         },
         {
             "symbol": "TSLA",
             "name": "Tesla",
             "category": "美國科技",
-            "price": NaN,
-            "rsi": 36.97,
-            "poc_price": 428.64,
-            "vol_ratio": 0.42,
-            "actual_sl": 10,
+            "price": 373.07,
+            "rsi": 34.18,
+            "poc_price": 428.55,
+            "vol_ratio": 0.43,
+            "actual_sl": 3,
             "history": [
                 {
                     "date": "2025-12-23",
@@ -1700,28 +1700,28 @@
                 },
                 {
                     "date": "2026-03-20",
-                    "price": 0.0,
-                    "volume": 24286293,
-                    "ma5": 0.0,
-                    "ma20": 0.0,
-                    "ma60": 0.0,
-                    "macd": -7.59,
-                    "macd_signal": -7.11,
-                    "macd_hist": -0.48,
-                    "rsi": 36.97,
-                    "bb_upper": 0.0,
-                    "bb_lower": 0.0
+                    "price": 373.07,
+                    "volume": 24912062,
+                    "ma5": 388.19,
+                    "ma20": 398.73,
+                    "ma60": 422.22,
+                    "macd": -8.87,
+                    "macd_signal": -7.37,
+                    "macd_hist": -1.5,
+                    "rsi": 34.18,
+                    "bb_upper": 418.91,
+                    "bb_lower": 378.54
                 }
             ],
-            "rs_score": -95.63,
+            "rs_score": -2.24,
             "unified_brain": {
                 "summary": "API連線受限，轉為防禦狀態",
-                "stop_price": NaN,
+                "stop_price": 354.42,
                 "action": "觀望"
             },
             "smart_money": "無明顯大戶異常動向",
             "best_ma_name": "60MA",
-            "best_ma_price": NaN
+            "best_ma_price": 422.22
         },
         {
             "symbol": "SPY",
@@ -1730,8 +1730,8 @@
             "price": NaN,
             "rsi": 29.54,
             "poc_price": 678.1,
-            "vol_ratio": 0.3,
-            "actual_sl": 10,
+            "vol_ratio": 0.44,
+            "actual_sl": 3,
             "history": [
                 {
                     "date": "2025-12-23",
@@ -2562,7 +2562,7 @@
                 {
                     "date": "2026-03-20",
                     "price": 0.0,
-                    "volume": 25757687,
+                    "volume": 38116269,
                     "ma5": 0.0,
                     "ma20": 0.0,
                     "ma60": 0.0,
@@ -2574,7 +2574,7 @@
                     "bb_lower": 0.0
                 }
             ],
-            "rs_score": -95.63,
+            "rs_score": -95.54,
             "unified_brain": {
                 "summary": "API連線受限，轉為防禦狀態",
                 "stop_price": NaN,
@@ -4314,7 +4314,7 @@
             "rsi": 52.97,
             "poc_price": 216.53,
             "vol_ratio": 2.89,
-            "actual_sl": 10,
+            "actual_sl": 3,
             "history": [
                 {
                     "date": "2025-12-15",
@@ -5157,7 +5157,7 @@
                     "bb_lower": 250.09
                 }
             ],
-            "rs_score": 44.2,
+            "rs_score": 44.29,
             "unified_brain": {
                 "summary": "API連線受限，轉為防禦狀態",
                 "stop_price": 326.8,
@@ -9474,36 +9474,36 @@
         }
     ],
     "market_health": {
-        "vix": 26.0,
+        "vix": 26.2,
         "health_pct": 27,
         "us_summary": {
             "標普500": {
-                "price": 652.69,
-                "pct": -1.08
+                "price": 651.87,
+                "pct": -1.2
             },
             "費城半導體": {
-                "price": 335.01,
-                "pct": -1.53
+                "price": 333.58,
+                "pct": -1.94
             },
             "台積電ADR": {
-                "price": 329.98,
-                "pct": -2.6
+                "price": 328.3,
+                "pct": -3.1
             },
             "恐慌指數": {
-                "price": 26.0,
-                "pct": 8.06
+                "price": 26.2,
+                "pct": 8.89
             }
         },
         "sector_data": [
             {
                 "name": "🇺🇸美股科技",
-                "rs": 2.88
+                "rs": 2.75
             },
             {
                 "name": "🇺🇸美股金融",
-                "rs": 0.99
+                "rs": 0.9
             }
         ],
-        "ai_script": "今日台股操作鐵律：觀察美股科技和金融領域表現，不要超過20%資金曝險。"
+        "ai_script": "今日台股操作鐵律：觀察美股科技和金融走勢，控制資金曝險於20%以下，謹慎布局。"
     }
 }
