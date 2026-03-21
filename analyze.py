@@ -318,7 +318,7 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, r
 
         ai_text = response_data["choices"][0]["message"]["content"].strip()
         
-                start_idx, end_idx = ai_text.find('{'), ai_text.rfind('}')
+        start_idx, end_idx = ai_text.find('{'), ai_text.rfind('}')
         if start_idx != -1 and end_idx != -1:
             return json.loads(ai_text[start_idx:end_idx+1])
         else:
