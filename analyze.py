@@ -24,17 +24,29 @@ def send_telegram_alert(message):
         return
         
     try:
-        # TG 的 API 網址格式
         url = f"https://api.telegram.org/bot{token}/sendMessage"
+        
+        # 💡 阿土伯的黑科技：Telegram 快捷按鈕 (Inline Keyboard)
+        reply_markup = {
+            "inline_keyboard": [
+                [
+                    # 這裡放你的專屬戰情室網址
+                    {"text": "📊 點我開啟戰情室", "url": "https://catdontbiteme.github.io/market-monitor/"}
+                ]
+            ]
+        }
+        
         payload = {
             "chat_id": chat_id,
             "text": message,
-            "parse_mode": "HTML" # 支援簡單的 HTML 粗體/斜體排版
+            "parse_mode": "HTML",
+            # TG 的 API 規定這個按鈕包裹必須轉成文字格式 (JSON String) 才能寄送
+            "reply_markup": json.dumps(reply_markup) 
         }
         
         res = requests.post(url, json=payload, timeout=10)
         res.raise_for_status() 
-        print("✅ Telegram 逃命警報成功發送至你的手機！")
+        print("✅ Telegram 逃命警報 (含直達按鈕) 成功發送至你的手機！")
     except Exception as e:
         print(f"⚠️ Telegram 警報發送失敗，原因: {e}")
         if 'res' in locals():
