@@ -13,30 +13,32 @@ import urllib.parse
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36"}
 
-def send_line_alert(message):
-    token = os.environ.get("LINE_ACCESS_TOKEN")
-    target_id = os.environ.get("LINE_TARGET_ID")
+def send_telegram_alert(message):
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID")
     
-    # 💡 裝上監視器：把抓取狀態印在 GitHub 的日誌裡
-    print(f"👉 [LINE 發射台] 準備發送... Token: {'✅已連線' if token else '❌空的'}, Target_ID: {'✅已連線' if target_id else '❌空的'}")
+    print(f"👉 [Telegram 發射台] 準備發送... Token: {'✅已連線' if token else '❌空的'}, Chat_ID: {'✅已連線' if chat_id else '❌空的'}")
     
-    if not token or not target_id:
-        print("⚠️ 找不到 LINE 金鑰，請去 GitHub Secrets 檢查設定！")
+    if not token or not chat_id:
+        print("⚠️ 找不到 Telegram 金鑰，請去 GitHub Secrets 設定 TELEGRAM_BOT_TOKEN 與 TELEGRAM_CHAT_ID！")
         return
         
     try:
-        res = requests.post("https://api.line.me/v2/bot/message/push", 
-                      headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"}, 
-                      json={"to": target_id, "messages": [{"type": "text", "text": message}]},
-                      timeout=10)
-        # 💡 強制檢查有沒有被 LINE 官方退件
+        # TG 的 API 網址格式
+        url = f"https://api.telegram.org/bot{token}/sendMessage"
+        payload = {
+            "chat_id": chat_id,
+            "text": message,
+            "parse_mode": "HTML" # 支援簡單的 HTML 粗體/斜體排版
+        }
+        
+        res = requests.post(url, json=payload, timeout=10)
         res.raise_for_status() 
-        print("✅ LINE 逃命警報成功發送至你的手機！")
+        print("✅ Telegram 逃命警報成功發送至你的手機！")
     except Exception as e:
-        print(f"⚠️ LINE 警報發送失敗，原因: {e}")
-        # 把 LINE 官方的錯誤訊息也印出來看
+        print(f"⚠️ Telegram 警報發送失敗，原因: {e}")
         if 'res' in locals():
-            print(f"⚠️ LINE 官方回傳的錯誤細節: {res.text}")
+            print(f"⚠️ Telegram 官方回傳的錯誤細節: {res.text}")
 
 def calculate_ev_from_df(df, stop_loss_pct):
     trades, entry_price, in_position = [], 0, False
@@ -82,7 +84,7 @@ def check_market_regime():
             regime["US"] = True; triggered = True
             alert_msg += f"🇺🇸 美股(SPY)破線，啟動 3% 避險！\n"
     except: pass
-    if triggered: send_line_alert(alert_msg)
+    if triggered: send_telegram_alert(alert_msg)
     return regime
 
 STOCKS = {
@@ -694,7 +696,7 @@ def generate_dashboard_data():
                 if current_price <= actual_exit_price:
                     if not trade.get('alerted', False):
                         alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}{reason_msg}\n\n⚡ 已跌破嚴格防線，請立即無情清倉，保護本金！"
-                        send_line_alert(alert_msg)
+                        send_telegram_alert(alert_msg)
                         trade['alerted'] = True
                         portfolio_updated = True
                 else:
