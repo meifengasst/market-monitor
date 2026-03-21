@@ -30,8 +30,8 @@ jobs:
           TZ: Asia/Taipei
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
-          LINE_ACCESS_TOKEN: ${{ secrets.LINE_ACCESS_TOKEN }}
-          LINE_TARGET_ID: ${{ secrets.LINE_TARGET_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
         run: python analyze.py
