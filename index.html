@@ -73,6 +73,17 @@
             <header class="mb-6 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-700 pb-4">
                 <div>
                     <h1 class="text-4xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1>
+    
+                    <div class="mt-4 bg-slate-800/80 border border-slate-600 rounded-xl p-3 shadow-inner w-full md:w-80">
+                        <div class="flex justify-between items-end mb-1">
+                            <p class="text-xs text-slate-400 font-bold tracking-widest">🔥 o3-mini 算力消耗 (單次更新)</p>
+                            <p id="token-count-text" class="text-sm font-mono font-black text-purple-400">0 Tokens</p>
+                        </div>
+    
+                        <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-700">
+                            <div id="token-bar" class="h-full bg-purple-500 transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(168,85,247,0.8)]" style="width: 0%;"></div>
+                        </div>
+                    </div>
                     <div class="flex items-center gap-4 mt-2">
                         <p class="text-slate-400 text-base font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p>
                         <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/50 px-3 py-1.5 rounded-lg text-xs font-black transition-colors flex items-center gap-1.5 shadow-[0_0_10px_rgba(37,99,235,0.2)]">
@@ -598,6 +609,31 @@
                 currentUpdateTime = json.last_update; if (!json || !json.data) return;
                 rawData = json.data; rawData.forEach(s => stockMap[s.symbol] = s);
                 document.getElementById('update-time').innerText = json.last_update;
+                // 💡 更新 Token 燃燒條
+                if (json.token_usage !== undefined) {
+                    let used = json.token_usage;
+                    document.getElementById('token-count-text').innerText = `${used.toLocaleString()} Tokens`;
+                    
+                    // 假設我們抓一次全場股票大約會消耗 20,000 Tokens (當作進度條的 100% 分母)
+                    // 你可以根據實際情況調整這個 20000 的數字
+                    let limit = 20000; 
+                    let pct = Math.min((used / limit) * 100, 100);
+                    
+                    let tokenBar = document.getElementById('token-bar');
+                    tokenBar.style.width = `${pct}%`;
+                    
+                    // 顏色警告機制 (超過 80% 變黃色，滿載變紅色)
+                    if (pct >= 90) {
+                        tokenBar.className = "h-full bg-red-500 transition-all duration-1000 shadow-[0_0_10px_rgba(239,68,68,0.8)] animate-pulse";
+                        document.getElementById('token-count-text').className = "text-sm font-mono font-black text-red-400 animate-pulse";
+                    } else if (pct >= 60) {
+                        tokenBar.className = "h-full bg-yellow-500 transition-all duration-1000 shadow-[0_0_10px_rgba(234,179,8,0.8)]";
+                        document.getElementById('token-count-text').className = "text-sm font-mono font-black text-yellow-400";
+                    } else {
+                        tokenBar.className = "h-full bg-purple-500 transition-all duration-1000 shadow-[0_0_10px_rgba(168,85,247,0.8)]";
+                        document.getElementById('token-count-text').className = "text-sm font-mono font-black text-purple-400";
+                    }
+                }
 
                 if (json.market_health) {
                     let hd = json.market_health; document.getElementById('health-score').innerText = `${hd.health_pct}%`;
