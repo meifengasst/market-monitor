@@ -73,17 +73,24 @@
             <header class="mb-6 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-700 pb-4">
                 <div>
                     <h1 class="text-4xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1>
-    
-                    <div class="mt-4 bg-slate-800/80 border border-slate-600 rounded-xl p-3 shadow-inner w-full md:w-80">
-                        <div class="flex justify-between items-end mb-1">
-                            <p class="text-xs text-slate-400 font-bold tracking-widest">🔥 o3-mini 算力消耗 (單次更新)</p>
-                            <p id="token-count-text" class="text-sm font-mono font-black text-purple-400">0 Tokens</p>
+                    
+                    <div class="mt-4 md:mt-0 bg-slate-800/60 backdrop-blur-md border border-slate-600/50 hover:border-slate-500 rounded-2xl p-4 shadow-xl w-full md:w-[380px] group transition-all shrink-0">
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="flex items-center gap-2 overflow-hidden">
+                                <span class="text-lg group-hover:animate-pulse">🔥</span>
+                                <p class="text-xs md:text-sm text-slate-300 font-bold tracking-wide truncate">o3-mini 算力消耗 <span class="text-slate-500 text-[10px] hidden sm:inline">(單次更新)</span></p>
+                            </div>
+                            <div class="text-right shrink-0 pl-2">
+                                <p id="token-count-text" class="text-base md:text-lg font-mono font-black text-cyan-400 tracking-tight whitespace-nowrap">
+                                    0 <span class="text-xs text-slate-500 font-bold">Tokens</span>
+                                </p>
+                            </div>
                         </div>
-    
-                        <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-700">
-                            <div id="token-bar" class="h-full bg-purple-500 transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(168,85,247,0.8)]" style="width: 0%;"></div>
+                        <div class="w-full bg-black/50 h-2.5 rounded-full overflow-hidden border border-white/5 shadow-inner">
+                            <div id="token-bar" class="h-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(56,189,248,0.6)]" style="width: 0%;"></div>
                         </div>
                     </div>
+
                     <div class="flex items-center gap-4 mt-2">
                         <p class="text-slate-400 text-base font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p>
                         <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/50 px-3 py-1.5 rounded-lg text-xs font-black transition-colors flex items-center gap-1.5 shadow-[0_0_10px_rgba(37,99,235,0.2)]">
@@ -609,29 +616,33 @@
                 currentUpdateTime = json.last_update; if (!json || !json.data) return;
                 rawData = json.data; rawData.forEach(s => stockMap[s.symbol] = s);
                 document.getElementById('update-time').innerText = json.last_update;
-                // 💡 更新 Token 燃燒條
+                // 💡 更新 Token 燃燒條 (漸層美化版)
                 if (json.token_usage !== undefined) {
                     let used = json.token_usage;
-                    document.getElementById('token-count-text').innerText = `${used.toLocaleString()} Tokens`;
                     
-                    // 假設我們抓一次全場股票大約會消耗 20,000 Tokens (當作進度條的 100% 分母)
-                    // 你可以根據實際情況調整這個 20000 的數字
-                    let limit = 20000; 
+                    // 將數字格式化，並把 Tokens 字眼變小，看起來更專業
+                    document.getElementById('token-count-text').innerHTML = `${used.toLocaleString()} <span class="text-xs text-slate-500 font-bold">Tokens</span>`;
+                    
+                    // 阿土伯抓到你的用量大約是 42k，所以我們把紅色警戒線拉高到 50,000
+                    let limit = 50000; 
                     let pct = Math.min((used / limit) * 100, 100);
                     
                     let tokenBar = document.getElementById('token-bar');
                     tokenBar.style.width = `${pct}%`;
                     
-                    // 顏色警告機制 (超過 80% 變黃色，滿載變紅色)
+                    // 賽博龐克漸層變色機制
                     if (pct >= 90) {
-                        tokenBar.className = "h-full bg-red-500 transition-all duration-1000 shadow-[0_0_10px_rgba(239,68,68,0.8)] animate-pulse";
-                        document.getElementById('token-count-text').className = "text-sm font-mono font-black text-red-400 animate-pulse";
+                        // 🔴 危險滿載 (紅/粉漸層)
+                        tokenBar.className = "h-full bg-gradient-to-r from-red-600 to-rose-400 transition-all duration-1000 shadow-[0_0_15px_rgba(225,29,72,0.8)] animate-pulse";
+                        document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-rose-400 tracking-tight whitespace-nowrap animate-pulse";
                     } else if (pct >= 60) {
-                        tokenBar.className = "h-full bg-yellow-500 transition-all duration-1000 shadow-[0_0_10px_rgba(234,179,8,0.8)]";
-                        document.getElementById('token-count-text').className = "text-sm font-mono font-black text-yellow-400";
+                        // 🟡 警戒水位 (橘/黃漸層)
+                        tokenBar.className = "h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-1000 shadow-[0_0_15px_rgba(251,191,36,0.8)]";
+                        document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-yellow-400 tracking-tight whitespace-nowrap";
                     } else {
-                        tokenBar.className = "h-full bg-purple-500 transition-all duration-1000 shadow-[0_0_10px_rgba(168,85,247,0.8)]";
-                        document.getElementById('token-count-text').className = "text-sm font-mono font-black text-purple-400";
+                        // 🔵 安全水位 (靛/藍漸層)
+                        tokenBar.className = "h-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-1000 shadow-[0_0_15px_rgba(56,189,248,0.8)]";
+                        document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-cyan-400 tracking-tight whitespace-nowrap";
                     }
                 }
 
