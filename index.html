@@ -913,7 +913,7 @@
                                             ${myPortfolio[stock.symbol] ? '' : `
                                             <div class="flex items-center justify-between bg-red-900/20 px-4 py-3 rounded-xl border border-red-500/20 mt-1 shadow-inner">
                                                 <span class="text-xs text-slate-400 font-bold">🛡️ 建倉防守參考價</span>
-                                                <p class="text-xl font-mono font-black text-red-400">$${stock.unified_brain.stop_price}</p>
+                                                <p class="text-xl font-mono font-black text-red-400">$${Number(stock.unified_brain.stop_price).toFixed(2)}</p>
                                             </div>
                                             `}
                                         </div>
