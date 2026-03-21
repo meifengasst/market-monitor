@@ -16,15 +16,27 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 def send_line_alert(message):
     token = os.environ.get("LINE_ACCESS_TOKEN")
     target_id = os.environ.get("LINE_TARGET_ID")
+    
+    # 💡 裝上監視器：把抓取狀態印在 GitHub 的日誌裡
+    print(f"👉 [LINE 發射台] 準備發送... Token: {'✅已連線' if token else '❌空的'}, Target_ID: {'✅已連線' if target_id else '❌空的'}")
+    
     if not token or not target_id:
+        print("⚠️ 找不到 LINE 金鑰，請去 GitHub Secrets 檢查設定！")
         return
+        
     try:
-        requests.post("https://api.line.me/v2/bot/message/push", 
+        res = requests.post("https://api.line.me/v2/bot/message/push", 
                       headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"}, 
                       json={"to": target_id, "messages": [{"type": "text", "text": message}]},
-                      timeout=10) # 👈 加上這個！等超過 10 秒就當作失敗，不要卡死程式
+                      timeout=10)
+        # 💡 強制檢查有沒有被 LINE 官方退件
+        res.raise_for_status() 
+        print("✅ LINE 逃命警報成功發送至你的手機！")
     except Exception as e:
-        print(f"⚠️ LINE 警報發送失敗: {e}")
+        print(f"⚠️ LINE 警報發送失敗，原因: {e}")
+        # 把 LINE 官方的錯誤訊息也印出來看
+        if 'res' in locals():
+            print(f"⚠️ LINE 官方回傳的錯誤細節: {res.text}")
 
 def calculate_ev_from_df(df, stop_loss_pct):
     trades, entry_price, in_position = [], 0, False
