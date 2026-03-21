@@ -79,6 +79,9 @@ STOCKS = {
     "9904.TW": {"name": "寶成", "category": "運動鞋"}
 }
 
+# 把它加在 STOCKS 列表的下方
+TOTAL_TOKENS_USED = 0
+
 def get_ai_news_sentiment(stock_name, symbol):
     """【進化五：情報網升級】改用 Google News 抓取近15天內最多5則重大新聞"""
     print(f"📰 啟動精準雷達，改用 Google News 抓取 {stock_name} 近15日新聞...")
@@ -279,6 +282,15 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, r
         res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
         res.raise_for_status()
         
+        response_data = res.json()
+        
+        # 💡 阿土伯記帳法：把這次消耗的 Token 抓出來加總
+        global TOTAL_TOKENS_USED
+        usage = response_data.get("usage", {})
+        TOTAL_TOKENS_USED += usage.get("total_tokens", 0)
+
+        ai_text = response_data["choices"][0]["message"]["content"].strip()
+        
         ai_text = res.json()["choices"][0]["message"]["content"].strip()
         start_idx, end_idx = ai_text.find('{'), ai_text.rfind('}')
         if start_idx != -1 and end_idx != -1:
@@ -317,8 +329,18 @@ def generate_morning_script_o3(market_data, sector_data):
             "model": "o3-mini", 
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
         }
+        
         res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
         res.raise_for_status()
+        
+        response_data = res.json()
+        
+        # 💡 阿土伯記帳法：把這次消耗的 Token 抓出來加總
+        global TOTAL_TOKENS_USED
+        usage = response_data.get("usage", {})
+        TOTAL_TOKENS_USED += usage.get("total_tokens", 0)
+
+        ai_text = response_data["choices"][0]["message"]["content"].strip()
         return res.json()["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return "🤖 AI 戰情室連線異常，請縮小部位觀望。"
@@ -467,8 +489,17 @@ def get_fundamental_risk_o3(symbol, stock_name):
         }
         
         # 思考財報需要一點時間，timeout 設 20 秒
-        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=20)
+        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
         res.raise_for_status()
+        
+        response_data = res.json()
+        
+        # 💡 阿土伯記帳法：把這次消耗的 Token 抓出來加總
+        global TOTAL_TOKENS_USED
+        usage = response_data.get("usage", {})
+        TOTAL_TOKENS_USED += usage.get("total_tokens", 0)
+
+        ai_text = response_data["choices"][0]["message"]["content"].strip()
         
         return res.json()["choices"][0]["message"]["content"].strip()
         
@@ -746,7 +777,8 @@ def generate_dashboard_data():
             "last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"), 
             "data": dashboard_data, 
             "market_health": market_health,
-            "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"}
+            "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"},
+            "token_usage": TOTAL_TOKENS_USED # 👈 把總消耗量傳給前端！
         }, f, ensure_ascii=False, indent=4)
 
     if portfolio_updated:
