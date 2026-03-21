@@ -21,7 +21,8 @@ def send_line_alert(message):
     try:
         requests.post("https://api.line.me/v2/bot/message/push", 
                       headers={"Content-Type": "application/json", "Authorization": f"Bearer {token}"}, 
-                      json={"to": target_id, "messages": [{"type": "text", "text": message}]})
+                      json={"to": target_id, "messages": [{"type": "text", "text": message}]},
+                      timeout=10) # 👈 加上這個！等超過 10 秒就當作失敗，不要卡死程式
     except Exception as e:
         print(f"⚠️ LINE 警報發送失敗: {e}")
 
