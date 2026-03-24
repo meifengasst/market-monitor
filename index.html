@@ -700,6 +700,18 @@
             const labels = historyData.map(h => h.date); const prices = historyData.map(h => h.price); const volumes = historyData.map(h => h.volume); const ma5 = historyData.map(h => h.ma5); const ma20 = historyData.map(h => h.ma20); const ma60 = historyData.map(h => h.ma60); const rsis = historyData.map(h => h.rsi); const bbUpper = historyData.map(h => h.bb_upper); const bbLower = historyData.map(h => h.bb_lower); const macd = historyData.map(h => h.macd); const macdSignal = historyData.map(h => h.macd_signal); const macdHist = historyData.map(h => h.macd_hist);
             let datasets = [
                 { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, z: 10, yAxisID: 'y' },
+                // 💡 新增這塊：阿土伯的 ATR 移動停利階梯線
+                { 
+                    label: 'ATR 移動停利網', 
+                    data: trailingStops, 
+                    borderColor: '#f43f5e', // 搶眼的桃紅色
+                    borderWidth: 2.5, 
+                    stepped: true, // 👈 魔法參數：讓線條變成階梯狀！只升不降！
+                    pointRadius: 0, 
+                    borderDash: [4, 4],
+                    yAxisID: 'y',
+                    z: 15
+                },
                 { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' },
                 { label: '20MA', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
                 { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
@@ -809,7 +821,19 @@
                 let cardBaseClass = "p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group";
                 card.className = isPerfectEntry ? `${cardBaseClass} border-yellow-400 bg-gradient-to-br from-yellow-900/40 to-slate-900 shadow-[0_0_30px_rgba(250,204,21,0.5)] ring-1 ring-yellow-400` : `${cardBaseClass} border-slate-700 bg-slate-800/50`;
                 let perfectBanner = isPerfectEntry ? `<div class="absolute -top-4 -right-2 z-50 animate-bounce"><div class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-black px-4 py-1.5 rounded-full font-black shadow-[0_0_20px_rgba(249,115,22,0.8)] border-2 border-white flex items-center gap-1.5"><span class="text-xl">🎯</span> 絕佳進場訊號</div></div>` : '';
+                // 💡 新增：財報避雷針標籤
+                let eventBanner = stock.event_warning ? `
+                    <div class="absolute -top-4 left-4 z-50 animate-pulse">
+                        <div class="bg-gradient-to-r from-purple-700 to-pink-600 text-white px-3 py-1.5 rounded-full font-black shadow-[0_0_15px_rgba(219,39,119,0.8)] border-2 border-purple-300 flex items-center gap-1">
+                            <span class="text-lg">📅</span> ${stock.event_warning} (減碼避險)
+                        </div>
+                    </div>
+                ` : '';
 
+                // 然後在塞入卡片的時候，把 eventBanner 也加進去
+                card.innerHTML = `
+                    ${perfectBanner}
+                    ${eventBanner}  <div class="flex flex-col h-full relative z-10">
                 let aiBrainHtml = `<div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center text-slate-500 font-bold mt-3">⏳ 正在等待 o3-mini 戰情分析...</div>`;
                 if (stock.unified_brain) {
                     let actionBadge = `<span class="px-3 py-1 rounded-lg text-sm font-black border ${getCroBadgeStyle(stock.unified_brain.action)}">${stock.unified_brain.action || '無指令'}</span>`;
