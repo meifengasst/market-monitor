@@ -571,6 +571,52 @@ def generate_bloodbath_report_o3(survivors_list):
     except Exception as e:
         print(f"⚠️ o3-mini 抄底報告生成失敗: {e}")
         return "🤖 AI 戰略室連線異常。阿土伯口頭交代：名單已出，殖利率護體，請嚴格執行分批買進，切勿單次重倉！"
+# 💡 阿土伯黑科技 6：台股三大法人土洋對作雷達 (使用 FinMind 免費 API)
+def get_tw_institutional_flow(symbol):
+    stock_id = symbol.split(".")[0]
+    print(f"🕵️‍♂️ 啟動台股籌碼雷達，掃描 {stock_id} 土洋對作動向...")
+    try:
+        # 抓取過去 10 天的資料以確保包含完整的 5 個交易日
+        start_date = (datetime.now() - timedelta(days=10)).strftime("%Y-%m-%d")
+        url = f"https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id={stock_id}&start_date={start_date}"
+        
+        res = requests.get(url, timeout=10)
+        data = res.json()
+        
+        if data.get("msg") == "success" and len(data.get("data", [])) > 0:
+            df = pd.DataFrame(data["data"])
+            
+            # 篩選出最近的 5 個交易日
+            recent_dates = df['date'].drop_duplicates().sort_values().tail(5)
+            df_recent = df[df['date'].isin(recent_dates)]
+            
+            # 計算外資 (包含外資自營商) 與 投信 的淨買賣超
+            foreign_df = df_recent[df_recent['name'].str.contains('外資', na=False)]
+            trust_df = df_recent[df_recent['name'].str.contains('投信', na=False)]
+            
+            foreign_net = foreign_df['buy'].sum() - foreign_df['sell'].sum()
+            trust_net = trust_df['buy'].sum() - trust_df['sell'].sum()
+            
+            # 將「股數」轉換為「張數」
+            f_sheets = int(foreign_net / 1000)
+            t_sheets = int(trust_net / 1000)
+            
+            # 阿土伯的籌碼判定邏輯
+            if f_sheets > 0 and t_sheets > 0:
+                return f"🔥【土洋同步狂買】近五日外資大買 {f_sheets} 張，投信也買進 {t_sheets} 張，籌碼極度安定！"
+            elif f_sheets < 0 and t_sheets < 0:
+                return f"🚨【土洋同步追殺】近五日外資偷倒貨 {abs(f_sheets)} 張，投信也賣出 {abs(t_sheets)} 張，留意上方賣壓！"
+            elif f_sheets < 0 and t_sheets > 0:
+                return f"⚔️【土洋對作(內資挺)】近五日外資偷倒貨 {abs(f_sheets)} 張，但投信接刀買入 {t_sheets} 張力挺！"
+            elif f_sheets > 0 and t_sheets < 0:
+                return f"⚔️【土洋對作(外資挺)】近五日外資狂買 {f_sheets} 張，但投信卻在結帳賣出 {abs(t_sheets)} 張！"
+            else:
+                return f"⚖️【法人觀望】近五日外資淨動向 {f_sheets} 張，投信 {t_sheets} 張。"
+        else:
+            return "近期無明顯三大法人買賣資料"
+    except Exception as e:
+        print(f"⚠️ 台股籌碼雷達掃描失敗: {e}")
+        return "台股籌碼資料連線異常"
 # 💡 在你設定環境變數的地方加入 FMP_API_KEY
 # FMP_API_KEY = os.environ.get("FMP_API_KEY")
 def get_fundamental_risk_o3(symbol, stock_name):
@@ -873,8 +919,11 @@ def generate_dashboard_data():
             funda_insight = get_fundamental_risk_o3(symbol, info["name"])
             time.sleep(2) 
             
-            # 💡 1. 呼叫大戶照妖鏡
-            smart_money_insight = get_smart_money_flow(symbol)
+            # 💡 1. 呼叫大戶照妖鏡 (智慧分流)
+            if symbol.endswith(".TW") or symbol.endswith(".TWO"):
+                smart_money_insight = get_tw_institutional_flow(symbol)
+            else:
+                smart_money_insight = get_smart_money_flow(symbol)
             time.sleep(1)
 
             recent_5d = df.tail(5)
