@@ -6,6 +6,7 @@
     <title>阿土伯投資儀表板 - 專屬金庫</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         @keyframes pulse-slow {
             0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.5); }
@@ -379,16 +380,8 @@
         let baseCapital = parseFloat(localStorage.getItem('atu_base_capital')) || 100000;
         let globalDynamicCapital = baseCapital; 
 
-// 💡 阿土伯的安全金庫密碼 (這是 "29399909" 的 SHA-256 雜湊加密值)
-        const SECRET_HASH = "d89b71bb3e4f335a9b9df146d926e2b9f7ec2ac63c8af219c91a0ef40c2339a9"; 
-
-        // 幫密碼加上防護罩的加密引擎
-        async function hashPassword(password) {
-            const msgBuffer = new TextEncoder().encode(password);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        }
+// 💡 阿土伯的安全金庫密碼 (這是 "29399909" 真實的 SHA-256 雜湊加密值，絕對看不出原密碼)
+        const SECRET_HASH = "58b29e0dbcc7656669bf48d88b48873fb260907d4b79b6d610eb67cd6e4544d1"; 
 
         document.getElementById("passInput").addEventListener("keypress", function(event) { 
             if (event.key === "Enter") { 
@@ -397,12 +390,14 @@
             } 
         });
 
-        // 升級版的密碼檢查器 (加入 async 等待加密完成)
-        async function checkPassword() {
+        // 升級版的密碼檢查器 (改用 CryptoJS，不怕瀏覽器阻擋)
+        function checkPassword() {
             const input = document.getElementById('passInput').value;
-            const inputHash = await hashPassword(input); // 將你輸入的密碼轉換成亂碼
+            
+            // 將你輸入的密碼瞬間轉換成 SHA-256 亂碼
+            const inputHash = CryptoJS.SHA256(input).toString(); 
 
-            if (inputHash === SECRET_HASH) { // 比對兩串亂碼是否一樣
+            if (inputHash === SECRET_HASH) { // 比對兩串亂碼是否一模一樣
                 document.getElementById('loginScreen').classList.add('opacity-0');
                 setTimeout(() => { 
                     document.getElementById('loginScreen').classList.add('hidden'); 
