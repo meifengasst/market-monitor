@@ -155,16 +155,6 @@
                             </div>
                         </div>
 
-                        <div class="pt-4 border-t border-slate-700/50">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="text-lg">🧭</span>
-                                <h3 class="text-slate-300 font-bold text-xs tracking-widest uppercase">資金輪動雷達 (近20日)</h3>
-                            </div>
-                            <div id="sector-radar-container" class="grid grid-cols-2 gap-2">
-                                <span class="text-xs text-slate-500 col-span-2">讀取資金流向中...</span>
-                            </div>
-                        </div>
-
                         <div class="pt-4 border-t border-slate-700/50 mt-2">
                             <div class="flex items-center justify-between mb-3">
                                 <div class="flex items-center gap-2">
@@ -626,16 +616,6 @@
                         uGrid.innerHTML += `<div class="p-4 rounded-2xl border ${item.pct>0?'bg-red-900/20 border-red-500/30':(item.pct<0?'bg-green-900/20 border-green-500/30':'bg-slate-800 border-slate-700')} flex flex-col shadow-inner hover:border-blue-500/50"><p class="text-sm text-slate-400 font-bold mb-2">${k}</p><div class="flex justify-between items-baseline"><p class="text-xl font-mono font-black">${item.price}</p><p class="text-sm font-mono font-black ${colorClass}">${item.pct>0?'+':''}${item.pct}%</p></div></div>`;
                     }
                 }
-                let sGrid = document.getElementById('sector-radar-container');
-                if (hd.sector_data && hd.sector_data.length > 0 && sGrid) {
-                    sGrid.innerHTML = '';
-                    hd.sector_data.forEach(s => {
-                        let isLeading = s.rs > 0;
-                        let bgClass = isLeading ? 'bg-red-900/20 border-red-500/30' : 'bg-green-900/20 border-green-500/30';
-                        let textClass = isLeading ? 'text-red-400' : 'text-green-400'; let icon = isLeading ? '🔥' : '❄️';
-                        sGrid.innerHTML += `<div class="flex justify-between items-center p-2.5 rounded-xl border ${bgClass} shadow-inner"><span class="text-xs font-bold text-slate-300 truncate mr-2">${s.name}</span><div class="flex items-center gap-1.5 shrink-0"><span class="text-[10px]">${icon}</span><span class="text-sm font-mono font-black ${textClass}">${isLeading?'+':''}${s.rs}%</span></div></div>`;
-                    });
-                }
 
                 // 💡 豪華版 AI 戰報渲染邏輯
                 let report = hd.ai_script;
@@ -803,8 +783,9 @@
                         </div>
                     </div>`;
                 } else {
-                    if (globalDynamicCapital > 0 && isBullish) {
-                        let slDecimal = stock.actual_sl / 100; let sharesToBuy = Math.floor((globalDynamicCapital * 0.02) / (stock.price * slDecimal));
+                    const totalCapital = globalDynamicCapital;
+                    if (totalCapital > 0 && isBullish) {
+                        let slDecimal = stock.actual_sl / 100; let sharesToBuy = Math.floor((totalCapital * 0.02) / (stock.price * slDecimal));
                         positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 group"><div class="flex justify-between items-center mb-1"><p class="text-sm text-red-400 font-bold tracking-wide">🛡️ 2% 動態複利風控</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-sm bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded font-bold transition-colors">➕ 買進</button></div><div class="flex justify-between items-end"><p class="text-3xl font-mono font-black text-red-300">${sharesToBuy}股</p><div class="text-right"><p class="text-sm text-red-400/70 font-bold tracking-wide mb-1">預計投入金額</p><p class="text-xl font-mono font-black text-red-200">$${Math.round(sharesToBuy * stock.price).toLocaleString()}</p></div></div></div>`;
                     } else if (!isBullish) {
                         positionHtml = `<div class="mt-4 bg-green-900/20 p-3 rounded-xl border border-green-500/30 shadow-inner flex flex-col items-center justify-center gap-2"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破${bestMaName}，風控系統鎖定</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-600 hover:border-slate-400 text-sm px-3 py-1 rounded font-bold transition-colors shadow-sm">⚠️ 強制解鎖 (僅限補登歷史部位)</button></div>`;
