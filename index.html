@@ -6,15 +6,12 @@
     <title>阿土伯投資儀表板 - 專屬金庫</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         @keyframes pulse-slow {
             0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.5); }
             50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.7); border-color: rgba(239, 68, 68, 0.9); }
         }
-        .animate-pulse-slow {
-            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
+        .animate-pulse-slow { animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
@@ -59,7 +56,6 @@
                 <button onclick="exportToCSV()" class="w-full mt-5 bg-emerald-600 hover:bg-emerald-500 text-white font-black py-3 rounded-xl transition-colors text-lg flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
                     <span class="text-2xl">📊</span> 下載歷史對帳單
                 </button>
-                
                 <button onclick="resetSystem()" class="w-full mt-3 bg-red-900/40 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 hover:border-red-500 font-black py-3 rounded-xl transition-colors text-base flex items-center justify-center gap-2">
                     <span class="text-xl">⚠️</span> 一鍵重置模擬帳戶
                 </button>
@@ -81,7 +77,6 @@
             <header class="mb-6 flex flex-col md:flex-row md:items-end justify-between border-b border-slate-700 pb-4">
                 <div>
                     <h1 class="text-4xl font-black text-blue-400 tracking-tight">📈 阿土伯多空戰情室</h1>
-                    
                     <div class="mt-4 md:mt-0 bg-slate-800/60 backdrop-blur-md border border-slate-600/50 hover:border-slate-500 rounded-2xl p-4 shadow-xl w-full md:w-[380px] group transition-all shrink-0">
                         <div class="flex justify-between items-center mb-3">
                             <div class="flex items-center gap-2 overflow-hidden">
@@ -98,7 +93,6 @@
                             <div id="token-bar" class="h-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(56,189,248,0.6)]" style="width: 0%;"></div>
                         </div>
                     </div>
-
                     <div class="flex items-center gap-4 mt-2">
                         <p class="text-slate-400 text-base font-bold">最後更新：<span id="update-time" class="text-white">讀取中...</span></p>
                         <button id="forceUpdateBtn" onclick="triggerGitHubAction()" class="bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 border border-blue-500/50 px-3 py-1.5 rounded-lg text-xs font-black transition-colors flex items-center gap-1.5 shadow-[0_0_10px_rgba(37,99,235,0.2)]">
@@ -123,9 +117,7 @@
                     </div>
                     <div class="bg-black/50 p-6 rounded-2xl border border-red-500/30 shadow-inner relative z-10">
                         <div class="absolute -left-3 -top-3 text-4xl opacity-80">💬</div>
-                        <p id="bloodbath-report-text" class="text-slate-200 text-lg lg:text-xl font-bold leading-relaxed tracking-wide whitespace-pre-line">
-                            載入戰略報告中...
-                        </p>
+                        <p id="bloodbath-report-text" class="text-slate-200 text-lg lg:text-xl font-bold leading-relaxed tracking-wide whitespace-pre-line">載入戰略報告中...</p>
                     </div>
                 </div>
             </div>
@@ -136,68 +128,43 @@
                 <div class="flex flex-col lg:flex-row gap-8">
                     <div class="w-full lg:w-5/12 flex flex-col gap-6 border-b lg:border-b-0 lg:border-r border-slate-700 pb-6 lg:pb-0 lg:pr-8">
                         <div>
-                            <div class="flex items-center gap-2 mb-4">
-                                <span class="text-2xl animate-pulse">🦅</span>
-                                <h3 class="text-blue-400 font-black tracking-widest text-base">昨夜美股戰報</h3>
-                            </div>
-                            <div id="us-market-grid" class="grid grid-cols-2 gap-3">
-                                <p class="text-slate-500 text-sm font-bold col-span-2">等待數據連線中...</p>
-                            </div>
+                            <div class="flex items-center gap-2 mb-4"><span class="text-2xl animate-pulse">🦅</span><h3 class="text-blue-400 font-black tracking-widest text-base">昨夜美股戰報</h3></div>
+                            <div id="us-market-grid" class="grid grid-cols-2 gap-3"><p class="text-slate-500 text-sm font-bold col-span-2">等待數據連線中...</p></div>
                         </div>
-
                         <div class="pt-4 border-t border-slate-700/50">
-                            <div class="flex justify-between items-end mb-2">
-                                <p class="text-xs text-slate-400 font-bold tracking-widest">🇹🇼 台股多頭指標 (站上月線)</p>
-                                <p id="health-score" class="text-sm font-mono font-black text-slate-300">--%</p>
-                            </div>
-                            <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-700 shadow-inner">
-                                <div id="health-bar" class="h-full transition-all duration-1000 ease-out" style="width: 0%;"></div>
-                            </div>
+                            <div class="flex justify-between items-end mb-2"><p class="text-xs text-slate-400 font-bold tracking-widest">🇹🇼 台股多頭指標 (站上月線)</p><p id="health-score" class="text-sm font-mono font-black text-slate-300">--%</p></div>
+                            <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden border border-slate-700 shadow-inner"><div id="health-bar" class="h-full transition-all duration-1000 ease-out" style="width: 0%;"></div></div>
                         </div>
-
+                        
                         <div class="pt-4 border-t border-slate-700/50 mt-2">
                             <div class="flex items-center justify-between mb-3">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-lg">🥧</span>
-                                    <h3 class="text-slate-300 font-bold text-xs tracking-widest uppercase">資產配置雷達</h3>
-                                </div>
+                                <div class="flex items-center gap-2"><span class="text-lg">🥧</span><h3 class="text-slate-300 font-bold text-xs tracking-widest uppercase">資產配置雷達</h3></div>
                                 <span id="concentration-warning" class="hidden text-[10px] font-black px-2 py-0.5 rounded bg-red-900/50 border border-red-500 text-red-400 animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]">⚠️ 資金過度集中</span>
                             </div>
                             <div class="bg-black/20 rounded-xl border border-white/5 p-3 flex items-center justify-center relative h-48 shadow-inner">
                                 <canvas id="portfolioPieChart" class="w-full h-full"></canvas>
                                 <div id="empty-pie-msg" class="absolute inset-0 flex flex-col items-center justify-center text-slate-500">
-                                    <span class="text-2xl mb-1 opacity-50">⚖️</span>
-                                    <span class="text-xs font-bold tracking-widest">尚無實戰部位</span>
+                                    <span class="text-2xl mb-1 opacity-50">⚖️</span><span class="text-xs font-bold tracking-widest">尚無實戰部位</span>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
 
                     <div class="w-full lg:w-7/12 flex flex-col">
                         <div class="flex items-center justify-between mb-4">
                             <div class="flex items-center gap-2">
-                                <span class="text-3xl drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]">🧠</span>
-                                <h3 class="text-purple-400 font-black tracking-widest text-xl">阿土伯深度戰報</h3>
+                                <span class="text-3xl drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]">🧠</span><h3 class="text-purple-400 font-black tracking-widest text-xl">阿土伯深度戰報</h3>
                                 <span class="bg-indigo-900/40 text-indigo-300 border border-indigo-500/50 px-2 py-1 rounded-lg text-xs font-black ml-2 hidden sm:inline-block shadow-[0_0_10px_rgba(99,102,241,0.2)]">o3-mini 量化引擎</span>
                             </div>
-                            <div id="ai-sentiment-badge" class="px-4 py-1.5 rounded-full text-sm font-black border border-slate-600 bg-slate-800 text-slate-400 shadow-inner">
-                                解讀中...
-                            </div>
+                            <div id="ai-sentiment-badge" class="px-4 py-1.5 rounded-full text-sm font-black border border-slate-600 bg-slate-800 text-slate-400 shadow-inner">解讀中...</div>
                         </div>
-
                         <div id="ai-report-container" class="bg-[#111827]/80 p-5 lg:p-6 rounded-2xl border border-slate-700 relative shadow-inner flex flex-col gap-5 h-full">
                             <div class="flex gap-3 items-start border-b border-slate-700/50 pb-4">
                                 <span class="text-2xl mt-0.5">📌</span>
-                                <div>
-                                    <p class="text-xs text-slate-500 font-bold tracking-widest mb-1">今日懶人包</p>
-                                    <h4 id="ai-report-title" class="text-white text-lg lg:text-xl font-black leading-snug">正在等待華爾街數據匯入...</h4>
-                                </div>
+                                <div><p class="text-xs text-slate-500 font-bold tracking-widest mb-1">今日懶人包</p><h4 id="ai-report-title" class="text-white text-lg lg:text-xl font-black leading-snug">正在等待華爾街數據匯入...</h4></div>
                             </div>
                             <div id="ai-report-metrics" class="grid grid-cols-2 sm:grid-cols-3 gap-3"></div>
-                            <div class="flex flex-col gap-3" id="ai-report-lights">
-                                <p class="text-slate-500 text-sm font-bold text-center py-4">正在推演資金輪動...</p>
-                            </div>
+                            <div class="flex flex-col gap-3" id="ai-report-lights"><p class="text-slate-500 text-sm font-bold text-center py-4">正在推演資金輪動...</p></div>
                             <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-600/50 mt-auto">
                                 <p class="text-xs text-slate-400 font-bold tracking-widest mb-2 border-b border-slate-700/50 pb-1">昨日收盤結論與資金控管</p>
                                 <p id="ai-report-conclusion" class="text-slate-300 text-sm lg:text-base font-bold leading-relaxed">...</p>
@@ -236,21 +203,10 @@
         <div class="bg-slate-800 rounded-3xl w-full max-w-sm border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col cursor-auto p-6" id="tradeModalContent">
             <h3 class="text-2xl font-black text-blue-400 mb-4 flex items-center gap-2"><span>💼</span> 紀錄實戰部位</h3>
             <p class="text-slate-400 text-sm mb-6 font-bold">為 <span id="tradeSymbol" class="text-white font-mono text-base"></span> 設定買進紀錄，系統將自動啟動移動停利追蹤。</p>
-            <div class="mb-4">
-                <label class="block text-sm font-bold text-slate-400 mb-2">買進成交均價</label>
-                <input type="number" id="tradePrice" oninput="calculateTradeTotal()" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-blue-500">
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-bold text-slate-400 mb-2">買進總股數 (台股請換算成股)</label>
-                <input type="number" id="tradeShares" oninput="calculateTradeTotal()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-blue-500" placeholder="例如: 1000">
-            </div>
-            <div class="text-right h-6 mb-4">
-                <span id="tradeTotalCalc" class="text-sm font-black text-blue-400 hidden">本次投入金額: $0</span>
-            </div>
-            <div class="flex gap-3">
-                <button onclick="saveTrade()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">💾 儲存</button>
-                <button onclick="closeTradeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button>
-            </div>
+            <div class="mb-4"><label class="block text-sm font-bold text-slate-400 mb-2">買進成交均價</label><input type="number" id="tradePrice" oninput="calculateTradeTotal()" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-blue-500"></div>
+            <div class="mb-4"><label class="block text-sm font-bold text-slate-400 mb-2">買進總股數 (台股請換算成股)</label><input type="number" id="tradeShares" oninput="calculateTradeTotal()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-blue-500" placeholder="例如: 1000"></div>
+            <div class="text-right h-6 mb-4"><span id="tradeTotalCalc" class="text-sm font-black text-blue-400 hidden">本次投入金額: $0</span></div>
+            <div class="flex gap-3"><button onclick="saveTrade()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">💾 儲存</button><button onclick="closeTradeModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button></div>
         </div>
     </div>
 
@@ -258,31 +214,17 @@
         <div class="bg-slate-800 rounded-3xl w-full max-w-sm border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col cursor-auto p-6" id="sellModalContent">
             <h3 class="text-2xl font-black text-red-400 mb-4 flex items-center gap-2"><span>📉</span> 部位平倉結算</h3>
             <p class="text-slate-400 text-sm mb-4 font-bold">目前持有 <span id="sellSymbol" class="text-white font-mono text-base"></span> 共 <span id="sellCurrentShares" class="text-blue-400 font-mono text-base"></span> 股。</p>
-            <div class="mb-4">
-                <label class="block text-sm font-bold text-slate-400 mb-2">賣出成交價</label>
-                <input type="number" id="sellPrice" oninput="calculateSellTotal()" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-red-500">
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-bold text-slate-400 mb-2">賣出股數</label>
-                <input type="number" id="sellShares" oninput="calculateSellTotal()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-red-500" placeholder="例如: 500">
-            </div>
-            <div class="text-right h-6 mb-4">
-                <span id="sellTotalCalc" class="text-sm font-black text-red-400 hidden">本次實現損益: $0</span>
-            </div>
-            <div class="flex gap-3">
-                <button onclick="saveSellTrade()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">📉 確認賣出</button>
-                <button onclick="closeSellModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button>
-            </div>
+            <div class="mb-4"><label class="block text-sm font-bold text-slate-400 mb-2">賣出成交價</label><input type="number" id="sellPrice" oninput="calculateSellTotal()" step="0.01" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-red-500"></div>
+            <div class="mb-4"><label class="block text-sm font-bold text-slate-400 mb-2">賣出股數</label><input type="number" id="sellShares" oninput="calculateSellTotal()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white font-mono font-bold focus:outline-none focus:border-red-500" placeholder="例如: 500"></div>
+            <div class="text-right h-6 mb-4"><span id="sellTotalCalc" class="text-sm font-black text-red-400 hidden">本次實現損益: $0</span></div>
+            <div class="flex gap-3"><button onclick="saveSellTrade()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-black py-3 rounded-xl transition-colors shadow-lg">📉 確認賣出</button><button onclick="closeSellModal()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-black py-3 rounded-xl transition-colors">取消</button></div>
         </div>
     </div>
     
     <div id="rulesModal" onclick="if(event.target === this) closeModal('rulesModal')" class="fixed inset-0 bg-black/90 hidden z-[80] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
         <div class="bg-slate-800 rounded-3xl w-full max-w-3xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh] cursor-auto">
             <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
-                <div>
-                    <h3 class="text-2xl font-black text-blue-400 flex items-center gap-2"><span>💡</span> 阿土伯實戰心法與術語寶典</h3>
-                    <p class="text-slate-400 text-sm mt-1 font-bold">進場前先唸三遍，保證不當韭菜</p>
-                </div>
+                <div><h3 class="text-2xl font-black text-blue-400 flex items-center gap-2"><span>💡</span> 阿土伯實戰心法與術語寶典</h3><p class="text-slate-400 text-sm mt-1 font-bold">進場前先唸三遍，保證不當韭菜</p></div>
                 <button onclick="closeModal('rulesModal')" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
             </div>
             <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar space-y-8">
@@ -301,12 +243,11 @@
     </div>
 
     <script>
-        // 💡 解鎖密碼 (29399909)
+        // 💡 密碼驗證: 29399909 的 Base64
         window.checkPassword = function() {
             const input = document.getElementById('passInput').value;
             const SECRET_CODE = "MjkzOTk5MDk="; 
             if (!input) return;
-
             if (btoa(input) === SECRET_CODE) { 
                 document.getElementById('loginScreen').classList.add('opacity-0');
                 setTimeout(() => { 
@@ -324,14 +265,11 @@
         };
 
         document.getElementById("passInput").addEventListener("keypress", function(event) { 
-            if (event.key === "Enter") { 
-                event.preventDefault(); window.checkPassword(); 
-            } 
+            if (event.key === "Enter") { event.preventDefault(); window.checkPassword(); } 
         });
 
         let rawData = []; let stockMap = {}; 
-        let priceChart = null; let rsiChart = null; let macdChart = null;
-        let portfolioPieChart = null; // 💡 圓餅圖變數
+        let priceChart = null; let rsiChart = null; let macdChart = null; let portfolioPieChart = null;
 
         const getCroBadgeStyle = (decision) => {
             if (!decision) return "bg-gray-800 text-gray-300 border-gray-600";
@@ -358,15 +296,10 @@
             const p = parseFloat(document.getElementById('tradePrice').value) || 0;
             const s = parseInt(document.getElementById('tradeShares').value) || 0;
             const totalNode = document.getElementById('tradeTotalCalc');
-            if (s > 0 && p > 0) {
-                totalNode.innerText = `本次投入金額: $${Math.round(p * s).toLocaleString()}`;
-                totalNode.classList.remove('hidden');
-            } else { totalNode.classList.add('hidden'); }
+            if (s > 0 && p > 0) { totalNode.innerText = `本次投入金額: $${Math.round(p * s).toLocaleString()}`; totalNode.classList.remove('hidden'); } else { totalNode.classList.add('hidden'); }
         }
         function closeTradeModal() {
-            document.getElementById('tradeModal').classList.add('opacity-0');
-            document.getElementById('tradeModalContent').classList.add('scale-95');
-            setTimeout(() => document.getElementById('tradeModal').classList.add('hidden'), 300);
+            document.getElementById('tradeModal').classList.add('opacity-0'); document.getElementById('tradeModalContent').classList.add('scale-95'); setTimeout(() => document.getElementById('tradeModal').classList.add('hidden'), 300);
         }
 
         function openSellModal(symbol, currentPrice) {
@@ -380,21 +313,15 @@
             document.getElementById('sellTotalCalc').classList.add('hidden');
         }
         function closeSellModal() {
-            document.getElementById('sellModal').classList.add('opacity-0');
-            document.getElementById('sellModalContent').classList.add('scale-95');
-            setTimeout(() => document.getElementById('sellModal').classList.add('hidden'), 300);
+            document.getElementById('sellModal').classList.add('opacity-0'); document.getElementById('sellModalContent').classList.add('scale-95'); setTimeout(() => document.getElementById('sellModal').classList.add('hidden'), 300);
         }
         function calculateSellTotal() {
-            const symbol = document.getElementById('sellSymbol').innerText;
-            const trade = myPortfolio[symbol]; if (!trade) return;
-            const p = parseFloat(document.getElementById('sellPrice').value) || 0;
-            const s = parseInt(document.getElementById('sellShares').value) || 0;
-            const totalNode = document.getElementById('sellTotalCalc');
+            const symbol = document.getElementById('sellSymbol').innerText; const trade = myPortfolio[symbol]; if (!trade) return;
+            const p = parseFloat(document.getElementById('sellPrice').value) || 0; const s = parseInt(document.getElementById('sellShares').value) || 0; const totalNode = document.getElementById('sellTotalCalc');
             if (s > 0 && p > 0) {
                 let pnl = (p - trade.entryPrice) * s; let pnlPct = (((p - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
                 let colorClass = pnl >= 0 ? 'text-red-400' : 'text-green-400';
-                totalNode.innerHTML = `本次預估損益: <span class="${colorClass}">$${Math.round(pnl).toLocaleString()} (${pnlPct}%)</span>`;
-                totalNode.classList.remove('hidden');
+                totalNode.innerHTML = `本次預估損益: <span class="${colorClass}">$${Math.round(pnl).toLocaleString()} (${pnlPct}%)</span>`; totalNode.classList.remove('hidden');
             } else { totalNode.classList.add('hidden'); }
         }
 
@@ -415,8 +342,7 @@
 
         function saveTrade() {
             const symbol = document.getElementById('tradeSymbol').innerText; 
-            const price = parseFloat(document.getElementById('tradePrice').value);
-            const shares = parseInt(document.getElementById('tradeShares').value);
+            const price = parseFloat(document.getElementById('tradePrice').value); const shares = parseInt(document.getElementById('tradeShares').value);
             if(!price || !shares || shares <= 0) return alert('請輸入正確的價格與股數');
             if (myPortfolio[symbol]) {
                 const oldShares = myPortfolio[symbol].shares; const oldPrice = myPortfolio[symbol].entryPrice;
@@ -424,14 +350,11 @@
                 myPortfolio[symbol].shares = newShares; myPortfolio[symbol].entryPrice = parseFloat(newEntryPrice.toFixed(2));
                 myPortfolio[symbol].peakPrice = Math.max(myPortfolio[symbol].peakPrice, price); myPortfolio[symbol].alerted = false; 
             } else { myPortfolio[symbol] = { shares: shares, entryPrice: price, peakPrice: price, alerted: false }; }
-            localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-            closeTradeModal(); renderData(document.getElementById('searchInput').value); renderPortfolioSummary(); syncPortfolioToGithub();
+            localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio)); closeTradeModal(); renderData(document.getElementById('searchInput').value); renderPortfolioSummary(); syncPortfolioToGithub();
         }
 
         function saveSellTrade() {
-            const symbol = document.getElementById('sellSymbol').innerText;
-            const price = parseFloat(document.getElementById('sellPrice').value);
-            const sellShares = parseInt(document.getElementById('sellShares').value);
+            const symbol = document.getElementById('sellSymbol').innerText; const price = parseFloat(document.getElementById('sellPrice').value); const sellShares = parseInt(document.getElementById('sellShares').value);
             let trade = myPortfolio[symbol]; let stock = stockMap[symbol];
             if(!trade || !price || !sellShares || sellShares <= 0) return alert('請輸入正確的價格與股數');
             if(sellShares > trade.shares) return alert(`庫存不足！你目前只有 ${trade.shares} 股。`);
@@ -439,31 +362,21 @@
             tradeHistory.push({ date: new Date().toLocaleString('zh-TW', {hour12: false}), symbol: symbol, name: stock ? stock.name : symbol, shares: sellShares, entryPrice: trade.entryPrice, exitPrice: price, pnl: Math.round(pnl), pnlPct: pnlPct });
             localStorage.setItem('atu_trade_history', JSON.stringify(tradeHistory));
             if (sellShares === trade.shares) { delete myPortfolio[symbol]; } else { myPortfolio[symbol].shares -= sellShares; }
-            localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio));
-            closeSellModal(); renderData(document.getElementById('searchInput').value); renderPortfolioSummary(); syncPortfolioToGithub();
+            localStorage.setItem('atu_portfolio', JSON.stringify(myPortfolio)); closeSellModal(); renderData(document.getElementById('searchInput').value); renderPortfolioSummary(); syncPortfolioToGithub();
         }
 
         function renderPortfolioSummary() {
-            const summarySection = document.getElementById('portfolioSummarySection');
-            const listContainer = document.getElementById('portfolioList');
+            const summarySection = document.getElementById('portfolioSummarySection'); const listContainer = document.getElementById('portfolioList');
             summarySection.classList.remove('hidden'); listContainer.innerHTML = '';
             let totalPnL = 0; let totalRiskAmount = 0; let totalInvestedCost = 0; let totalMarketValue = 0; 
-            
-            if (Object.keys(myPortfolio).length === 0) {
-                listContainer.innerHTML = `<div class="p-5 rounded-2xl border border-dashed border-slate-600 bg-slate-800/30 text-center shadow-inner"><p class="text-slate-400 text-sm font-bold tracking-widest">目前空手觀望中 ☕</p></div>`;
-            }
+            if (Object.keys(myPortfolio).length === 0) { listContainer.innerHTML = `<div class="p-5 rounded-2xl border border-dashed border-slate-600 bg-slate-800/30 text-center shadow-inner"><p class="text-slate-400 text-sm font-bold tracking-widest">目前空手觀望中 ☕</p></div>`; }
             for (let symbol in myPortfolio) {
-                let trade = myPortfolio[symbol]; let stock = stockMap[symbol];
-                let currentPrice = stock ? stock.price : trade.entryPrice;
-                totalInvestedCost += (trade.entryPrice * trade.shares);
-                totalMarketValue += (currentPrice * trade.shares);
-                let slDecimal = (stock ? stock.actual_sl : 5) / 100;
-                let peakPrice = trade.peakPrice || trade.entryPrice;
+                let trade = myPortfolio[symbol]; let stock = stockMap[symbol]; let currentPrice = stock ? stock.price : trade.entryPrice;
+                totalInvestedCost += (trade.entryPrice * trade.shares); totalMarketValue += (currentPrice * trade.shares);
+                let slDecimal = (stock ? stock.actual_sl : 5) / 100; let peakPrice = trade.peakPrice || trade.entryPrice;
                 if (currentPrice > peakPrice) { peakPrice = currentPrice; trade.peakPrice = currentPrice; }
-                let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), peakPrice * (1 - slDecimal));
-                let isStopLossTriggered = currentPrice <= actualExitPrice;
-                totalRiskAmount += (Math.max(0, trade.entryPrice - actualExitPrice) * trade.shares);
-                let pnl = (currentPrice - trade.entryPrice) * trade.shares; totalPnL += pnl;
+                let actualExitPrice = Math.max(trade.entryPrice * (1 - slDecimal), peakPrice * (1 - slDecimal)); let isStopLossTriggered = currentPrice <= actualExitPrice;
+                totalRiskAmount += (Math.max(0, trade.entryPrice - actualExitPrice) * trade.shares); let pnl = (currentPrice - trade.entryPrice) * trade.shares; totalPnL += pnl;
                 let pnlColor = pnl >= 0 ? 'text-red-400' : 'text-green-400';
                 let cardBg = isStopLossTriggered ? "bg-green-900/60 border-green-500 animate-pulse shadow-[0_0_15px_rgba(34,197,94,0.5)]" : "bg-black/30 border-white/10 hover:bg-slate-700 hover:border-blue-500";
                 listContainer.innerHTML += `
@@ -473,109 +386,56 @@
                         <p class="text-sm text-slate-400 mt-1.5 font-bold tracking-wide">持有: <span class="text-blue-300 font-mono">${trade.shares}股</span></p>
                         <p class="text-sm text-slate-400 mt-0.5 font-bold tracking-wide">現值: <span class="text-slate-200 font-mono">$${Math.round(currentPrice * trade.shares).toLocaleString()}</span></p>
                     </div>
-                    <div class="text-right flex flex-col justify-center">
-                        <p class="text-xs text-slate-500 mb-1 font-bold tracking-widest">目前損益</p>
-                        <p class="text-lg font-mono font-black ${pnlColor}">${pnl > 0 ? '+' : ''}$${Math.round(pnl).toLocaleString()}</p>
-                    </div>
+                    <div class="text-right flex flex-col justify-center"><p class="text-xs text-slate-500 mb-1 font-bold tracking-widest">目前損益</p><p class="text-lg font-mono font-black ${pnlColor}">${pnl > 0 ? '+' : ''}$${Math.round(pnl).toLocaleString()}</p></div>
                 </div>`;
             }
-            let pnlEl = document.getElementById('totalPnL');
-            if(pnlEl) { pnlEl.className = `text-xl font-mono font-black whitespace-nowrap ${totalPnL >= 0 ? 'text-red-400' : 'text-green-400'}`; pnlEl.innerText = `${totalPnL > 0 ? '+' : ''}$${Math.abs(Math.round(totalPnL)).toLocaleString()}`; }
-            let mvEl = document.getElementById('totalMarketValue');
-            if(mvEl) mvEl.innerText = `$${Math.round(totalMarketValue).toLocaleString()}`;
-            let totalRealizedPnL = tradeHistory.reduce((sum, record) => sum + record.pnl, 0);
-            let availableCash = baseCapital + totalRealizedPnL - totalInvestedCost;
-            globalDynamicCapital = availableCash + totalMarketValue; 
-            let rlzdEl = document.getElementById('realizedPnL');
-            if(rlzdEl) { rlzdEl.className = `text-xl font-mono font-black whitespace-nowrap ${totalRealizedPnL >= 0 ? 'text-red-400' : 'text-green-400'}`; rlzdEl.innerText = `${totalRealizedPnL > 0 ? '+' : ''}$${Math.abs(Math.round(totalRealizedPnL)).toLocaleString()}`; }
-            let cashEl = document.getElementById('availableCash');
-            if(cashEl) { cashEl.innerText = `$${Math.round(availableCash).toLocaleString()}`; cashEl.className = `text-2xl md:text-3xl font-mono font-black whitespace-nowrap ${availableCash < 0 ? 'text-red-500 animate-pulse' : 'text-yellow-400'}`; }
-            let dynCapEl = document.getElementById('dynamicCapital');
-            if(dynCapEl) dynCapEl.innerText = `$${Math.round(globalDynamicCapital).toLocaleString()}`;
+            let pnlEl = document.getElementById('totalPnL'); if(pnlEl) { pnlEl.className = `text-xl font-mono font-black whitespace-nowrap ${totalPnL >= 0 ? 'text-red-400' : 'text-green-400'}`; pnlEl.innerText = `${totalPnL > 0 ? '+' : ''}$${Math.abs(Math.round(totalPnL)).toLocaleString()}`; }
+            let mvEl = document.getElementById('totalMarketValue'); if(mvEl) mvEl.innerText = `$${Math.round(totalMarketValue).toLocaleString()}`;
+            let totalRealizedPnL = tradeHistory.reduce((sum, record) => sum + record.pnl, 0); let availableCash = baseCapital + totalRealizedPnL - totalInvestedCost; globalDynamicCapital = availableCash + totalMarketValue; 
+            let rlzdEl = document.getElementById('realizedPnL'); if(rlzdEl) { rlzdEl.className = `text-xl font-mono font-black whitespace-nowrap ${totalRealizedPnL >= 0 ? 'text-red-400' : 'text-green-400'}`; rlzdEl.innerText = `${totalRealizedPnL > 0 ? '+' : ''}$${Math.abs(Math.round(totalRealizedPnL)).toLocaleString()}`; }
+            let cashEl = document.getElementById('availableCash'); if(cashEl) { cashEl.innerText = `$${Math.round(availableCash).toLocaleString()}`; cashEl.className = `text-2xl md:text-3xl font-mono font-black whitespace-nowrap ${availableCash < 0 ? 'text-red-500 animate-pulse' : 'text-yellow-400'}`; }
+            let dynCapEl = document.getElementById('dynamicCapital'); if(dynCapEl) dynCapEl.innerText = `$${Math.round(globalDynamicCapital).toLocaleString()}`;
 
-            // 💡 圓餅圖與資產集中度防呆邏輯
-            let categoryData = {};
-            let totalInvestedForPie = 0;
+            let categoryData = {}; let totalInvestedForPie = 0;
             for (let symbol in myPortfolio) {
-                let trade = myPortfolio[symbol];
-                let stock = stockMap[symbol];
-                let cat = stock ? stock.category : '其他';
-                let currentPrice = stock ? stock.price : trade.entryPrice;
-                let value = currentPrice * trade.shares;
-                if (!categoryData[cat]) categoryData[cat] = 0;
-                categoryData[cat] += value;
-                totalInvestedForPie += value;
+                let trade = myPortfolio[symbol]; let stock = stockMap[symbol]; let cat = stock ? stock.category : '其他';
+                let currentPrice = stock ? stock.price : trade.entryPrice; let value = currentPrice * trade.shares;
+                if (!categoryData[cat]) categoryData[cat] = 0; categoryData[cat] += value; totalInvestedForPie += value;
             }
-
-            const pieCanvas = document.getElementById('portfolioPieChart');
-            const emptyMsg = document.getElementById('empty-pie-msg');
-            const warningBadge = document.getElementById('concentration-warning');
-
+            const pieCanvas = document.getElementById('portfolioPieChart'); const emptyMsg = document.getElementById('empty-pie-msg'); const warningBadge = document.getElementById('concentration-warning');
             if (totalInvestedForPie === 0) {
-                if(pieCanvas) pieCanvas.style.display = 'none';
-                if(emptyMsg) emptyMsg.style.display = 'flex';
-                if(warningBadge) warningBadge.classList.add('hidden');
+                if(pieCanvas) pieCanvas.style.display = 'none'; if(emptyMsg) emptyMsg.style.display = 'flex'; if(warningBadge) warningBadge.classList.add('hidden');
             } else {
-                if(pieCanvas) pieCanvas.style.display = 'block';
-                if(emptyMsg) emptyMsg.style.display = 'none';
-
-                let labels = Object.keys(categoryData);
-                let data = Object.values(categoryData);
-                let isConcentrated = data.some(val => (val / totalInvestedForPie) > 0.6);
-                
-                if (warningBadge) {
-                    if (isConcentrated && labels.length > 0) warningBadge.classList.remove('hidden');
-                    else warningBadge.classList.add('hidden');
-                }
-
+                if(pieCanvas) pieCanvas.style.display = 'block'; if(emptyMsg) emptyMsg.style.display = 'none';
+                let labels = Object.keys(categoryData); let data = Object.values(categoryData); let isConcentrated = data.some(val => (val / totalInvestedForPie) > 0.6);
+                if (warningBadge) { if (isConcentrated && labels.length > 0) warningBadge.classList.remove('hidden'); else warningBadge.classList.add('hidden'); }
                 const pieColors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#f97316'];
-
-                if (portfolioPieChart) {
-                    portfolioPieChart.data.labels = labels;
-                    portfolioPieChart.data.datasets[0].data = data;
-                    portfolioPieChart.update();
-                } else if(pieCanvas) {
-                    const ctx = pieCanvas.getContext('2d');
-                    portfolioPieChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: { labels: labels, datasets: [{ data: data, backgroundColor: pieColors, borderWidth: 2, borderColor: '#1e293b', hoverOffset: 4 }] },
-                        options: {
-                            responsive: true, maintainAspectRatio: false, cutout: '65%', layout: { padding: 5 },
-                            plugins: {
-                                legend: { position: 'right', labels: { color: '#cbd5e1', font: { size: 10, weight: 'bold' }, boxWidth: 10, padding: 10 } },
-                                tooltip: {
-                                    backgroundColor: 'rgba(15, 23, 42, 0.9)', titleColor: '#94a3b8', bodyColor: '#fff', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1,
-                                    callbacks: { label: function(context) { let val = context.raw; let pct = ((val / totalInvestedForPie) * 100).toFixed(1); return ` $${Math.round(val).toLocaleString()} (${pct}%)`; } }
-                                }
-                            }
-                        }
+                if (portfolioPieChart) { portfolioPieChart.data.labels = labels; portfolioPieChart.data.datasets[0].data = data; portfolioPieChart.update(); } 
+                else if(pieCanvas) {
+                    portfolioPieChart = new Chart(pieCanvas.getContext('2d'), {
+                        type: 'doughnut', data: { labels: labels, datasets: [{ data: data, backgroundColor: pieColors, borderWidth: 2, borderColor: '#1e293b', hoverOffset: 4 }] },
+                        options: { responsive: true, maintainAspectRatio: false, cutout: '65%', layout: { padding: 5 }, plugins: { legend: { position: 'right', labels: { color: '#cbd5e1', font: { size: 10, weight: 'bold' }, boxWidth: 10, padding: 10 } }, tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', titleColor: '#94a3b8', bodyColor: '#fff', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1, callbacks: { label: function(context) { let val = context.raw; let pct = ((val / totalInvestedForPie) * 100).toFixed(1); return ` $${Math.round(val).toLocaleString()} (${pct}%)`; } } } } }
                     });
                 }
             }
         }
 
         function exportToCSV() {
-            let csvContent = "\uFEFF【目前實戰庫存 (未實現損益)】\n股票代號,股票名稱,持有股數,買進均價,目前現價,未實現損益(元),報酬率(%)\n";
-            let hasPortfolio = false;
+            let csvContent = "\uFEFF【目前實戰庫存 (未實現損益)】\n股票代號,股票名稱,持有股數,買進均價,目前現價,未實現損益(元),報酬率(%)\n"; let hasPortfolio = false;
             for (let symbol in myPortfolio) {
-                hasPortfolio = true; let trade = myPortfolio[symbol]; let stock = stockMap[symbol];
-                let currentPrice = stock ? stock.price : trade.entryPrice;
-                let pnl = (currentPrice - trade.entryPrice) * trade.shares;
-                let pnlPct = (((currentPrice - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
+                hasPortfolio = true; let trade = myPortfolio[symbol]; let stock = stockMap[symbol]; let currentPrice = stock ? stock.price : trade.entryPrice;
+                let pnl = (currentPrice - trade.entryPrice) * trade.shares; let pnlPct = (((currentPrice - trade.entryPrice) / trade.entryPrice) * 100).toFixed(2);
                 csvContent += `${symbol},${stock ? stock.name : symbol},${trade.shares},${trade.entryPrice},${currentPrice},${Math.round(pnl)},${pnlPct}%\n`;
             }
             if (!hasPortfolio) csvContent += "目前空手觀望中\n";
             csvContent += "\n【歷史平倉紀錄 (已實現損益)】\n平倉時間,股票代號,股票名稱,賣出股數,買進均價,平倉價格,實現損益(元),報酬率(%)\n";
-            if (tradeHistory.length === 0) csvContent += "目前無平倉紀錄\n";
-            else tradeHistory.forEach(r => { csvContent += `${r.date},${r.symbol},${r.name},${r.shares},${r.entryPrice},${r.exitPrice},${r.pnl},${r.pnlPct}%\n`; });
-            const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }));
-            link.download = `阿土伯戰情報表_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(link); link.click(); document.body.removeChild(link);
+            if (tradeHistory.length === 0) csvContent += "目前無平倉紀錄\n"; else tradeHistory.forEach(r => { csvContent += `${r.date},${r.symbol},${r.name},${r.shares},${r.entryPrice},${r.exitPrice},${r.pnl},${r.pnlPct}%\n`; });
+            const link = document.createElement("a"); link.href = URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })); link.download = `阿土伯戰情報表_${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
         function resetSystem() {
             if(confirm("⚠️ 確定要重置嗎？\n\n這將清空所有持股與歷史紀錄！")) {
-                let newCapital = prompt("🏦 請輸入重置後的開戶初始本金：", "100000");
-                baseCapital = parseFloat(newCapital) || 100000; localStorage.setItem('atu_base_capital', baseCapital); globalDynamicCapital = baseCapital;
+                let newCapital = prompt("🏦 請輸入重置後的開戶初始本金：", "100000"); baseCapital = parseFloat(newCapital) || 100000; localStorage.setItem('atu_base_capital', baseCapital); globalDynamicCapital = baseCapital;
                 myPortfolio = {}; tradeHistory = []; localStorage.removeItem('atu_portfolio'); localStorage.removeItem('atu_trade_history');
                 renderData(document.getElementById('searchInput').value || ''); renderPortfolioSummary(); syncPortfolioToGithub(); alert("✅ 系統已重置！");
             }
@@ -583,29 +443,22 @@
 
         function renderDashboard(json) {
             if (json.token_usage !== undefined) {
-                let used = json.token_usage;
-                let limit = 50000; let pct = Math.min((used / limit) * 100, 100);
+                let used = json.token_usage; let limit = 50000; let pct = Math.min((used / limit) * 100, 100);
                 document.getElementById('token-count-text').innerHTML = `${used.toLocaleString()} <span class="text-xs text-slate-500 font-bold">Tokens</span>`;
                 let tokenBar = document.getElementById('token-bar'); tokenBar.style.width = `${pct}%`;
                 if (pct >= 90) { tokenBar.className = "h-full bg-gradient-to-r from-red-600 to-rose-400 transition-all duration-1000 shadow-[0_0_15px_rgba(225,29,72,0.8)] animate-pulse"; document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-rose-400 tracking-tight whitespace-nowrap animate-pulse"; } 
                 else if (pct >= 60) { tokenBar.className = "h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-1000 shadow-[0_0_15px_rgba(251,191,36,0.8)]"; document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-yellow-400 tracking-tight whitespace-nowrap"; } 
                 else { tokenBar.className = "h-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-1000 shadow-[0_0_15px_rgba(56,189,248,0.8)]"; document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-cyan-400 tracking-tight whitespace-nowrap"; }
             }
-
             if (json.market_health) {
-                let bloodbathSection = document.getElementById('bloodbath-alert-section');
-                let bloodbathReportEl = document.getElementById('bloodbath-report-text');
+                let bloodbathSection = document.getElementById('bloodbath-alert-section'); let bloodbathReportEl = document.getElementById('bloodbath-report-text');
                 if (json.market_health.bloodbath_report && !json.market_health.bloodbath_report.includes("市場無大級別恐慌")) {
-                    if(bloodbathSection) bloodbathSection.classList.remove('hidden');
-                    if(bloodbathReportEl) bloodbathReportEl.innerText = json.market_health.bloodbath_report;
+                    if(bloodbathSection) bloodbathSection.classList.remove('hidden'); if(bloodbathReportEl) bloodbathReportEl.innerText = json.market_health.bloodbath_report;
                 } else { if(bloodbathSection) bloodbathSection.classList.add('hidden'); }
                 
                 let hd = json.market_health; 
                 if(document.getElementById('health-score')) document.getElementById('health-score').innerText = `${hd.health_pct}%`;
-                if(document.getElementById('health-bar')) {
-                    document.getElementById('health-bar').style.width = `${hd.health_pct}%`;
-                    document.getElementById('health-bar').className = `h-full transition-all duration-1000 ease-out ${hd.health_pct >= 70 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : (hd.health_pct <= 30 ? 'bg-green-500' : 'bg-yellow-500')}`;
-                }
+                if(document.getElementById('health-bar')) { document.getElementById('health-bar').style.width = `${hd.health_pct}%`; document.getElementById('health-bar').className = `h-full transition-all duration-1000 ease-out ${hd.health_pct >= 70 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : (hd.health_pct <= 30 ? 'bg-green-500' : 'bg-yellow-500')}`; }
                 if(document.getElementById('health-score')) document.getElementById('health-score').className = `text-sm font-mono font-black ${hd.health_pct >= 70 ? 'text-red-400' : (hd.health_pct <= 30 ? 'text-green-400' : 'text-slate-300')}`;
                 
                 let uGrid = document.getElementById('us-market-grid');
@@ -616,22 +469,18 @@
                         uGrid.innerHTML += `<div class="p-4 rounded-2xl border ${item.pct>0?'bg-red-900/20 border-red-500/30':(item.pct<0?'bg-green-900/20 border-green-500/30':'bg-slate-800 border-slate-700')} flex flex-col shadow-inner hover:border-blue-500/50"><p class="text-sm text-slate-400 font-bold mb-2">${k}</p><div class="flex justify-between items-baseline"><p class="text-xl font-mono font-black">${item.price}</p><p class="text-sm font-mono font-black ${colorClass}">${item.pct>0?'+':''}${item.pct}%</p></div></div>`;
                     }
                 }
-
-                // 💡 豪華版 AI 戰報渲染邏輯
+                
                 let report = hd.ai_script;
                 if (report && typeof report === 'object') {
-                    let sentimentBadge = document.getElementById('ai-sentiment-badge');
-                    let sentiColor = "bg-slate-800 border-slate-600 text-slate-400";
+                    let sentimentBadge = document.getElementById('ai-sentiment-badge'); let sentiColor = "bg-slate-800 border-slate-600 text-slate-400";
                     if (report.sentiment) {
                         if(report.sentiment.includes('多')) sentiColor = "bg-red-900/40 border-red-500 text-red-400 shadow-[0_0_10px_rgba(239,68,68,0.3)]";
                         else if(report.sentiment.includes('空') || report.sentiment.includes('恐慌')) sentiColor = "bg-green-900/40 border-green-500 text-green-400 shadow-[0_0_10px_rgba(34,197,94,0.3)]";
                         else if(report.sentiment.includes('中')) sentiColor = "bg-yellow-900/40 border-yellow-500 text-yellow-400";
                         if(sentimentBadge) { sentimentBadge.className = `px-4 py-1.5 rounded-full text-sm font-black border ${sentiColor}`; sentimentBadge.innerText = report.sentiment; }
                     }
-
                     if (document.getElementById('ai-report-title')) document.getElementById('ai-report-title').innerText = report.title || "今日無重大趨勢";
                     if (document.getElementById('ai-report-conclusion')) document.getElementById('ai-report-conclusion').innerText = report.conclusion || "繼續觀望。";
-
                     let metricsContainer = document.getElementById('ai-report-metrics');
                     if (metricsContainer && report.metrics) {
                         metricsContainer.innerHTML = '';
@@ -640,7 +489,6 @@
                             metricsContainer.innerHTML += `<div class="bg-black/30 p-3 rounded-xl border border-white/5 shadow-inner"><p class="text-[10px] text-slate-500 font-bold mb-1 truncate">${m.label}</p><p class="text-base font-mono font-black ${mColor}">${m.value}</p></div>`;
                         });
                     }
-
                     let lightsContainer = document.getElementById('ai-report-lights');
                     if (lightsContainer && report.sector_lights) {
                         lightsContainer.innerHTML = '';
@@ -666,25 +514,18 @@
                 currentUpdateTime = json.last_update; if (!json || !json.data) return;
                 rawData = json.data; rawData.forEach(s => stockMap[s.symbol] = s);
                 document.getElementById('update-time').innerText = json.last_update;
-                
-                renderDashboard(json);
-                renderData(document.getElementById('searchInput').value); 
-                renderPortfolioSummary(); 
+                renderDashboard(json); renderData(document.getElementById('searchInput').value); renderPortfolioSummary(); 
             }).catch(err => console.log("等待資料..."));
         }
         setInterval(() => loadData(true), 60000);
         
         async function triggerGitHubAction() {
-            let token = localStorage.getItem('atu_github_token');
-            if (!token) { token = prompt("請輸入 GitHub Token："); if (!token) return; localStorage.setItem('atu_github_token', token); }
+            let token = localStorage.getItem('atu_github_token'); if (!token) { token = prompt("請輸入 GitHub Token："); if (!token) return; localStorage.setItem('atu_github_token', token); }
             const btn = document.getElementById('forceUpdateBtn'); const ot = btn.innerHTML; btn.disabled = true; btn.innerHTML = `⏳ 呼叫雲端...`;
             try {
-                const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILENAME}/dispatches`, { 
-                    method: 'POST', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: 'main' }) 
-                });
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILENAME}/dispatches`, { method: 'POST', headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ ref: 'main' }) });
                 if (res.ok) {
-                    const targetTime = Date.now() + 50000; 
-                    const timer = setInterval(() => { 
+                    const targetTime = Date.now() + 50000; const timer = setInterval(() => { 
                         let remaining = Math.round((targetTime - Date.now()) / 1000);
                         if (remaining <= 0) { clearInterval(timer); btn.disabled = false; btn.innerHTML = ot; loadData(true); } else { btn.innerHTML = `⏳ ${remaining}s 雲端運算中`; }
                     }, 1000);
@@ -692,44 +533,16 @@
             } catch (error) { alert("⚠️ 網路連線錯誤，呼叫阿土伯雲端失敗！"); btn.disabled = false; btn.innerHTML = ot; }
         }
 
-            function openModal(stock) {
-            document.getElementById('dataModal').classList.remove('hidden'); 
-            setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
+        function openModal(stock) {
+            document.getElementById('dataModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
-            
             let historyData = stock.history || [];
-            const labels = historyData.map(h => h.date); 
-            const prices = historyData.map(h => h.price); 
-            const volumes = historyData.map(h => h.volume); 
-            const ma5 = historyData.map(h => h.ma5); 
-            const ma20 = historyData.map(h => h.ma20); 
-            const ma60 = historyData.map(h => h.ma60); 
-            const rsis = historyData.map(h => h.rsi); 
-            const bbUpper = historyData.map(h => h.bb_upper); 
-            const bbLower = historyData.map(h => h.bb_lower); 
-            const macd = historyData.map(h => h.macd); 
-            const macdSignal = historyData.map(h => h.macd_signal); 
-            const macdHist = historyData.map(h => h.macd_hist);
-            
-            // 💡 抓出 Python 算好的階梯線資料
-            const trailingStops = historyData.map(h => h.trailing_stop); 
+            const labels = historyData.map(h => h.date); const prices = historyData.map(h => h.price); const volumes = historyData.map(h => h.volume); const ma5 = historyData.map(h => h.ma5); const ma20 = historyData.map(h => h.ma20); const ma60 = historyData.map(h => h.ma60); const rsis = historyData.map(h => h.rsi); const bbUpper = historyData.map(h => h.bb_upper); const bbLower = historyData.map(h => h.bb_lower); const macd = historyData.map(h => h.macd); const macdSignal = historyData.map(h => h.macd_signal); const macdHist = historyData.map(h => h.macd_hist);
+            const trailingStops = historyData.map(h => h.trailing_stop); // 💡 取出移動停利線資料
 
             let datasets = [
                 { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, z: 10, yAxisID: 'y' },
-                
-                // 💡 畫出阿土伯的 ATR 移動停利網 (粉紅色階梯線)
-                { 
-                    label: 'ATR 移動停利網', 
-                    data: trailingStops, 
-                    borderColor: '#f43f5e', 
-                    borderWidth: 2.5, 
-                    stepped: true, // 變成階梯狀
-                    pointRadius: 0, 
-                    borderDash: [4, 4],
-                    yAxisID: 'y',
-                    z: 15
-                },
-
+                { label: 'ATR 移動停利網', data: trailingStops, borderColor: '#f43f5e', borderWidth: 2.5, stepped: true, pointRadius: 0, borderDash: [4, 4], yAxisID: 'y', z: 15 }, // 💡 畫出粉紅階梯線
                 { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' },
                 { label: '20MA', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
                 { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
@@ -737,30 +550,22 @@
                 { label: '布林下軌', data: bbLower, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(56, 189, 248, 0.12)', yAxisID: 'y' },
                 { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.2)', yAxisID: 'y1' }
             ];
-
             if (myPortfolio[stock.symbol]) {
                 const entryPrice = myPortfolio[stock.symbol].entryPrice; const entryPriceLine = new Array(labels.length).fill(entryPrice);
                 datasets.push({ label: `我的成本 ($${entryPrice})`, data: entryPriceLine, borderColor: '#facc15',  borderWidth: 3, borderDash: [10, 5], pointRadius: 0, fill: false, z: 50, yAxisID: 'y' });
             }
-
-            const ctxPrice = document.getElementById('historyChart').getContext('2d');
-            if(priceChart) priceChart.destroy();
+            const ctxPrice = document.getElementById('historyChart').getContext('2d'); if(priceChart) priceChart.destroy();
             priceChart = new Chart(ctxPrice, { type: 'line', data: { labels: labels, datasets: datasets }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' } }, y1: { position: 'right', grid: { drawOnChartArea: false } }, x: { display: false } }, plugins: { legend: { labels: { color: '#cbd5e1', font: {size: 11} } } } } });
-            
-            const ctxMacd = document.getElementById('macdChart').getContext('2d');
-            if(macdChart) macdChart.destroy();
+            const ctxMacd = document.getElementById('macdChart').getContext('2d'); if(macdChart) macdChart.destroy();
             macdChart = new Chart(ctxMacd, { type: 'bar', data: { labels: labels, datasets: [ { type: 'line', label: 'MACD 快線', data: macd, borderColor: '#0ea5e9', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'line', label: 'Signal 慢線', data: macdSignal, borderColor: '#eab308', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'bar', label: 'MACD 柱狀圖', data: macdHist, backgroundColor: macdHist.map(v => v >= 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)') } ] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: false } }, plugins: { legend: { display: false } } } });
-            
-            const ctxRsi = document.getElementById('rsiChart').getContext('2d');
-            if(rsiChart) rsiChart.destroy();
+            const ctxRsi = document.getElementById('rsiChart').getContext('2d'); if(rsiChart) rsiChart.destroy();
             rsiChart = new Chart(ctxRsi, { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: true, ticks: {color: '#64748b'} } }, plugins: { legend: { display: false } } } });
         }
 
         function closeModal(modalId) { const m = document.getElementById(modalId); m.classList.add('opacity-0'); setTimeout(() => m.classList.add('hidden'), 300); }
         function openRulesModal() { const m = document.getElementById('rulesModal'); m.classList.remove('hidden'); setTimeout(() => m.classList.remove('opacity-0'), 10); }
         function openNewsModal(symbol) {
-            const stock = stockMap[symbol]; if(!stock) return;
-            document.getElementById('newsModalSub').innerText = `${stock.name} (${stock.symbol}) - 近期焦點`;
+            const stock = stockMap[symbol]; if(!stock) return; document.getElementById('newsModalSub').innerText = `${stock.name} (${stock.symbol}) - 近期焦點`;
             const container = document.getElementById('newsListContainer'); container.innerHTML = '';
             if (!stock.news_sentiment || stock.news_sentiment.length === 0) { container.innerHTML = `<div class="text-center text-slate-400 py-10">目前無重大新聞，或 AI 掃雷器還沒跑到這檔股票。</div>`; } else {
                 stock.news_sentiment.forEach(news => {
@@ -789,22 +594,10 @@
                 let statusLabel = isBullish ? `<span class='text-lg animate-bounce inline-block'>🚀</span> 站上${bestMaName}` : `<span class='text-lg inline-block'>🚨</span> 跌破${bestMaName}`;
                 let rsBadge = stock.rs_score > 5 ? `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-sm font-black animate-bounce">👑 主力強勢 (+${stock.rs_score}%)</span>` : (stock.rs_score > 0 ? `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-sm font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>` : `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-sm font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
 
-                let smartMoneyText = stock.smart_money || "讀取中或無異常..."; 
-                let smartMoneyTheme = "bg-slate-800/50 border-slate-700 text-slate-400"; 
-                let smartMoneyIcon = "👀";
-                
-                // 判斷邏輯升級：加入土洋對作與追殺的判定
-                if (smartMoneyText.includes("同步追殺") || smartMoneyText.includes("偷倒貨") || smartMoneyText.includes("賣出")) { 
-                    smartMoneyTheme = "bg-green-900/30 border-green-500/50 text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.2)]"; 
-                    smartMoneyIcon = "🚨"; 
-                } else if (smartMoneyText.includes("同步狂買") || smartMoneyText.includes("狂買") || smartMoneyText.includes("買入")) { 
-                    smartMoneyTheme = "bg-red-900/30 border-red-500/50 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.2)]"; 
-                    smartMoneyIcon = "🔥"; 
-                } else if (smartMoneyText.includes("對作")) {
-                    // 土洋對作時，亮起黃色的警戒燈號
-                    smartMoneyTheme = "bg-yellow-900/30 border-yellow-500/50 text-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.2)]"; 
-                    smartMoneyIcon = "⚔️"; 
-                }
+                let smartMoneyText = stock.smart_money || "讀取中或無異常..."; let smartMoneyTheme = "bg-slate-800/50 border-slate-700 text-slate-400"; let smartMoneyIcon = "👀";
+                if (smartMoneyText.includes("同步追殺") || smartMoneyText.includes("偷倒貨") || smartMoneyText.includes("賣出")) { smartMoneyTheme = "bg-green-900/30 border-green-500/50 text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.2)]"; smartMoneyIcon = "🚨"; } 
+                else if (smartMoneyText.includes("同步狂買") || smartMoneyText.includes("狂買") || smartMoneyText.includes("買入")) { smartMoneyTheme = "bg-red-900/30 border-red-500/50 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.2)]"; smartMoneyIcon = "🔥"; }
+                else if (smartMoneyText.includes("對作")) { smartMoneyTheme = "bg-yellow-900/30 border-yellow-500/50 text-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.2)]"; smartMoneyIcon = "⚔️"; }
 
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
@@ -843,19 +636,10 @@
                 let cardBaseClass = "p-6 rounded-[2rem] border-2 cursor-pointer transition-all transform hover:-translate-y-1 flex flex-col justify-between relative group";
                 card.className = isPerfectEntry ? `${cardBaseClass} border-yellow-400 bg-gradient-to-br from-yellow-900/40 to-slate-900 shadow-[0_0_30px_rgba(250,204,21,0.5)] ring-1 ring-yellow-400` : `${cardBaseClass} border-slate-700 bg-slate-800/50`;
                 let perfectBanner = isPerfectEntry ? `<div class="absolute -top-4 -right-2 z-50 animate-bounce"><div class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-black px-4 py-1.5 rounded-full font-black shadow-[0_0_20px_rgba(249,115,22,0.8)] border-2 border-white flex items-center gap-1.5"><span class="text-xl">🎯</span> 絕佳進場訊號</div></div>` : '';
-                // 💡 新增：財報避雷針標籤
-                let eventBanner = stock.event_warning ? `
-                    <div class="absolute -top-4 left-4 z-50 animate-pulse">
-                        <div class="bg-gradient-to-r from-purple-700 to-pink-600 text-white px-3 py-1.5 rounded-full font-black shadow-[0_0_15px_rgba(219,39,119,0.8)] border-2 border-purple-300 flex items-center gap-1">
-                            <span class="text-lg">📅</span> ${stock.event_warning} (減碼避險)
-                        </div>
-                    </div>
-                ` : '';
+                
+                // 💡 新增：財報避雷針標籤 (正確字串插值寫法)
+                let eventBanner = stock.event_warning ? `<div class="absolute -top-4 left-4 z-50 animate-pulse"><div class="bg-gradient-to-r from-purple-700 to-pink-600 text-white px-3 py-1.5 rounded-full font-black shadow-[0_0_15px_rgba(219,39,119,0.8)] border-2 border-purple-300 flex items-center gap-1"><span class="text-lg">📅</span> ${stock.event_warning} (減碼避險)</div></div>` : '';
 
-                // 然後在塞入卡片的時候，把 eventBanner 也加進去
-                card.innerHTML = `
-                    ${perfectBanner}
-                    ${eventBanner}  <div class="flex flex-col h-full relative z-10">
                 let aiBrainHtml = `<div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center text-slate-500 font-bold mt-3">⏳ 正在等待 o3-mini 戰情分析...</div>`;
                 if (stock.unified_brain) {
                     let actionBadge = `<span class="px-3 py-1 rounded-lg text-sm font-black border ${getCroBadgeStyle(stock.unified_brain.action)}">${stock.unified_brain.action || '無指令'}</span>`;
@@ -881,8 +665,10 @@
                         </div>`;
                 }
 
+                // 💡 把所有標籤貼進股票卡片
                 card.innerHTML = `
                     ${perfectBanner}
+                    ${eventBanner}
                     <div class="flex flex-col h-full relative z-10">
                         <div class="flex justify-between items-center mb-5">
                             <div class="flex items-center gap-2"><span class="bg-black/50 text-white text-sm px-4 py-1.5 rounded-full font-bold uppercase border border-white/10">${stock.category}</span><button onclick="event.stopPropagation(); openNewsModal('${stock.symbol}')" class="bg-blue-900/40 text-blue-300 border border-blue-500/50 px-3 py-1.5 rounded-full text-sm font-black hover:bg-blue-600 hover:text-white transition-colors shadow-lg flex items-center gap-1.5 group"><span class="group-hover:animate-bounce text-base">📰</span> AI 掃雷</button></div>
