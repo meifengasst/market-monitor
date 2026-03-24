@@ -755,9 +755,22 @@
                 let statusLabel = isBullish ? `<span class='text-lg animate-bounce inline-block'>🚀</span> 站上${bestMaName}` : `<span class='text-lg inline-block'>🚨</span> 跌破${bestMaName}`;
                 let rsBadge = stock.rs_score > 5 ? `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-sm font-black animate-bounce">👑 主力強勢 (+${stock.rs_score}%)</span>` : (stock.rs_score > 0 ? `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-sm font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>` : `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-sm font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
 
-                let smartMoneyText = stock.smart_money || "讀取中或無異常..."; let smartMoneyTheme = "bg-slate-800/50 border-slate-700 text-slate-400"; let smartMoneyIcon = "👀";
-                if (smartMoneyText.includes("偷倒貨") || smartMoneyText.includes("賣出")) { smartMoneyTheme = "bg-red-900/30 border-red-500/50 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.2)]"; smartMoneyIcon = "🚨"; } 
-                else if (smartMoneyText.includes("狂買") || smartMoneyText.includes("買入")) { smartMoneyTheme = "bg-green-900/30 border-green-500/50 text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.2)]"; smartMoneyIcon = "🔥"; }
+                let smartMoneyText = stock.smart_money || "讀取中或無異常..."; 
+                let smartMoneyTheme = "bg-slate-800/50 border-slate-700 text-slate-400"; 
+                let smartMoneyIcon = "👀";
+                
+                // 判斷邏輯升級：加入土洋對作與追殺的判定
+                if (smartMoneyText.includes("同步追殺") || smartMoneyText.includes("偷倒貨") || smartMoneyText.includes("賣出")) { 
+                    smartMoneyTheme = "bg-green-900/30 border-green-500/50 text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.2)]"; 
+                    smartMoneyIcon = "🚨"; 
+                } else if (smartMoneyText.includes("同步狂買") || smartMoneyText.includes("狂買") || smartMoneyText.includes("買入")) { 
+                    smartMoneyTheme = "bg-red-900/30 border-red-500/50 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.2)]"; 
+                    smartMoneyIcon = "🔥"; 
+                } else if (smartMoneyText.includes("對作")) {
+                    // 土洋對作時，亮起黃色的警戒燈號
+                    smartMoneyTheme = "bg-yellow-900/30 border-yellow-500/50 text-yellow-400 shadow-[0_0_15px_rgba(234,179,8,0.2)]"; 
+                    smartMoneyIcon = "⚔️"; 
+                }
 
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
