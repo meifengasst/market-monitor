@@ -944,7 +944,8 @@ def generate_dashboard_data():
         "health_pct": health_pct,
         "us_summary": us_market_data,
         "sector_data": sector_data,
-        "ai_script": morning_script        
+        "ai_script": morning_script,
+        "bloodbath_report": bloodbath_report if 'bloodbath_report' in locals() else "✅ 目前市場無大級別恐慌，無需撰寫抄底報告。"
     }
 
     with open("data.json", "w", encoding="utf-8") as f:
