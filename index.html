@@ -358,11 +358,14 @@
     <script>
         window.checkPassword = function() {
             const input = document.getElementById('passInput').value;
-            const SECRET_HASH = "58b29e0dbcc7656669bf48d88b48873fb260907d4b79b6d610eb67cd6e4544d1"; 
+            
+            // 💡 阿土伯把密碼用 Base64 藏起來了 (這就是 29399909 的 Base64 編碼，外人看不懂)
+            const SECRET_CODE = "MjkzOTk5MDk="; 
+            
             if (!input) return;
-            const inputHash = CryptoJS.SHA256(input).toString(); 
 
-            if (inputHash === SECRET_HASH) { 
+            // 把你輸入的文字瞬間轉換成 Base64 來比對
+            if (btoa(input) === SECRET_CODE) { 
                 document.getElementById('loginScreen').classList.add('opacity-0');
                 setTimeout(() => { 
                     document.getElementById('loginScreen').classList.add('hidden'); 
@@ -378,6 +381,7 @@
             }
         };
 
+        // 監聽 Enter 鍵
         document.getElementById("passInput").addEventListener("keypress", function(event) { 
             if (event.key === "Enter") { 
                 event.preventDefault(); 
