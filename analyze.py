@@ -326,50 +326,64 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, r
     except Exception as e:
         return {"pattern": "連線異常", "bull": "API中斷", "bear": "API中斷", "trap": "API中斷", "stop_price": current_price*0.95, "sizing": "防禦狀態", "action": "觀望"}
 
-# 💡 新增 sector_data 參數
+# 💡 阿土伯晨間戰報升級：結構化 JSON 輸出
 def generate_morning_script_o3(market_data, sector_data):
     openai_api_key = os.environ.get("OPENAI_API_KEY")
     if not openai_api_key:
-        return "⚠️ 未設定 OPENAI_API_KEY，無法產生晨間劇本。"
+        return {"sentiment": "未知", "title": "未設定 API 金鑰", "conclusion": "無法連線戰略大腦", "metrics": [], "sector_lights": []}
 
-    data_str = ", ".join([f"{k}: 變化 {v['pct']}%" for k, v in market_data.items()])
-    # 把板塊流向轉成文字給 AI 看
+    data_str = ", ".join([f"{k}: 收 {v['price']} (變化 {v['pct']}%)" for k, v in market_data.items() if isinstance(v, dict)])
     sector_str = ", ".join([f"{s['name']}(動能 {s['rs']}%)" for s in sector_data]) if sector_data else "無資料"
     
     system_prompt = """
     你現在是台灣股市老手「阿土伯」，極度重視風險控制與資金輪動。
-    你的任務是根據【昨夜美股數據】與【板塊資金流向(動能>0代表資金流入，<0代表流出)】，給出今日台股開盤的行動指南。
+    請根據提供的【昨夜美股數據】與【板塊資金流向】，撰寫一份專業的晨間戰報。
     
-    規則：
-    1. 語氣要果斷、嚴厲、接地氣（可使用「接刀」、「避風港」、「抱牢」等詞）。
-    2. 必須給出「今日資金曝險上限建議（例如 20% 或 50%）」。
-    3. 如果科技板塊動能為負，高息/金融為正，必須警告「資金正在撤出科技股，轉往防禦板塊」。
-    4. 字數嚴格限制在 80 字以內，直接給指令！
+    【重要指令】：必須嚴格輸出為 JSON 格式，且使用台灣股民熟悉的用語。
+    JSON 結構如下：
+    {
+        "sentiment": "填入一個詞：偏多 / 中性 / 偏空 / 恐慌",
+        "title": "今日一句話懶人包 (例如：美股回檔，台股個股分歧，資金轉往防禦)",
+        "metrics": [
+            {"label": "VIX 恐慌指數", "value": "提取VIX數值", "status": "正常(綠)/警戒(黃)/危險(紅)"},
+            {"label": "台積電ADR", "value": "提取漲跌幅", "status": "強勢(綠)/弱勢(紅)"}
+        ],
+        "sector_lights": [
+            {
+                "sector": "板塊名稱 (根據資金流向資料，例如：美股科技、台股高息)",
+                "color": "red / yellow / green (根據動能正負決定)",
+                "reason": "阿土伯的白話點評，必須包含數據，例如：動能轉弱，資金撤出跡象明顯 (約20字)"
+            }
+        ],
+        "conclusion": "昨日收盤總結與今日資金曝險建議 (明確給出資金成數建議，約80字)"
+    }
     """
-    user_prompt = f"昨夜美股：{data_str}。\n資金流向：{sector_str}。\n請阿土伯下達操作鐵律！"
+    user_prompt = f"昨夜美股：{data_str}。\n資金流向：{sector_str}。\n請輸出阿土伯紅綠燈戰報 JSON！"
 
     try:
-        print("🧠 呼叫 o3-mini 撰寫晨間戰報 (結合資金輪動)...")
+        print("🧠 呼叫 o3-mini 撰寫【升級版】晨間結構化戰報...")
         headers = {"Authorization": f"Bearer {openai_api_key}", "Content-Type": "application/json"}
         payload = {
             "model": "o3-mini", 
-            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}]
+            "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
+            "response_format": {"type": "json_object"} # 👈 強制要求回傳 JSON
         }
         
-        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=30)
+        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=40)
         res.raise_for_status()
         
         response_data = res.json()
         
-        # 💡 阿土伯記帳法：把這次消耗的 Token 抓出來加總
         global TOTAL_TOKENS_USED
         usage = response_data.get("usage", {})
         TOTAL_TOKENS_USED += usage.get("total_tokens", 0)
 
         ai_text = response_data["choices"][0]["message"]["content"].strip()
-        return res.json()["choices"][0]["message"]["content"].strip()
+        return json.loads(ai_text) # 將字串轉成真正的 Python 字典
+
     except Exception as e:
-        return "🤖 AI 戰情室連線異常，請縮小部位觀望。"
+        print(f"⚠️ 晨間戰報生成失敗: {e}")
+        return {"sentiment": "異常", "title": "AI 戰情室連線異常", "conclusion": "請縮小部位觀望。", "metrics": [], "sector_lights": []}
         
 # 💡 阿土伯黑科技 3：華爾街暗池與內部人籌碼照妖鏡
 def get_smart_money_flow(symbol):
