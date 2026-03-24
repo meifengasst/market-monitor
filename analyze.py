@@ -498,6 +498,65 @@ def scan_bloodbath_survivors(vix_current, vix_threshold=40):
             print(f"⚠️ 掃描 {symbol} 失敗: {e}")
             
     return survivors
+    # 💡 阿土伯黑科技 5：大屠殺抄底戰報 (交給 o3-mini 操刀)
+def generate_bloodbath_report_o3(survivors_list):
+    if not survivors_list:
+        return "✅ 目前市場無大級別恐慌，無需撰寫抄底報告。"
+
+    print("🧠 [o3-mini 戰略大腦] 正在為生還者名單撰寫『阿土伯抄底戰報』...")
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        return "⚠️ 未設定 OPENAI_API_KEY，無法產生抄底報告。"
+
+    # 把生還者名單轉成白話文清單，餵給 AI
+    survivors_str = ""
+    for s in survivors_list:
+        survivors_str += f"- {s['name']}({s['symbol']}): 現價 ${s['price']}, 淨值比 {s['pbr']}倍, 殖利率 {s['yield']}%, 月K值 {s['month_k']}\n"
+
+    system_prompt = """
+    你現在是台灣股市傳奇老手「阿土伯」的首席戰略軍師。
+    市場目前正處於 VIX 飆高的恐慌大屠殺中，但我們的量化雷達已經掃描出幾檔符合「絕對價值（高息、低淨值比、月KD極度低檔）」的生還者名單。
+    請根據提供的名單，寫一篇【阿土伯極限抄底戰報】。
+
+    【嚴格規則與語氣要求】：
+    1. 語氣要老練、沉穩、帶點血腥味（例如：別人恐懼我貪婪、遍地黃金、接刀要有底氣）。
+    2. 絕對要死死盯住風險：這是「左側交易」，嚴厲警告操盤手絕對不能「歐印(All-in)」，必須遵守「資金分 3 到 5 批建倉、金字塔買法」的鐵律。因為「便宜還有更便宜」。
+    3. 針對名單上的股票，用一句話點出它們的防禦核心（例如：殖利率護城河、清算價值保護傘）。
+    4. 輸出格式：純文字搭配適合的 Emoji，排版要乾淨俐落，字數控制在 350 字以內，這是要直接發送到 Telegram 給第一線操盤手看的指令。
+    """
+
+    user_prompt = f"🚨 大屠殺生還者名單：\n{survivors_str}\n請軍師下達抄底戰略指示！"
+
+    try:
+        headers = {
+            "Authorization": f"Bearer {openai_api_key}", 
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "o3-mini",
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ]
+            # o3-mini 會自行推理，不需要設 temperature
+        }
+        
+        # 💡 o3-mini 思考需要一點時間，我們把 timeout 拉長到 60 秒確保不中斷
+        res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=60)
+        res.raise_for_status()
+
+        response_data = res.json()
+
+        # 💡 阿土伯記帳法：算一下這次寫報告花了多少 Token
+        global TOTAL_TOKENS_USED
+        usage = response_data.get("usage", {})
+        TOTAL_TOKENS_USED += usage.get("total_tokens", 0)
+
+        return response_data["choices"][0]["message"]["content"].strip()
+
+    except Exception as e:
+        print(f"⚠️ o3-mini 抄底報告生成失敗: {e}")
+        return "🤖 AI 戰略室連線異常。阿土伯口頭交代：名單已出，殖利率護體，請嚴格執行分批買進，切勿單次重倉！"
 # 💡 在你設定環境變數的地方加入 FMP_API_KEY
 # FMP_API_KEY = os.environ.get("FMP_API_KEY")
 def get_fundamental_risk_o3(symbol, stock_name):
@@ -857,23 +916,22 @@ def generate_dashboard_data():
             
         print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
         time.sleep(15)
-
+        
     print("📊 準備結算並產出 JSON 報表...")
     us_market_data = get_us_market_summary()
+    
     # 取出 VIX 恐慌指數，如果沒抓到預設為 0
     current_vix = us_market_data.get("恐慌指數", {}).get("price", 0) if isinstance(us_market_data, dict) else 0
     
-    # 🚀 啟動阿土伯的恐慌雷達 (為了平常可以測試，你可以先把 vix_threshold 設成 15 或 20 跑跑看)
+    # 🚀 1. 啟動阿土伯的恐慌雷達
     survivors_list = scan_bloodbath_survivors(current_vix, vix_threshold=40)
     
     if survivors_list:
-        alert_msg = "🚨【阿土伯血拚警報】大屠殺生還者出列！🚨\n\n市場極度恐慌，但以下標的已跌出『黃金價值』：\n"
-        for s in survivors_list:
-            alert_msg += f"\n💰 {s['name']} ({s['symbol']})\n現價: ${s['price']} | 殖利率: {s['yield']}%\n淨值比: {s['pbr']} | 月K: {s['month_k']}"
-        alert_msg += "\n\n請留意資金控管，分批建倉！"
+        # 🚀 2. 把名單丟給 o3-mini 寫戰報
+        bloodbath_report = generate_bloodbath_report_o3(survivors_list)
         
-        # 呼叫你原本寫好的 TG 警報器發送到手機
-        send_telegram_alert(alert_msg)
+        # 🚀 3. 直接推送到你的 Telegram 手機裡
+        send_telegram_alert(f"🚨【阿土伯血拚警報啟動】🚨\n\n{bloodbath_report}")
     # 💡 1. 呼叫雷達
     sector_data = get_sector_rotation()
     morning_script = generate_morning_script_o3(us_market_data, sector_data)
