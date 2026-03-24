@@ -356,11 +356,38 @@
     </div>
 
     <script>
+        window.checkPassword = function() {
+            const input = document.getElementById('passInput').value;
+            const SECRET_HASH = "58b29e0dbcc7656669bf48d88b48873fb260907d4b79b6d610eb67cd6e4544d1"; 
+            const inputHash = CryptoJS.SHA256(input).toString(); 
+
+            if (inputHash === SECRET_HASH) { 
+                document.getElementById('loginScreen').classList.add('opacity-0');
+                setTimeout(() => { 
+                    document.getElementById('loginScreen').classList.add('hidden'); 
+                    document.getElementById('dashboardContent').classList.remove('hidden'); 
+                    document.getElementById('dashboardContent').classList.add('flex'); 
+                    setTimeout(() => { document.getElementById('dashboardContent').classList.remove('opacity-0'); }, 50); 
+                    loadData(); 
+                }, 500);
+            } else {
+                document.getElementById('errorMsg').classList.remove('opacity-0'); 
+                document.getElementById('passInput').value = ""; 
+                setTimeout(() => { document.getElementById('errorMsg').classList.add('opacity-0'); }, 2000);
+            }
+        };
+
+        document.getElementById("passInput").addEventListener("keypress", function(event) { 
+            if (event.key === "Enter") { 
+                event.preventDefault(); 
+                window.checkPassword(); 
+            } 
+        });
+
         let rawData = [];
         let stockMap = {}; 
         let priceChart = null; let rsiChart = null; let macdChart = null;
 
-        // 💡 徽章變色邏輯
         const getCroBadgeStyle = (decision) => {
             if (!decision) return "bg-gray-800 text-gray-300 border-gray-600";
             if (decision.includes("逃") || decision.includes("觀望") || decision.includes("停損")) {
@@ -379,39 +406,6 @@
         let tradeHistory = JSON.parse(localStorage.getItem('atu_trade_history')) || [];
         let baseCapital = parseFloat(localStorage.getItem('atu_base_capital')) || 100000;
         let globalDynamicCapital = baseCapital; 
-
-// 💡 阿土伯的安全金庫密碼 (這是 "29399909" 真實的 SHA-256 雜湊加密值，絕對看不出原密碼)
-        const SECRET_HASH = "58b29e0dbcc7656669bf48d88b48873fb260907d4b79b6d610eb67cd6e4544d1"; 
-
-        document.getElementById("passInput").addEventListener("keypress", function(event) { 
-            if (event.key === "Enter") { 
-                event.preventDefault(); 
-                checkPassword(); 
-            } 
-        });
-
-        // 升級版的密碼檢查器 (改用 CryptoJS，不怕瀏覽器阻擋)
-        function checkPassword() {
-            const input = document.getElementById('passInput').value;
-            
-            // 將你輸入的密碼瞬間轉換成 SHA-256 亂碼
-            const inputHash = CryptoJS.SHA256(input).toString(); 
-
-            if (inputHash === SECRET_HASH) { // 比對兩串亂碼是否一模一樣
-                document.getElementById('loginScreen').classList.add('opacity-0');
-                setTimeout(() => { 
-                    document.getElementById('loginScreen').classList.add('hidden'); 
-                    document.getElementById('dashboardContent').classList.remove('hidden'); 
-                    document.getElementById('dashboardContent').classList.add('flex'); 
-                    setTimeout(() => { document.getElementById('dashboardContent').classList.remove('opacity-0'); }, 50); 
-                    loadData(); 
-                }, 500);
-            } else {
-                document.getElementById('errorMsg').classList.remove('opacity-0'); 
-                document.getElementById('passInput').value = ""; 
-                setTimeout(() => { document.getElementById('errorMsg').classList.add('opacity-0'); }, 2000);
-            }
-        }
 
         function openTradeModal(symbol, currentPrice) {
             document.getElementById('tradeModal').classList.remove('hidden');
@@ -638,58 +632,53 @@
                 currentUpdateTime = json.last_update; if (!json || !json.data) return;
                 rawData = json.data; rawData.forEach(s => stockMap[s.symbol] = s);
                 document.getElementById('update-time').innerText = json.last_update;
-                // 💡 更新 Token 燃燒條 (漸層美化版)
+                
                 if (json.token_usage !== undefined) {
                     let used = json.token_usage;
-                    
-                    // 將數字格式化，並把 Tokens 字眼變小，看起來更專業
                     document.getElementById('token-count-text').innerHTML = `${used.toLocaleString()} <span class="text-xs text-slate-500 font-bold">Tokens</span>`;
-                    
-                    // 阿土伯抓到你的用量大約是 42k，所以我們把紅色警戒線拉高到 50,000
                     let limit = 50000; 
                     let pct = Math.min((used / limit) * 100, 100);
-                    
                     let tokenBar = document.getElementById('token-bar');
                     tokenBar.style.width = `${pct}%`;
-                    
-                    // 賽博龐克漸層變色機制
                     if (pct >= 90) {
-                        // 🔴 危險滿載 (紅/粉漸層)
                         tokenBar.className = "h-full bg-gradient-to-r from-red-600 to-rose-400 transition-all duration-1000 shadow-[0_0_15px_rgba(225,29,72,0.8)] animate-pulse";
                         document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-rose-400 tracking-tight whitespace-nowrap animate-pulse";
                     } else if (pct >= 60) {
-                        // 🟡 警戒水位 (橘/黃漸層)
                         tokenBar.className = "h-full bg-gradient-to-r from-amber-600 to-yellow-400 transition-all duration-1000 shadow-[0_0_15px_rgba(251,191,36,0.8)]";
                         document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-yellow-400 tracking-tight whitespace-nowrap";
                     } else {
-                        // 🔵 安全水位 (靛/藍漸層)
                         tokenBar.className = "h-full bg-gradient-to-r from-indigo-600 to-cyan-400 transition-all duration-1000 shadow-[0_0_15px_rgba(56,189,248,0.8)]";
                         document.getElementById('token-count-text').className = "text-base md:text-lg font-mono font-black text-cyan-400 tracking-tight whitespace-nowrap";
                     }
                 }
 
                 if (json.market_health) {
-                    // 🚨 處理大屠殺抄底警報區
                     let bloodbathSection = document.getElementById('bloodbath-alert-section');
                     let bloodbathReportEl = document.getElementById('bloodbath-report-text');
                     
-                    // 假設你的 data.json 裡面，o3-mini 寫的報告存在 json.market_health.bloodbath_report 裡面
-                    // （請確保你在 Python 端有把 generate_bloodbath_report_o3 的回傳值塞進 data.json 中）
                     if (json.market_health.bloodbath_report && !json.market_health.bloodbath_report.includes("市場無大級別恐慌")) {
-                        bloodbathSection.classList.remove('hidden');
-                        bloodbathReportEl.innerText = json.market_health.bloodbath_report;
+                        if(bloodbathSection) bloodbathSection.classList.remove('hidden');
+                        if(bloodbathReportEl) bloodbathReportEl.innerText = json.market_health.bloodbath_report;
                     } else {
-                        bloodbathSection.classList.add('hidden');
+                        if(bloodbathSection) bloodbathSection.classList.add('hidden');
                     }
-                }
-                    let hd = json.market_health; document.getElementById('health-score').innerText = `${hd.health_pct}%`;
-                    document.getElementById('health-bar').style.width = `${hd.health_pct}%`;
-                    document.getElementById('health-bar').className = `h-full transition-all duration-1000 ease-out ${hd.health_pct >= 70 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : (hd.health_pct <= 30 ? 'bg-green-500' : 'bg-yellow-500')}`;
-                    document.getElementById('health-score').className = `text-sm font-mono font-black ${hd.health_pct >= 70 ? 'text-red-400' : (hd.health_pct <= 30 ? 'text-green-400' : 'text-slate-300')}`;
+                
+                    let hd = json.market_health; 
+                    if(document.getElementById('health-score')) document.getElementById('health-score').innerText = `${hd.health_pct}%`;
+                    if(document.getElementById('health-bar')) {
+                        document.getElementById('health-bar').style.width = `${hd.health_pct}%`;
+                        document.getElementById('health-bar').className = `h-full transition-all duration-1000 ease-out ${hd.health_pct >= 70 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : (hd.health_pct <= 30 ? 'bg-green-500' : 'bg-yellow-500')}`;
+                    }
+                    if(document.getElementById('health-score')) {
+                        document.getElementById('health-score').className = `text-sm font-mono font-black ${hd.health_pct >= 70 ? 'text-red-400' : (hd.health_pct <= 30 ? 'text-green-400' : 'text-slate-300')}`;
+                    }
                     let sEl = document.getElementById('ai-script-text');
-                    if (hd.ai_script) { sEl.innerText = hd.ai_script; sEl.className = `text-slate-300 text-lg lg:text-2xl font-bold leading-relaxed tracking-wide ${hd.ai_script.includes('嚴禁')||hd.ai_script.includes('警告') ? 'text-red-400 font-black' : 'text-green-300'}`; }
+                    if (hd.ai_script && sEl) { 
+                        sEl.innerText = hd.ai_script; 
+                        sEl.className = `text-slate-300 text-lg lg:text-2xl font-bold leading-relaxed tracking-wide ${hd.ai_script.includes('嚴禁')||hd.ai_script.includes('警告') ? 'text-red-400 font-black' : 'text-green-300'}`; 
+                    }
                     let uGrid = document.getElementById('us-market-grid');
-                    if (hd.us_summary) {
+                    if (hd.us_summary && uGrid) {
                         uGrid.innerHTML = '';
                         for (let k in hd.us_summary) {
                             let item = hd.us_summary[k]; let colorClass = item.pct > 0 ? 'text-red-400' : (item.pct < 0 ? 'text-green-400' : 'text-slate-400');
@@ -697,7 +686,7 @@
                         }
                     }
                     let sGrid = document.getElementById('sector-radar-container');
-                    if (hd.sector_data && hd.sector_data.length > 0) {
+                    if (hd.sector_data && hd.sector_data.length > 0 && sGrid) {
                         sGrid.innerHTML = '';
                         hd.sector_data.forEach(s => {
                             let isLeading = s.rs > 0;
@@ -779,7 +768,6 @@
             document.getElementById('newsModal').classList.remove('hidden'); setTimeout(() => { document.getElementById('newsModal').classList.remove('opacity-0'); document.getElementById('newsModalContent').classList.remove('scale-95'); }, 10);
         }
 
-// 💡 股票卡片渲染引擎 (究極整合版：包含大戶內部人追蹤)
         function renderData(filterText = '') {
             const list = document.getElementById('stock-list'); list.innerHTML = ''; 
             const search = filterText.toLowerCase().trim();
@@ -804,7 +792,6 @@
                 let statusLabel = isBullish ? `<span class='text-lg animate-bounce inline-block'>🚀</span> 站上${bestMaName}` : `<span class='text-lg inline-block'>🚨</span> 跌破${bestMaName}`;
                 let rsBadge = stock.rs_score > 5 ? `<span class="bg-yellow-500/20 text-yellow-400 border border-yellow-500/50 px-3 py-1 rounded-full text-sm font-black animate-bounce">👑 主力強勢 (+${stock.rs_score}%)</span>` : (stock.rs_score > 0 ? `<span class="bg-blue-500/20 text-blue-400 border border-blue-500/50 px-2 py-1 rounded-full text-sm font-black">📈 擊敗大盤 (+${stock.rs_score}%)</span>` : `<span class="bg-slate-500/20 text-slate-400 border border-slate-500/50 px-2 py-1 rounded-full text-sm font-black">🐢 弱於大盤 (${stock.rs_score}%)</span>`);
 
-                // 🕵️‍♂️ 大戶與內部人動向 (Smart Money) 視覺化處理
                 let smartMoneyText = stock.smart_money || "讀取中或無異常...";
                 let smartMoneyTheme = "bg-slate-800/50 border-slate-700 text-slate-400"; 
                 let smartMoneyIcon = "👀";
@@ -827,7 +814,6 @@
                 </div>
                 `;
 
-                // 風控部位區
                 let positionHtml = "";
                 if (myPortfolio[stock.symbol]) {
                     let trade = myPortfolio[stock.symbol]; 
@@ -882,6 +868,65 @@
                         </div>
                     </div>
                 ` : '';
+
+                // 🔥 將深層巢狀字串拆解，解決瀏覽器解析報錯的問題
+                let aiBrainHtml = `
+                    <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center text-slate-500 font-bold mt-3">
+                        ⏳ 正在等待 o3-mini 戰情分析...
+                    </div>
+                `;
+                
+                if (stock.unified_brain) {
+                    let actionBadge = `<span class="px-3 py-1 rounded-lg text-sm font-black border ${getCroBadgeStyle(stock.unified_brain.action)}">${stock.unified_brain.action || '無指令'}</span>`;
+                    let defenseReferenceHtml = myPortfolio[stock.symbol] ? '' : `
+                        <div class="flex items-center justify-between bg-red-900/20 px-4 py-3 rounded-xl border border-red-500/20 mt-1 shadow-inner">
+                            <span class="text-xs text-slate-400 font-bold">🛡️ 建倉防守參考價</span>
+                            <p class="text-xl font-mono font-black text-red-400">$${Number(stock.unified_brain.stop_price).toFixed(2)}</p>
+                        </div>
+                    `;
+
+                    aiBrainHtml = `
+                        <div class="bg-[#151a23] border border-indigo-500/50 rounded-2xl p-5 shadow-2xl hover:border-indigo-400 transition-colors relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl"></div>
+                            <div class="flex justify-between items-center mb-5 border-b border-indigo-900/50 pb-3 relative z-10">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-2xl animate-pulse drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]">🧠</span>
+                                    <h3 class="text-indigo-300 font-black text-base tracking-widest">o3-mini 終極裁決</h3>
+                                </div>
+                                ${actionBadge}
+                            </div>
+                            <div class="flex flex-col gap-4 relative z-10">
+                                <div class="flex flex-col gap-3 bg-black/20 p-4 rounded-xl border border-white/5">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-red-400 text-sm font-black mt-0.5 whitespace-nowrap shrink-0">🔴 好消息:</span>
+                                        <p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.unified_brain.bull}</p>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-400 text-sm font-black mt-0.5 whitespace-nowrap shrink-0">🟢 壞消息:</span>
+                                        <p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.unified_brain.bear}</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col gap-4 bg-black/40 p-4 rounded-xl border border-white/5">
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-yellow-500 text-xl shrink-0 mt-0.5">⚠️</span>
+                                        <div>
+                                            <p class="text-xs text-slate-500 font-bold mb-1">主力騙線掃描</p>
+                                            <p class="text-sm font-black text-yellow-400 leading-relaxed">${stock.unified_brain.trap}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <span class="text-blue-400 text-xl shrink-0 mt-0.5">💰</span>
+                                        <div>
+                                            <p class="text-xs text-slate-500 font-bold mb-1">資金控管建議</p>
+                                            <p class="text-sm font-bold text-blue-300 leading-relaxed">${stock.unified_brain.sizing}</p>
+                                        </div>
+                                    </div>
+                                    ${defenseReferenceHtml}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
 
                 card.innerHTML = `
                     ${perfectBanner}
@@ -950,62 +995,7 @@
                             ${smartMoneyHtml} ${positionHtml}
                             
                             <div class="pt-4 border-t border-slate-700/50 mt-4">
-                                ${stock.unified_brain ? `
-                                <div class="bg-[#151a23] border border-indigo-500/50 rounded-2xl p-5 shadow-2xl hover:border-indigo-400 transition-colors relative overflow-hidden">
-                                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl"></div>
-
-                                    <div class="flex justify-between items-center mb-5 border-b border-indigo-900/50 pb-3 relative z-10">
-                                        <div class="flex items-center space-x-2">
-                                            <span class="text-2xl animate-pulse drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]">🧠</span>
-                                            <h3 class="text-indigo-300 font-black text-base tracking-widest">o3-mini 終極裁決</h3>
-                                        </div>
-                                        <span class="px-3 py-1 rounded-lg text-sm font-black border ${getCroBadgeStyle(stock.unified_brain.action)}">
-                                            ${stock.unified_brain.action || '無指令'}
-                                        </span>
-                                    </div>
-                                    
-                                    <div class="flex flex-col gap-4 relative z-10">
-                                        <div class="flex flex-col gap-3 bg-black/20 p-4 rounded-xl border border-white/5">
-                                            <div class="flex items-start gap-2">
-                                                <span class="text-red-400 text-sm font-black mt-0.5 whitespace-nowrap shrink-0">🔴 好消息:</span>
-                                                <p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.unified_brain.bull}</p>
-                                            </div>
-                                            <div class="flex items-start gap-2">
-                                                <span class="text-green-400 text-sm font-black mt-0.5 whitespace-nowrap shrink-0">🟢 壞消息:</span>
-                                                <p class="text-sm font-bold text-slate-200 leading-relaxed">${stock.unified_brain.bear}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="flex flex-col gap-4 bg-black/40 p-4 rounded-xl border border-white/5">
-                                            <div class="flex items-start gap-3">
-                                                <span class="text-yellow-500 text-xl shrink-0 mt-0.5">⚠️</span>
-                                                <div>
-                                                    <p class="text-xs text-slate-500 font-bold mb-1">主力騙線掃描</p>
-                                                    <p class="text-sm font-black text-yellow-400 leading-relaxed">${stock.unified_brain.trap}</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-start gap-3">
-                                                <span class="text-blue-400 text-xl shrink-0 mt-0.5">💰</span>
-                                                <div>
-                                                    <p class="text-xs text-slate-500 font-bold mb-1">資金控管建議</p>
-                                                    <p class="text-sm font-bold text-blue-300 leading-relaxed">${stock.unified_brain.sizing}</p>
-                                                </div>
-                                            </div>
-
-                                            ${myPortfolio[stock.symbol] ? '' : `
-                                            <div class="flex items-center justify-between bg-red-900/20 px-4 py-3 rounded-xl border border-red-500/20 mt-1 shadow-inner">
-                                                <span class="text-xs text-slate-400 font-bold">🛡️ 建倉防守參考價</span>
-                                                <p class="text-xl font-mono font-black text-red-400">$${Number(stock.unified_brain.stop_price).toFixed(2)}</p>
-                                            </div>
-                                            `}
-                                        </div>
-                                    </div>
-                                </div>
-                                ` : `
-                                <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 text-center text-slate-500 font-bold mt-3">
-                                    ⏳ 正在等待 o3-mini 戰情分析...
-                                </div>
-                                `}
+                                ${aiBrainHtml}
                             </div>
                         </div>
                     </div>
@@ -1017,6 +1007,3 @@
     </script>
 </body>
 </html>
-
-
-
