@@ -617,6 +617,29 @@ def get_tw_institutional_flow(symbol):
     except Exception as e:
         print(f"⚠️ 台股籌碼雷達掃描失敗: {e}")
         return "台股籌碼資料連線異常"
+# 💡 阿土伯黑科技 7：財報與除權息避雷針
+def get_upcoming_events(symbol):
+    try:
+        info = yf.Ticker(symbol).info
+        now = datetime.now().timestamp()
+        seven_days_later = now + 7 * 86400
+        events = []
+        
+        # 抓取財報日
+        earn_timestamp = info.get('earningsTimestamp')
+        if earn_timestamp and now <= earn_timestamp <= seven_days_later:
+            days = int((earn_timestamp - now) / 86400)
+            events.append(f"財報倒數 {max(1, days)} 天")
+            
+        # 抓取除息日
+        ex_div_timestamp = info.get('exDividendDate')
+        if ex_div_timestamp and now <= ex_div_timestamp <= seven_days_later:
+            days = int((ex_div_timestamp - now) / 86400)
+            events.append(f"除息倒數 {max(1, days)} 天")
+            
+        return " & ".join(events) if events else None
+    except:
+        return None
 # 💡 在你設定環境變數的地方加入 FMP_API_KEY
 # FMP_API_KEY = os.environ.get("FMP_API_KEY")
 def get_fundamental_risk_o3(symbol, stock_name):
@@ -853,7 +876,25 @@ def generate_dashboard_data():
             df['tr3'] = abs(df['Low'] - df['prev_close'])
             df['tr'] = df[['tr1', 'tr2', 'tr3']].max(axis=1)
             df['atr'] = df['tr'].rolling(window=14).mean()
-
+            # 💡 新增：計算 ATR 移動停利階梯線 (Chandelier Exit 邏輯)
+            ts_list = []
+            current_ts = 0
+            for i in range(len(df)):
+                if pd.isna(df['atr'].iloc[i]):
+                    ts_list.append(None)
+                    continue
+                # 停損基準：最高價 - 2.5倍ATR (阿土伯愛用參數)
+                ideal_ts = df['High'].iloc[i] - (2.5 * df['atr'].iloc[i])
+                if current_ts == 0 or pd.isna(current_ts):
+                    current_ts = ideal_ts
+                else:
+                    # 只要沒跌破，安全網只升不降！
+                    if df['Close'].iloc[i-1] > current_ts:
+                        current_ts = max(current_ts, ideal_ts)
+                    else:
+                        current_ts = ideal_ts # 跌破後重新計算
+                ts_list.append(current_ts)
+            df['trailing_stop'] = ts_list
             df['Signal'] = np.where(df['Close'] > df['ma20'], 1, np.where(df['Close'] < df['ma20'], -1, 0))
             df = df.fillna(0)
             
@@ -950,7 +991,7 @@ def generate_dashboard_data():
             dynamic_stop_price = unified_brain.get('stop_price', current_price * 0.95)
 
             # 準備畫圖用的歷史資料
-            hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2)} for i, r in df.tail(60).iterrows()]
+            hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2),"trailing_stop": round(r['trailing_stop'], 2) if not pd.isna(r['trailing_stop']) else None} for i, r in df.tail(60).iterrows()]
             
             avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
             current_vol = df['Volume'].iloc[-1]
