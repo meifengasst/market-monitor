@@ -692,26 +692,44 @@
             } catch (error) { alert("⚠️ 網路連線錯誤，呼叫阿土伯雲端失敗！"); btn.disabled = false; btn.innerHTML = ot; }
         }
 
-        function openModal(stock) {
+            function openModal(stock) {
             document.getElementById('dataModal').classList.remove('hidden'); 
             setTimeout(() => { document.getElementById('dataModal').classList.remove('opacity-0'); document.getElementById('modalContent').classList.remove('scale-95'); }, 10);
             document.getElementById('modalTitle').innerText = `${stock.name} (${stock.symbol})`;
+            
             let historyData = stock.history || [];
-            const labels = historyData.map(h => h.date); const prices = historyData.map(h => h.price); const volumes = historyData.map(h => h.volume); const ma5 = historyData.map(h => h.ma5); const ma20 = historyData.map(h => h.ma20); const ma60 = historyData.map(h => h.ma60); const rsis = historyData.map(h => h.rsi); const bbUpper = historyData.map(h => h.bb_upper); const bbLower = historyData.map(h => h.bb_lower); const macd = historyData.map(h => h.macd); const macdSignal = historyData.map(h => h.macd_signal); const macdHist = historyData.map(h => h.macd_hist);
+            const labels = historyData.map(h => h.date); 
+            const prices = historyData.map(h => h.price); 
+            const volumes = historyData.map(h => h.volume); 
+            const ma5 = historyData.map(h => h.ma5); 
+            const ma20 = historyData.map(h => h.ma20); 
+            const ma60 = historyData.map(h => h.ma60); 
+            const rsis = historyData.map(h => h.rsi); 
+            const bbUpper = historyData.map(h => h.bb_upper); 
+            const bbLower = historyData.map(h => h.bb_lower); 
+            const macd = historyData.map(h => h.macd); 
+            const macdSignal = historyData.map(h => h.macd_signal); 
+            const macdHist = historyData.map(h => h.macd_hist);
+            
+            // 💡 抓出 Python 算好的階梯線資料
+            const trailingStops = historyData.map(h => h.trailing_stop); 
+
             let datasets = [
                 { label: '收盤價', data: prices, borderColor: '#ffffff', borderWidth: 2, tension: 0.1, pointRadius: 1, z: 10, yAxisID: 'y' },
-                // 💡 新增這塊：阿土伯的 ATR 移動停利階梯線
+                
+                // 💡 畫出阿土伯的 ATR 移動停利網 (粉紅色階梯線)
                 { 
                     label: 'ATR 移動停利網', 
                     data: trailingStops, 
-                    borderColor: '#f43f5e', // 搶眼的桃紅色
+                    borderColor: '#f43f5e', 
                     borderWidth: 2.5, 
-                    stepped: true, // 👈 魔法參數：讓線條變成階梯狀！只升不降！
+                    stepped: true, // 變成階梯狀
                     pointRadius: 0, 
                     borderDash: [4, 4],
                     yAxisID: 'y',
                     z: 15
                 },
+
                 { label: '5MA', data: ma5, borderColor: '#f59e0b', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, yAxisID: 'y' },
                 { label: '20MA', data: ma20, borderColor: '#10b981', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
                 { label: '60MA', data: ma60, borderColor: '#8b5cf6', borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' },
@@ -719,16 +737,20 @@
                 { label: '布林下軌', data: bbLower, borderColor: 'rgba(56, 189, 248, 0.8)', borderWidth: 1.5, borderDash: [5, 5], pointRadius: 0, fill: '-1', backgroundColor: 'rgba(56, 189, 248, 0.12)', yAxisID: 'y' },
                 { type: 'bar', label: '成交量', data: volumes, backgroundColor: 'rgba(239, 68, 68, 0.2)', yAxisID: 'y1' }
             ];
+
             if (myPortfolio[stock.symbol]) {
                 const entryPrice = myPortfolio[stock.symbol].entryPrice; const entryPriceLine = new Array(labels.length).fill(entryPrice);
                 datasets.push({ label: `我的成本 ($${entryPrice})`, data: entryPriceLine, borderColor: '#facc15',  borderWidth: 3, borderDash: [10, 5], pointRadius: 0, fill: false, z: 50, yAxisID: 'y' });
             }
+
             const ctxPrice = document.getElementById('historyChart').getContext('2d');
             if(priceChart) priceChart.destroy();
             priceChart = new Chart(ctxPrice, { type: 'line', data: { labels: labels, datasets: datasets }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { position: 'left', grid: { color: 'rgba(255,255,255,0.05)' } }, y1: { position: 'right', grid: { drawOnChartArea: false } }, x: { display: false } }, plugins: { legend: { labels: { color: '#cbd5e1', font: {size: 11} } } } } });
+            
             const ctxMacd = document.getElementById('macdChart').getContext('2d');
             if(macdChart) macdChart.destroy();
             macdChart = new Chart(ctxMacd, { type: 'bar', data: { labels: labels, datasets: [ { type: 'line', label: 'MACD 快線', data: macd, borderColor: '#0ea5e9', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'line', label: 'Signal 慢線', data: macdSignal, borderColor: '#eab308', borderWidth: 1.5, pointRadius: 0, tension: 0.3 }, { type: 'bar', label: 'MACD 柱狀圖', data: macdHist, backgroundColor: macdHist.map(v => v >= 0 ? 'rgba(239, 68, 68, 0.6)' : 'rgba(34, 197, 94, 0.6)') } ] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: false } }, plugins: { legend: { display: false } } } });
+            
             const ctxRsi = document.getElementById('rsiChart').getContext('2d');
             if(rsiChart) rsiChart.destroy();
             rsiChart = new Chart(ctxRsi, { type: 'line', data: { labels: labels, datasets: [{ label: 'RSI (熱度)', data: rsis, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false }, scales: { y: { min: 10, max: 90, ticks: { stepSize: 20, color: '#94a3b8' }, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { display: true, ticks: {color: '#64748b'} } }, plugins: { legend: { display: false } } } });
