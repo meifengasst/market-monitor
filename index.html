@@ -221,23 +221,124 @@
         </div>
     </div>
     
-    <div id="rulesModal" onclick="if(event.target === this) closeModal('rulesModal')" class="fixed inset-0 bg-black/90 hidden z-[80] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
-        <div class="bg-slate-800 rounded-3xl w-full max-w-3xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh] cursor-auto">
+<div id="rulesModal" onclick="if(event.target === this) closeModal('rulesModal')" class="fixed inset-0 bg-black/90 hidden z-[80] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300 cursor-pointer">
+        <div class="bg-slate-800 rounded-3xl w-full max-w-4xl border border-slate-600 shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh] cursor-auto">
             <div class="p-6 border-b border-slate-700 flex justify-between items-center bg-slate-800/50 rounded-t-3xl shrink-0">
-                <div><h3 class="text-2xl font-black text-blue-400 flex items-center gap-2"><span>💡</span> 阿土伯實戰心法與術語寶典</h3><p class="text-slate-400 text-sm mt-1 font-bold">進場前先唸三遍，保證不當韭菜</p></div>
+                <div>
+                    <h3 class="text-2xl font-black text-blue-400 flex items-center gap-2"><span>💡</span> 阿土伯實戰心法與術語寶典</h3>
+                    <p class="text-slate-400 text-sm mt-1 font-bold">進場前先唸三遍，保證不當韭菜</p>
+                </div>
                 <button onclick="closeModal('rulesModal')" class="text-slate-400 hover:text-red-500 text-4xl font-black transition-colors">&times;</button>
             </div>
             <div class="p-6 bg-slate-900 rounded-b-3xl overflow-y-auto flex-grow custom-scrollbar space-y-8">
+                
                 <div>
-                    <h2 class="text-xl font-black text-blue-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2"><span>📜</span> 進出最高指導原則</h2>
-                    <div class="bg-black/40 p-5 rounded-2xl border border-white/10 shadow-[0_0_10px_rgba(255,255,255,0.05)] mb-8">
-                        <p class="text-slate-300 leading-relaxed text-sm space-y-2">
-                            <span class="block"><span class="text-red-400 font-bold inline-block w-24">【做多條件】</span> 股價必須站上 20MA (月線)！</span>
-                            <span class="block"><span class="text-green-400 font-bold inline-block w-24">【空手觀望】</span> 股價跌破 20MA，絕對不摸底接刀！</span>
-                            <span class="block"><span class="text-purple-400 font-bold inline-block w-24">【無情停損】</span> 跌破系統算出的防線，無條件砍單，嚴禁凹單！</span>
+                    <h2 class="text-xl font-black text-yellow-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+                        <span class="animate-bounce">🎯</span> 閃閃發光！「絕佳進場」三大要件
+                    </h2>
+                    <div class="bg-gradient-to-br from-yellow-900/40 to-slate-900 p-5 rounded-2xl border border-yellow-500/50 shadow-[0_0_15px_rgba(234,179,8,0.2)] mb-2">
+                        <p class="text-slate-300 text-sm mb-4 leading-relaxed">
+                            少年仔，當你看到儀表板上的股票卡片<span class="text-yellow-400 font-black">邊框閃爍金光</span>，還掛著「🎯 絕佳進場訊號」時，代表這檔股票同時滿足了系統最嚴格的三大飆股起漲條件，這時候跟著大戶上車準沒錯：
                         </p>
+                        <div class="space-y-3">
+                            <div class="flex items-start gap-3">
+                                <span class="text-xl">🔥</span>
+                                <div>
+                                    <p class="text-red-400 font-black text-sm">要件一：量能爆發 (成交量大於均量 2.5 倍)</p>
+                                    <p class="text-slate-400 text-xs mt-1">阿土伯說：「新手看價，老手看量。」量能放大代表有主力或大戶真金白銀砸進來了，這不是散戶買得出來的！</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-xl">🚀</span>
+                                <div>
+                                    <p class="text-green-400 font-black text-sm">要件二：強勢多頭 (站上 20MA 且贏過大盤)</p>
+                                    <p class="text-slate-400 text-xs mt-1">股價必須在月線之上（順勢而為），而且相對強弱分數 (RS) 為正，代表它比大盤還會漲，是資金避風港。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="text-xl">🌡️</span>
+                                <div>
+                                    <p class="text-pink-400 font-black text-sm">要件三：動能溫熱 (RSI 剛好落在 55 ~ 65)</p>
+                                    <p class="text-slate-400 text-xs mt-1">太冷(低於30)代表死魚盤，太熱(高於70)容易追高被當韭菜割。55~65 就像引擎剛熱好身，隨時準備噴發！</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div>
+                    <h2 class="text-xl font-black text-blue-400 mb-4 flex items-center gap-2 border-b border-slate-700 pb-2"><span>📊</span> 戰情圖表與術語大解密</h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-sm">
+                        
+                        <div class="bg-black/20 p-5 rounded-2xl border border-white/5 hover:border-pink-500/50 transition-colors relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20"></div>
+                            <h3 class="text-pink-400 font-black text-base mb-1">🕸️ ATR 移動停利網</h3>
+                            <p class="text-slate-400 text-xs font-bold mb-2">圖表上的「粉紅階梯線」</p>
+                            <p class="text-slate-300 leading-relaxed text-xs mb-2">
+                                根據股價真實波動(ATR)算出來的安全網。這條線**「只會跟著股價往上爬，絕對不會下降」**！
+                            </p>
+                            <p class="text-slate-400 text-[11px] bg-slate-800/50 p-2 rounded-lg">👉 **用法：** 只要 K 線沒跌破這條階梯，你就死死抱著讓利潤奔跑；一跌破就無情砍單，把賺到的錢放進口袋！</p>
+                        </div>
+
+                        <div class="bg-black/20 p-5 rounded-2xl border border-white/5 hover:border-sky-500/50 transition-colors relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-sky-500/10 rounded-full blur-2xl group-hover:bg-sky-500/20"></div>
+                            <h3 class="text-sky-400 font-black text-base mb-1">🛣️ 布林上下軌 (Bollinger Bands)</h3>
+                            <p class="text-slate-400 text-xs font-bold mb-2">圖表上的「藍色虛線通道」</p>
+                            <p class="text-slate-300 leading-relaxed text-xs mb-2">
+                                把股價想像成在高速公路上開車，上軌和下軌就是左右護欄。高達 95% 的時間股價都會在裡面震盪。
+                            </p>
+                            <p class="text-slate-400 text-[11px] bg-slate-800/50 p-2 rounded-lg">👉 **用法：** 撞到上軌容易回檔，跌到下軌容易反彈。但如果通道「突然開口放大」且股價貼著上軌走，代表要飆大波段啦！</p>
+                        </div>
+
+                        <div class="bg-black/20 p-5 rounded-2xl border border-white/5 hover:border-blue-500/50 transition-colors relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20"></div>
+                            <h3 class="text-blue-400 font-black text-base mb-1">⚡ MACD 快慢線與柱狀圖</h3>
+                            <p class="text-slate-400 text-xs font-bold mb-2">下方的「藍黃線與紅綠柱子」</p>
+                            <p class="text-slate-300 leading-relaxed text-xs mb-2">
+                                藍色是快線(短期趨勢)，黃色是慢線(長期趨勢)，柱狀圖是兩者的距離（能量條）。
+                            </p>
+                            <p class="text-slate-400 text-[11px] bg-slate-800/50 p-2 rounded-lg space-y-1">
+                                👉 **黃金交叉：** 藍線由下往上穿過黃線，準備踩油門做多。<br>
+                                👉 **看柱子：** 紅柱變長代表多頭氣盛；如果紅柱開始縮水，代表油門鬆了，隨時準備轉向！
+                            </p>
+                        </div>
+
+                        <div class="bg-black/20 p-5 rounded-2xl border border-white/5 hover:border-red-500/50 transition-colors relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-red-500/10 rounded-full blur-2xl group-hover:bg-red-500/20"></div>
+                            <h3 class="text-red-400 font-black text-base mb-1">🔥 RSI 熱度指標</h3>
+                            <p class="text-slate-400 text-xs font-bold mb-2">最下方的「粉紅波浪線」</p>
+                            <p class="text-slate-300 leading-relaxed text-xs mb-2">
+                                股票的「人氣溫度計」。數值在 0 到 100 之間跳動。
+                            </p>
+                            <p class="text-slate-400 text-[11px] bg-slate-800/50 p-2 rounded-lg space-y-1">
+                                👉 **> 70 (超買)：** 餐廳大排長龍，大家都在搶，這時候追高容易洗碗當韭菜。<br>
+                                👉 **< 30 (超賣)：** 沒人要的冷門股，可能滿地鮮血，是老手開始找黃金的時刻。
+                            </p>
+                        </div>
+
+                        <div class="bg-black/20 p-5 rounded-2xl border border-white/5 hover:border-green-500/50 transition-colors relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-green-500/10 rounded-full blur-2xl group-hover:bg-green-500/20"></div>
+                            <h3 class="text-green-400 font-black text-base mb-1">📈 20MA (月線)</h3>
+                            <p class="text-slate-400 text-xs font-bold mb-2">圖表上的「綠色實線」</p>
+                            <p class="text-slate-300 leading-relaxed text-xs mb-2">
+                                阿土伯系統的「多空生命線」。代表過去 20 天進場的人的平均成本。
+                            </p>
+                            <p class="text-slate-400 text-[11px] bg-slate-800/50 p-2 rounded-lg">👉 **用法：** 股價站上綠線，代表現在買的人都賺錢，綠燈可通行；跌破綠線，代表大家都套牢了，紅燈嚴禁接刀！</p>
+                        </div>
+
+                        <div class="bg-black/20 p-5 rounded-2xl border border-white/5 hover:border-purple-500/50 transition-colors relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20"></div>
+                            <h3 class="text-purple-400 font-black text-base mb-1">👑 主力 POC (籌碼密集區)</h3>
+                            <p class="text-slate-400 text-xs font-bold mb-2">阿土伯的隱藏黑科技</p>
+                            <p class="text-slate-300 leading-relaxed text-xs mb-2">
+                                系統抓取近半年成交量最大的那個「價格區間」，這就是主力的成本底線！
+                            </p>
+                            <p class="text-slate-400 text-[11px] bg-slate-800/50 p-2 rounded-lg">👉 **用法：** 股價在 POC 附近有強力鐵板支撐；但如果股價跌破 POC，代表連主力都被套牢了，上方壓力如山大，快逃！</p>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
