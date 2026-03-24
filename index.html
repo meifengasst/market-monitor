@@ -7,6 +7,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        @keyframes pulse-slow {
+            0%, 100% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.7); border-color: rgba(239, 68, 68, 0.9); }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
@@ -102,6 +109,26 @@
                     <input type="text" id="searchInput" placeholder="🔍 搜尋代號或名稱..." class="w-full md:w-72 bg-slate-800 border border-slate-600 rounded-xl px-5 py-3 text-base focus:outline-none focus:border-blue-500 shadow-inner">
                 </div>
             </header>
+            <div id="bloodbath-alert-section" class="mb-8 hidden">
+                <div class="bg-gradient-to-br from-red-900/80 to-slate-900 border-2 border-red-500 rounded-[2rem] p-6 lg:p-8 shadow-[0_0_30px_rgba(239,68,68,0.5)] relative overflow-hidden group animate-pulse-slow">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-500/20 rounded-full blur-3xl"></div>
+                    
+                    <div class="flex items-center gap-3 mb-4 relative z-10">
+                        <span class="text-4xl">🚨</span>
+                        <div>
+                            <h3 class="text-red-400 font-black tracking-widest text-2xl uppercase">阿土伯極限抄底警報</h3>
+                            <p class="text-red-300/80 text-sm font-bold mt-1">大屠殺模式已啟動，滿地都是帶血的鑽石</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-black/50 p-6 rounded-2xl border border-red-500/30 shadow-inner relative z-10">
+                        <div class="absolute -left-3 -top-3 text-4xl opacity-80">💬</div>
+                        <p id="bloodbath-report-text" class="text-slate-200 text-lg lg:text-xl font-bold leading-relaxed tracking-wide whitespace-pre-line">
+                            載入戰略報告中...
+                        </p>
+                    </div>
+                </div>
+            </div>
 
             <div class="mb-8 bg-slate-800/80 border border-slate-600 rounded-[2rem] p-6 lg:p-8 shadow-2xl relative overflow-hidden backdrop-blur-md group hover:border-purple-500/50 transition-colors">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-blue-500 to-purple-500"></div>
@@ -647,6 +674,19 @@
                 }
 
                 if (json.market_health) {
+                    // 🚨 處理大屠殺抄底警報區
+                    let bloodbathSection = document.getElementById('bloodbath-alert-section');
+                    let bloodbathReportEl = document.getElementById('bloodbath-report-text');
+                    
+                    // 假設你的 data.json 裡面，o3-mini 寫的報告存在 json.market_health.bloodbath_report 裡面
+                    // （請確保你在 Python 端有把 generate_bloodbath_report_o3 的回傳值塞進 data.json 中）
+                    if (json.market_health.bloodbath_report && !json.market_health.bloodbath_report.includes("市場無大級別恐慌")) {
+                        bloodbathSection.classList.remove('hidden');
+                        bloodbathReportEl.innerText = json.market_health.bloodbath_report;
+                    } else {
+                        bloodbathSection.classList.add('hidden');
+                    }
+                }
                     let hd = json.market_health; document.getElementById('health-score').innerText = `${hd.health_pct}%`;
                     document.getElementById('health-bar').style.width = `${hd.health_pct}%`;
                     document.getElementById('health-bar').className = `h-full transition-all duration-1000 ease-out ${hd.health_pct >= 70 ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)]' : (hd.health_pct <= 30 ? 'bg-green-500' : 'bg-yellow-500')}`;
