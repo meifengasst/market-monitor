@@ -359,6 +359,7 @@
         window.checkPassword = function() {
             const input = document.getElementById('passInput').value;
             const SECRET_HASH = "58b29e0dbcc7656669bf48d88b48873fb260907d4b79b6d610eb67cd6e4544d1"; 
+            if (!input) return;
             const inputHash = CryptoJS.SHA256(input).toString(); 
 
             if (inputHash === SECRET_HASH) { 
@@ -431,6 +432,19 @@
             document.getElementById('tradeModal').classList.add('opacity-0');
             document.getElementById('tradeModalContent').classList.add('scale-95');
             setTimeout(() => document.getElementById('tradeModal').classList.add('hidden'), 300);
+        }
+
+        // 新增的賣出視窗函數
+        function openSellModal(symbol, currentPrice) {
+            let trade = myPortfolio[symbol];
+            if (!trade) return;
+            document.getElementById('sellModal').classList.remove('hidden');
+            setTimeout(() => { document.getElementById('sellModal').classList.remove('opacity-0'); document.getElementById('sellModalContent').classList.remove('scale-95'); }, 10);
+            document.getElementById('sellSymbol').innerText = symbol;
+            document.getElementById('sellCurrentShares').innerText = trade.shares;
+            document.getElementById('sellPrice').value = currentPrice;
+            document.getElementById('sellShares').value = "";
+            document.getElementById('sellTotalCalc').classList.add('hidden');
         }
 
         const GITHUB_OWNER = "meifengasst"; 
