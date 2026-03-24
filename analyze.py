@@ -420,7 +420,84 @@ def get_smart_money_flow(symbol):
     except Exception as e:
         print(f"⚠️ 大戶照妖鏡掃描失敗: {e}")
         return "大戶動向偵測失敗"
+# 💡 阿土伯黑科技 4：恐慌大屠殺生還者雷達 (Bloodbath Survivors)
+def scan_bloodbath_survivors(vix_current, vix_threshold=40):
+    print(f"🩸 [恐慌雷達] 目前 VIX: {vix_current}，觸發門檻: {vix_threshold}")
+    
+    # 沒到恐慌極點，我們把刀收起來，繼續泡茶
+    if vix_current < vix_threshold:
+        print("🟢 市場還沒到極度恐慌，阿土伯不出手。")
+        return []
 
+    print("🚨🚨 VIX 破表！大屠殺開始，阿土伯戴上鋼盔準備撿屍！🚨🚨")
+
+    # 阿土伯的「優質好骨骼」觀測名單 (可自行擴充)
+    # 建議放：金融股、老牌傳產、大型電子權值股、高息ETF
+    hunting_list = [
+        "2886.TW", "2884.TW", "2891.TW", "2892.TW", # 兆豐、玉山、中信、第一
+        "1101.TW", "1102.TW", "2002.TW", "1301.TW", # 台泥、亞泥、中鋼、台塑
+        "2308.TW", "2382.TW", "3231.TW", "2356.TW", # 台達電、廣達、緯創、英業達
+        "0056.TW", "00878.TW", "00713.TW"           # 防禦型 ETF
+    ]
+    
+    survivors = []
+
+    for symbol in hunting_list:
+        try:
+            # 1. 抓取基本面 (PBR 與 殖利率)
+            info = yf.Ticker(symbol).info
+            
+            pbr = info.get('priceToBook', 999) # 抓不到就給 999 讓他過濾掉
+            yield_pct = info.get('dividendYield', 0)
+            
+            # 將殖利率轉成百分比格式
+            yield_pct = (yield_pct * 100) if yield_pct else 0
+
+            # 【條件 3 & 4】：股價淨值比 < 1.2 且 殖利率 >= 8%
+            if pbr >= 1.2 or yield_pct < 8:
+                continue # 基本面沒過，直接換下一檔，省去抓歷史股價的時間
+
+            # 2. 抓取「月線」歷史資料算 KD (需要至少 5 年資料來跑月線)
+            df_month = yf.download(symbol, period="5y", interval="1mo", progress=False)
+            if df_month.empty or len(df_month) < 14:
+                continue
+
+            # 處理 yfinance 多重索引問題
+            if isinstance(df_month.columns, pd.MultiIndex):
+                df_month.columns = df_month.columns.droplevel(1)
+
+            # 3. 計算月 KD (參數 9, 3, 3)
+            # RSV = (今日收盤價 - 最近9個月最低價) / (最近9個月最高價 - 最近9個月最低價) * 100
+            df_month['RSV'] = 100 * (df_month['Close'] - df_month['Low'].rolling(9).min()) / (df_month['High'].rolling(9).max() - df_month['Low'].rolling(9).min())
+            
+            # K = 2/3 * (昨日K值) + 1/3 * (今日RSV) -> Pandas 裡用 ewm(com=2) 替代
+            df_month['K'] = df_month['RSV'].ewm(com=2, adjust=False).mean()
+            df_month['D'] = df_month['K'].ewm(com=2, adjust=False).mean()
+
+            last_k = df_month['K'].iloc[-1]
+            last_d = df_month['D'].iloc[-1]
+
+            # 【條件 2】：月 K < 30 且 月 D < 30 (低檔鈍化或打底)
+            if last_k < 30 and last_d < 30:
+                stock_name = info.get('shortName', symbol)
+                current_price = round(df_month['Close'].iloc[-1], 2)
+                
+                print(f"🎯 逮到獵物！{stock_name} ({symbol}) 通過阿土伯四重考驗！")
+                
+                survivors.append({
+                    "symbol": symbol,
+                    "name": stock_name,
+                    "price": current_price,
+                    "pbr": round(pbr, 2),
+                    "yield": round(yield_pct, 2),
+                    "month_k": round(last_k, 2),
+                    "month_d": round(last_d, 2)
+                })
+
+        except Exception as e:
+            print(f"⚠️ 掃描 {symbol} 失敗: {e}")
+            
+    return survivors
 # 💡 在你設定環境變數的地方加入 FMP_API_KEY
 # FMP_API_KEY = os.environ.get("FMP_API_KEY")
 def get_fundamental_risk_o3(symbol, stock_name):
@@ -783,6 +860,20 @@ def generate_dashboard_data():
 
     print("📊 準備結算並產出 JSON 報表...")
     us_market_data = get_us_market_summary()
+    # 取出 VIX 恐慌指數，如果沒抓到預設為 0
+    current_vix = us_market_data.get("恐慌指數", {}).get("price", 0) if isinstance(us_market_data, dict) else 0
+    
+    # 🚀 啟動阿土伯的恐慌雷達 (為了平常可以測試，你可以先把 vix_threshold 設成 15 或 20 跑跑看)
+    survivors_list = scan_bloodbath_survivors(current_vix, vix_threshold=40)
+    
+    if survivors_list:
+        alert_msg = "🚨【阿土伯血拚警報】大屠殺生還者出列！🚨\n\n市場極度恐慌，但以下標的已跌出『黃金價值』：\n"
+        for s in survivors_list:
+            alert_msg += f"\n💰 {s['name']} ({s['symbol']})\n現價: ${s['price']} | 殖利率: {s['yield']}%\n淨值比: {s['pbr']} | 月K: {s['month_k']}"
+        alert_msg += "\n\n請留意資金控管，分批建倉！"
+        
+        # 呼叫你原本寫好的 TG 警報器發送到手機
+        send_telegram_alert(alert_msg)
     # 💡 1. 呼叫雷達
     sector_data = get_sector_rotation()
     morning_script = generate_morning_script_o3(us_market_data, sector_data)
