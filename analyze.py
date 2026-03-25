@@ -1078,7 +1078,7 @@ def generate_dashboard_data():
                 "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
             })
 
-        except Exception as e:
+            except Exception as e:
             print(f"⚠️ 處理 {symbol} 時發生錯誤: {e}")
             
         print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
