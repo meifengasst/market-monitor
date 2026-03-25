@@ -196,9 +196,10 @@ def get_ai_news_sentiment(stock_name, symbol):
         return [{"title": "新聞掃雷器故障或限速中", "sentiment": "未判定", "link": "#", "date": "未知"}]
 
 def get_us_market_summary():
-    symbols = {"SPY": "標普500", "SOXX": "費城半導體", "TSM": "台積電ADR", "^VIX": "恐慌指數"}
+    # 💡 阿土伯升級：加入紐約原油 (CL=F) 作為通膨與傳產的領先指標
+    symbols = {"SPY": "標普500", "SOXX": "費城半導體", "TSM": "台積電ADR", "^VIX": "恐慌指數", "CL=F": "紐約原油"}
     summary = {}
-    print("🌍 阿土伯正在收集昨夜美股戰報...")
+    print("🌍 阿土伯正在收集昨夜美股與原油戰報...")
     for sym, name in symbols.items():
         try:
             data = yf.download(sym, period="5d", progress=False)
@@ -326,36 +327,36 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, r
     except Exception as e:
         return {"pattern": "連線異常", "bull": "API中斷", "bear": "API中斷", "trap": "API中斷", "stop_price": current_price*0.95, "sizing": "防禦狀態", "action": "觀望"}
 
-# 💡 阿土伯晨間戰報升級：結構化 JSON 輸出
-def generate_morning_script_o3(market_data, sector_data):
-    openai_api_key = os.environ.get("OPENAI_API_KEY")
-    if not openai_api_key:
-        return {"sentiment": "未知", "title": "未設定 API 金鑰", "conclusion": "無法連線戰略大腦", "metrics": [], "sector_lights": []}
-
-    data_str = ", ".join([f"{k}: 收 {v['price']} (變化 {v['pct']}%)" for k, v in market_data.items() if isinstance(v, dict)])
-    sector_str = ", ".join([f"{s['name']}(動能 {s['rs']}%)" for s in sector_data]) if sector_data else "無資料"
-    
+    # 💡 阿土伯晨間戰報升級：結構化 JSON 輸出
     system_prompt = """
     你現在是台灣股市老手「阿土伯」，極度重視風險控制與資金輪動。
-    請根據提供的【昨夜美股數據】與【板塊資金流向】，撰寫一份專業的晨間戰報。
+    請根據提供的【昨夜美股/原油數據】與【板塊資金流向】，撰寫一份專業的晨間戰報。
     
-    【重要指令】：必須嚴格輸出為 JSON 格式，且使用台灣股民熟悉的用語。
-    JSON 結構如下：
+    【🔥 極度重要指令：嚴禁打高空】
+    當你判斷某個產業受惠或受害時（例如：原油大漲利多塑化、原油大跌利多航運/耗能、VIX大漲利多防禦型），絕對不能只講「能源股」或「航運股」這種模糊字眼！
+    你【必須直接點名 2~3 檔台股最具代表性的指標股】。
+    例如：
+    - 若油價跌/航運旺：請明確標示 長榮(2603)、華航(2610)、台驊投控(2636)
+    - 若油價漲/塑化旺：請明確標示 台塑化(6505)、台南企業(1473)
+    - 若資金避險：請明確標示 中華電(2610)、兆豐金(2886)
+    請把這些具體標的寫進你的 reason 或 conclusion 裡，不要讓操盤手大海撈針！
+
+    【輸出格式】：嚴格輸出為純 JSON 格式。
     {
         "sentiment": "填入一個詞：偏多 / 中性 / 偏空 / 恐慌",
-        "title": "今日一句話懶人包 (例如：美股回檔，台股個股分歧，資金轉往防禦)",
+        "title": "今日一句話懶人包 (例如：油價崩跌航運吃補，避開半導體回檔)",
         "metrics": [
-            {"label": "VIX 恐慌指數", "value": "提取VIX數值", "status": "正常(綠)/警戒(黃)/危險(紅)"},
-            {"label": "台積電ADR", "value": "提取漲跌幅", "status": "強勢(綠)/弱勢(紅)"}
+            {"label": "VIX 恐慌指數", "value": "提取數值", "status": "正常(綠)/警戒(黃)/危險(紅)"},
+            {"label": "紐約原油", "value": "提取漲跌幅", "status": "強勢(紅)/弱勢(綠)"}
         ],
         "sector_lights": [
             {
-                "sector": "板塊名稱 (根據資金流向資料，例如：美股科技、台股高息)",
-                "color": "red / yellow / green (根據動能正負決定)",
-                "reason": "阿土伯的白話點評，必須包含數據，例如：動能轉弱，資金撤出跡象明顯 (約20字)"
+                "sector": "板塊名稱",
+                "color": "red / yellow / green",
+                "reason": "阿土伯點評，若有受惠受害產業，『必須』在這裡點出具體的台股代號與名稱！(約30字)"
             }
         ],
-        "conclusion": "昨日收盤總結與今日資金曝險建議 (明確給出資金成數建議，約80字)"
+        "conclusion": "昨日收盤總結與今日資金曝險建議，並可再次重申今日該盯緊哪幾檔具體標的 (約80字)"
     }
     """
     user_prompt = f"昨夜美股：{data_str}。\n資金流向：{sector_str}。\n請輸出阿土伯紅綠燈戰報 JSON！"
