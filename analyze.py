@@ -1060,14 +1060,14 @@ def generate_dashboard_data():
             current_vol = df['Volume'].iloc[-1]
             real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
 
-            # 把所有資料塞進便當盒
+# 把所有資料塞進便當盒
             dashboard_data.append({
                 "symbol": symbol, 
                 "name": info["name"], 
                 "category": info["category"],
                 "price": current_price, 
-                "history": hist,                 # 👈 這些你原本都有的
-                "vol_ratio": vol_ratio,          # 👈 這些你原本都有的
+                "history": hist,
+                "vol_ratio": vol_ratio,
                 "smart_money": smart_money_insight, 
                 "poc_price": poc_price,
                 "actual_sl": actual_sl,
@@ -1077,11 +1077,11 @@ def generate_dashboard_data():
                 "funda_summary": funda_insight, 
                 "best_ma_name": best_ma_name,        
                 "best_ma_price": best_ma_price,
-                "event_warning": event_warning,  # 👈 我們剛剛加的財報警告
+                "event_warning": event_warning,
                 "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
-            })  # 👈 🔪 兇手就是它！你一定是少了這行 `})` ，或者是縮排跑掉了！
+            })  # 👈 🔪 就是這行！大括號跟圓括號必須在這裡關起來！
 
-            except Exception as e:  # 👈 導致這裡無辜被牽連報錯
+        except Exception as e:
             print(f"⚠️ 分析 {symbol} 時發生錯誤: {e}")
             continue
         print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
