@@ -905,7 +905,7 @@ def generate_dashboard_data():
 
     for symbol, info in STOCKS.items():
             print(f"處理中: {symbol}")
-        
+            try:
             df = get_stock_kbars(symbol)
             
             if df.empty or len(df) < 60:
