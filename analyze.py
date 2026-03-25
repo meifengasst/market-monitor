@@ -1060,7 +1060,7 @@ def generate_dashboard_data():
                 current_vol = df['Volume'].iloc[-1]
                 real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
     
-    # 把所有資料塞進便當盒
+                # 把所有資料塞進便當盒
                 dashboard_data.append({
                     "symbol": symbol, 
                     "name": info["name"], 
