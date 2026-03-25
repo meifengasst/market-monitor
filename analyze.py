@@ -663,6 +663,57 @@ def get_upcoming_events(symbol):
         return " & ".join(events) if events else None
     except:
         return None
+# 💡 阿土伯黑科技 8：智慧雙引擎取價系統 (台股 FinMind + 總經 Yahoo)
+def get_stock_kbars(symbol):
+    # 判斷邏輯：如果是台股 (.TW 或 .TWO 結尾)，就呼叫 FinMind 神兵
+    if symbol.endswith(".TW") or symbol.endswith(".TWO"):
+        stock_id = symbol.split(".")[0]
+        print(f"🇹🇼 [FinMind 引擎] 抓取台股 {stock_id} 精準 K 線...")
+        try:
+            # 抓取近半年的資料 (約 180 天)
+            start_date = (datetime.now() - timedelta(days=180)).strftime("%Y-%m-%d")
+            url = f"https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockPrice&data_id={stock_id}&start_date={start_date}"
+            res = requests.get(url, timeout=10)
+            data = res.json()
+            
+            if data.get("msg") == "success" and len(data.get("data", [])) > 0:
+                df = pd.DataFrame(data["data"])
+                
+                # 🔥 阿土伯的魔術：把 FinMind 的小寫欄位名稱，換成跟 Yahoo 一模一樣的大寫名稱
+                # 這樣你後面的 MACD, RSI, 布林通道程式碼，連一行都不用改！
+                df = df.rename(columns={
+                    'date': 'Date', 
+                    'open': 'Open', 
+                    'max': 'High', 
+                    'min': 'Low', 
+                    'close': 'Close', 
+                    'Trading_Volume': 'Volume'
+                })
+                
+                # 把日期變成索引 (Index)
+                df['Date'] = pd.to_datetime(df['Date'])
+                df.set_index('Date', inplace=True)
+                
+                # 確保所有價格都是數字格式
+                for col in ['Open', 'High', 'Low', 'Close', 'Volume']:
+                    df[col] = pd.to_numeric(df[col], errors='coerce')
+                    
+                return df
+            else:
+                print(f"⚠️ FinMind 查無 {stock_id} 資料")
+                return pd.DataFrame()
+        except Exception as e:
+            print(f"⚠️ FinMind 連線失敗: {e}")
+            return pd.DataFrame()
+            
+    # 如果是美股或原油、VIX，就切換回 Yahoo 引擎
+    else:
+        print(f"🌎 [Yahoo 引擎] 抓取全球指標 {symbol} K 線...")
+        try:
+            return yf.download(symbol, period="6mo", progress=False)
+        except Exception as e:
+            print(f"⚠️ Yahoo 連線失敗: {e}")
+            return pd.DataFrame()
 # 💡 在你設定環境變數的地方加入 FMP_API_KEY
 # FMP_API_KEY = os.environ.get("FMP_API_KEY")
 def get_fundamental_risk_o3(symbol, stock_name):
@@ -855,26 +906,15 @@ def generate_dashboard_data():
     for symbol, info in STOCKS.items():
         print(f"處理中: {symbol}")
         
-        try:
-            df = yf.download(symbol, start="2021-01-01", progress=False)
-            if df.empty: continue
-            if isinstance(df.columns, pd.MultiIndex): df.columns = df.columns.droplevel(1)
+            df = get_stock_kbars(symbol)
+            
+            if df.empty or len(df) < 60:
+                print(f"⚠️ {symbol} 資料不足或連線失敗，跳過。")
+                continue
                 
-            if not symbol.endswith(".TW"):
-                finnhub_key = os.environ.get("FINNHUB_API_KEY")
-                if finnhub_key:
-                    try:
-                        res = requests.get(f"https://finnhub.io/api/v1/quote?symbol={symbol}&token={finnhub_key}", timeout=5)
-                        if res.status_code == 200:
-                            real_time_price = res.json().get('c')
-                            if real_time_price and real_time_price > 0:
-                                df.iloc[-1, df.columns.get_loc('Close')] = round(real_time_price, 2)
-                                print(f"⚡ {symbol} 成功獲取 Finnhub 即時報價: {real_time_price}")
-                    except Exception as e:
-                        print(f"⚠️ {symbol} Finnhub 報價失敗，退回歷史收盤價")
-            else:
-                try: df.iloc[-1, df.columns.get_loc('Close')] = round(yf.Ticker(symbol).fast_info.get('lastPrice', df['Close'].iloc[-1]), 2)
-                except: pass
+            # 處理多層 MultiIndex 問題 (針對新版 yfinance 的相容性處理)
+            if isinstance(df.columns, pd.MultiIndex):
+                df.columns = df.columns.droplevel(1)
             
             df['ma5'] = df['Close'].rolling(window=5).mean()
             df['ma10'] = df['Close'].rolling(window=10).mean()
