@@ -1081,7 +1081,7 @@ def generate_dashboard_data():
                 "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
             })  # 👈 🔪 兇手就是它！你一定是少了這行 `})` ，或者是縮排跑掉了！
 
-        except Exception as e:  # 👈 導致這裡無辜被牽連報錯
+            except Exception as e:  # 👈 導致這裡無辜被牽連報錯
             print(f"⚠️ 分析 {symbol} 時發生錯誤: {e}")
             continue
         print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
