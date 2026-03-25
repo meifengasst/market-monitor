@@ -1087,7 +1087,7 @@ for symbol, info in STOCKS.items():
         print(f"⏳ {info['name']} 運算完畢，冷卻 15 秒鐘...")
         time.sleep(15)
         
-    print("📊 準備結算並產出 JSON 報表...")
+print("📊 準備結算並產出 JSON 報表...")
     us_market_data = get_us_market_summary()
     
     # 取出 VIX 恐慌指數，如果沒抓到預設為 0
