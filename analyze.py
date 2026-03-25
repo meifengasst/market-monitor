@@ -1067,7 +1067,7 @@ def generate_dashboard_data():
                 "category": info["category"],
                 "price": current_price, 
                 "history": hist,
-                "vol_ratio": vol_ratio,
+                "vol_ratio": real_vol_ratio,
                 "smart_money": smart_money_insight, 
                 "poc_price": poc_price,
                 "actual_sl": actual_sl,
