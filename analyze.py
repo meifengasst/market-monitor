@@ -903,8 +903,8 @@ def generate_dashboard_data():
     
     dashboard_data = []
 
-    for symbol, info in STOCKS.items():
-        print(f"處理中: {symbol}")
+        for symbol, info in STOCKS.items():
+            print(f"處理中: {symbol}")
         
             df = get_stock_kbars(symbol)
             
