@@ -1079,7 +1079,7 @@ def generate_dashboard_data():
                 "best_ma_price": best_ma_price,
                 "event_warning": event_warning,
                 "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
-            })  # 👈 🔪 就是這行！大括號跟圓括號必須在這裡關起來！
+            })
 
         except Exception as e:
             print(f"⚠️ 分析 {symbol} 時發生錯誤: {e}")
