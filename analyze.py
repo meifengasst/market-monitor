@@ -327,61 +327,83 @@ def get_unified_o3_brain(stock_name, current_price, ma20, rsi, atr, poc_price, r
     except Exception as e:
         return {"pattern": "連線異常", "bull": "API中斷", "bear": "API中斷", "trap": "API中斷", "stop_price": current_price*0.95, "sizing": "防禦狀態", "action": "觀望"}
 
-    # 💡 阿土伯晨間戰報升級：結構化 JSON 輸出
-    system_prompt = """
+# 💡 阿土伯晨間戰報升級：結構化 JSON 輸出
+# 💡 阿土伯晨間戰報升級：先過濾技術面，再給 AI 寫劇本
+def generate_morning_script_o3(market_data, sector_data, dashboard_data): # 👈 多加了 dashboard_data 參數
+    openai_api_key = os.environ.get("OPENAI_API_KEY")
+    if not openai_api_key:
+        return {"sentiment": "未知", "title": "未設定 API 金鑰", "conclusion": "無法連線戰略大腦", "metrics": [], "sector_lights": []}
+
+    # 1. 整理大盤與板塊資料
+    data_str = ", ".join([f"{k}: 收 {v['price']} (變化 {v['pct']}%)" for k, v in market_data.items() if isinstance(v, dict)])
+    sector_str = ", ".join([f"{s['name']}(動能 {s['rs']}%)" for s in sector_data]) if sector_data else "無資料"
+    
+    # 🛡️ 2. 阿土伯的嚴格守門員：過濾出「健康名單」
+    healthy_stocks = []
+    for d in dashboard_data:
+        try:
+            # 確保有歷史資料
+            if not d.get('history') or len(d['history']) == 0: continue
+            
+            last_hist = d['history'][-1]
+            ma20 = last_hist.get('ma20', 0)
+            rsi = d.get('rsi', 50)
+            
+            # 條件：股價必須大於 20MA (順勢) 且 RSI 不能大於 70 (沒過熱)
+            if d['price'] > ma20 and rsi < 70:
+                healthy_stocks.append(f"{d['name']}({d['symbol']})")
+        except:
+            continue
+            
+    # 把健康名單變成一段文字
+    healthy_str = "、".join(healthy_stocks) if healthy_stocks else "目前全軍覆沒，無強勢標的"
+
+    system_prompt = f"""
     你現在是台灣股市老手「阿土伯」，極度重視風險控制與資金輪動。
     請根據提供的【昨夜美股/原油數據】與【板塊資金流向】，撰寫一份專業的晨間戰報。
     
-    【🔥 極度重要指令：嚴禁打高空】
-    當你判斷某個產業受惠或受害時（例如：原油大漲利多塑化、原油大跌利多航運/耗能、VIX大漲利多防禦型），絕對不能只講「能源股」或「航運股」這種模糊字眼！
-    你【必須直接點名 2~3 檔台股最具代表性的指標股】。
-    例如：
-    - 若油價跌/航運旺：請明確標示 長榮(2603)、華航(2610)、台驊投控(2636)
-    - 若油價漲/塑化旺：請明確標示 台塑化(6505)、台南企業(1473)
-    - 若資金避險：請明確標示 中華電(2610)、兆豐金(2886)
-    請把這些具體標的寫進你的 reason 或 conclusion 裡，不要讓操盤手大海撈針！
+    【🔥 極度重要指令：嚴格過濾名單】
+    阿土伯的量化系統已經幫你篩選出目前技術面健康的「強勢股池」：[{healthy_str}]。
+    當你判斷某個產業受惠，需要在戰報中點名具體股票時，【絕對只能從上述的「強勢股池」中挑選】！
+    如果受惠的產業在池子裡沒有健康的股票，請直接點評：「相關族群目前技術面破線轉弱，建議觀望不接刀」。
+    絕對不可以推薦不在強勢股池裡的股票！
 
     【輸出格式】：嚴格輸出為純 JSON 格式。
-    {
+    {{
         "sentiment": "填入一個詞：偏多 / 中性 / 偏空 / 恐慌",
         "title": "今日一句話懶人包 (例如：油價崩跌航運吃補，避開半導體回檔)",
         "metrics": [
-            {"label": "VIX 恐慌指數", "value": "提取數值", "status": "正常(綠)/警戒(黃)/危險(紅)"},
-            {"label": "紐約原油", "value": "提取漲跌幅", "status": "強勢(紅)/弱勢(綠)"}
+            {{"label": "VIX 恐慌指數", "value": "提取數值", "status": "正常(綠)/警戒(黃)/危險(紅)"}},
+            {{"label": "紐約原油", "value": "提取漲跌幅", "status": "強勢(紅)/弱勢(綠)"}}
         ],
         "sector_lights": [
-            {
+            {{
                 "sector": "板塊名稱",
                 "color": "red / yellow / green",
-                "reason": "阿土伯點評，若有受惠受害產業，『必須』在這裡點出具體的台股代號與名稱！(約30字)"
-            }
+                "reason": "阿土伯點評，若有受惠產業，『必須』在這裡點出從強勢股池裡挑出的台股名單！(約30字)"
+            }}
         ],
-        "conclusion": "昨日收盤總結與今日資金曝險建議，並可再次重申今日該盯緊哪幾檔具體標的 (約80字)"
-    }
+        "conclusion": "昨日收盤總結與今日資金曝險建議，並重申今日該盯緊哪幾檔具體標的 (約80字)"
+    }}
     """
     user_prompt = f"昨夜美股：{data_str}。\n資金流向：{sector_str}。\n請輸出阿土伯紅綠燈戰報 JSON！"
 
     try:
-        print("🧠 呼叫 o3-mini 撰寫【升級版】晨間結構化戰報...")
+        print(f"🧠 呼叫 o3-mini 撰寫戰報 (已提供 {len(healthy_stocks)} 檔健康名單供其挑選)...")
         headers = {"Authorization": f"Bearer {openai_api_key}", "Content-Type": "application/json"}
         payload = {
             "model": "o3-mini", 
             "messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt}],
-            "response_format": {"type": "json_object"} # 👈 強制要求回傳 JSON
+            "response_format": {"type": "json_object"}
         }
-        
         res = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload, timeout=40)
         res.raise_for_status()
-        
         response_data = res.json()
         
         global TOTAL_TOKENS_USED
-        usage = response_data.get("usage", {})
-        TOTAL_TOKENS_USED += usage.get("total_tokens", 0)
+        TOTAL_TOKENS_USED += response_data.get("usage", {}).get("total_tokens", 0)
 
-        ai_text = response_data["choices"][0]["message"]["content"].strip()
-        return json.loads(ai_text) # 將字串轉成真正的 Python 字典
-
+        return json.loads(response_data["choices"][0]["message"]["content"].strip())
     except Exception as e:
         print(f"⚠️ 晨間戰報生成失敗: {e}")
         return {"sentiment": "異常", "title": "AI 戰情室連線異常", "conclusion": "請縮小部位觀望。", "metrics": [], "sector_lights": []}
@@ -1039,7 +1061,8 @@ def generate_dashboard_data():
         send_telegram_alert(f"🚨【阿土伯血拚警報啟動】🚨\n\n{bloodbath_report}")
     # 💡 1. 呼叫雷達
     sector_data = get_sector_rotation()
-    morning_script = generate_morning_script_o3(us_market_data, sector_data)
+    # 把我們算好的一大包 dashboard_data 傳給 AI 當作選股池
+    morning_script = generate_morning_script_o3(us_market_data, sector_data, dashboard_data)
 
     above_20ma_count = sum(1 for d in dashboard_data if d['price'] > d['history'][-1]['ma20'])
     health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
@@ -1068,5 +1091,4 @@ def generate_dashboard_data():
 
 if __name__ == "__main__": 
     generate_dashboard_data()
-
 
