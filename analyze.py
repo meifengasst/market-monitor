@@ -906,180 +906,180 @@ def generate_dashboard_data():
     for symbol, info in STOCKS.items():
             print(f"處理中: {symbol}")
             try:
-            df = get_stock_kbars(symbol)
-            
-            if df.empty or len(df) < 60:
-                print(f"⚠️ {symbol} 資料不足或連線失敗，跳過。")
-                continue
+                df = get_stock_kbars(symbol)
                 
-            # 處理多層 MultiIndex 問題 (針對新版 yfinance 的相容性處理)
-            if isinstance(df.columns, pd.MultiIndex):
-                df.columns = df.columns.droplevel(1)
-            
-            df['ma5'] = df['Close'].rolling(window=5).mean()
-            df['ma10'] = df['Close'].rolling(window=10).mean()
-            df['ma20'] = df['Close'].rolling(window=20).mean()
-            df['ma60'] = df['Close'].rolling(window=60).mean()
-            
-            best_ma_name = get_best_ma_strategy(df)
-            best_ma_col = 'ma' + best_ma_name.replace('MA', '') 
-            best_ma_price = round(df[best_ma_col].iloc[-1], 2) if not pd.isna(df[best_ma_col].iloc[-1]) else round(df['ma20'].iloc[-1], 2)
-            
-            df['std'] = df['Close'].rolling(20).std()
-            df['bb_upper'], df['bb_lower'] = df['ma20'] + 2 * df['std'], df['ma20'] - 2 * df['std']
-            df['macd'] = df['Close'].ewm(span=12).mean() - df['Close'].ewm(span=26).mean()
-            df['macd_signal'] = df['macd'].ewm(span=9).mean()
-            df['macd_hist'] = df['macd'] - df['macd_signal']
-            delta = df['Close'].diff()
-            df['rsi'] = 100 - (100 / (1 + (delta.where(delta > 0, 0).rolling(14).mean() / -delta.where(delta < 0, 0).rolling(14).mean())))
-            
-            df['prev_close'] = df['Close'].shift(1)
-            df['tr1'] = df['High'] - df['Low']
-            df['tr2'] = abs(df['High'] - df['prev_close'])
-            df['tr3'] = abs(df['Low'] - df['prev_close'])
-            df['tr'] = df[['tr1', 'tr2', 'tr3']].max(axis=1)
-            df['atr'] = df['tr'].rolling(window=14).mean()
-            # 💡 新增：計算 ATR 移動停利階梯線 (Chandelier Exit 邏輯)
-            ts_list = []
-            current_ts = 0
-            for i in range(len(df)):
-                if pd.isna(df['atr'].iloc[i]):
-                    ts_list.append(None)
+                if df.empty or len(df) < 60:
+                    print(f"⚠️ {symbol} 資料不足或連線失敗，跳過。")
                     continue
-                # 停損基準：最高價 - 2.5倍ATR (阿土伯愛用參數)
-                ideal_ts = df['High'].iloc[i] - (2.5 * df['atr'].iloc[i])
-                if current_ts == 0 or pd.isna(current_ts):
-                    current_ts = ideal_ts
-                else:
-                    # 只要沒跌破，安全網只升不降！
-                    if df['Close'].iloc[i-1] > current_ts:
-                        current_ts = max(current_ts, ideal_ts)
-                    else:
-                        current_ts = ideal_ts # 跌破後重新計算
-                ts_list.append(current_ts)
-            df['trailing_stop'] = ts_list
-            df['Signal'] = np.where(df['Close'] > df['ma20'], 1, np.where(df['Close'] < df['ma20'], -1, 0))
-            df = df.fillna(0)
-            
-            try:
-                market_idx = tw_idx if symbol.endswith(".TW") else us_idx
-                stock_ret_20 = (df['Close'].iloc[-1] - df['Close'].iloc[-20]) / df['Close'].iloc[-20]
-                idx_ret_20 = (market_idx['Close'].iloc[-1] - market_idx['Close'].iloc[-20]) / market_idx['Close'].iloc[-20]
-                rs_score = round((stock_ret_20 - idx_ret_20) * 100, 2)
-            except:
-                rs_score = 0
-            
-            best_sl, best_ev = 0.05, -999
-            for sl in [0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12]:
-                res = calculate_ev_from_df(df, sl)
-                if res and res['ev'] > best_ev: best_ev, best_sl = res['ev'], sl
                     
-            is_bear = bear_markets["TW"] if symbol.endswith(".TW") else bear_markets["US"]
-            actual_sl = 0.03 if is_bear else best_sl
-            actual_res = calculate_ev_from_df(df, actual_sl)
-            actual_ev = actual_res['ev'] if actual_res else 0
-            actual_win = actual_res['win_rate'] if actual_res else 0
-
-            current_price = round(df['Close'].iloc[-1], 2)
-            
-            # --- 雲端帳務與停損警報 ---
-            if symbol in cloud_portfolio:
-                trade = cloud_portfolio[symbol]
-                entry_price = trade.get('entryPrice', current_price)
-                peak_price = trade.get('peakPrice', entry_price)
-                custom_sl_price = trade.get('customSL')
-
-                if current_price > peak_price:
-                    trade['peakPrice'] = current_price
-                    portfolio_updated = True
-                    peak_price = current_price
-
-                if custom_sl_price:
-                    actual_exit_price = float(custom_sl_price)
-                    reason_msg = f"\n(觸發自訂嚴格停損防線)"
-                else:
-                    actual_exit_price = max(entry_price * (1 - actual_sl), peak_price * (1 - actual_sl))
-                    if is_bear:
-                        reason_msg = f"\n⚠️ [大盤避險啟動]\n停損已強制收緊至 3%！"
+                # 處理多層 MultiIndex 問題 (針對新版 yfinance 的相容性處理)
+                if isinstance(df.columns, pd.MultiIndex):
+                    df.columns = df.columns.droplevel(1)
+                
+                df['ma5'] = df['Close'].rolling(window=5).mean()
+                df['ma10'] = df['Close'].rolling(window=10).mean()
+                df['ma20'] = df['Close'].rolling(window=20).mean()
+                df['ma60'] = df['Close'].rolling(window=60).mean()
+                
+                best_ma_name = get_best_ma_strategy(df)
+                best_ma_col = 'ma' + best_ma_name.replace('MA', '') 
+                best_ma_price = round(df[best_ma_col].iloc[-1], 2) if not pd.isna(df[best_ma_col].iloc[-1]) else round(df['ma20'].iloc[-1], 2)
+                
+                df['std'] = df['Close'].rolling(20).std()
+                df['bb_upper'], df['bb_lower'] = df['ma20'] + 2 * df['std'], df['ma20'] - 2 * df['std']
+                df['macd'] = df['Close'].ewm(span=12).mean() - df['Close'].ewm(span=26).mean()
+                df['macd_signal'] = df['macd'].ewm(span=9).mean()
+                df['macd_hist'] = df['macd'] - df['macd_signal']
+                delta = df['Close'].diff()
+                df['rsi'] = 100 - (100 / (1 + (delta.where(delta > 0, 0).rolling(14).mean() / -delta.where(delta < 0, 0).rolling(14).mean())))
+                
+                df['prev_close'] = df['Close'].shift(1)
+                df['tr1'] = df['High'] - df['Low']
+                df['tr2'] = abs(df['High'] - df['prev_close'])
+                df['tr3'] = abs(df['Low'] - df['prev_close'])
+                df['tr'] = df[['tr1', 'tr2', 'tr3']].max(axis=1)
+                df['atr'] = df['tr'].rolling(window=14).mean()
+                # 💡 新增：計算 ATR 移動停利階梯線 (Chandelier Exit 邏輯)
+                ts_list = []
+                current_ts = 0
+                for i in range(len(df)):
+                    if pd.isna(df['atr'].iloc[i]):
+                        ts_list.append(None)
+                        continue
+                    # 停損基準：最高價 - 2.5倍ATR (阿土伯愛用參數)
+                    ideal_ts = df['High'].iloc[i] - (2.5 * df['atr'].iloc[i])
+                    if current_ts == 0 or pd.isna(current_ts):
+                        current_ts = ideal_ts
                     else:
-                        reason_msg = f"\n(觸發移動停利網 {int(best_sl*100)}%)"
-
-                if current_price <= actual_exit_price:
-                    if not trade.get('alerted', False):
-                        alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}{reason_msg}\n\n⚡ 已跌破嚴格防線，請立即無情清倉，保護本金！"
-                        send_telegram_alert(alert_msg)
-                        trade['alerted'] = True
+                        # 只要沒跌破，安全網只升不降！
+                        if df['Close'].iloc[i-1] > current_ts:
+                            current_ts = max(current_ts, ideal_ts)
+                        else:
+                            current_ts = ideal_ts # 跌破後重新計算
+                    ts_list.append(current_ts)
+                df['trailing_stop'] = ts_list
+                df['Signal'] = np.where(df['Close'] > df['ma20'], 1, np.where(df['Close'] < df['ma20'], -1, 0))
+                df = df.fillna(0)
+                
+                try:
+                    market_idx = tw_idx if symbol.endswith(".TW") else us_idx
+                    stock_ret_20 = (df['Close'].iloc[-1] - df['Close'].iloc[-20]) / df['Close'].iloc[-20]
+                    idx_ret_20 = (market_idx['Close'].iloc[-1] - market_idx['Close'].iloc[-20]) / market_idx['Close'].iloc[-20]
+                    rs_score = round((stock_ret_20 - idx_ret_20) * 100, 2)
+                except:
+                    rs_score = 0
+                
+                best_sl, best_ev = 0.05, -999
+                for sl in [0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.10, 0.12]:
+                    res = calculate_ev_from_df(df, sl)
+                    if res and res['ev'] > best_ev: best_ev, best_sl = res['ev'], sl
+                        
+                is_bear = bear_markets["TW"] if symbol.endswith(".TW") else bear_markets["US"]
+                actual_sl = 0.03 if is_bear else best_sl
+                actual_res = calculate_ev_from_df(df, actual_sl)
+                actual_ev = actual_res['ev'] if actual_res else 0
+                actual_win = actual_res['win_rate'] if actual_res else 0
+    
+                current_price = round(df['Close'].iloc[-1], 2)
+                
+                # --- 雲端帳務與停損警報 ---
+                if symbol in cloud_portfolio:
+                    trade = cloud_portfolio[symbol]
+                    entry_price = trade.get('entryPrice', current_price)
+                    peak_price = trade.get('peakPrice', entry_price)
+                    custom_sl_price = trade.get('customSL')
+    
+                    if current_price > peak_price:
+                        trade['peakPrice'] = current_price
                         portfolio_updated = True
+                        peak_price = current_price
+    
+                    if custom_sl_price:
+                        actual_exit_price = float(custom_sl_price)
+                        reason_msg = f"\n(觸發自訂嚴格停損防線)"
+                    else:
+                        actual_exit_price = max(entry_price * (1 - actual_sl), peak_price * (1 - actual_sl))
+                        if is_bear:
+                            reason_msg = f"\n⚠️ [大盤避險啟動]\n停損已強制收緊至 3%！"
+                        else:
+                            reason_msg = f"\n(觸發移動停利網 {int(best_sl*100)}%)"
+    
+                    if current_price <= actual_exit_price:
+                        if not trade.get('alerted', False):
+                            alert_msg = f"🚨【阿土伯停損逃命警報】🚨\n\n股票：{info['name']} ({symbol})\n現價：${current_price}\n防線：${round(actual_exit_price, 2)}{reason_msg}\n\n⚡ 已跌破嚴格防線，請立即無情清倉，保護本金！"
+                            send_telegram_alert(alert_msg)
+                            trade['alerted'] = True
+                            portfolio_updated = True
+                    else:
+                        if trade.get('alerted', False):
+                            trade['alerted'] = False
+                            portfolio_updated = True
+    
+    
+                # --- 🔥 阿土伯的戰情便當生產線開始 ---
+                news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
+                time.sleep(2) 
+    
+                funda_insight = get_fundamental_risk_o3(symbol, info["name"])
+                time.sleep(2) 
+                
+                # 💡 1. 呼叫大戶照妖鏡 (智慧分流)
+                if symbol.endswith(".TW") or symbol.endswith(".TWO"):
+                    smart_money_insight = get_tw_institutional_flow(symbol)
                 else:
-                    if trade.get('alerted', False):
-                        trade['alerted'] = False
-                        portfolio_updated = True
-
-
-            # --- 🔥 阿土伯的戰情便當生產線開始 ---
-            news_sentiment_data = get_ai_news_sentiment(symbol, info["name"])
-            time.sleep(2) 
-
-            funda_insight = get_fundamental_risk_o3(symbol, info["name"])
-            time.sleep(2) 
-            
-            # 💡 1. 呼叫大戶照妖鏡 (智慧分流)
-            if symbol.endswith(".TW") or symbol.endswith(".TWO"):
-                smart_money_insight = get_tw_institutional_flow(symbol)
-            else:
-                smart_money_insight = get_smart_money_flow(symbol)
-            time.sleep(1)
-
-            recent_5d = df.tail(5)
-            poc_price = calculate_poc(df, days=120, bins=20)
-            
-            # 💡 2. 把 smart_money_insight 傳給大腦
-            unified_brain = get_unified_o3_brain(
-                stock_name=info["name"],
-                current_price=current_price,
-                ma20=round(df['ma20'].iloc[-1], 2),
-                rsi=round(df['rsi'].iloc[-1], 2),
-                atr=round(df['atr'].iloc[-1], 2),
-                poc_price=poc_price,
-                recent_df=recent_5d,
-                rs_score=rs_score,
-                news_data=news_sentiment_data,
-                funda_insight=funda_insight,
-                smart_money=smart_money_insight   # 👈 傳遞進去！
-            )
-            
-
-
-            # 動態停損價改從 unified_brain 拿
-            dynamic_stop_price = unified_brain.get('stop_price', current_price * 0.95)
-
-            # 準備畫圖用的歷史資料
-            hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2),"trailing_stop": round(r['trailing_stop'], 2) if not pd.isna(r['trailing_stop']) else None} for i, r in df.tail(60).iterrows()]
-            
-            avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
-            current_vol = df['Volume'].iloc[-1]
-            real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
-
-# 把所有資料塞進便當盒
-            dashboard_data.append({
-                "symbol": symbol, 
-                "name": info["name"], 
-                "category": info["category"],
-                "price": current_price, 
-                "history": hist,
-                "vol_ratio": real_vol_ratio,
-                "smart_money": smart_money_insight, 
-                "poc_price": poc_price,
-                "actual_sl": actual_sl,
-                "rsi": round(df['rsi'].iloc[-1], 2), 
-                "rs_score": rs_score,
-                "unified_brain": unified_brain,  
-                "funda_summary": funda_insight, 
-                "best_ma_name": best_ma_name,        
-                "best_ma_price": best_ma_price,
-                "event_warning": event_warning,
-                "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
-            })
+                    smart_money_insight = get_smart_money_flow(symbol)
+                time.sleep(1)
+    
+                recent_5d = df.tail(5)
+                poc_price = calculate_poc(df, days=120, bins=20)
+                
+                # 💡 2. 把 smart_money_insight 傳給大腦
+                unified_brain = get_unified_o3_brain(
+                    stock_name=info["name"],
+                    current_price=current_price,
+                    ma20=round(df['ma20'].iloc[-1], 2),
+                    rsi=round(df['rsi'].iloc[-1], 2),
+                    atr=round(df['atr'].iloc[-1], 2),
+                    poc_price=poc_price,
+                    recent_df=recent_5d,
+                    rs_score=rs_score,
+                    news_data=news_sentiment_data,
+                    funda_insight=funda_insight,
+                    smart_money=smart_money_insight   # 👈 傳遞進去！
+                )
+                
+    
+    
+                # 動態停損價改從 unified_brain 拿
+                dynamic_stop_price = unified_brain.get('stop_price', current_price * 0.95)
+    
+                # 準備畫圖用的歷史資料
+                hist = [{"date": i.strftime("%Y-%m-%d"), "price": round(r['Close'], 2), "volume": int(r['Volume']), "ma5": round(r['ma5'], 2), "ma20": round(r['ma20'], 2), "ma60": round(r['ma60'], 2), "macd": round(r['macd'], 2), "macd_signal": round(r['macd_signal'], 2), "macd_hist": round(r['macd_hist'], 2), "rsi": round(r['rsi'], 2), "bb_upper": round(r['bb_upper'], 2), "bb_lower": round(r['bb_lower'], 2), "atr": round(r['atr'], 2),"trailing_stop": round(r['trailing_stop'], 2) if not pd.isna(r['trailing_stop']) else None} for i, r in df.tail(60).iterrows()]
+                
+                avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
+                current_vol = df['Volume'].iloc[-1]
+                real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
+    
+    # 把所有資料塞進便當盒
+                dashboard_data.append({
+                    "symbol": symbol, 
+                    "name": info["name"], 
+                    "category": info["category"],
+                    "price": current_price, 
+                    "history": hist,
+                    "vol_ratio": real_vol_ratio,
+                    "smart_money": smart_money_insight, 
+                    "poc_price": poc_price,
+                    "actual_sl": actual_sl,
+                    "rsi": round(df['rsi'].iloc[-1], 2), 
+                    "rs_score": rs_score,
+                    "unified_brain": unified_brain,  
+                    "funda_summary": funda_insight, 
+                    "best_ma_name": best_ma_name,        
+                    "best_ma_price": best_ma_price,
+                    "event_warning": event_warning,
+                    "lights": {"short": "⚪", "mid": "⚪", "long": "⚪"}
+                })
 
         except Exception as e:
             print(f"⚠️ 分析 {symbol} 時發生錯誤: {e}")
