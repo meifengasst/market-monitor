@@ -1098,10 +1098,10 @@ survivors_list = scan_bloodbath_survivors(current_vix, vix_threshold=40)
     
 if survivors_list:
 # 🚀 2. 把名單丟給 o3-mini 寫戰報
-bloodbath_report = generate_bloodbath_report_o3(survivors_list)
+    bloodbath_report = generate_bloodbath_report_o3(survivors_list)
         
 # 🚀 3. 直接推送到你的 Telegram 手機裡
-send_telegram_alert(f"🚨【阿土伯血拚警報啟動】🚨\n\n{bloodbath_report}")
+    send_telegram_alert(f"🚨【阿土伯血拚警報啟動】🚨\n\n{bloodbath_report}")
 # 💡 1. 呼叫雷達
 sector_data = get_sector_rotation()
 # 把我們算好的一大包 dashboard_data 傳給 AI 當作選股池
@@ -1127,7 +1127,7 @@ with open("data.json", "w", encoding="utf-8") as f:
             "macro": {"tw_insight": "⚠️ 0050破線避險" if bear_markets["TW"] else "✅ 0050多頭穩定", "us_insight": "⚠️ SPY破線避險" if bear_markets["US"] else "✅ SPY多頭穩定"},
             "token_usage": TOTAL_TOKENS_USED # 👈 把總消耗量傳給前端！
         }, f, ensure_ascii=False, indent=4)
-
+print("✅ JSON 報表已成功產出！阿土伯戰情室資料更新完畢！")
 if portfolio_updated:
 with open(portfolio_file, "w", encoding="utf-8") as f:
     json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
