@@ -901,9 +901,25 @@ def generate_dashboard_data():
     if isinstance(tw_idx.columns, pd.MultiIndex): tw_idx.columns = tw_idx.columns.droplevel(1)
     if isinstance(us_idx.columns, pd.MultiIndex): us_idx.columns = us_idx.columns.droplevel(1)
     
-dashboard_data = []
-bear_markets = {"TW": False, "US": False}
+# --- 💼 阿土伯雲端帳務與警報系統初始化 ---
+import os
+import json
 
+portfolio_file = "portfolio.json"  # 你的庫存檔案名稱
+cloud_portfolio = {}               # 預設空庫存
+
+# 試著讀取你之前的庫存資料
+if os.path.exists(portfolio_file):
+    try:
+        with open(portfolio_file, "r", encoding="utf-8") as f:
+            cloud_portfolio = json.load(f)
+    except Exception as e:
+        print(f"⚠️ 讀取庫存檔失敗: {e}")
+
+portfolio_updated = False          # 預設沒有更新
+dashboard_data = []                # 戰情室的空便當盒
+bear_markets = {"TW": False, "US": False} # 預設大盤安全
+# ------------------------------------------
 for symbol, info in STOCKS.items():
     print(f"處理中: {symbol}")
     
