@@ -1066,7 +1066,7 @@ for symbol, info in STOCKS.items():
         avg_vol_20 = df['Volume'].rolling(20).mean().iloc[-1]
         current_vol = df['Volume'].iloc[-1]
         real_vol_ratio = round(float(current_vol / avg_vol_20), 2) if avg_vol_20 > 0 else 1.0
-
+        event_warning = ""  # (如果你之前有專門寫抓財報日的函數，可以改成 event_warning = get_upcoming_events(symbol) ，沒有的話寫 "" 就可以過關了！)
         dashboard_data.append({
             "symbol": symbol, 
             "name": info["name"], 
