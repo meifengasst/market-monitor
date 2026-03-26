@@ -902,7 +902,9 @@ def generate_dashboard_data():
     if isinstance(us_idx.columns, pd.MultiIndex): us_idx.columns = us_idx.columns.droplevel(1)
     
     dashboard_data = []
-
+    # 如果你前面不小心刪掉了 bear_markets 的計算，阿土伯幫你補上一個「防呆預設值」
+    if 'bear_markets' not in locals():
+        bear_markets = {"TW": False, "US": False}
 for symbol, info in STOCKS.items():
         print(f"處理中: {symbol}")
         
