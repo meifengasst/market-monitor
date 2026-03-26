@@ -901,13 +901,12 @@ def generate_dashboard_data():
     if isinstance(tw_idx.columns, pd.MultiIndex): tw_idx.columns = tw_idx.columns.droplevel(1)
     if isinstance(us_idx.columns, pd.MultiIndex): us_idx.columns = us_idx.columns.droplevel(1)
     
-    dashboard_data = []
-    # 如果你前面不小心刪掉了 bear_markets 的計算，阿土伯幫你補上一個「防呆預設值」
-    if 'bear_markets' not in locals():
-        bear_markets = {"TW": False, "US": False}
-for symbol, info in STOCKS.items():
+# 👇🌟 阿土伯的救命機油：請在這行上方加入這兩個變數！
+    dashboard_data = [] 
+    bear_markets = {"TW": False, "US": False}
+
+    for symbol, info in STOCKS.items():   # 👈 原本的這行維持不動
         print(f"處理中: {symbol}")
-        
         try:
             df = get_stock_kbars(symbol)
             
