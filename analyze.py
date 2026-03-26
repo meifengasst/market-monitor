@@ -1129,8 +1129,8 @@ with open("data.json", "w", encoding="utf-8") as f:
         }, f, ensure_ascii=False, indent=4)
 print("✅ JSON 報表已成功產出！阿土伯戰情室資料更新完畢！")
 if portfolio_updated:
-with open(portfolio_file, "w", encoding="utf-8") as f:
-    json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
+    with open(portfolio_file, "w", encoding="utf-8") as f:
+        json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__": 
     generate_dashboard_data()
