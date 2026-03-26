@@ -901,13 +901,18 @@ def generate_dashboard_data():
     if isinstance(tw_idx.columns, pd.MultiIndex): tw_idx.columns = tw_idx.columns.droplevel(1)
     if isinstance(us_idx.columns, pd.MultiIndex): us_idx.columns = us_idx.columns.droplevel(1)
     
-# 👇🌟 阿土伯的救命機油：請在這行上方加入這兩個變數！
-    dashboard_data = [] 
-    bear_markets = {"TW": False, "US": False}
+# 👇 1. 確保這兩行跟下面的 for 迴圈完美垂直對齊！
+dashboard_data = []
+bear_markets = {"TW": False, "US": False}
 
-    for symbol, info in STOCKS.items():   # 👈 原本的這行維持不動
-        print(f"處理中: {symbol}")
-        try:
+# 👇 2. for 迴圈的 f，必須跟上面的 d 和 b 在同一條直線上！
+for symbol, info in STOCKS.items():
+    print(f"處理中: {symbol}")
+    
+    try:
+        # ... 這裡面是你之前修好的抓資料大工程，維持不動！
+        df = get_stock_kbars(symbol)
+        # ...
             df = get_stock_kbars(symbol)
             
             if df.empty or len(df) < 60:
