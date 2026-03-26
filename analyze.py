@@ -1088,29 +1088,29 @@ for symbol, info in STOCKS.items():
         time.sleep(15)
         
 print("📊 準備結算並產出 JSON 報表...")
-    us_market_data = get_us_market_summary()
+us_market_data = get_us_market_summary()
     
-    # 取出 VIX 恐慌指數，如果沒抓到預設為 0
-    current_vix = us_market_data.get("恐慌指數", {}).get("price", 0) if isinstance(us_market_data, dict) else 0
+# 取出 VIX 恐慌指數，如果沒抓到預設為 0
+current_vix = us_market_data.get("恐慌指數", {}).get("price", 0) if isinstance(us_market_data, dict) else 0
     
-    # 🚀 1. 啟動阿土伯的恐慌雷達
-    survivors_list = scan_bloodbath_survivors(current_vix, vix_threshold=40)
+# 🚀 1. 啟動阿土伯的恐慌雷達
+survivors_list = scan_bloodbath_survivors(current_vix, vix_threshold=40)
     
-    if survivors_list:
-        # 🚀 2. 把名單丟給 o3-mini 寫戰報
-        bloodbath_report = generate_bloodbath_report_o3(survivors_list)
+if survivors_list:
+# 🚀 2. 把名單丟給 o3-mini 寫戰報
+bloodbath_report = generate_bloodbath_report_o3(survivors_list)
         
-        # 🚀 3. 直接推送到你的 Telegram 手機裡
-        send_telegram_alert(f"🚨【阿土伯血拚警報啟動】🚨\n\n{bloodbath_report}")
-    # 💡 1. 呼叫雷達
-    sector_data = get_sector_rotation()
-    # 把我們算好的一大包 dashboard_data 傳給 AI 當作選股池
-    morning_script = generate_morning_script_o3(us_market_data, sector_data, dashboard_data)
+# 🚀 3. 直接推送到你的 Telegram 手機裡
+send_telegram_alert(f"🚨【阿土伯血拚警報啟動】🚨\n\n{bloodbath_report}")
+# 💡 1. 呼叫雷達
+sector_data = get_sector_rotation()
+# 把我們算好的一大包 dashboard_data 傳給 AI 當作選股池
+morning_script = generate_morning_script_o3(us_market_data, sector_data, dashboard_data)
 
-    above_20ma_count = sum(1 for d in dashboard_data if d['price'] > d['history'][-1]['ma20'])
-    health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
+above_20ma_count = sum(1 for d in dashboard_data if d['price'] > d['history'][-1]['ma20'])
+health_pct = int((above_20ma_count / len(dashboard_data)) * 100) if dashboard_data else 50
 
-    market_health = {
+market_health = {
         "vix": us_market_data.get("恐慌指數", {}).get("price", 0) if isinstance(us_market_data, dict) else 0,
         "health_pct": health_pct,
         "us_summary": us_market_data,
@@ -1119,8 +1119,8 @@ print("📊 準備結算並產出 JSON 報表...")
         "bloodbath_report": bloodbath_report if 'bloodbath_report' in locals() else "✅ 目前市場無大級別恐慌，無需撰寫抄底報告。"
     }
 
-    with open("data.json", "w", encoding="utf-8") as f:
-        json.dump({
+with open("data.json", "w", encoding="utf-8") as f:
+    json.dump({
             "last_update": datetime.now().strftime("%Y-%m-%d [%H:%M]"), 
             "data": dashboard_data, 
             "market_health": market_health,
@@ -1128,9 +1128,9 @@ print("📊 準備結算並產出 JSON 報表...")
             "token_usage": TOTAL_TOKENS_USED # 👈 把總消耗量傳給前端！
         }, f, ensure_ascii=False, indent=4)
 
-    if portfolio_updated:
-        with open(portfolio_file, "w", encoding="utf-8") as f:
-            json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
+if portfolio_updated:
+with open(portfolio_file, "w", encoding="utf-8") as f:
+    json.dump(cloud_portfolio, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__": 
     generate_dashboard_data()
