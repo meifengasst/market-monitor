@@ -725,31 +725,29 @@
                     </div>`;
                 } else {
                     const totalCapital = globalDynamicCapital;
-                    if (totalCapital > 0 && isBullish) {
-                        // --- 🛡️ 阿土伯資金防護罩開始 ---
-                        let slDecimal = stock.actual_sl / 100; 
-                        // 1. 算出 2% 風險下理論上可以買幾股
-                        let sharesToBuy = Math.floor((totalCapital * 0.02) / (stock.price * slDecimal));
+                if (totalCapital > 0 && isBullish) {
                             
-                        // 2. 資金上限防護：不能超過口袋裡全部的錢買得起的數量！
-                        let maxAffordableShares = Math.floor(totalCapital / stock.price);
-                        sharesToBuy = Math.min(sharesToBuy, maxAffordableShares);
+                            // 1. 取得停損距離
+                            let slDecimal = stock.actual_sl / 100; 
                             
-                        // 3. 台股整數張強迫症：如果是台股，自動把零頭去掉，變成 1000 的倍數
-                        if (stock.symbol.endsWith('.TW') || stock.symbol.endsWith('.TWO')) {
-                            let lots = Math.floor(sharesToBuy / 1000);
-                            sharesToBuy = lots * 1000;
-                        }
-                        // 4. 終極防護罩：絕對不能超過口袋裡的總資產！
-                        let maxAffordableShares = Math.floor(totalCapital / stock.price);
-                        sharesToBuy = Math.min(sharesToBuy, maxAffordableShares);
-                            
-                        // 5. 防呆機制：如果連 1000 股都買不起，就直接歸零
-                        if (sharesToBuy < 0) sharesToBuy = 0;
-                        // --- 🛡️ 阿土伯資金防護罩結束 ---
+                            // 2. 算出 2% 風險下，理論上可以買幾股
+                            let sharesToBuy = Math.floor((totalCapital * 0.02) / (stock.price * slDecimal));
 
-                        positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 group"><div class="flex justify-between items-center mb-1"><p class="text-sm text-red-400 font-bold tracking-wide">🛡️ 2% 動態複利風控</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-sm bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded font-bold transition-colors">➕ 買進</button></div><div class="flex justify-between items-end"><p class="text-3xl font-mono font-black text-red-300">${sharesToBuy}股</p><div class="text-right"><p class="text-sm text-red-400/70 font-bold tracking-wide mb-1">預計投入金額</p><p class="text-xl font-mono font-black text-red-200">$${Math.round(sharesToBuy * stock.price).toLocaleString()}</p></div></div></div>`;
-                    } else if (!isBullish) {
+                            // 3. 台股強迫症：去掉零頭，只買「整數張」(1000的倍數)
+                            if (stock.symbol.endsWith('.TW') || stock.symbol.endsWith('.TWO')) {
+                                let lots = Math.floor(sharesToBuy / 1000); 
+                                sharesToBuy = lots * 1000;
+                            }
+
+                            // 4. 終極防護罩：絕對不能超過口袋裡的總資產！
+                            let maxAffordableShares = Math.floor(totalCapital / stock.price);
+                            sharesToBuy = Math.min(sharesToBuy, maxAffordableShares);
+                            
+                            // 5. 防呆機制：如果連 1000 股都買不起，就直接歸零
+                            if (sharesToBuy < 0) sharesToBuy = 0;
+
+                            positionHtml = `<div class="mt-4 bg-red-900/30 p-4 rounded-xl border border-red-500/40 group"><div class="flex justify-between items-center mb-1"><p class="text-sm text-red-400 font-bold tracking-wide">🛡️ 2% 動態複利風控</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="text-sm bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded font-bold transition-colors">➕ 買進</button></div><div class="flex justify-between items-end"><p class="text-3xl font-mono font-black text-red-300">${sharesToBuy}股</p><div class="text-right"><p class="text-sm text-red-400/70 font-bold tracking-wide mb-1">預計投入金額</p><p class="text-xl font-mono font-black text-red-200">$${Math.round(sharesToBuy * stock.price).toLocaleString()}</p></div></div></div>`;
+                        } else if (!isBullish) {
                         positionHtml = `<div class="mt-4 bg-green-900/20 p-3 rounded-xl border border-green-500/30 shadow-inner flex flex-col items-center justify-center gap-2"><p class="text-sm text-green-400 font-black tracking-widest">🟢 跌破${bestMaName}，風控系統鎖定</p><button onclick="event.stopPropagation(); openTradeModal('${stock.symbol}', ${stock.price})" class="bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-slate-600 hover:border-slate-400 text-sm px-3 py-1 rounded font-bold transition-colors shadow-sm">⚠️ 強制解鎖 (僅限補登歷史部位)</button></div>`;
                     }
                 }
