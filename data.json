@@ -1,28 +1,12 @@
 {
-    "last_update": "2026-03-27 [16:16]",
+    "last_update": "2026-03-28 [07:53]",
     "data": [
         {
             "symbol": "NVDA",
             "name": "Nvidia",
             "category": "美國科技",
-            "price": 171.24,
+            "price": 167.52,
             "history": [
-                {
-                    "date": "2025-12-30",
-                    "price": 187.53,
-                    "volume": 97687300,
-                    "ma5": 188.81,
-                    "ma20": 182.24,
-                    "ma60": 186.03,
-                    "macd": 0.86,
-                    "macd_signal": -0.61,
-                    "macd_hist": 1.48,
-                    "rsi": 52.97,
-                    "bb_upper": 193.08,
-                    "bb_lower": 171.4,
-                    "atr": 4.95,
-                    "trailing_stop": 180.07
-                },
                 {
                     "date": "2025-12-31",
                     "price": 186.49,
@@ -954,7 +938,7 @@
                 {
                     "date": "2026-03-26",
                     "price": 171.24,
-                    "volume": 185384200,
+                    "volume": 186152200,
                     "ma5": 174.69,
                     "ma20": 179.91,
                     "ma60": 184.29,
@@ -966,26 +950,42 @@
                     "bb_lower": 171.9,
                     "atr": 5.26,
                     "trailing_stop": 168.24
+                },
+                {
+                    "date": "2026-03-27",
+                    "price": 167.52,
+                    "volume": 194056113,
+                    "ma5": 173.66,
+                    "ma20": 179.43,
+                    "ma60": 183.96,
+                    "macd": -3.39,
+                    "macd_signal": -2.24,
+                    "macd_hist": -1.15,
+                    "rsi": 31.42,
+                    "bb_upper": 189.12,
+                    "bb_lower": 169.73,
+                    "atr": 5.04,
+                    "trailing_stop": 168.24
                 }
             ],
-            "vol_ratio": 0.99,
+            "vol_ratio": 1.07,
             "smart_money": "無明顯大戶異常動向",
-            "poc_price": 182.66,
+            "poc_price": 182.33,
             "actual_sl": 0.03,
-            "rsi": 42.14,
+            "rsi": 31.42,
             "rs_score": 0,
             "unified_brain": {
                 "pattern": "跌破均線轉弱",
-                "bull": "新聞預測未來升40%，轉機疑雲",
-                "bear": "均線已掉，估值過熱風險高",
-                "trap": "現價明顯低於POC，主力套牢，上方壓力大",
-                "stop_price": 165.98,
-                "sizing": "波動大，買一半就好",
+                "bull": "預測升40%，長線仍有亮點。",
+                "bear": "跌破20均線，動能衰退，泡沫隱憂。",
+                "trap": "現價低於POC主力成本，拋賣風險高，小心主力倒貨",
+                "stop_price": 162.48,
+                "sizing": "波動大，買半注試探",
                 "action": "破線快逃"
             },
-            "funda_summary": "巨高PB數值隱藏泡沫風險，成長可見但估值過熱。",
+            "funda_summary": "高估值隱藏泡沫風險，調整壓力不容忽視。",
             "best_ma_name": "60MA",
-            "best_ma_price": 184.29,
+            "best_ma_price": 183.96,
             "event_warning": "",
             "lights": {
                 "short": "⚪",
@@ -997,24 +997,8 @@
             "symbol": "TSLA",
             "name": "Tesla",
             "category": "美國科技",
-            "price": 372.11,
+            "price": 361.83,
             "history": [
-                {
-                    "date": "2025-12-30",
-                    "price": 454.43,
-                    "volume": 59238500,
-                    "ma5": 472.04,
-                    "ma20": 463.68,
-                    "ma60": 443.25,
-                    "macd": 9.39,
-                    "macd_signal": 11.28,
-                    "macd_hist": -1.9,
-                    "rsi": 53.39,
-                    "bb_upper": 500.24,
-                    "bb_lower": 427.11,
-                    "atr": 17.45,
-                    "trailing_stop": 455.17
-                },
                 {
                     "date": "2025-12-31",
                     "price": 449.72,
@@ -1946,7 +1930,7 @@
                 {
                     "date": "2026-03-26",
                     "price": 372.11,
-                    "volume": 55319000,
+                    "volume": 55522900,
                     "ma5": 377.98,
                     "ma20": 392.81,
                     "ma60": 415.74,
@@ -1958,26 +1942,42 @@
                     "bb_lower": 370.33,
                     "atr": 13.23,
                     "trailing_stop": 363.64
+                },
+                {
+                    "date": "2026-03-27",
+                    "price": 361.83,
+                    "volume": 60637943,
+                    "ma5": 376.75,
+                    "ma20": 390.78,
+                    "ma60": 414.2,
+                    "macd": -10.74,
+                    "macd_signal": -8.97,
+                    "macd_hist": -1.76,
+                    "rsi": 32.82,
+                    "bb_upper": 416.67,
+                    "bb_lower": 364.89,
+                    "atr": 12.69,
+                    "trailing_stop": 363.64
                 }
             ],
-            "vol_ratio": 0.91,
+            "vol_ratio": 1.0,
             "smart_money": "無明顯大戶異常動向",
-            "poc_price": 431.97,
+            "poc_price": 448.26,
             "actual_sl": 0.03,
-            "rsi": 37.56,
+            "rsi": 32.82,
             "rs_score": 0,
             "unified_brain": {
-                "pattern": "連線異常",
-                "bull": "API中斷",
-                "bear": "API中斷",
-                "trap": "API中斷",
-                "stop_price": 353.5045,
-                "sizing": "防禦狀態",
-                "action": "觀望"
+                "pattern": "跌破均線偏空",
+                "bull": "多頭無明利好，缺乏撐盤動能",
+                "bear": "跌破20MA，財報隱患明顯",
+                "trap": "現價離POC太遠，主力成本區被甩，高手易割韭菜",
+                "stop_price": 349.14,
+                "sizing": "波動大，買少量試水",
+                "action": "破線快逃"
             },
-            "funda_summary": "估值走高、營收下滑，低ROE暴露財務致命隱患！",
+            "funda_summary": "高估值、營收衰退、ROE低迷，Tesla財報隱患嚴峻。",
             "best_ma_name": "60MA",
-            "best_ma_price": 415.74,
+            "best_ma_price": 414.2,
             "event_warning": "",
             "lights": {
                 "short": "⚪",
@@ -1989,24 +1989,8 @@
             "symbol": "SPY",
             "name": "S&P 500",
             "category": "美股大盤",
-            "price": 645.09,
+            "price": 634.09,
             "history": [
-                {
-                    "date": "2025-12-30",
-                    "price": 685.14,
-                    "volume": 47160700,
-                    "ma5": 686.83,
-                    "ma20": 680.69,
-                    "ma60": 672.54,
-                    "macd": 3.51,
-                    "macd_signal": 2.86,
-                    "macd_hist": 0.66,
-                    "rsi": 56.21,
-                    "bb_upper": 691.36,
-                    "bb_lower": 670.01,
-                    "atr": 5.92,
-                    "trailing_stop": 674.68
-                },
                 {
                     "date": "2025-12-31",
                     "price": 680.06,
@@ -2938,7 +2922,7 @@
                 {
                     "date": "2026-03-26",
                     "price": 645.09,
-                    "volume": 96353600,
+                    "volume": 96494400,
                     "ma5": 651.81,
                     "ma20": 667.21,
                     "ma60": 680.39,
@@ -2950,26 +2934,42 @@
                     "bb_lower": 642.86,
                     "atr": 10.06,
                     "trailing_stop": 637.11
+                },
+                {
+                    "date": "2026-03-27",
+                    "price": 634.09,
+                    "volume": 92763808,
+                    "ma5": 648.91,
+                    "ma20": 664.71,
+                    "ma60": 679.54,
+                    "macd": -9.86,
+                    "macd_signal": -7.4,
+                    "macd_hist": -2.46,
+                    "rsi": 23.6,
+                    "bb_upper": 691.86,
+                    "bb_lower": 637.56,
+                    "atr": 9.67,
+                    "trailing_stop": 637.11
                 }
             ],
-            "vol_ratio": 0.98,
+            "vol_ratio": 0.94,
             "smart_money": "無明顯大戶異常動向",
-            "poc_price": 680.26,
+            "poc_price": 680.21,
             "actual_sl": 0.04,
-            "rsi": 33.04,
+            "rsi": 23.6,
             "rs_score": 0,
             "unified_brain": {
-                "pattern": "跌破均線轉弱",
-                "bull": "市場無底盤，多頭缺乏支撐",
-                "bear": "跌破20MA路線轉空，基本面風險高",
-                "trap": "現價跌破POC，主力被套，上方壓力重",
-                "stop_price": 635.03,
-                "sizing": "短線風險大，建議縮減部位",
+                "pattern": "跌破均線偏空",
+                "bull": "分散風險利多但買盤無力",
+                "bear": "跌破均線又遠低POC，空力全開",
+                "trap": "現價離POC差太多，主力獲利倒貨",
+                "stop_price": 624.42,
+                "sizing": "波動大，減半進場",
                 "action": "破線快逃"
             },
-            "funda_summary": "缺乏獲利與成長關鍵數據，隱藏嚴重投資風險。",
+            "funda_summary": "關鍵營收與盈利數據缺失，投資風險無法衡量。",
             "best_ma_name": "10MA",
-            "best_ma_price": 657.33,
+            "best_ma_price": 654.69,
             "event_warning": "",
             "lights": {
                 "short": "⚪",
@@ -3930,7 +3930,7 @@
                 {
                     "date": "2026-03-27",
                     "price": 1820.0,
-                    "volume": 32169125,
+                    "volume": 33883223,
                     "ma5": 1825.0,
                     "ma20": 1867.5,
                     "ma60": 1776.17,
@@ -3944,7 +3944,7 @@
                     "trailing_stop": 1791.07
                 }
             ],
-            "vol_ratio": 0.71,
+            "vol_ratio": 0.75,
             "smart_money": "⚖️【法人觀望】近五日外資淨動向 0 張，投信 0 張。",
             "poc_price": 1464.75,
             "actual_sl": 0.08,
@@ -3952,14 +3952,14 @@
             "rs_score": 0,
             "unified_brain": {
                 "pattern": "跌破均線轉弱",
-                "bull": "基本面穩健獲利爆棚，但技術走弱",
-                "bear": "股價跌破均線，動能衰退明顯",
-                "trap": "現價遠高於POC，小心主力倒貨風險",
+                "bull": "基本面硬，長線仍有底",
+                "bear": "跌破20均線，賣壓逼近",
+                "trap": "現價遠離POC，主力獲利滿，可能倒貨",
                 "stop_price": 1769.29,
-                "sizing": "波動大，減碼試探即可",
-                "action": "縮注試單"
+                "sizing": "波動較大，量力操作",
+                "action": "破線快逃"
             },
-            "funda_summary": "股東權益報酬率35%、淨利率45%，盈利能力無懈可擊，但本益略偏高。",
+            "funda_summary": "基本面佳，但估值過高，或因泡沫破裂重挫股價。",
             "best_ma_name": "20MA",
             "best_ma_price": 1867.5,
             "event_warning": "",
@@ -4943,15 +4943,15 @@
             "rsi": 63.82,
             "rs_score": 0,
             "unified_brain": {
-                "pattern": "20MA支撐陷阱",
-                "bull": "站上20MA看似穩，但只是假多氣氛",
-                "bear": "基本面慘，負ROE與虧損風險大",
-                "trap": "現價乖離POC太遠，主力獲利滿滿，倒貨風險高",
+                "pattern": "站上均線轉陰險",
+                "bull": "股價掛在均線上，但只是表面作勢。",
+                "bear": "財報連續虧損，新聞利空壓力大。",
+                "trap": "現價遠高於POC，主力大賺隨時吐貨，防守急撤。",
                 "stop_price": 112.07,
-                "sizing": "波動大，買少點為妙",
-                "action": "嚴格觀望"
+                "sizing": "波動大，半倉試探即可",
+                "action": "破線快逃"
             },
-            "funda_summary": "旺宏高成長隱藏著嚴重負ROE與巨額虧損風險！",
+            "funda_summary": "連續虧損與負ROE暴露資本運用慘痛問題。",
             "best_ma_name": "20MA",
             "best_ma_price": 120.44,
             "event_warning": "",
@@ -5935,15 +5935,15 @@
             "rsi": 74.2,
             "rs_score": 0,
             "unified_brain": {
-                "pattern": "強勢走高",
-                "bull": "技術站上20MA，突破新高氣勢足。",
-                "bear": "基本面磨人，市盈高獲利低風險大。",
-                "trap": "現價離POC太遠，主力賺滿隨時倒貨，小心被套。",
+                "pattern": "強勢突破",
+                "bull": "AI狂飆助攻，消息連連短線撐漲",
+                "bear": "泡沫估值隱憂，基本面偏弱",
+                "trap": "現價遠離POC，主力拉開成本易倒貨",
                 "stop_price": 353.46,
-                "sizing": "波動大，買一半入場較穩",
+                "sizing": "波動大，買一半就好",
                 "action": "縮注試單"
             },
-            "funda_summary": "市盈率近百卻ROE僅2.69%，盈利能力極堪憂。",
+            "funda_summary": "股東權益報酬率低，高P/E疑顯估值泡沫隱憂。",
             "best_ma_name": "20MA",
             "best_ma_price": 317.05,
             "event_warning": "",
@@ -6928,14 +6928,14 @@
             "rs_score": 0,
             "unified_brain": {
                 "pattern": "跌破均線轉弱",
-                "bull": "零股狂吸火熱，但基本面數據殘缺。",
-                "bear": "跌破20MA，技術轉弱壓力大。",
-                "trap": "現價遠離POC，主力獲利滿滿，小心倒貨！",
+                "bull": "散戶熱銷新聞多，但基本面存疑",
+                "bear": "均線跌破，資金易撤出",
+                "trap": "現價遠高POC，主力獲利隨時倒貨",
                 "stop_price": 73.16,
-                "sizing": "風險高，量縮小試單",
+                "sizing": "波動高，建議縮注試單",
                 "action": "破線快逃"
             },
-            "funda_summary": "基本面數據殘缺，無從驗證真實估值與風險。",
+            "funda_summary": "基本面關鍵數據缺失，隱含重大風險。",
             "best_ma_name": "5MA",
             "best_ma_price": 75.13,
             "event_warning": "",
@@ -7919,15 +7919,15 @@
             "rsi": 76.38,
             "rs_score": 0,
             "unified_brain": {
-                "pattern": "強勢拉高",
-                "bull": "均線守住，技術偏多，趨勢不錯",
-                "bear": "財報泡沫，基本面隱憂風險高",
-                "trap": "現價遠離POC，主力獲利滿足，倒貨隨時可能",
+                "pattern": "高位多頭警戒",
+                "bull": "均線站穩，ETF帶動買盤加溫",
+                "bear": "公司估值偏高，泡沫風險不容忽視",
+                "trap": "現價遠超主力成本，主力獲利滿多，倒貨風險高",
                 "stop_price": 20.15,
-                "sizing": "波動大，買一半就好",
+                "sizing": "波動較大，慎重分批投入",
                 "action": "縮注試單"
             },
-            "funda_summary": "財報數據大缺，僅靠高本益泡沫風險極高！",
+            "funda_summary": "數據缺乏，僅高本益比暴露明顯估值泡沫風險。",
             "best_ma_name": "20MA",
             "best_ma_price": 20.11,
             "event_warning": "",
@@ -8912,14 +8912,14 @@
             "rs_score": 0,
             "unified_brain": {
                 "pattern": "跌破均線轉弱",
-                "bull": "多方無買盤推動突破希望",
-                "bear": "均線下行、獲利隱憂，基本面慘淡",
-                "trap": "現價遠離POC，主力成本高，快逃為妙",
+                "bull": "多方無力，缺乏反彈動能",
+                "bear": "均線下跌，獲利疲軟下行",
+                "trap": "現價跌破POC，主力套牢，上方壓力大",
                 "stop_price": 78.75,
-                "sizing": "波動大，買一半就好",
+                "sizing": "風險高，半倉試探",
                 "action": "破線快逃"
             },
-            "funda_summary": "ROE僅8.69%，盈利動能疲軟，基本面成長隱患顯著。",
+            "funda_summary": "獲利與營收成長乏力，僅8.69% ROE隱藏經營效率隱憂。",
             "best_ma_name": "20MA",
             "best_ma_price": 85.34,
             "event_warning": "",
@@ -9903,15 +9903,15 @@
             "rsi": 33.49,
             "rs_score": 0,
             "unified_brain": {
-                "pattern": "均線跌破偏空",
-                "bull": "Nike供應鏈利好，略提轉型亮點。",
-                "bear": "營收連跌，加上技術走低，空力明顯。",
-                "trap": "現價遠低籌碼區94.55，主力被套，上方壓力大。",
+                "pattern": "跌破均線轉弱",
+                "bull": "供應鏈轉型亮點有限，情緒平淡",
+                "bear": "均線下跌，營收走低壓力大",
+                "trap": "現價跌破POC，主力被套，上方壓力極大",
                 "stop_price": 78.49,
-                "sizing": "盤勢疲軟，縮減部位",
+                "sizing": "波動大，買股需縮注",
                 "action": "破線快逃"
             },
-            "funda_summary": "營收連續負成長，未來獲利動能堪憂。",
+            "funda_summary": "營收下滑恐拖累獲利，成長動能令人堪憂。",
             "best_ma_name": "60MA",
             "best_ma_price": 96.49,
             "event_warning": "",
@@ -10895,15 +10895,15 @@
             "rsi": 40.58,
             "rs_score": 0,
             "unified_brain": {
-                "pattern": "跌破月線轉弱",
-                "bull": "利多股利消息，但補救有限",
-                "bear": "均線掉頭，主力易倒貨",
-                "trap": "現價跌破POC，主力被套牢",
+                "pattern": "跌破均線轉弱",
+                "bull": "公告股利稍提振，但基本面沒力氣",
+                "bear": "均線跌破、營收走低，獲利風險大",
+                "trap": "現價跌破成本29.22，小心主力倒貨壓力大",
                 "stop_price": 28.36,
-                "sizing": "波動大，買一半試水",
+                "sizing": "風險明顯，縮注試單為妙",
                 "action": "破線快逃"
             },
-            "funda_summary": "營收下滑8.2%，展現成長動能致命弱勢。",
+            "funda_summary": "營收負成長、ROE偏低，獲利模式隱藏重大風險。",
             "best_ma_name": "60MA",
             "best_ma_price": 30.35,
             "event_warning": "",
@@ -10915,71 +10915,71 @@
         }
     ],
     "market_health": {
-        "vix": 27.65,
+        "vix": 31.05,
         "health_pct": 27,
         "us_summary": {
             "標普500": {
-                "price": 645.09,
-                "pct": -1.79
+                "price": 634.09,
+                "pct": -1.71
             },
             "費城半導體": {
-                "price": 328.85,
-                "pct": -4.75
+                "price": 323.48,
+                "pct": -1.63
             },
             "台積電ADR": {
-                "price": 326.11,
-                "pct": -6.22
+                "price": 326.74,
+                "pct": 0.19
             },
             "恐慌指數": {
-                "price": 27.65,
-                "pct": 0.77
+                "price": 31.05,
+                "pct": 13.16
             },
             "紐約原油": {
-                "price": 95.1,
-                "pct": 0.66
+                "price": 101.18,
+                "pct": 7.09
             }
         },
         "sector_data": [
             {
-                "name": "🇹🇼台股科技",
-                "rs": 3.97
-            },
-            {
-                "name": "🇹🇼台股高息",
-                "rs": 2.42
+                "name": "🇺🇸美股金融",
+                "rs": 0.56
             },
             {
                 "name": "🇺🇸美股科技",
-                "rs": 1.19
+                "rs": 0.47
             },
             {
-                "name": "🇺🇸美股金融",
-                "rs": 1.08
+                "name": "🇹🇼台股科技",
+                "rs": NaN
+            },
+            {
+                "name": "🇹🇼台股高息",
+                "rs": NaN
             }
         ],
         "ai_script": {
-            "sentiment": "中性",
-            "title": "美股重挫恐慌升溫，台股科技資金追捧引領市場",
+            "sentiment": "恐慌",
+            "title": "原油衝高提振能源，市場恐慌情緒攀升",
             "metrics": [
                 {
                     "label": "VIX 恐慌指數",
-                    "value": "27.65",
-                    "status": "警戒(黃)"
+                    "value": "31.05",
+                    "status": "危險(紅)"
                 },
                 {
                     "label": "紐約原油",
-                    "value": "+0.66%",
+                    "value": "+7.09%",
                     "status": "強勢(紅)"
                 }
             ],
             "sector_lights": [
                 {
                     "sector": "台股科技",
-                    "color": "green",
-                    "reason": "台股科技資金追捧，技術面健全，旺宏(2337.TW)表現領先，值得密切關注。"
+                    "color": "yellow",
+                    "reason": "台股科技板塊資金流向乏力，加上技術面破線，目前相關族群未見強勢，建議觀望不接刀"
                 }
             ],
-            "conclusion": "昨日美股整體走低，半導體及台積電ADR大幅下挫，加上VIX指數上揚顯示市場恐慌；相對之下，台股科技受資金青睞。建議今日持續關注資金動向與風險控管，重點盯緊強勢股池中的旺宏(2337.TW)，待市場風險明朗後再酌情調整部位。"
+            "conclusion": "昨日美股低迷、主力指數連跌且恐慌指數暴升，顯示市場避險情緒加劇。今日建議投資人保守操作、密切觀察資金輪動及技術轉折點，特別關注台股科技板塊動態，如有轉強信號，再考慮進場評估旺宏(2337.TW)走勢。"
         },
         "bloodbath_report": "✅ 目前市場無大級別恐慌，無需撰寫抄底報告。"
     },
@@ -10987,5 +10987,5 @@
         "tw_insight": "✅ 0050多頭穩定",
         "us_insight": "✅ SPY多頭穩定"
     },
-    "token_usage": 43060
+    "token_usage": 47134
 }
